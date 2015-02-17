@@ -1,0 +1,69 @@
+repositories:
+  remote:
+   - http://repo1.maven.org/maven2
+   - https://raw.githubusercontent.com/stocksoftware/public-repo/master
+
+artifacts:
+  idea_codestyle: com.stocksoftware.idea.codestyle:idea-codestyle:xml:1.0
+  checkstyle_rules: au.com.stocksoftware.checkstyle:checkstyle:xml:1.2
+  pmd_rules: com.stocksoftware.pmd:pmd:xml:1.2
+  javax_javaee: javax:javaee-api:jar:7.0
+  javax_jsr305: com.google.code.findbugs:jsr305:jar:3.0.0
+  findbugs_annotations: com.google.code.findbugs:annotations:jar:3.0.0
+
+  #
+  # Used to set up database connections in the testing infrastructure
+  postgresql: org.postgresql:postgresql:jar:9.2-1003-jdbc4
+
+  #
+  # Guice Libraries
+  google_guice: com.google.inject:guice:jar:3.0
+  google_guice_assistedinject: com.google.inject.extensions:guice-assistedinject:jar:3.0
+  aopalliance: aopalliance:aopalliance:jar:1.0 # Required for guice
+  #
+  # Used to inject EE annotated classes in Guice
+  guiceyloops: org.realityforge.guiceyloops:guiceyloops:jar:0.55
+
+  testng: org.testng:testng:jar:6.8
+  mockito: org.mockito:mockito-all:jar:1.9.5
+
+  glassfish_embedded: uk.co.payara:payara-embedded-all:jar:20150114
+
+  #
+  # Used in mapping entities to json
+  jackson_core: org.codehaus.jackson:jackson-core-asl:jar:1.9.13
+  jackson_mapper: org.codehaus.jackson:jackson-mapper-asl:jar:1.9.13
+
+  # Supporting GWT libraries
+  gwt_datatypes: org.realityforge.gwt.datatypes:gwt-datatypes:jar:0.4
+
+  # GWT Dependencies
+  gwt_user: com.google.gwt:gwt-user:jar:2.7.0
+  javax_inject: javax.inject:javax.inject:jar:1
+  gwt_servlet: com.google.gwt:gwt-servlet:jar:2.7.0
+  gwt_dev: com.google.gwt:gwt-dev:jar:2.7.0
+
+  #
+  # GIN and associated dependencies
+  gwt_gin: com.google.gwt.inject:gin:jar:2.1.2
+
+  # Library under demonstration
+  replicant: org.realityforge.replicant:replicant:jar:0.5.49
+
+  # Dependency used for session management
+  simple_session_filter: org.realityforge.ssf:simple-session-filter:jar:0.5
+  field_filter: org.realityforge.rest.field_filter:rest-field-filter:jar:0.4
+
+  # Used to populate JNDI during testing
+  jndikit: org.realityforge.jndikit:jndikit:jar:1.4
+
+  # Supporting GWT libraries
+  gwt_lognice: org.realityforge.gwt.lognice:gwt-lognice:jar:0.2
+  gwt_datatypes: org.realityforge.gwt.datatypes:gwt-datatypes:jar:0.4
+  gwt_webpoller: org.realityforge.gwt.webpoller:gwt-webpoller:jar:0.8
+  gwt_property_source: org.realityforge.gwt.property-source:gwt-property-source:jar:0.2
+  gwt_cache_filter: org.realityforge.gwt.cache-filter:gwt-cache-filter:jar:0.6
+
+  gwt_appcache_client: org.realityforge.gwt.appcache:gwt-appcache-client:jar:1.0.7
+  gwt_appcache_linker: org.realityforge.gwt.appcache:gwt-appcache-linker:jar:1.0.7
+  gwt_appcache_server: org.realityforge.gwt.appcache:gwt-appcache-server:jar:1.0.7

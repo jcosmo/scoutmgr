@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module>
+  <inherits name='myproject.MyprojectCommon'/>
+  <inherits name="com.google.gwt.inject.Inject"/>
+  <inherits name="org.realityforge.gwt.lognice.Lognice"/>
+  <inherits name="com.google.gwt.logging.LoggingDisabled"/>
+
+  <set-configuration-property name="CssResource.enableGss" value="true" />
+  <set-configuration-property name="CssResource.legacy" value="true" />
+
+  <source path='client'/>
+  <source path='shared'/>
+
+  <entry-point class='myproject.client.Myproject'/>
+</module>

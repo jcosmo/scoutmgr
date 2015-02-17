@@ -1,0 +1,15 @@
+<% prefix = "#{ENV['USER']}_#{ENV['JOB_NAME']}_" %>
+devhost: &devhost
+  username: stock-dev
+  password: letmein
+  host: <%= ENV['DB_SERVER_HOST'] || '127.0.0.1' %>
+  port: <%= ENV['DB_SERVER_PORT'] || '5432' %>
+  force_drop: true
+
+test:
+  database: <%= prefix %>MYPROJECT_TEST
+  <<: *devhost
+
+import:
+  database: PROD_CLONE_MYPROJECT
+  <<: *devhost

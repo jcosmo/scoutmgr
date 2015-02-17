@@ -1,0 +1,14 @@
+/config/local.sh
+/generated
+/*/generated
+/artifacts
+/target
+/reports
+/tmp
+/*.iws
+/*.ipr
+/*.iml
+/*/*.iml
+/*.ids
+/_buildr.rb
+/config/database.yml
