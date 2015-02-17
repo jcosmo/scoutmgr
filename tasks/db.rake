@@ -4,6 +4,7 @@ $LOAD_PATH.insert(0, "#{workspace_dir}/vendor/plugins/dbt/lib")
 require 'dbt'
 
 Dbt::Config.environment = ENV['DB_ENV'] if ENV['DB_ENV']
+Dbt::Config.driver = 'postgres'
 
 Dbt.add_database(:default,
                  :imports => {:default => {}}) do |database|
