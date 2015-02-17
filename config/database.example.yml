@@ -8,13 +8,13 @@ devhost: &devhost
   force_drop: true
 
 development:
-  database: <%= prefix %>MYPROJECT_DEV
+  database: <%= prefix %>SCOUTMGR_DEV
   <<: *devhost
 
 test:
-  database: <%= prefix %>MYPROJECT_TEST
+  database: <%= prefix %>SCOUTMGR_TEST
   <<: *devhost
 
 import:
-  database: PROD_CLONE_MYPROJECT
+  database: PROD_CLONE_SCOUTMGR
   <<: *devhost

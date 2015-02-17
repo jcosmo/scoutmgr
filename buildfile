@@ -18,9 +18,9 @@ GUICE_TEST_JARS = GUICE_DEPS + [:guiceyloops]
 TEST_DEPS = [:glassfish_embedded, :postgresql, :mockito] + GUICE_TEST_JARS
 PACKAGED_DEPS = [:gwt_datatypes, :replicant, :gwt_servlet, :simple_session_filter, :field_filter, :gwt_appcache_server, :gwt_cache_filter] + JACKSON_DEPS
 
-desc 'Myproject: My project description'
-define 'myproject' do
-  project.group = 'myproject'
+desc 'Scoutmgr: Website for the management of progress for a scout group'
+define 'scoutmgr' do
+  project.group = 'scoutmgr'
   compile.options.source = '1.7'
   compile.options.target = '1.7'
   compile.options.lint = 'all'
@@ -62,7 +62,7 @@ define 'myproject' do
     package(:jar)
     package(:sources)
 
-    iml.add_gwt_facet({'myproject.MyprojectConstants' => false},
+    iml.add_gwt_facet({'scoutmgr.ScoutmgrConstants' => false},
                       :settings => {:compilerMaxHeapSize => '1024'},
                       :gwt_dev_artifact => :gwt_dev)
   end
@@ -113,17 +113,17 @@ define 'myproject' do
     test.with :mockito
 
     package(:jar).tap do |jar|
-      jar.include("#{domgen_dir.target_dir.to_s}/main/java/myproject")
-      jar.include("#{_(:source, :main, :java)}/myproject")
+      jar.include("#{domgen_dir.target_dir.to_s}/main/java/scoutmgr")
+      jar.include("#{_(:source, :main, :java)}/scoutmgr")
     end
     package(:sources)
 
     check package(:jar), 'should contain generated source files' do
-      it.should contain('myproject/shared/net/MyprojectReplicationGraph.class')
-      it.should contain('myproject/shared/net/MyprojectReplicationGraph.java')
+      it.should contain('scoutmgr/shared/net/ScoutmgrReplicationGraph.class')
+      it.should contain('scoutmgr/shared/net/ScoutmgrReplicationGraph.java')
     end
 
-    iml.add_gwt_facet({'myproject.MyprojectCommon' => false},
+    iml.add_gwt_facet({'scoutmgr.ScoutmgrCommon' => false},
                       :settings => {:compilerMaxHeapSize => '1024'},
                       :gwt_dev_artifact => :gwt_dev)
   end
@@ -173,16 +173,16 @@ define 'myproject' do
     compile.with project('gwt').package(:jar),
                  project('gwt').compile.dependencies
 
-    gwt(['myproject.MyprojectProd'], :java_args => %w(-Xms512M -Xmx1024M -XX:PermSize=128M -XX:MaxPermSize=256M), :target_project => 'server')
+    gwt(['scoutmgr.ScoutmgrProd'], :java_args => %w(-Xms512M -Xmx1024M -XX:PermSize=128M -XX:MaxPermSize=256M), :target_project => 'server')
 
     test.with project('gwt-qa-support'),
               :mockito,
               :guiceyloops
     test.using :testng
 
-    iml.add_gwt_facet({'myproject.MyprojectDev' => false,
-                       'myproject.Myproject' => false,
-                       'myproject.MyprojectProd' => false},
+    iml.add_gwt_facet({'scoutmgr.ScoutmgrDev' => false,
+                       'scoutmgr.Scoutmgr' => false,
+                       'scoutmgr.ScoutmgrProd' => false},
                       :settings => {:compilerMaxHeapSize => '1024'},
                       :gwt_dev_artifact => :gwt_dev)
   end
@@ -228,10 +228,10 @@ define 'myproject' do
   ipr.add_glassfish_configuration(project, :exploded => [project.name])
 
   ipr.add_gwt_configuration(project('user-experience'),
-                            :gwt_module => 'myproject.MyprojectDev',
+                            :gwt_module => 'scoutmgr.ScoutmgrDev',
                             :vm_parameters => '-Xmx3G',
                             :shell_parameters => "-port 8888 -codeServerPort 8889 -bindAddress 0.0.0.0 -war #{_(:artifacts, project.name)}/",
-                            :launch_page => 'http://127.0.0.1:8080/myproject')
+                            :launch_page => 'http://127.0.0.1:8080/scoutmgr')
 
   ipr.add_default_testng_configuration(:jvm_args => "-ea -Xmx2024M -XX:MaxPermSize=364m -Dtest.db.url=#{Dbt.jdbc_url_with_credentials(:default, 'test')} -Dwar.dir=#{File.dirname(project('server').package(:war).to_s)} -Dembedded.glassfish.artifacts=#{[artifact(:glassfish_embedded).to_spec, artifact(:postgresql).to_spec].join(',')}")
 

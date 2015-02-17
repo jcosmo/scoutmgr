@@ -14,23 +14,23 @@ DB_PROPS_PREFIX="ServerName=${DB_SERVER_HOST}:User=stock-dev:Password=letmein:Po
 CREATED_DOMAIN=false
 STOP_DOMAIN=false
 
-R=`(asadmin list-domains | grep -q 'myproject ') && echo yes`
+R=`(asadmin list-domains | grep -q 'scoutmgr ') && echo yes`
 if [ "$R" != 'yes' ]; then
-  asadmin create-domain --user admin --nopassword myproject
+  asadmin create-domain --user admin --nopassword scoutmgr
   CREATED_DOMAIN=true
 fi
 
-R=`(asadmin list-domains | grep -q 'myproject running') && echo yes`
+R=`(asadmin list-domains | grep -q 'scoutmgr running') && echo yes`
 if [ "$R" != 'yes' ]; then
   STOP_DOMAIN=true
-  asadmin start-domain myproject
+  asadmin start-domain scoutmgr
   if [ "$CREATED_DOMAIN" == 'true' ]; then
     asadmin delete-jvm-options -XX\\:MaxPermSize=192m
     asadmin delete-jvm-options -Xmx512m
     asadmin create-jvm-options -XX\\:MaxPermSize=400m
     asadmin create-jvm-options -Xmx1500m
     asadmin create-jvm-options -Dcom.sun.enterprise.tools.admingui.NO_NETWORK=true
-    asadmin restart-domain myproject
+    asadmin restart-domain scoutmgr
   fi
 fi
 
@@ -40,8 +40,8 @@ if [ "$R" != 'yes' ]; then
   asadmin restart-domain arena
 fi
 
-asadmin delete-jdbc-resource jdbc/Myproject
-asadmin delete-jdbc-connection-pool MyprojectConnectionPool
+asadmin delete-jdbc-resource jdbc/Scoutmgr
+asadmin delete-jdbc-connection-pool ScoutmgrConnectionPool
 
 asadmin create-jdbc-connection-pool\
   --datasourceclassname org.postgresql.ds.PGSimpleDataSource\
@@ -49,9 +49,9 @@ asadmin create-jdbc-connection-pool\
   --isconnectvalidatereq=true\
   --validationmethod auto-commit\
   --ping true\
-  --description "Myproject Connection Pool"\
-  --property "${DB_PROPS_PREFIX}${USER}_MYPROJECT_DEV" MyprojectConnectionPool
-asadmin create-jdbc-resource --connectionpoolid MyprojectConnectionPool jdbc/Myproject
+  --description "Scoutmgr Connection Pool"\
+  --property "${DB_PROPS_PREFIX}${USER}_SCOUTMGR_DEV" ScoutmgrConnectionPool
+asadmin create-jdbc-resource --connectionpoolid ScoutmgrConnectionPool jdbc/Scoutmgr
 
 asadmin set-log-levels javax.enterprise.resource.resourceadapter.com.sun.gjc.spi=WARNING
 asadmin set-log-levels javax.enterprise.resource.jta=OFF
@@ -60,5 +60,5 @@ asadmin set-log-levels javax.enterprise.resource.jta=OFF
 asadmin set configs.config.server-config.transaction-service.automatic-recovery=false
 
 if [ "$STOP_DOMAIN" == 'true' ]; then
-  asadmin stop-domain myproject
+  asadmin stop-domain scoutmgr
 fi

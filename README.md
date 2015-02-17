@@ -1,15 +1,15 @@
-Myproject - My project description
+Scoutmgr - My project description
 ==================================
 
-What is Myproject
+What is Scoutmgr
 --------------
 
-Myproject is a template project that demonstrates a typical project setup.
+Scoutmgr is a template project that demonstrates a typical project setup.
 
 How-to Build
 ------------
 
-Myproject uses [Apache Buildr](http://buildr.apache.org) to build the project which is a ruby based build tool. The easiest way to build the project is to use [rbenv](https://github.com/sstephenson/rbenv) to manage the ruby version and [bundler](http://gembundler.com/) to manage the gem dependencies for buildr.
+Scoutmgr uses [Apache Buildr](http://buildr.apache.org) to build the project which is a ruby based build tool. The easiest way to build the project is to use [rbenv](https://github.com/sstephenson/rbenv) to manage the ruby version and [bundler](http://gembundler.com/) to manage the gem dependencies for buildr.
 
 Under OSX with [Homebrew](http://mxcl.github.com/homebrew/) installed you can install ruby via;
 
@@ -28,7 +28,7 @@ you may need to do a:
 
 To install Buildr and the other gem dependencies you then need to do:
 
-    $ cd ../path/to/myproject
+    $ cd ../path/to/scoutmgr
     $ bundle install
     $ rbenv rehash
 
@@ -41,7 +41,7 @@ How-to Configure
 
 Before the application can be developed and run it is important to configure the local environment. The easiest way is to copy the template files and customize them for local development:
 
-    $ cd ../path/to/myproject
+    $ cd ../path/to/scoutmgr
     $ cp config/local.example.sh config/local.sh
     $ vi config/local.sh
     $ cp config/database.example.yml config/database.yml
@@ -57,7 +57,7 @@ The application uses domgen to generate source code from the `architecture.rb` D
 How-to Run
 ----------
 
-Myproject uses SQL Server as the back end data store and runs in the Payara/GlassFish application server. At this stage it assumed that you have installed the correct version of Payara by hand and the SQL Server database server is already setup.
+Scoutmgr uses SQL Server as the back end data store and runs in the Payara/GlassFish application server. At this stage it assumed that you have installed the correct version of Payara by hand and the SQL Server database server is already setup.
 
 First you need to setup the database structure. This is done using the buildr command:
 
@@ -70,11 +70,11 @@ After creating the database structure then you need to start up the Payara/Glass
 
 You can manually deploy the already built application via a command like the following:
 
-    $ asadmin deploy --name myproject --contextroot myproject --force=true target/myproject-server/myproject-*.war
+    $ asadmin deploy --name scoutmgr --contextroot scoutmgr --force=true target/scoutmgr-server/scoutmgr-*.war
 
 However this approach is not typically used in development, instead deployment is done through the IDE. See below for how to run the project from within the IDE.
 
-After the application is deployed you can visit the local website at [http://127.0.0.1:8080/myproject](http://127.0.0.1:8080/myproject)
+After the application is deployed you can visit the local website at [http://127.0.0.1:8080/scoutmgr](http://127.0.0.1:8080/scoutmgr)
 
 IDE
 ---
@@ -93,4 +93,4 @@ It should be noted that to run the tests from within the IDE you need to have cr
 
 If you are running the integration tests it is also necessary to have built the server package from the command line. This can be done via:
 
-    $ bundle exec buildr myproject:server:package TEST=no
+    $ bundle exec buildr scoutmgr:server:package TEST=no

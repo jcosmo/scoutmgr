@@ -1,4 +1,4 @@
-Domgen.repository(:Myproject) do |repository|
+Domgen.repository(:Scoutmgr) do |repository|
   repository.enable_facet(:jpa)
   repository.enable_facet(:ejb)
   repository.enable_facet(:jws)
@@ -14,7 +14,7 @@ Domgen.repository(:Myproject) do |repository|
   repository.imit.graph(:People)
   repository.imit.graph(:Person)
 
-  repository.data_module(:Myproject) do |data_module|
+  repository.data_module(:Scoutmgr) do |data_module|
     data_module.entity(:Person) do |t|
       t.integer(:ID, :primary_key => true)
       t.string(:Name, 255)

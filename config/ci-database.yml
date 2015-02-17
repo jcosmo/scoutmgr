@@ -7,9 +7,9 @@ devhost: &devhost
   force_drop: true
 
 test:
-  database: <%= prefix %>MYPROJECT_TEST
+  database: <%= prefix %>SCOUTMGR_TEST
   <<: *devhost
 
 import:
-  database: PROD_CLONE_MYPROJECT
+  database: PROD_CLONE_SCOUTMGR
   <<: *devhost

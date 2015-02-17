@@ -1,5 +1,5 @@
 <beans xmlns="http://xmlns.jcp.org/xml/ns/javaee" bean-discovery-mode="annotated" version="1.1">
   <scan>
-    <exclude name="myproject.client.**"/>
+    <exclude name="scoutmgr.client.**"/>
   </scan>
 </beans>

@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<module rename-to='myproject'>
-  <inherits name='myproject.Myproject'/>
-  <inherits name="com.google.gwt.logging.Logging"/>
-  <inherits name="org.realityforge.replicant.ReplicantDev"/>
-
-  <set-property name="gwt.logging.enabled" value="TRUE"/>
-</module>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module>
+  <inherits name="scoutmgr.ScoutmgrConstants"/>
+  <inherits name="com.google.gwt.json.JSON"/>
+  <inherits name="org.realityforge.gwt.datatypes.Datatypes"/>
+  <inherits name="org.realityforge.replicant.Replicant"/>
+
+  <source path='client'/>
+  <source path='shared'/>
+</module>
