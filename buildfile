@@ -216,6 +216,7 @@ define 'scoutmgr' do
   end
 
   ipr.add_component_from_artifact(:idea_codestyle)
+  ipr.postgres_dialect_mapping
 
   Dbt::Buildr.add_idea_data_sources_from_configuration_file
 

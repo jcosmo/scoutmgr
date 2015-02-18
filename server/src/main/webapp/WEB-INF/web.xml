@@ -17,10 +17,10 @@
   </filter>
   <filter-mapping>
     <filter-name>GWTCacheControlFilter</filter-name>
-    <url-pattern>/scoutmgr</url-pattern>
+    <url-pattern>/scoutmgr/*</url-pattern>
   </filter-mapping>
   <filter-mapping>
     <filter-name>GWTGzipFilter</filter-name>
-    <url-pattern>/scoutmgr</url-pattern>
+    <url-pattern>/scoutmgr/*</url-pattern>
   </filter-mapping>
 </web-app>

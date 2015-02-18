@@ -6,6 +6,17 @@ What is Scoutmgr
 
 Scoutmgr is a template project that demonstrates a typical project setup.
 
+How-to Configure
+----------------
+
+Before the application can be developed and run it is important to configure the local environment. The easiest way is to copy the template files and customize them for local development:
+
+    $ cd ../path/to/scoutmgr
+    $ cp config/local.example.sh config/local.sh
+    $ vi config/local.sh
+    $ cp config/database.example.yml config/database.yml
+    $ vi config/database.yml
+
 How-to Build
 ------------
 
@@ -32,20 +43,13 @@ To install Buildr and the other gem dependencies you then need to do:
     $ bundle install
     $ rbenv rehash
 
-Finally to build you run the following commands
+Finally to build without running tests you run the following command:
 
-    $ bundle exec buildr clean package
+    $ bundle exec buildr clean package TEST=no
 
-How-to Configure
-----------------
+To build and test the project from the command line, you run the following command:
 
-Before the application can be developed and run it is important to configure the local environment. The easiest way is to copy the template files and customize them for local development:
-
-    $ cd ../path/to/scoutmgr
-    $ cp config/local.example.sh config/local.sh
-    $ vi config/local.sh
-    $ cp config/database.example.yml config/database.yml
-    $ vi config/database.yml
+    $ bundle exec buildr ci:package
 
 How-to Generate Source
 ----------------------
