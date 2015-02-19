@@ -2,6 +2,7 @@ Domgen.repository(:Scoutmgr) do |repository|
   repository.enable_facet(:jpa)
   repository.enable_facet(:ejb)
   repository.enable_facet(:jws)
+  repository.enable_facet(:pgsql)
   repository.enable_facet(:imit)
 
   repository.jpa.provider = :eclipselink
