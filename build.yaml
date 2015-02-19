@@ -4,7 +4,7 @@ repositories:
    - https://raw.githubusercontent.com/stocksoftware/public-repo/master
 
 artifacts:
-  idea_codestyle: com.stocksoftware.idea.codestyle:idea-codestyle:xml:1.0
+  idea_codestyle: au.com.stocksoftware.idea.codestyle:idea-codestyle:xml:1.0
   checkstyle_rules: au.com.stocksoftware.checkstyle:checkstyle:xml:1.2
   pmd_rules: au.com.stocksoftware.pmd:pmd:xml:1.2
   javax_javaee: javax:javaee-api:jar:7.0
