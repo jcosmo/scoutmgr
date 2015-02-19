@@ -6,7 +6,7 @@ repositories:
 artifacts:
   idea_codestyle: com.stocksoftware.idea.codestyle:idea-codestyle:xml:1.0
   checkstyle_rules: au.com.stocksoftware.checkstyle:checkstyle:xml:1.2
-  pmd_rules: com.stocksoftware.pmd:pmd:xml:1.2
+  pmd_rules: au.com.stocksoftware.pmd:pmd:xml:1.2
   javax_javaee: javax:javaee-api:jar:7.0
   javax_jsr305: com.google.code.findbugs:jsr305:jar:3.0.0
   findbugs_annotations: com.google.code.findbugs:annotations:jar:3.0.0
