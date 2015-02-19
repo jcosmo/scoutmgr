@@ -6,6 +6,15 @@ What is Scoutmgr
 
 Scoutmgr is a template project that demonstrates a typical project setup.
 
+Installing Dependencies
+----------------
+
+Scoutmgr has the following dependencies
+
+Postgres.
+Installation on Ubuntu:
+    $ apt-get install postgres postgres-contrib libpq-devel
+
 How-to Configure
 ----------------
 
@@ -36,6 +45,14 @@ Note that if you are OSX and the 2.1.3 version is not listed when you do:
 you may need to do a:
 
     $ brew upgrade ruby-build
+
+Under Ubuntu you can install ruby via instructions at;
+    https://github.com/sstephenson/rbenv#basic-github-checkout
+    and
+    https://github.com/sstephenson/ruby-build#readme
+    $ rbenv install 2.1.3
+    $ cd ../path/to/scoutmgr
+    $ gem install bundler
 
 To install Buildr and the other gem dependencies you then need to do:
 
