@@ -95,6 +95,8 @@ define 'scoutmgr' do
                  :mockito,
                  GUICE_TEST_JARS
 
+    test.options[:properties].merge!('test.db.url' => Dbt.configuration_for_key(:default).build_jdbc_url(:credentials_inline => true))
+
     package(:jar)
     package(:sources)
   end
@@ -153,6 +155,8 @@ define 'scoutmgr' do
               TEST_DEPS
     test.using :testng
 
+    test.options[:properties].merge!('test.db.url' => Dbt.configuration_for_key(:default).build_jdbc_url(:credentials_inline => true))
+
     package(:war).tap do |war|
       war.libs.clear
       war.libs << artifacts(PACKAGED_DEPS)
@@ -207,6 +211,7 @@ define 'scoutmgr' do
                    'embedded.glassfish.artifacts' => [artifact(:glassfish_embedded).to_spec, artifact(:postgresql).to_spec].join(','),
                    'war.filename' => project('server').package(:war).to_s,
                  }
+    test.options[:properties].merge!('test.db.url' => Dbt.configuration_for_key(:default).build_jdbc_url(:credentials_inline => true))
   end
 
   desc 'DB Archive'
