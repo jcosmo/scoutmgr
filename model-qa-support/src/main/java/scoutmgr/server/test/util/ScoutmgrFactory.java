@@ -6,6 +6,7 @@ import java.util.Random;
 import java.util.UUID;
 import javax.annotation.Nonnull;
 import scoutmgr.server.data_type.PersonStatus;
+import scoutmgr.server.data_type.PersonStatus2;
 import scoutmgr.server.entity.Person;
 
 public class ScoutmgrFactory
@@ -27,7 +28,7 @@ public class ScoutmgrFactory
 
   public Person createPerson( @Nonnull final String name )
   {
-    return createPerson( name, PersonStatus.COMMENCED );
+    return createPerson( name, PersonStatus.COMMENCED, PersonStatus2.COMMENCED );
   }
 
   public Date now()

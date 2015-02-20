@@ -10,15 +10,6 @@ import org.postgresql.Driver;
 public class PersonRepositoryImplTest
   extends AbstractPersonRepositoryImplTest
 {
-  @BeforeMethod
-  @Override
-  public void preTest()
-    throws Exception
-  {
-    System.setProperty( "test.db.driver", Driver.class.getName() );
-    super.preTest();
-  }
-
   @Test
   public void findAllWhereNameLike()
     throws Exception

@@ -6,6 +6,7 @@ import scoutmgr.api.personnel.PersonDTO;
 import scoutmgr.api.personnel.PersonnelService;
 import scoutmgr.api.personnel.PersonnelServiceService;
 import scoutmgr.server.data_type.PersonStatus;
+import scoutmgr.server.data_type.PersonStatus2;
 import scoutmgr.server.test.util.AbstractGlassFishTest;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -37,7 +38,7 @@ public class PersonnelServiceTest
     }
 
     em().getTransaction().begin();
-    s.createPerson( "Bob", PersonStatus.CANDIDATE );
+    s.createPerson( "Bob", PersonStatus.CANDIDATE, PersonStatus2.COMMENCED );
     em().getTransaction().commit();
 
     {

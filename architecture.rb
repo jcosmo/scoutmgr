@@ -19,8 +19,8 @@ Domgen.repository(:Scoutmgr) do |repository|
     data_module.entity(:Person) do |t|
       t.integer(:ID, :primary_key => true)
       t.string(:Name, 255)
-      t.i_enum(:Status, %w(CANDIDATE COMMENCED COMPLETED))
-
+      t.i_enum(:Status, %w(CANDIDATE COMMENCED COMPLETED), :nullable=>true)
+      t.s_enum(:Status2, %w(CANDIDATE COMMENCED COMPLETED))
       t.query(:FindAllWhereNameLike, 'jpa.jpql' => 'O.name LIKE :Name')
 
       t.unique_constraint([:Name])
