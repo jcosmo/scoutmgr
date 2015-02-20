@@ -37,7 +37,7 @@ public class PersonnelServiceTest
     }
 
     em().getTransaction().begin();
-    m.createPerson( "Bob", PersonStatus.CANDIDATE );
+    s.createPerson( "Bob", PersonStatus.CANDIDATE );
     em().getTransaction().commit();
 
     {
