@@ -242,7 +242,9 @@ module Domgen
       attr_writer :cacheable
 
       def cacheable?
-        @cacheable.nil? ? entity.read_only? : @cacheable
+        return @cacheable unless @cacheable.nil?
+        return true if entity.read_only?
+        entity.attributes.all?{|a| a.immutable? || a.primary_key? }
       end
 
       attr_writer :detachable
@@ -298,6 +300,12 @@ module Domgen
       end
     end
 
+    facet.enhance(EnumerationSet) do
+      def requires_converter?
+        enumeration.textual_values? && enumeration.values.any?{|v| v.name != v.value}
+      end
+    end
+
     facet.enhance(Attribute) do
       include Domgen::JPA::BaseJpaField
 
@@ -318,6 +326,7 @@ module Domgen
 
       def converter
         return nil if attribute.reference?
+        return "#{attribute.enumeration.ee.qualified_name}$Converter" if attribute.enumeration? && attribute.enumeration.jpa.requires_converter?
         return nil if attribute.enumeration?
         @converter ||
           attribute.characteristic_type.jpa.converter ||

@@ -21,6 +21,7 @@ module Domgen
         @instance_root = nil
         @outward_graph_links = Domgen::OrderedHash.new
         @inward_graph_links = Domgen::OrderedHash.new
+        @routing_keys = Domgen::OrderedHash.new
         application.send :register_graph, name, self
         super(application, options, &block)
       end
@@ -92,6 +93,11 @@ module Domgen
         @inward_graph_links.values
       end
 
+      def routing_keys
+        Domgen.error("routing_keys invoked for graph #{name} when not filtered") if unfiltered?
+        @routing_keys.values
+      end
+
       # Return the list of entities reachable in instance graph
       def reachable_entities
         Domgen.error("reachable_entities invoked for graph #{name} when not instance based") if 0 != @type_roots.size
@@ -134,6 +140,12 @@ module Domgen
       end
 
       protected
+
+      def register_routing_key(routing_key)
+        key = routing_key.name.to_s
+        Domgen.error("Attempted to register duplicate routing key link on attribute '#{routing_key.imit_attribute.attribute.qualified_name}' on graph '#{self.name}'") if @routing_keys[key]
+        @routing_keys[key] = routing_key
+      end
 
       def register_outward_graph_link(graph_link)
         key = graph_link.imit_attribute.attribute.qualified_name.to_s
@@ -222,6 +234,110 @@ module Domgen
       end
     end
 
+    class RoutingKey < Domgen.ParentedElement(:imit_attribute)
+      def initialize(imit_attribute, name, graph, options, &block)
+        repository = imit_attribute.attribute.entity.data_module.repository
+        unless repository.imit.graph_by_name?(graph)
+          Domgen.error("Graph '#{graph}' specified for routing key #{name} on #{imit_attribute.attribute.name} does not exist")
+        end
+        @name = name
+        @graph = repository.imit.graph_by_name(graph)
+        super(imit_attribute, options, &block)
+        repository.imit.graph_by_name(graph).send :register_routing_key, self
+      end
+
+      # A unique name for routing key within the graph
+      attr_reader :name
+
+      # The graph that routing key is used by
+      attr_reader :graph
+
+      # The path is the chain of references along which routing key walks
+      # Each link in chain must be a reference. Must be empty if initial
+      # attribtue is not a reference. A null in the path means nokey is
+      # selected
+      def path
+        @path || []
+      end
+
+      def path=(path)
+        Domgen.error("Path parameter '#{path.inspect}' specified for routing key #{name} on #{imit_attribute.attribute.name} is not an array") unless path.is_a?(Array)
+        a = imit_attribute.attribute
+        if path.size > 0
+          Domgen.error("Path parameter '#{path.inspect}' specified for routing key #{name} on #{imit_attribute.attribute.name} when initial attribute is not a reference") unless a.reference?
+          path.each do |path_key|
+            self.multivalued = true if is_path_element_recursive?(path_key)
+            path_element = get_attribute_name_from_path_element?(path_key)
+            Domgen.error("Path element '#{path_key}' specified for routing key #{name} on #{imit_attribute.attribute.name} does not refer to a valid attribtue of #{a.referenced_entity.qualified_name}") unless a.referenced_entity.attribute_by_name?(path_element)
+            a = a.referenced_entity.attribute_by_name(path_element)
+            Domgen.error("Path element '#{path_key}' specified for routing key #{name} on #{imit_attribute.attribute.name} references an attribute that is not a reference #{a.qualified_name}") unless a.reference?
+          end
+        end
+        @path = path
+      end
+
+      def is_path_element_recursive?(path_element)
+        path_element =~ /^\*.*/
+      end
+
+      def get_attribute_name_from_path_element?(path_element)
+        is_path_element_recursive?(path_element) ? path_element[1,path_element.length] : path_element
+      end
+
+      # The name of the attribute that is used in referenced entity. This
+      # must be null if the initial attribute is not a reference, otherwise
+      # it must match a name in the target entity
+      def attribute_name
+        Domgen.error("attribute_name invoked for routing key #{name} on #{imit_attribute.attribute.name} when attribute is not a reference") unless reference?
+        return @attribute_name unless @attribute_name.nil?
+        referenced_entity.primary_key.name
+      end
+
+      def attribute_name=(attribute_name)
+        unless attribute_name.nil?
+          Domgen.error("attribute_name parameter '#{attribute_name.inspect}' specified for routing key #{name} on #{imit_attribute.attribute.name} used when attribute is not a reference") unless reference?
+        end
+        @attribute_name = attribute_name
+      end
+
+      def reference?
+        self.path.size > 0 || self.imit_attribute.attribute.reference?
+      end
+
+      def referenced_entity
+        Domgen.error("referenced_entity invoked on routing key #{name} on #{imit_attribute.attribute.name} when attribute is not a reference") unless reference?
+        return self.imit_attribute.attribute.referenced_entity if self.imit_attribute.attribute.reference?
+        a = imit_attribute.attribute
+        path.each do |path_element|
+          a = a.referenced_entity.attribute_by_name(get_attribute_name_from_path_element?(path_element))
+        end
+        a.referenced_entity
+      end
+
+      def target_attribute
+        self.reference? ? self.referenced_entity.attribute_by_name(self.attribute_name) : self.imit_attribute.attribute
+      end
+
+      attr_writer :multivalued
+
+      def multivalued?
+        @multivalued.nil? ? false : !!@multivalued
+      end
+
+      def target_nullsafe?
+        return true unless self.reference?
+        return self.imit_attribute.attribute.reference? if self.path.size == 0
+
+        a = imit_attribute.attribute
+        path.each do |path_element|
+          return false if is_path_element_recursive?(path_element)
+          a = a.referenced_entity.attribute_by_name(get_attribute_name_from_path_element?(path_element))
+          return false if a.nullable?
+        end
+        return !a.nullable?
+      end
+    end
+
     class FilterParameter < Domgen.ParentedElement(:graph)
       attr_reader :filter_type
 
@@ -233,7 +349,7 @@ module Domgen
       end
 
       def name
-        "FilterParameter"
+        'FilterParameter'
       end
 
       def qualified_name
@@ -323,7 +439,9 @@ module Domgen
       java_artifact :graph_enum, :comm, :shared, :imit, '#{repository.name}ReplicationGraph'
       java_artifact :session, :comm, :server, :imit, '#{repository.name}Session'
       java_artifact :session_manager, :comm, :server, :imit, '#{repository.name}SessionManagerEJB'
+      # TODO: Consider making server_session_context a regular ejb service created in pre_verify
       java_artifact :server_session_context, :comm, :server, :imit, '#{repository.name}SessionContext'
+      java_artifact :server_session_context_test, :comm, :server, :imit, 'Abstract#{repository.name}SessionContextEJBTest'
       java_artifact :session_exception_mapper, :rest, :server, :imit, '#{repository.name}BadSessionExceptionMapper'
       java_artifact :router_interface, :comm, :server, :imit, '#{repository.name}Router'
       java_artifact :router_impl, :comm, :server, :imit, '#{repository.name}RouterImpl'
@@ -630,12 +748,12 @@ module Domgen
       include Domgen::Java::BaseJavaGenerator
 
       def transport_id
-        Domgen.error("Attempted to invoke transport_id on abstract entity") if entity.abstract?
+        Domgen.error('Attempted to invoke transport_id on abstract entity') if entity.abstract?
         @transport_id
       end
 
       def transport_id=(transport_id)
-        Domgen.error("Attempted to assign transport_id on abstract entity") if entity.abstract?
+        Domgen.error('Attempted to assign transport_id on abstract entity') if entity.abstract?
         @transport_id = transport_id
       end
 
@@ -670,7 +788,7 @@ module Domgen
       end
 
       def subgraph_roots=(subgraph_roots)
-        Domgen.error("subgraph_roots expected to be an array") unless subgraph_roots.is_a?(Array)
+        Domgen.error('subgraph_roots expected to be an array') unless subgraph_roots.is_a?(Array)
         subgraph_roots.each do |subgraph_root|
           graph = entity.data_module.repository.imit.graph_by_name(subgraph_root)
           Domgen.error("subgraph_roots specifies a non graph #{subgraph_root}") unless graph
@@ -684,7 +802,7 @@ module Domgen
         entity.data_module.repository.imit.graphs.select do |graph|
           (graph.instance_root? && graph.reachable_entities.include?(entity.qualified_name.to_s)) ||
             (!graph.instance_root? && graph.type_roots.include?(entity.qualified_name.to_s)) ||
-            entity.attributes.any? { |a| a.imit? && a.imit.filter_in_graphs.include?(graph.name) }
+            entity.attributes.any? { |a| a.imit? && a.imit.routing_keys.any?{|routing_key|routing_key.graph.name.to_s == graph.name.to_s} }
         end
       end
 
@@ -716,13 +834,25 @@ module Domgen
       end
 
       def filter_in_graphs=(filter_in_graphs)
-        Domgen.error("filter_in_graphs should be an array of symbols") unless filter_in_graphs.is_a?(Array) && filter_in_graphs.all? { |m| m.is_a?(Symbol) }
-        Domgen.error("filter_in_graphs should only contain valid graphs") unless filter_in_graphs.all? { |m| attribute.entity.data_module.repository.imit.graph_by_name(m) }
-        @filter_in_graphs = filter_in_graphs
+        Domgen.error('filter_in_graphs should be an array of symbols') unless filter_in_graphs.is_a?(Array) && filter_in_graphs.all? { |m| m.is_a?(Symbol) }
+        Domgen.error('filter_in_graphs should only contain valid graphs') unless filter_in_graphs.all? { |m| attribute.entity.data_module.repository.imit.graph_by_name(m) }
+        filter_in_graphs.each do |graph|
+          routing_key(graph)
+        end
       end
 
-      def filter_in_graphs
-        @filter_in_graphs || []
+      def routing_keys_map
+        @routing_keys ||= {}
+      end
+
+      def routing_keys
+        routing_keys_map.values
+      end
+
+      def routing_key(graph, options = {})
+        params = options.dup
+        name = params.delete(:name) || attribute.qualified_name.gsub('.','_')
+        routing_keys_map["#{graph}#{name}"] = Domgen::Imit::RoutingKey.new(self, name, graph, params)
       end
 
       def graph_links_map
@@ -733,7 +863,7 @@ module Domgen
         graph_links_map.values
       end
 
-      def add_graph_link(source_graph, target_graph, options = {}, &block)
+      def graph_link(source_graph, target_graph, options = {}, &block)
         key = "#{source_graph}->#{target_graph}"
         Domgen.error("Graph link already defined between #{source_graph} and #{target_graph} on attribute '#{attribute.qualified_name}'") if graph_links_map[key]
         graph_links_map[key] = Domgen::Imit::GraphLink.new(self, source_graph, target_graph, options, &block)
@@ -776,10 +906,11 @@ module Domgen
         @exclude_edges = exclude_edges
       end
 
+      # Replication edges represent graphs that must be subscribed to when the containing entity is subscribed
       def replication_edges=(replication_edges)
-        Domgen.error("replication_edges should be an array of symbols") unless replication_edges.is_a?(Array) && replication_edges.all? { |m| m.is_a?(Symbol) }
-        Domgen.error("replication_edges should only be set when traversable?") unless inverse.traversable?
-        Domgen.error("replication_edges should only contain valid graphs") unless replication_edges.all? { |m| inverse.attribute.entity.data_module.repository.imit.graph_by_name(m) }
+        Domgen.error('replication_edges should be an array of symbols') unless replication_edges.is_a?(Array) && replication_edges.all? { |m| m.is_a?(Symbol) }
+        Domgen.error('replication_edges should only be set when traversable?') unless inverse.traversable?
+        Domgen.error('replication_edges should only contain valid graphs') unless replication_edges.all? { |m| inverse.attribute.entity.data_module.repository.imit.graph_by_name(m) }
         @replication_edges = replication_edges
       end
 

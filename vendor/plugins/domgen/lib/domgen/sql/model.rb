@@ -385,6 +385,22 @@ module Domgen
           end
         end
       end
+
+      attr_writer :sql_driver
+
+      def sql_driver
+        if @sql_driver.nil?
+          @sql_driver =
+            if self.repository.pgsql?
+              'org.postgresql.Driver'
+            elsif self.repository.mssql?
+              'net.sourceforge.jtds.jdbc.Driver'
+            else
+              raise 'No default SQL driver available, specify one with repository.sql.sql_driver = "your.driver.here"'
+            end
+        end
+        @sql_driver
+      end
     end
 
     facet.enhance(DataModule) do
@@ -669,7 +685,7 @@ SQL
         entity.attributes.select { |a| a.attribute_type == :enumeration && a.enumeration.textual_values? }.each do |a|
           constraint_name = "#{a.name}_Enum"
           constraint(constraint_name, :sql => <<SQL) unless constraint_by_name(constraint_name)
-#{a.sql.quoted_column_name} IN (#{a.enumeration.values.collect { |v| "'#{v}'" }.join(',')})
+#{a.sql.quoted_column_name} IN (#{a.enumeration.values.collect { |v| "'#{v.value}'" }.join(',')})
 SQL
         end
         entity.attributes.select { |a| (a.allows_length?) && !a.allow_blank? }.each do |a|
