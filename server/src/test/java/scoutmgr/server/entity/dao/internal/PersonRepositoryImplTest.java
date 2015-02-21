@@ -1,11 +1,9 @@
 package scoutmgr.server.entity.dao.internal;
 
 import java.util.List;
-import org.testng.annotations.BeforeMethod;
-import scoutmgr.server.entity.Person;
 import org.testng.annotations.Test;
+import scoutmgr.server.entity.Person;
 import static org.testng.Assert.*;
-import org.postgresql.Driver;
 
 public class PersonRepositoryImplTest
   extends AbstractPersonRepositoryImplTest
