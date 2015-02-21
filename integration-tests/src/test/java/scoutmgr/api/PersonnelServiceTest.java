@@ -2,14 +2,14 @@ package scoutmgr.api;
 
 import java.util.List;
 import javax.xml.ws.BindingProvider;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 import scoutmgr.api.personnel.PersonDTO;
 import scoutmgr.api.personnel.PersonnelService;
 import scoutmgr.api.personnel.PersonnelServiceService;
 import scoutmgr.server.data_type.PersonStatus;
 import scoutmgr.server.data_type.PersonStatus2;
 import scoutmgr.server.test.util.AbstractGlassFishTest;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 public class PersonnelServiceTest
