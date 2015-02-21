@@ -32,7 +32,7 @@ public final class AppServer
     {
       c_glassfish = new GlassFishContainer();
       c_glassfish.start();
-      c_glassfish.createSqlServerJdbcResource( ScoutmgrPersistenceUnit.RESOURCE_NAME );
+      c_glassfish.createPostgresJdbcResource( ScoutmgrPersistenceUnit.RESOURCE_NAME );
       c_glassfish.deploy( CONTEXT_ROOT, APP_NAME, GlassFishContainerUtil.getWarFile() );
 
       c_baseHttpURL = c_glassfish.getBaseHttpURL();
