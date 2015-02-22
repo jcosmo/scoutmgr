@@ -33,6 +33,15 @@ public abstract class AbstractGlassFishTest
     usesTransaction();
   }
 
+  @Override
+  protected Module[] getModules()
+  {
+    final ArrayList<Module> modules = new ArrayList<>();
+    Collections.addAll( modules, super.getModules() );
+    modules.add( new MyprojectIntegrationModule() );
+    return modules.toArray( new Module[ modules.size() ] );
+  }
+
   protected final String getServiceURL( final String service )
   {
     return AppServer.getServiceURL( service );
