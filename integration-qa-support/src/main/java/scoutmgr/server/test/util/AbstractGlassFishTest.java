@@ -1,5 +1,8 @@
 package scoutmgr.server.test.util;
 
+import com.google.inject.Module;
+import java.util.ArrayList;
+import java.util.Collections;
 import javax.transaction.TransactionSynchronizationRegistry;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
@@ -38,5 +41,14 @@ public abstract class AbstractGlassFishTest
   protected final String getSiteURL()
   {
     return AppServer.getSiteURL();
+  }
+
+  @Override
+  protected Module[] getModules()
+  {
+    final ArrayList<Module> modules = new ArrayList<>();
+    Collections.addAll( modules, super.getModules() );
+    modules.add( new ScoutmgrIntegrationModule() );
+    return modules.toArray( new Module[ modules.size() ] );
   }
 }
