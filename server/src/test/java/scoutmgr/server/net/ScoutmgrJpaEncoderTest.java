@@ -9,12 +9,9 @@ import java.util.Map;
 import org.realityforge.replicant.server.Change;
 import org.realityforge.replicant.server.ChangeSet;
 import org.testng.annotations.Test;
-import scoutmgr.server.data_type.PersonStatus;
-import scoutmgr.server.data_type.PersonStatus2;
 import scoutmgr.server.entity.Person;
 import scoutmgr.shared.net.ScoutmgrReplicationGraph;
 import static org.testng.Assert.*;
-import static org.testng.AssertJUnit.assertNull;
 
 public class ScoutmgrJpaEncoderTest
   extends AbstractScoutmgrSessionContextEJBTest
@@ -28,11 +25,12 @@ public class ScoutmgrJpaEncoderTest
   {
     getInjector().injectMembers( this );
 
-    final Person bilbo = s.createPerson( "bilbo", null, PersonStatus2.COMMENCED );
+    final Person bilbo = s.createPerson( "bilbo", "baggins" );
     final Map<String, Serializable> simpleEncodeResult = ScoutmgrJpaEncoder.encodePerson( bilbo );
-    assertEquals( simpleEncodeResult.get( "Name" ), "bilbo" );
-    assertNull( simpleEncodeResult.get( "Status" ) );
-    assertEquals( simpleEncodeResult.get( "Status2" ), "COMMENCED" );
+    assertEquals( simpleEncodeResult.get( "FirstName" ), "bilbo" );
+    assertEquals( simpleEncodeResult.get( "LastName" ), "baggins" );
+    assertNotNull( simpleEncodeResult.get( "Dob" ) );
+    assertNotNull( simpleEncodeResult.get( "RegistrationNumber" ) );
 
     final Connection connection = _em.unwrap( Connection.class );
 
@@ -43,18 +41,10 @@ public class ScoutmgrJpaEncoderTest
 
     ScoutmgrJpaEncoder.encodePerson( changeSet, ScoutmgrReplicationGraph.PERSON, statement, null );
     Map<String, Serializable> dbEncodeResult = getStringSerializableMap( changeSet );
-    assertEquals( dbEncodeResult.get( "Name" ), "bilbo" );
-    assertNull( dbEncodeResult.get( "Status" ) );
-    assertEquals( dbEncodeResult.get( "Status2" ), "COMMENCED" );
-
-    bilbo.setStatus( PersonStatus.CANDIDATE );
-    assertEquals( ScoutmgrJpaEncoder.encodePerson( bilbo ).get( "Status" ), PersonStatus.CANDIDATE.ordinal() );
-    s(scoutmgr.server.entity.dao.PersonRepository.class).persist( bilbo );
-
-    changeSet = new ChangeSet();
-    ScoutmgrJpaEncoder.encodePerson( changeSet, ScoutmgrReplicationGraph.PERSON, statement, null );
-    dbEncodeResult = getStringSerializableMap( changeSet );
-    assertEquals( dbEncodeResult.get( "Status" ), PersonStatus.COMPLETED.ordinal() );
+    assertEquals( dbEncodeResult.get( "FirstName" ), "bilbo" );
+    assertEquals( dbEncodeResult.get( "LastName" ), "baggins" );
+    assertEquals( simpleEncodeResult.get( "Dob" ), dbEncodeResult.get( "Dob" ) );
+    assertEquals( simpleEncodeResult.get( "RegistrationNumber" ), dbEncodeResult.get( "RegistrationNumber" ) );
 
     statement.close();
   }

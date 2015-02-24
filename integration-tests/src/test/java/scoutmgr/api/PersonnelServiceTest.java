@@ -7,8 +7,6 @@ import org.testng.annotations.Test;
 import scoutmgr.api.personnel.PersonDTO;
 import scoutmgr.api.personnel.PersonnelService;
 import scoutmgr.api.personnel.PersonnelServiceService;
-import scoutmgr.server.data_type.PersonStatus;
-import scoutmgr.server.data_type.PersonStatus2;
 import scoutmgr.server.test.util.AbstractGlassFishTest;
 import static org.testng.Assert.*;
 
@@ -38,13 +36,16 @@ public class PersonnelServiceTest
     }
 
     em().getTransaction().begin();
-    s.createPerson( "Bob", PersonStatus.CANDIDATE, PersonStatus2.COMMENCED );
+    s.createPerson( "Bob", "Brown" );
     em().getTransaction().commit();
 
     {
       final List<PersonDTO> people = _service.getPeople();
       assertEquals( people.size(), 1 );
-      assertEquals( people.get( 0 ).getName(), "Bob" );
+      assertEquals( people.get( 0 ).getFirstName(), "Bob" );
+      assertEquals( people.get( 0 ).getLastName(), "Brown" );
+      assertNotNull( people.get( 0 ).getDob() );
+      assertNotNull( people.get( 0 ).getRegistrationNumber() );
     }
   }
 }

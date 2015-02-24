@@ -10,27 +10,32 @@ Domgen.repository(:Scoutmgr) do |repository|
   repository.jpa.base_entity_test_name = repository.jpa.abstract_entity_test_name
   repository.ejb.base_service_test_name = repository.ejb.abstract_service_test_name
 
-  repository.xml.base_namespace = 'http://irisonline.com.au'
+  repository.xml.base_namespace = 'http://tharsis-gate.org'
 
-  repository.imit.graph(:People)
   repository.imit.graph(:Person)
 
   repository.data_module(:Scoutmgr) do |data_module|
     data_module.entity(:Person) do |t|
       t.integer(:ID, :primary_key => true)
-      t.string(:Name, 255)
-      t.i_enum(:Status, %w(CANDIDATE COMMENCED COMPLETED), :nullable=>true)
-      t.s_enum(:Status2, %w(CANDIDATE COMMENCED COMPLETED))
-      t.query(:FindAllWhereNameLike, 'jpa.jpql' => 'O.name LIKE :Name')
+      t.string(:FirstName, 255)
+      t.string(:LastName, 255)
+      t.datetime(:Dob)
+      t.string(:RegistrationNumber, 20)
 
-      t.unique_constraint([:Name])
-      t.imit.replicate(:People, :type)
+      t.unique_constraint([:FirstName, :LastName, :Dob])
       t.imit.replicate(:Person, :instance)
+
+      t.query(:FindAllWhereNameLike, 'jpa.jpql' => 'O.firstName LIKE :Name OR O.lastName LIKE :Name') do |q|
+        q.string(:Name, 255)
+      end
     end
 
     data_module.struct(:PersonDTO) do |s|
       s.integer(:ID)
-      s.text(:Name)
+      s.text(:FirstName)
+      s.text(:LastName)
+      s.datetime(:Dob)
+      s.text(:RegistrationNumber)
     end
 
     data_module.service(:PersonnelService) do |s|

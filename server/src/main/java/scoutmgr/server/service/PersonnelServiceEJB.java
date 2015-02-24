@@ -22,7 +22,7 @@ public class PersonnelServiceEJB
     final ArrayList<PersonDTO> results = new ArrayList<>();
     for ( final Person person : _personRepository.findAll() )
     {
-      results.add( new PersonDTO( person.getID(), person.getName() ) );
+      results.add( new PersonDTO( person.getID(), person.getFirstName(), person.getLastName(), person.getDob(), person.getRegistrationNumber() ) );
     }
     return results;
   }
