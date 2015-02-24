@@ -38,7 +38,7 @@ public abstract class AbstractGlassFishTest
   {
     final ArrayList<Module> modules = new ArrayList<>();
     Collections.addAll( modules, super.getModules() );
-    modules.add( new MyprojectIntegrationModule() );
+    modules.add( new ScoutmgrIntegrationModule() );
     return modules.toArray( new Module[ modules.size() ] );
   }
 
@@ -50,14 +50,5 @@ public abstract class AbstractGlassFishTest
   protected final String getSiteURL()
   {
     return AppServer.getSiteURL();
-  }
-
-  @Override
-  protected Module[] getModules()
-  {
-    final ArrayList<Module> modules = new ArrayList<>();
-    Collections.addAll( modules, super.getModules() );
-    modules.add( new ScoutmgrIntegrationModule() );
-    return modules.toArray( new Module[ modules.size() ] );
   }
 }
