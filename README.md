@@ -1,4 +1,4 @@
-Scoutmgr - My project description
+Scoutmgr - Project description
 ==================================
 
 What is Scoutmgr
@@ -29,7 +29,7 @@ Before the application can be developed and run it is important to configure the
 How-to Build
 ------------
 
-Scoutmgr uses [Apache Buildr](http://buildr.apache.org) to build the project which is a ruby based build tool. The easiest way to build the project is to use [rbenv](https://github.com/sstephenson/rbenv) to manage the ruby version and [bundler](http://gembundler.com/) to manage the gem dependencies for buildr.
+Scoutmgr is primarily developed and tested using the IntelliJ IDEA IDE but it is also possible to build the project from the command line. Scoutmgr uses [Apache Buildr](http://buildr.apache.org) to build the project which is a ruby based build tool. The easiest way to build the project is to use [rbenv](https://github.com/sstephenson/rbenv) to manage the ruby version and [bundler](http://gembundler.com/) to manage the gem dependencies for buildr.
 
 Under OSX with [Homebrew](http://mxcl.github.com/homebrew/) installed you can install ruby via;
 
@@ -106,7 +106,7 @@ You can generate the IDE configuration files via the buildr command:
 
     $ bundle exec buildr artifacts:sources idea:clean idea
 
-This should configure the project ready for development. It may not be necessary to run the `idea:clean` task unless the project has changed significantly since the last rebuild of the project files.
+This should configure the project ready for development. The project needs to rebuilt any time the dependencies change or a new subproject is added to the project. It may not be necessary to run the `idea:clean` task unless the project has changed significantly since the last rebuild of the project files.
 
 It should be noted that to run the tests from within the IDE you need to have created the test database via:
 
