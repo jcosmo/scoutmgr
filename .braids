@@ -9,7 +9,7 @@
   "vendor/plugins/domgen": {
     "branch": "master",
     "remote": "master/braid/vendor/plugins/domgen",
-    "revision": "c9459b1872ea6c126f51abe4f578010c4e0a421c",
+    "revision": "0c98753a29cba3483acd6b3cce5e9a4fda6d0a39",
     "squashed": true,
     "url": "https://github.com/realityforge/domgen.git"
   }

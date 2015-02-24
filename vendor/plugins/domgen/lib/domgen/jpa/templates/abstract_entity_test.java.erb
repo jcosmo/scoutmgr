@@ -16,9 +16,7 @@ public abstract class <%= repository.jpa.abstract_entity_test_name %>
   public void preTest()
     throws Exception
   {
-    System.setProperty( "test.db.driver", "<%= repository.sql.sql_driver %>" );
     super.preTest();
-
     final <%= repository.jpa.qualified_test_factory_set_name %> factorySet = new <%= repository.jpa.qualified_test_factory_set_name %>( getInjector() );
 <% repository.data_modules.select{|data_module| data_module.jpa?}.each do |data_module| -%>
     <%= data_module.jpa.short_test_code %> = factorySet.<%= Domgen::Naming.camelize(data_module.name) %>();
@@ -35,12 +33,6 @@ public abstract class <%= repository.jpa.abstract_entity_test_name %>
   protected com.google.inject.Module new<%= repository.name %>DaoModule()
   {
     return new <%= repository.jpa.qualified_dao_module_name %>();
-  }
-
-  @javax.annotation.Nullable
-  protected com.google.inject.Module getEntityModule()
-  {
-    return null;
   }
 
   @java.lang.Override
