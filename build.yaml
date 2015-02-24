@@ -1,7 +1,7 @@
 repositories:
   remote:
-   - http://repo1.maven.org/maven2
    - https://raw.githubusercontent.com/stocksoftware/public-repo/master
+   - http://repo1.maven.org/maven2
 
 artifacts:
   idea_codestyle: au.com.stocksoftware.idea.codestyle:idea-codestyle:xml:1.0
