@@ -30,6 +30,7 @@ if [ "$R" != 'yes' ]; then
     asadmin create-jvm-options -XX\\:MaxPermSize=400m
     asadmin create-jvm-options -Xmx1500m
     asadmin create-jvm-options -Dcom.sun.enterprise.tools.admingui.NO_NETWORK=true
+    asadmin create-jvm-options -Dgwt.codeserver.port=8889
     asadmin restart-domain scoutmgr
   fi
 fi
