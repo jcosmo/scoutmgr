@@ -22,7 +22,7 @@ artifacts:
   aopalliance: aopalliance:aopalliance:jar:1.0 # Required for guice
   #
   # Used to inject EE annotated classes in Guice
-  guiceyloops: org.realityforge.guiceyloops:guiceyloops:jar:0.57
+  guiceyloops: org.realityforge.guiceyloops:guiceyloops:jar:0.58
 
   testng: org.testng:testng:jar:6.8
   mockito: org.mockito:mockito-all:jar:1.9.5
