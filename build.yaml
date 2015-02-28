@@ -27,7 +27,7 @@ artifacts:
   testng: org.testng:testng:jar:6.8
   mockito: org.mockito:mockito-all:jar:1.9.5
 
-  glassfish_embedded: uk.co.payara:payara-embedded-all:jar:20150114
+  glassfish_embedded: uk.co.payara:payara-embedded-all:jar:4.1.151
 
   #
   # Used in mapping entities to json
