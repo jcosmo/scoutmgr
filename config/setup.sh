@@ -9,7 +9,7 @@ fi
 DB_SERVER_HOST=${DB_SERVER_HOST:-127.0.0.1}
 DB_SERVER_PORT=${DB_SERVER_PORT:-5432}
 
-DB_PROPS_PREFIX="ServerName=${DB_SERVER_HOST}:User=stock-dev:Password=letmein:PortNumber=${DB_SERVER_PORT:DatabaseName="
+DB_PROPS_PREFIX="ServerName=${DB_SERVER_HOST}:User=stock-dev:Password=letmein:PortNumber=${DB_SERVER_PORT}:DatabaseName="
 
 CREATED_DOMAIN=false
 STOP_DOMAIN=false
@@ -35,10 +35,10 @@ if [ "$R" != 'yes' ]; then
   fi
 fi
 
-R=`(asadmin list-libraries | grep -q postgresql-9.1-901.jdbc4.jar) && echo yes`
+R=`(asadmin list-libraries | grep -q postgresql-9.2-1003.jdbc4.jar) && echo yes`
 if [ "$R" != 'yes' ]; then
-  asadmin add-library ~/.m2/repository/postgresql/postgresql/9.1-901.jdbc4/postgresql-9.1-901.jdbc4.jar
-  asadmin restart-domain arena
+  asadmin add-library ~/.m2/repository/org/postgresql/postgresql/9.2-1003-jdbc4/postgresql-9.2-1003-jdbc4.jar
+  asadmin restart-domain scoutmgr
 fi
 
 asadmin delete-jdbc-resource jdbc/Scoutmgr
@@ -63,3 +63,4 @@ asadmin set configs.config.server-config.transaction-service.automatic-recovery=
 if [ "$STOP_DOMAIN" == 'true' ]; then
   asadmin stop-domain scoutmgr
 fi
+
