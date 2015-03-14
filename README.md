@@ -11,9 +11,15 @@ Installing Dependencies
 
 Scoutmgr has the following dependencies
 
-Postgres.
+Postgres as a database server.
 Installation on Ubuntu:
     $ apt-get install postgres postgres-contrib libpq-devel
+
+Payara as a JEE application server.
+Installation on Ubuntu:
+    Download 4.1.151 from payara.co.uk
+    Unzip somewhere
+    Add payara\bin to path, or edit the local.sh that is set up in the 'How-to Configure' section below.
 
 How-to Configure
 ----------------
