@@ -4,12 +4,15 @@
   <inherits name="com.google.gwt.inject.Inject"/>
   <inherits name="org.realityforge.gwt.lognice.Lognice"/>
   <inherits name="com.google.gwt.logging.LoggingDisabled"/>
+  <inherits name="com.gwtplatform.mvp.MvpWithEntryPoint"/>
 
   <set-configuration-property name="CssResource.enableGss" value="true" />
   <set-configuration-property name="CssResource.legacy" value="true" />
+  <set-configuration-property name="gin.ginjector.modules" value="scoutmgr.client.ioc.ScoutmgrMVPModule" />
 
   <source path='client'/>
   <source path='shared'/>
 
   <entry-point class='scoutmgr.client.Scoutmgr'/>
+
 </module>

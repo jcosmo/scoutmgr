@@ -1,4 +1,5 @@
 require 'buildr/pmd'
+require 'buildr/gwt'
 require 'buildr/checkstyle'
 require 'buildr/single_intermediate_layout'
 require 'buildr/findbugs'
@@ -10,7 +11,8 @@ require 'buildr/top_level_generate_dir'
 GUICE_DEPS = [:google_guice, :google_guice_assistedinject, :aopalliance]
 GIN_DEPS = GUICE_DEPS + [:gwt_gin, :javax_inject]
 APPCACHE_DEPS = [:gwt_appcache_client, :gwt_appcache_linker, :gwt_appcache_server]
-GWT_DEPS = [:gwt_user, :gwt_property_source, :gwt_datatypes, :gwt_webpoller, :gwt_lognice] + GIN_DEPS + APPCACHE_DEPS
+GWTP_DEPS = [:gwtp_mvp, :gwtp_mvp_shared, :gwtp_clients_common, :gwtp_velocity, :gwtp_velocity_deps]
+GWT_DEPS = [:gwt_user, :gwt_property_source, :gwt_datatypes, :gwt_webpoller, :gwt_lognice] + GIN_DEPS + APPCACHE_DEPS + GWTP_DEPS
 ANNOTATION_DEPS = [:javax_jsr305, :findbugs_annotations]
 COMMON_PROVIDED_DEPS = ANNOTATION_DEPS + [:javax_javaee]
 JACKSON_DEPS = [:jackson_core, :jackson_mapper]
@@ -21,8 +23,8 @@ PACKAGED_DEPS = [:gwt_datatypes, :replicant, :gwt_servlet, :simple_session_filte
 desc 'Scoutmgr: Website for the management of progress for a scout group'
 define 'scoutmgr' do
   project.group = 'scoutmgr'
-  compile.options.source = '1.7'
-  compile.options.target = '1.7'
+  compile.options.source = '1.8'
+  compile.options.target = '1.8'
   compile.options.lint = 'all'
 
   project.version = ENV['PRODUCT_VERSION'] if ENV['PRODUCT_VERSION']
@@ -231,7 +233,7 @@ define 'scoutmgr' do
                                 :ejb_module_names => %w(model server),
                                 :jpa_module_names => %w(model))
 
-  ipr.add_glassfish_configuration(project, :exploded => [project.name])
+  ipr.add_glassfish_configuration(project, :server_name => 'Glassfish 4.1.151', :exploded => [project.name])
 
   ipr.add_gwt_configuration(project('user-experience'),
                             :gwt_module => 'scoutmgr.ScoutmgrDev',

@@ -48,8 +48,6 @@ public final class Scoutmgr
           Window.alert( "Successfully connected to data loader service" );
         }
       } );
-
-      RootLayoutPanel.get().add( injector.getMainPanel() );
     }
     catch ( final Exception e )
     {

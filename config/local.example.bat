@@ -1,2 +1,2 @@
-set USERNAME=papa
+set USERNAME=bob
 set DB_SERVER_HOST=172.16.4.20

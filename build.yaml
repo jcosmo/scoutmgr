@@ -42,6 +42,11 @@ artifacts:
   javax_inject: javax.inject:javax.inject:jar:1
   gwt_servlet: com.google.gwt:gwt-servlet:jar:2.7.0
   gwt_dev: com.google.gwt:gwt-dev:jar:2.7.0
+  gwtp_mvp: com.gwtplatform:gwtp-mvp-client:jar:1.4
+  gwtp_clients_common: com.gwtplatform:gwtp-clients-common:jar:1.4
+  gwtp_mvp_shared: com.gwtplatform:gwtp-mvp-shared:jar:1.4
+  gwtp_velocity: org.apache.velocity:velocity:jar:1.7
+  gwtp_velocity_deps: commons-lang:commons-lang:jar:2.4
 
   #
   # GIN and associated dependencies
