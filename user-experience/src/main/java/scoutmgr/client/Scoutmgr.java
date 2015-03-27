@@ -5,9 +5,11 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.RootLayoutPanel;
+import com.gwtplatform.mvp.client.ApplicationController;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.inject.Inject;
+import scoutmgr.client.ioc.FrontendContext;
 import scoutmgr.client.ioc.ScoutmgrGinjector;
 import scoutmgr.client.ioc.ScoutmgrGwtRpcServicesModule;
 
@@ -16,13 +18,16 @@ public final class Scoutmgr
 {
   private static final Logger LOG = Logger.getLogger( Scoutmgr.class.getName() );
 
+  private static final ApplicationController _controller = GWT.create( ApplicationController.class );
+
+  @Inject
+  FrontendContext _frontendContext;
+
   public void onModuleLoad()
   {
     try
     {
       ScoutmgrGwtRpcServicesModule.initialize();
-
-      final ScoutmgrGinjector injector = GWT.create( ScoutmgrGinjector.class );
 
       GWT.setUncaughtExceptionHandler( new GWT.UncaughtExceptionHandler()
       {
@@ -38,16 +43,8 @@ public final class Scoutmgr
         element.removeFromParent();
       }
 
-      LOG.info( "DataLoadService.connect starting..." );
-      injector.getDataLoaderService().connect( new Runnable()
-      {
-        @Override
-        public void run()
-        {
-          LOG.info( "Successfully connected to data loader service" );
-          Window.alert( "Successfully connected to data loader service" );
-        }
-      } );
+      _controller.init();
+      _frontendContext.initialArrival();
     }
     catch ( final Exception e )
     {

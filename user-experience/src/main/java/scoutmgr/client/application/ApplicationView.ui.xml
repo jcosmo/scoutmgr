@@ -7,5 +7,8 @@
     <div>
       This is not a header!
     </div>
+
+    <g:ValueListBox ui:field="_list">
+    </g:ValueListBox>
   </g:HTMLPanel>
 </ui:UiBinder>
