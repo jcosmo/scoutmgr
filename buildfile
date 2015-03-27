@@ -23,8 +23,8 @@ PACKAGED_DEPS = [:gwt_datatypes, :replicant, :gwt_servlet, :simple_session_filte
 desc 'Scoutmgr: Website for the management of progress for a scout group'
 define 'scoutmgr' do
   project.group = 'scoutmgr'
-  compile.options.source = '1.8'
-  compile.options.target = '1.8'
+  compile.options.source = '1.7'
+  compile.options.target = '1.7'
   compile.options.lint = 'all'
 
   project.version = ENV['PRODUCT_VERSION'] if ENV['PRODUCT_VERSION']
