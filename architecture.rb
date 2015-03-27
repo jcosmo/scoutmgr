@@ -13,6 +13,7 @@ Domgen.repository(:Scoutmgr) do |repository|
   repository.xml.base_namespace = 'http://tharsis-gate.org'
 
   repository.imit.graph(:Person)
+  repository.imit.graph(:People)
 
   repository.data_module(:Scoutmgr) do |data_module|
     data_module.entity(:Person) do |t|
@@ -24,6 +25,7 @@ Domgen.repository(:Scoutmgr) do |repository|
 
       t.unique_constraint([:FirstName, :LastName, :Dob])
       t.imit.replicate(:Person, :instance)
+      t.imit.replicate(:People, :type)
 
       t.query(:FindAllWhereNameLike, 'jpa.jpql' => 'O.firstName LIKE :Name OR O.lastName LIKE :Name') do |q|
         q.string(:Name, 255)
