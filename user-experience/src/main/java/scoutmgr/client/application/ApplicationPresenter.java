@@ -101,8 +101,6 @@ public class ApplicationPresenter
   {
     super.onReveal();
 
-    _dataloader.connect( null );
-
     _changeBroker.addChangeListener( Person.class, _entityChangeListener );
     _dataloader.getSession().subscribeToPeople( null );
   }
