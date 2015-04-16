@@ -62,7 +62,7 @@ public class ApplicationPresenter
       @Override
       public void entityAdded( final EntityChangeEvent event )
       {
-        final Person person = (Person) event.getValue();
+        final Person person = (Person) event.getObject();
         final ListItemViewModel viewModel = new ListItemViewModel( person );
         _model2ViewModel.put( person, viewModel );
         getView().setItems( _model2ViewModel.values() );
