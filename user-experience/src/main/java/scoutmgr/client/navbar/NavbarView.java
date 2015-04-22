@@ -8,6 +8,7 @@ import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.gwtplatform.mvp.client.ViewWithUiHandlers;
 import gwt.material.design.client.ui.MaterialLink;
+import scoutmgr.client.place.NameTokens;
 
 public class NavbarView
   extends ViewWithUiHandlers<NavbarUiHandlers>
@@ -28,6 +29,23 @@ public class NavbarView
   NavbarView( final Binder uiBinder )
   {
     initWidget( uiBinder.createAndBindUi( this ) );
+  }
+
+  @Override
+  public void setMenuItemActive( final String nameToken )
+  {
+    switch (nameToken )
+    {
+      case NameTokens.EVENTS:
+        _membersLink.removeStyleName( "active" );
+        _eventsLink.addStyleName( "active" );
+        break;
+
+      case NameTokens.MEMBERS:
+        _membersLink.addStyleName( "active" );
+        _eventsLink.removeStyleName( "active" );
+        break;
+    }
   }
 
   @UiHandler( "_membersLink" )
