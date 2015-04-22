@@ -13,6 +13,11 @@ public class NavbarPresenter
   extends PresenterWidget<NavbarPresenter.View>
   implements NavbarUiHandlers
 {
+  interface View
+    extends com.gwtplatform.mvp.client.View, HasUiHandlers<NavbarUiHandlers>
+  {
+  }
+
   @Inject
   private PlaceManager _placeManager;
 
@@ -28,11 +33,6 @@ public class NavbarPresenter
   {
     final PlaceRequest placeRequest = new Builder().nameToken( NameTokens.getMembers() ).build();
     _placeManager.revealPlace(placeRequest);
-  }
-
-  interface View
-    extends com.gwtplatform.mvp.client.View, HasUiHandlers<NavbarUiHandlers>
-  {
   }
 
   @Inject
