@@ -1,0 +1,13 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+             xmlns:m="urn:import:gwt.material.design.client.ui"
+  >
+  <m:MaterialNavBar align="right" color="white" type="fixed">
+    <m:nav>
+      <m:MaterialLink text="Events" textColor="blue" ui:field="_eventsLink"/>
+    </m:nav>
+    <m:nav>
+      <m:MaterialLink text="Members" textColor="blue" ui:field="_membersLink"/>
+    </m:nav>
+  </m:MaterialNavBar>
+</ui:UiBinder>

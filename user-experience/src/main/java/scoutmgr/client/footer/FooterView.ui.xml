@@ -1,0 +1,14 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+             xmlns:m="urn:import:gwt.material.design.client.ui"
+  >
+  <m:MaterialFooter color="white" copyright="Testing 1,2,3">
+    <m:content>
+      <m:MaterialRow>
+        <m:MaterialColumn grid="s12 m6 16">
+          Footer Column 1
+        </m:MaterialColumn>
+      </m:MaterialRow>
+    </m:content>
+  </m:MaterialFooter>
+</ui:UiBinder>

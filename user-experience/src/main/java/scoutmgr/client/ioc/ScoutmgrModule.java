@@ -12,6 +12,11 @@ import org.realityforge.replicant.client.json.gwt.ReplicantGinModule;
 import org.realityforge.replicant.client.transport.CacheService;
 import org.realityforge.replicant.client.transport.gwt.LocalCacheService;
 import scoutmgr.client.application.ApplicationModule;
+import scoutmgr.client.events.EventsModule;
+import scoutmgr.client.appbar.AppbarModule;
+import scoutmgr.client.footer.FooterModule;
+import scoutmgr.client.members.MembersModule;
+import scoutmgr.client.navbar.NavbarModule;
 import scoutmgr.client.place.NameTokens;
 import scoutmgr.client.util.GlobalAsyncCallback;
 
@@ -34,10 +39,15 @@ public class ScoutmgrModule
 
     install( new DefaultModule() );
     install( new ApplicationModule() );
+    install( new EventsModule() );
+    install( new MembersModule() );
+    install( new AppbarModule() );
+    install( new FooterModule() );
+    install( new NavbarModule() );
 
-    bindConstant().annotatedWith( DefaultPlace.class ).to( NameTokens.home );
-    bindConstant().annotatedWith( ErrorPlace.class ).to( NameTokens.home );
-    bindConstant().annotatedWith( UnauthorizedPlace.class ).to( NameTokens.home );
+    bindConstant().annotatedWith( DefaultPlace.class ).to( NameTokens.EVENTS );
+    bindConstant().annotatedWith( ErrorPlace.class ).to( NameTokens.HOME );
+    bindConstant().annotatedWith( UnauthorizedPlace.class ).to( NameTokens.HOME );
   }
 
   protected <T> void bindNamedService( final String name,

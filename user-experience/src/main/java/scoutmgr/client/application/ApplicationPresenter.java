@@ -31,7 +31,7 @@ public class ApplicationPresenter
   private EntityChangeListener _entityChangeListener;
 
   @ProxyStandard
-  @NameToken( NameTokens.home )
+  @NameToken( NameTokens.HOME )
   interface Proxy
     extends ProxyPlace<ApplicationPresenter>
   {
