@@ -16,7 +16,7 @@ STOP_DOMAIN=false
 
 R=`(asadmin list-domains | grep -q 'scoutmgr ') && echo yes`
 if [ "$R" != 'yes' ]; then
-  asadmin create-domain --user admin --nopassword scoutmgr
+  asadmin create-domain --user admin --nopassword --template ${GLASSFISH_HOME}/glassfish/common/templates/gf/payara-domain.jar scoutmgr
   CREATED_DOMAIN=true
 fi
 
