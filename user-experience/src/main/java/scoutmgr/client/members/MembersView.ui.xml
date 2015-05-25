@@ -1,17 +1,13 @@
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
              xmlns:g="urn:import:com.google.gwt.user.client.ui">
-  <g:HTMLPanel>
-    <header>
-      <!--g:SimplePanel ui:field="_appbarPanel"/-->
-      <g:SimplePanel ui:field="_navbarPanel"/>
-    </header>
-    <main>
-    <g:SimplePanel ui:field="_membersPanel">
+  <ui:with field='_bundle' type='scoutmgr.client.resource.ScoutmgrResourceBundle'/>
+  <g:HTMLPanel addStyleNames="{_bundle.bootstrap.container}">
+    <g:SimplePanel ui:field="_navbarPanel"/>
+    <g:SimplePanel ui:field="_membersPanel" addStyleNames="{_bundle.bootstrap.container}">
       <g:HTML>And here we are looking at the member list!
       </g:HTML>
     </g:SimplePanel>
-    </main>
     <g:SimplePanel ui:field="_footerPanel"/>
   </g:HTMLPanel>
 </ui:UiBinder>

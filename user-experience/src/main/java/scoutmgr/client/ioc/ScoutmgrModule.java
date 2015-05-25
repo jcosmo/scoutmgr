@@ -18,6 +18,7 @@ import scoutmgr.client.footer.FooterModule;
 import scoutmgr.client.members.MembersModule;
 import scoutmgr.client.navbar.NavbarModule;
 import scoutmgr.client.place.NameTokens;
+import scoutmgr.client.resource.ScoutmgrResourceBundle;
 import scoutmgr.client.util.GlobalAsyncCallback;
 
 public class ScoutmgrModule
@@ -48,6 +49,8 @@ public class ScoutmgrModule
     bindConstant().annotatedWith( DefaultPlace.class ).to( NameTokens.EVENTS );
     bindConstant().annotatedWith( ErrorPlace.class ).to( NameTokens.HOME );
     bindConstant().annotatedWith( UnauthorizedPlace.class ).to( NameTokens.HOME );
+
+    bind(ResourceLoader.class).asEagerSingleton();
   }
 
   protected <T> void bindNamedService( final String name,

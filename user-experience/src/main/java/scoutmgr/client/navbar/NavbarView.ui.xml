@@ -1,8 +1,20 @@
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
              xmlns:g="urn:import:com.google.gwt.user.client.ui">
+  <ui:with field='_bundle' type='scoutmgr.client.resource.ScoutmgrResourceBundle'/>
   <g:HTMLPanel>
-    <g:Anchor text="Events" ui:field="_eventsLink"/>
-    <g:Anchor text="Members" ui:field="_membersLink"/>
+    <nav class="{_bundle.bootstrap.navbar} {_bundle.bootstrap.navbarFixedTop}">
+      <div class="{_bundle.bootstrap.container}">
+        <div class="{_bundle.bootstrap.navbarHeader}">
+          <a class="{_bundle.bootstrap.navbarBrand}" href="#">Scout Manager</a>
+        </div>
+        <div>
+          <ul class="{_bundle.bootstrap.nav} {_bundle.bootstrap.navbarNav}">
+            <li ui:field="_eventsLinkContainer"><g:Anchor text="Events" ui:field="_eventsLink"/></li>
+            <li ui:field="_membersLinkContainer"><g:Anchor text="Members" ui:field="_membersLink"/></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
   </g:HTMLPanel>
 </ui:UiBinder>

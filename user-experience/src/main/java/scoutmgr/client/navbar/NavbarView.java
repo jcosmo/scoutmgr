@@ -1,5 +1,6 @@
 package scoutmgr.client.navbar;
 
+import com.google.gwt.dom.client.LIElement;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -8,8 +9,8 @@ import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.gwtplatform.mvp.client.ViewWithUiHandlers;
-import gwt.material.design.client.ui.MaterialLink;
 import scoutmgr.client.place.NameTokens;
+import scoutmgr.client.resource.ScoutmgrResourceBundle;
 
 public class NavbarView
   extends ViewWithUiHandlers<NavbarUiHandlers>
@@ -21,15 +22,25 @@ public class NavbarView
   @UiField
   Anchor _membersLink;
 
+  @UiField
+  LIElement _eventsLinkContainer;
+
+  @UiField
+  LIElement _membersLinkContainer;
+
+  ScoutmgrResourceBundle _resources;
+
   interface Binder
     extends UiBinder<Widget, NavbarView>
   {
   }
 
   @Inject
-  NavbarView( final Binder uiBinder )
+  NavbarView( final Binder uiBinder,
+              final ScoutmgrResourceBundle resources )
   {
     initWidget( uiBinder.createAndBindUi( this ) );
+    _resources = resources;
   }
 
   @Override
@@ -38,9 +49,13 @@ public class NavbarView
     switch (nameToken )
     {
       case NameTokens.EVENTS:
+        _eventsLinkContainer.addClassName( _resources.bootstrap().active() );
+        _membersLinkContainer.removeClassName( _resources.bootstrap().active() );
         break;
 
       case NameTokens.MEMBERS:
+        _eventsLinkContainer.removeClassName( _resources.bootstrap().active() );
+        _membersLinkContainer.addClassName( _resources.bootstrap().active() );
         break;
     }
   }
