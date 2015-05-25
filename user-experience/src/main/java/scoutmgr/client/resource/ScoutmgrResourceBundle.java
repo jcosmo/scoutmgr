@@ -36,6 +36,12 @@ public interface ScoutmgrResourceBundle
     @ClassName( "glyphicon-sort-by-alphabet" )
     String glyphiconSortByAlphabet();
 
+    @ClassName( "glyphicon-triangle-right" )
+    String glyphiconTriangleRight();
+
+    @ClassName( "glyphicon-object-align-right" )
+    String glyphiconObjectAlignRight();
+
     @ClassName( "glyphicon-export" )
     String glyphiconExport();
 
@@ -53,13 +59,16 @@ public interface ScoutmgrResourceBundle
 
     String h1();
 
-    String right();
+    @ClassName( "glyphicon-zoom-in" )
+    String glyphiconZoomIn();
+
+    @ClassName( "has-feedback" )
+    String hasFeedback();
 
     @ClassName( "alert-warning" )
     String alertWarning();
 
-    @ClassName( "glyphicon-zoom-in" )
-    String glyphiconZoomIn();
+    String right();
 
     @ClassName( "pull-right" )
     String pullRight();
@@ -67,6 +76,9 @@ public interface ScoutmgrResourceBundle
     String h3();
 
     String h2();
+
+    @ClassName( "glyphicon-equalizer" )
+    String glyphiconEqualizer();
 
     @ClassName( "glyphicon-flag" )
     String glyphiconFlag();
@@ -82,6 +94,12 @@ public interface ScoutmgrResourceBundle
 
     @ClassName( "glyphicon-indent-left" )
     String glyphiconIndentLeft();
+
+    @ClassName( "container-fluid" )
+    String containerFluid();
+
+    @ClassName( "glyphicon-yen" )
+    String glyphiconYen();
 
     @ClassName( "list-inline" )
     String listInline();
@@ -112,19 +130,40 @@ public interface ScoutmgrResourceBundle
     @ClassName( "well-lg" )
     String wellLg();
 
+    @ClassName( "dropdown-menu-left" )
+    String dropdownMenuLeft();
+
+    @ClassName( "glyphicon-education" )
+    String glyphiconEducation();
+
     @ClassName( "glyphicon-folder-open" )
     String glyphiconFolderOpen();
 
     @ClassName( "glyphicon-qrcode" )
     String glyphiconQrcode();
 
-    @ClassName( "pill-pane" )
-    String pillPane();
+    @ClassName( "bg-info" )
+    String bgInfo();
 
     @ClassName( "navbar-btn" )
     String navbarBtn();
 
+    @ClassName( "carousel-control" )
+    String carouselControl();
+
     String left();
+
+    @ClassName( "blockquote-reverse" )
+    String blockquoteReverse();
+
+    @ClassName( "glyphicon-level-up" )
+    String glyphiconLevelUp();
+
+    @ClassName( "nav-divider" )
+    String navDivider();
+
+    @ClassName( "btn-toolbar" )
+    String btnToolbar();
 
     @ClassName( "glyphicon-exclamation-sign" )
     String glyphiconExclamationSign();
@@ -132,20 +171,26 @@ public interface ScoutmgrResourceBundle
     @ClassName( "glyphicon-step-forward" )
     String glyphiconStepForward();
 
-    @ClassName( "btn-toolbar" )
-    String btnToolbar();
-
-    @ClassName( "nav-divider" )
-    String navDivider();
+    @ClassName( "glyphicon-xbt" )
+    String glyphiconXbt();
 
     @ClassName( "glyphicon-shopping-cart" )
     String glyphiconShoppingCart();
 
+    @ClassName( "glyphicon-menu-right" )
+    String glyphiconMenuRight();
+
     @ClassName( "col-lg-9" )
     String colLg9();
 
+    @ClassName( "col-sm-offset-12" )
+    String colSmOffset12();
+
     @ClassName( "col-sm-offset-11" )
     String colSmOffset11();
+
+    @ClassName( "glyphicon-object-align-top" )
+    String glyphiconObjectAlignTop();
 
     @ClassName( "col-lg-push-10" )
     String colLgPush10();
@@ -167,6 +212,9 @@ public interface ScoutmgrResourceBundle
     @ClassName( "input-group-sm" )
     String inputGroupSm();
 
+    @ClassName( "col-lg-push-12" )
+    String colLgPush12();
+
     @ClassName( "col-lg-8" )
     String colLg8();
 
@@ -184,16 +232,23 @@ public interface ScoutmgrResourceBundle
     @ClassName( "glyphicon-glass" )
     String glyphiconGlass();
 
+    @ClassName( "glyphicon-object-align-horizontal" )
+    String glyphiconObjectAlignHorizontal();
+
     @ClassName( "glyphicon-gift" )
     String glyphiconGift();
 
     @ClassName( "glyphicon-ok-circle" )
     String glyphiconOkCircle();
 
-    String tabbable();
+    @ClassName( "col-sm-push-12" )
+    String colSmPush12();
 
     @ClassName( "glyphicon-forward" )
     String glyphiconForward();
+
+    @ClassName( "glyphicon-ice-lolly" )
+    String glyphiconIceLolly();
 
     @ClassName( "col-sm-push-11" )
     String colSmPush11();
@@ -204,11 +259,17 @@ public interface ScoutmgrResourceBundle
     @ClassName( "col-lg-1" )
     String colLg1();
 
+    @ClassName( "glyphicon-duplicate" )
+    String glyphiconDuplicate();
+
     @ClassName( "col-lg-2" )
     String colLg2();
 
     @ClassName( "col-lg-3" )
     String colLg3();
+
+    @ClassName( "visible-print-inline" )
+    String visiblePrintInline();
 
     @ClassName( "col-lg-4" )
     String colLg4();
@@ -218,8 +279,14 @@ public interface ScoutmgrResourceBundle
     @ClassName( "btn-block" )
     String btnBlock();
 
+    @ClassName( "glyphicon-piggy-bank" )
+    String glyphiconPiggyBank();
+
     @ClassName( "media-list" )
     String mediaList();
+
+    @ClassName( "glyphicon-subscript" )
+    String glyphiconSubscript();
 
     @ClassName( "glyphicon-ok-sign" )
     String glyphiconOkSign();
@@ -227,27 +294,36 @@ public interface ScoutmgrResourceBundle
     @ClassName( "glyphicon-heart" )
     String glyphiconHeart();
 
-    @ClassName( "panel-warning" )
-    String panelWarning();
+    @ClassName( "media-right" )
+    String mediaRight();
 
     String lead();
 
     @ClassName( "control-label" )
     String controlLabel();
 
+    @ClassName( "panel-warning" )
+    String panelWarning();
+
     @ClassName( "pagination-sm" )
     String paginationSm();
 
-    String close();
+    @ClassName( "visible-xs-inline" )
+    String visibleXsInline();
 
     @ClassName( "glyphicon-tag" )
     String glyphiconTag();
+
+    String close();
 
     @ClassName( "glyphicon-cloud" )
     String glyphiconCloud();
 
     @ClassName( "glyphicon-saved" )
     String glyphiconSaved();
+
+    @ClassName( "glyphicon-triangle-top" )
+    String glyphiconTriangleTop();
 
     @ClassName( "glyphicon-remove-sign" )
     String glyphiconRemoveSign();
@@ -257,6 +333,9 @@ public interface ScoutmgrResourceBundle
 
     @ClassName( "glyphicon-plane" )
     String glyphiconPlane();
+
+    @ClassName( "glyphicon-object-align-left" )
+    String glyphiconObjectAlignLeft();
 
     @ClassName( "col-lg-offset-9" )
     String colLgOffset9();
@@ -284,6 +363,12 @@ public interface ScoutmgrResourceBundle
     @ClassName( "pre-scrollable" )
     String preScrollable();
 
+    @ClassName( "glyphicon-triangle-bottom" )
+    String glyphiconTriangleBottom();
+
+    @ClassName( "glyphicon-baby-formula" )
+    String glyphiconBabyFormula();
+
     @ClassName( "top-right" )
     String topRight();
 
@@ -295,11 +380,26 @@ public interface ScoutmgrResourceBundle
     @ClassName( "glyphicon-ban-circle" )
     String glyphiconBanCircle();
 
+    @ClassName( "modal-scrollbar-measure" )
+    String modalScrollbarMeasure();
+
+    @ClassName( "glyphicon-menu-up" )
+    String glyphiconMenuUp();
+
     @ClassName( "progress-bar" )
     String progressBar();
 
+    @ClassName( "visible-lg-inline" )
+    String visibleLgInline();
+
     @ClassName( "glyphicon-chevron-right" )
     String glyphiconChevronRight();
+
+    @ClassName( "glyphicon-hourglass" )
+    String glyphiconHourglass();
+
+    @ClassName( "glyphicon-pawn" )
+    String glyphiconPawn();
 
     @ClassName( "glyphicon-sort-by-attributes-alt" )
     String glyphiconSortByAttributesAlt();
@@ -313,6 +413,9 @@ public interface ScoutmgrResourceBundle
     @ClassName( "glyphicon-tree-conifer" )
     String glyphiconTreeConifer();
 
+    @ClassName( "visible-sm-inline-block" )
+    String visibleSmInlineBlock();
+
     @ClassName( "col-lg-offset-0" )
     String colLgOffset0();
 
@@ -324,6 +427,9 @@ public interface ScoutmgrResourceBundle
 
     @ClassName( "col-lg-offset-4" )
     String colLgOffset4();
+
+    @ClassName( "glyphicon-ice-lolly-tasted" )
+    String glyphiconIceLollyTasted();
 
     @ClassName( "col-lg-offset-3" )
     String colLgOffset3();
@@ -337,17 +443,20 @@ public interface ScoutmgrResourceBundle
     @ClassName( "tab-content" )
     String tabContent();
 
-    @ClassName( "glyphicon-share" )
-    String glyphiconShare();
-
     @ClassName( "glyphicon-tower" )
     String glyphiconTower();
+
+    @ClassName( "glyphicon-share" )
+    String glyphiconShare();
 
     @ClassName( "glyphicon-floppy-open" )
     String glyphiconFloppyOpen();
 
     @ClassName( "list-group-item" )
     String listGroupItem();
+
+    @ClassName( "embed-responsive-16by9" )
+    String embedResponsiveBy9();
 
     @ClassName( "list-group" )
     String listGroup();
@@ -372,6 +481,9 @@ public interface ScoutmgrResourceBundle
 
     @ClassName( "text-success" )
     String textSuccess();
+
+    @ClassName( "col-lg-offset-12" )
+    String colLgOffset12();
 
     @ClassName( "nav-justified" )
     String navJustified();
@@ -400,11 +512,11 @@ public interface ScoutmgrResourceBundle
 
     String disabled();
 
-    @ClassName( "table-condensed" )
-    String tableCondensed();
-
     @ClassName( "glyphicon-lock" )
     String glyphiconLock();
+
+    @ClassName( "table-condensed" )
+    String tableCondensed();
 
     @ClassName( "glyphicon-facetime-video" )
     String glyphiconFacetimeVideo();
@@ -415,14 +527,17 @@ public interface ScoutmgrResourceBundle
     @ClassName( "panel-title" )
     String panelTitle();
 
+    @ClassName( "glyphicon-sunglasses" )
+    String glyphiconSunglasses();
+
+    @ClassName( "progress-bar-danger" )
+    String progressBarDanger();
+
     @ClassName( "glyphicon-eye-close" )
     String glyphiconEyeClose();
 
     @ClassName( "glyphicon-music" )
     String glyphiconMusic();
-
-    @ClassName( "progress-bar-danger" )
-    String progressBarDanger();
 
     @ClassName( "btn-group-vertical" )
     String btnGroupVertical();
@@ -453,8 +568,17 @@ public interface ScoutmgrResourceBundle
     @ClassName( "bottom-left" )
     String bottomLeft();
 
+    @ClassName( "col-xs-pull-12" )
+    String colXsPull12();
+
     @ClassName( "glyphicon-random" )
     String glyphiconRandom();
+
+    @ClassName( "glyphicon-ruble" )
+    String glyphiconRuble();
+
+    @ClassName( "media-left" )
+    String mediaLeft();
 
     @ClassName( "modal-title" )
     String modalTitle();
@@ -465,11 +589,20 @@ public interface ScoutmgrResourceBundle
     @ClassName( "glyphicon-tree-deciduous" )
     String glyphiconTreeDeciduous();
 
+    @ClassName( "col-xs-pull-10" )
+    String colXsPull10();
+
     @ClassName( "col-md-pull-11" )
     String colMdPull11();
 
     @ClassName( "glyphicon-record" )
     String glyphiconRecord();
+
+    @ClassName( "col-xs-pull-11" )
+    String colXsPull11();
+
+    @ClassName( "col-md-pull-12" )
+    String colMdPull12();
 
     @ClassName( "navbar-right" )
     String navbarRight();
@@ -477,11 +610,11 @@ public interface ScoutmgrResourceBundle
     @ClassName( "text-left" )
     String textLeft();
 
-    @ClassName( "glyphicon-search" )
-    String glyphiconSearch();
-
     @ClassName( "text-hide" )
     String textHide();
+
+    @ClassName( "glyphicon-search" )
+    String glyphiconSearch();
 
     String row();
 
@@ -491,11 +624,14 @@ public interface ScoutmgrResourceBundle
     @ClassName( "glyphicon-warning-sign" )
     String glyphiconWarningSign();
 
+    @ClassName( "well-sm" )
+    String wellSm();
+
     @ClassName( "glyphicon-earphone" )
     String glyphiconEarphone();
 
-    @ClassName( "well-sm" )
-    String wellSm();
+    @ClassName( "text-capitalize" )
+    String textCapitalize();
 
     @ClassName( "glyphicon-transfer" )
     String glyphiconTransfer();
@@ -503,38 +639,46 @@ public interface ScoutmgrResourceBundle
     @ClassName( "glyphicon-ok" )
     String glyphiconOk();
 
-    @ClassName( "glyphicon-magnet" )
-    String glyphiconMagnet();
-
     @ClassName( "col-sm-offset-2" )
     String colSmOffset2();
+
+    @ClassName( "glyphicon-magnet" )
+    String glyphiconMagnet();
 
     @ClassName( "col-sm-offset-3" )
     String colSmOffset3();
 
+    String small();
+
+    @ClassName( "col-sm-offset-0" )
+    String colSmOffset0();
+
     @ClassName( "col-sm-offset-1" )
     String colSmOffset1();
-
-    @ClassName( "glyphicon-stop" )
-    String glyphiconStop();
 
     @ClassName( "col-sm-offset-9" )
     String colSmOffset9();
 
+    @ClassName( "glyphicon-stop" )
+    String glyphiconStop();
+
     @ClassName( "col-sm-offset-8" )
     String colSmOffset8();
 
-    @ClassName( "glyphicon-adjust" )
-    String glyphiconAdjust();
+    @ClassName( "glyphicon-eur" )
+    String glyphiconEur();
 
     @ClassName( "col-sm-offset-5" )
     String colSmOffset5();
 
-    @ClassName( "col-sm-offset-4" )
-    String colSmOffset4();
+    @ClassName( "glyphicon-adjust" )
+    String glyphiconAdjust();
 
     @ClassName( "modal-backdrop" )
     String modalBackdrop();
+
+    @ClassName( "col-sm-offset-4" )
+    String colSmOffset4();
 
     @ClassName( "col-sm-offset-7" )
     String colSmOffset7();
@@ -542,16 +686,19 @@ public interface ScoutmgrResourceBundle
     @ClassName( "col-sm-offset-6" )
     String colSmOffset6();
 
+    @ClassName( "col-lg-pull-12" )
+    String colLgPull12();
+
     @ClassName( "glyphicon-remove" )
     String glyphiconRemove();
 
     @ClassName( "text-warning" )
     String textWarning();
 
+    String dropdown();
+
     @ClassName( "glyphicon-retweet" )
     String glyphiconRetweet();
-
-    String dropdown();
 
     @ClassName( "col-lg-pull-11" )
     String colLgPull11();
@@ -568,6 +715,8 @@ public interface ScoutmgrResourceBundle
     @ClassName( "glyphicon-volume-up" )
     String glyphiconVolumeUp();
 
+    String carousel();
+
     @ClassName( "glyphicon-header" )
     String glyphiconHeader();
 
@@ -578,6 +727,9 @@ public interface ScoutmgrResourceBundle
 
     @ClassName( "glyphicon-floppy-saved" )
     String glyphiconFloppySaved();
+
+    @ClassName( "glyphicon-menu-hamburger" )
+    String glyphiconMenuHamburger();
 
     @ClassName( "btn-group-lg" )
     String btnGroupLg();
@@ -600,11 +752,22 @@ public interface ScoutmgrResourceBundle
     @ClassName( "glyphicon-circle-arrow-left" )
     String glyphiconCircleArrowLeft();
 
+    @ClassName( "progress-bar-striped" )
+    String progressBarStriped();
+
+    @ClassName( "glyphicon-apple" )
+    String glyphiconApple();
+
+    String item();
+
     @ClassName( "glyphicon-briefcase" )
     String glyphiconBriefcase();
 
     @ClassName( "glyphicon-circle-arrow-down" )
     String glyphiconCircleArrowDown();
+
+    @ClassName( "visible-sm-inline" )
+    String visibleSmInline();
 
     String warning();
 
@@ -614,10 +777,13 @@ public interface ScoutmgrResourceBundle
     @ClassName( "col-md-pull-2" )
     String colMdPull2();
 
+    String glyphicon();
+
     @ClassName( "col-md-pull-0" )
     String colMdPull0();
 
-    String glyphicon();
+    @ClassName( "visible-md-block" )
+    String visibleMdBlock();
 
     @ClassName( "col-md-pull-5" )
     String colMdPull5();
@@ -630,6 +796,9 @@ public interface ScoutmgrResourceBundle
 
     @ClassName( "col-md-pull-4" )
     String colMdPull4();
+
+    @ClassName( "glyphicon-object-align-bottom" )
+    String glyphiconObjectAlignBottom();
 
     @ClassName( "col-md-pull-9" )
     String colMdPull9();
@@ -655,8 +824,14 @@ public interface ScoutmgrResourceBundle
     @ClassName( "tooltip-arrow" )
     String tooltipArrow();
 
+    @ClassName( "col-md-offset-12" )
+    String colMdOffset12();
+
     @ClassName( "modal-footer" )
     String modalFooter();
+
+    @ClassName( "glyphicon-text-size" )
+    String glyphiconTextSize();
 
     @ClassName( "glyphicon-align-right" )
     String glyphiconAlignRight();
@@ -667,22 +842,25 @@ public interface ScoutmgrResourceBundle
     @ClassName( "panel-heading" )
     String panelHeading();
 
+    @ClassName( "glyphicon-rub" )
+    String glyphiconRub();
+
     @ClassName( "text-danger" )
     String textDanger();
-
-    String initialism();
 
     @ClassName( "glyphicon-text-height" )
     String glyphiconTextHeight();
 
+    String initialism();
+
     @ClassName( "glyphicon-fast-forward" )
     String glyphiconFastForward();
 
-    @ClassName( "glyphicon-hand-up" )
-    String glyphiconHandUp();
-
     @ClassName( "glyphicon-unchecked" )
     String glyphiconUnchecked();
+
+    @ClassName( "glyphicon-hand-up" )
+    String glyphiconHandUp();
 
     @ClassName( "glyphicon-cloud-upload" )
     String glyphiconCloudUpload();
@@ -693,11 +871,11 @@ public interface ScoutmgrResourceBundle
     @ClassName( "panel-default" )
     String panelDefault();
 
-    @ClassName( "label-success" )
-    String labelSuccess();
-
     @ClassName( "dropdown-menu" )
     String dropdownMenu();
+
+    @ClassName( "label-success" )
+    String labelSuccess();
 
     @ClassName( "glyphicon-th" )
     String glyphiconTh();
@@ -710,6 +888,9 @@ public interface ScoutmgrResourceBundle
 
     @ClassName( "visible-print" )
     String visiblePrint();
+
+    @ClassName( "visible-print-block" )
+    String visiblePrintBlock();
 
     @ClassName( "btn-lg" )
     String btnLg();
@@ -734,7 +915,11 @@ public interface ScoutmgrResourceBundle
     @ClassName( "has-error" )
     String hasError();
 
-    String ir();
+    @ClassName( "visible-sm-block" )
+    String visibleSmBlock();
+
+    @ClassName( "visible-md-inline-block" )
+    String visibleMdInlineBlock();
 
     @ClassName( "alert-info" )
     String alertInfo();
@@ -745,16 +930,19 @@ public interface ScoutmgrResourceBundle
     @ClassName( "glyphicon-home" )
     String glyphiconHome();
 
+    @ClassName( "alert-dismissible" )
+    String alertDismissible();
+
     @ClassName( "panel-footer" )
     String panelFooter();
 
     @ClassName( "col-md-10" )
     String colMd10();
 
+    String in();
+
     @ClassName( "col-md-11" )
     String colMd11();
-
-    String in();
 
     @ClassName( "glyphicon-log-out" )
     String glyphiconLogOut();
@@ -780,25 +968,34 @@ public interface ScoutmgrResourceBundle
     @ClassName( "col-xs-12" )
     String colXs12();
 
+    @ClassName( "visible-lg-block" )
+    String visibleLgBlock();
+
     @ClassName( "glyphicon-floppy-remove" )
     String glyphiconFloppyRemove();
 
     String hidden();
 
+    @ClassName( "embed-responsive-4by3" )
+    String embedResponsiveBy3();
+
     @ClassName( "glyphicon-font" )
     String glyphiconFont();
 
-    @ClassName( "glyphicon-registration-mark" )
-    String glyphiconRegistrationMark();
+    @ClassName( "dropdown-menu-right" )
+    String dropdownMenuRight();
 
     @ClassName( "form-group" )
     String formGroup();
 
-    @ClassName( "sr-only" )
-    String srOnly();
+    @ClassName( "glyphicon-registration-mark" )
+    String glyphiconRegistrationMark();
 
     @ClassName( "glyphicon-trash" )
     String glyphiconTrash();
+
+    @ClassName( "sr-only" )
+    String srOnly();
 
     String arrow();
 
@@ -808,6 +1005,9 @@ public interface ScoutmgrResourceBundle
     @ClassName( "glyphicon-sound-6-1" )
     String glyphiconSound61();
 
+    @ClassName( "glyphicon-erase" )
+    String glyphiconErase();
+
     @ClassName( "bottom-right" )
     String bottomRight();
 
@@ -815,6 +1015,9 @@ public interface ScoutmgrResourceBundle
     String visibleSm();
 
     String danger();
+
+    @ClassName( "modal-lg" )
+    String modalLg();
 
     String hide();
 
@@ -836,8 +1039,17 @@ public interface ScoutmgrResourceBundle
     @ClassName( "glyphicon-th-list" )
     String glyphiconThList();
 
+    @ClassName( "col-xs-push-10" )
+    String colXsPush10();
+
+    @ClassName( "col-xs-push-12" )
+    String colXsPush12();
+
     @ClassName( "glyphicon-circle-arrow-right" )
     String glyphiconCircleArrowRight();
+
+    @ClassName( "col-xs-push-11" )
+    String colXsPush11();
 
     @ClassName( "glyphicon-upload" )
     String glyphiconUpload();
@@ -848,23 +1060,43 @@ public interface ScoutmgrResourceBundle
     @ClassName( "panel-collapse" )
     String panelCollapse();
 
-    @ClassName( "glyphicon-pencil" )
-    String glyphiconPencil();
-
     @ClassName( "glyphicon-bullhorn" )
     String glyphiconBullhorn();
+
+    @ClassName( "glyphicon-pencil" )
+    String glyphiconPencil();
 
     @ClassName( "glyphicon-calendar" )
     String glyphiconCalendar();
 
+    @ClassName( "media-bottom" )
+    String mediaBottom();
+
     @ClassName( "glyphicon-bell" )
     String glyphiconBell();
+
+    @ClassName( "embed-responsive-item" )
+    String embedResponsiveItem();
+
+    @ClassName( "glyphicon-queen" )
+    String glyphiconQueen();
+
+    String prev();
+
+    @ClassName( "glyphicon-scissors" )
+    String glyphiconScissors();
 
     @ClassName( "glyphicon-hand-left" )
     String glyphiconHandLeft();
 
     @ClassName( "glyphicon-paperclip" )
     String glyphiconPaperclip();
+
+    @ClassName( "center-block" )
+    String centerBlock();
+
+    @ClassName( "carousel-inner" )
+    String carouselInner();
 
     @ClassName( "glyphicon-arrow-right" )
     String glyphiconArrowRight();
@@ -880,11 +1112,14 @@ public interface ScoutmgrResourceBundle
     @ClassName( "glyphicon-resize-vertical" )
     String glyphiconResizeVertical();
 
-    @ClassName( "glyphicon-new-window" )
-    String glyphiconNewWindow();
+    @ClassName( "glyphicon-bishop" )
+    String glyphiconBishop();
 
     @ClassName( "glyphicon-list" )
     String glyphiconList();
+
+    @ClassName( "glyphicon-new-window" )
+    String glyphiconNewWindow();
 
     @ClassName( "glyphicon-resize-full" )
     String glyphiconResizeFull();
@@ -892,7 +1127,13 @@ public interface ScoutmgrResourceBundle
     @ClassName( "glyphicon-sort-by-alphabet-alt" )
     String glyphiconSortByAlphabetAlt();
 
+    @ClassName( "list-group-item-info" )
+    String listGroupItemInfo();
+
     String next();
+
+    @ClassName( "bg-danger" )
+    String bgDanger();
 
     @ClassName( "form-control-static" )
     String formControlStatic();
@@ -906,21 +1147,45 @@ public interface ScoutmgrResourceBundle
     @ClassName( "form-control" )
     String formControl();
 
+    @ClassName( "glyphicon-jpy" )
+    String glyphiconJpy();
+
     @ClassName( "glyphicon-phone-alt" )
     String glyphiconPhoneAlt();
+
+    @ClassName( "glyphicon-scale" )
+    String glyphiconScale();
 
     @ClassName( "col-sm-pull-11" )
     String colSmPull11();
 
-    @ClassName( "hidden-sm" )
-    String hiddenSm();
+    @ClassName( "col-sm-pull-12" )
+    String colSmPull12();
+
+    @ClassName( "glyphicon-btc" )
+    String glyphiconBtc();
+
+    @ClassName( "glyphicon-triangle-left" )
+    String glyphiconTriangleLeft();
 
     @ClassName( "col-sm-pull-10" )
     String colSmPull10();
 
+    @ClassName( "hidden-sm" )
+    String hiddenSm();
+
     String fade();
 
+    @ClassName( "glyphicon-cd" )
+    String glyphiconCd();
+
     String previous();
+
+    @ClassName( "carousel-caption" )
+    String carouselCaption();
+
+    @ClassName( "glyphicon-menu-left" )
+    String glyphiconMenuLeft();
 
     @ClassName( "btn-group" )
     String btnGroup();
@@ -931,20 +1196,23 @@ public interface ScoutmgrResourceBundle
     @ClassName( "col-lg-push-1" )
     String colLgPush1();
 
-    @ClassName( "dropdown-header" )
-    String dropdownHeader();
-
     @ClassName( "col-lg-push-0" )
     String colLgPush0();
 
-    @ClassName( "glyphicon-inbox" )
-    String glyphiconInbox();
+    @ClassName( "dropdown-header" )
+    String dropdownHeader();
 
     @ClassName( "glyphicon-backward" )
     String glyphiconBackward();
 
+    @ClassName( "glyphicon-inbox" )
+    String glyphiconInbox();
+
     @ClassName( "navbar-text" )
     String navbarText();
+
+    @ClassName( "glyphicon-object-align-vertical" )
+    String glyphiconObjectAlignVertical();
 
     @ClassName( "col-lg-push-5" )
     String colLgPush5();
@@ -955,11 +1223,11 @@ public interface ScoutmgrResourceBundle
     @ClassName( "col-lg-push-4" )
     String colLgPush4();
 
-    @ClassName( "input-group-btn" )
-    String inputGroupBtn();
-
     @ClassName( "col-lg-push-3" )
     String colLgPush3();
+
+    @ClassName( "input-group-btn" )
+    String inputGroupBtn();
 
     @ClassName( "col-lg-push-2" )
     String colLgPush2();
@@ -967,38 +1235,42 @@ public interface ScoutmgrResourceBundle
     @ClassName( "col-lg-push-9" )
     String colLgPush9();
 
-    @ClassName( "navbar-toggle" )
-    String navbarToggle();
-
     @ClassName( "col-lg-push-8" )
     String colLgPush8();
+
+    @ClassName( "navbar-toggle" )
+    String navbarToggle();
 
     @ClassName( "col-lg-push-7" )
     String colLgPush7();
 
-    @ClassName( "alert-link" )
-    String alertLink();
-
     @ClassName( "col-lg-push-6" )
     String colLgPush6();
 
-    String navbar();
+    @ClassName( "alert-link" )
+    String alertLink();
 
-    String progress();
+    String navbar();
 
     @ClassName( "col-sm-push-3" )
     String colSmPush3();
 
+    String progress();
+
     @ClassName( "col-sm-push-4" )
     String colSmPush4();
-
-    String col();
 
     @ClassName( "col-sm-push-1" )
     String colSmPush1();
 
     @ClassName( "col-sm-push-2" )
     String colSmPush2();
+
+    @ClassName( "col-sm-push-0" )
+    String colSmPush0();
+
+    @ClassName( "embed-responsive" )
+    String embedResponsive();
 
     @ClassName( "glyphicon-sound-5-1" )
     String glyphiconSound51();
@@ -1022,10 +1294,16 @@ public interface ScoutmgrResourceBundle
     String colMd9();
 
     @ClassName( "col-sm-push-6" )
-    String colSmPush();
+    String colSmPush6();
+
+    @ClassName( "visible-print-inline-block" )
+    String visiblePrintInlineBlock();
 
     @ClassName( "col-md-7" )
     String colMd7();
+
+    @ClassName( "glyphicon-lamp" )
+    String glyphiconLamp();
 
     @ClassName( "col-md-8" )
     String colMd8();
@@ -1038,6 +1316,9 @@ public interface ScoutmgrResourceBundle
 
     @ClassName( "col-md-3" )
     String colMd3();
+
+    @ClassName( "icon-next" )
+    String iconNext();
 
     @ClassName( "col-md-4" )
     String colMd4();
@@ -1060,10 +1341,10 @@ public interface ScoutmgrResourceBundle
     @ClassName( "table-striped" )
     String tableStriped();
 
-    String collapse();
-
     @ClassName( "glyphicon-resize-small" )
     String glyphiconResizeSmall();
+
+    String collapse();
 
     @ClassName( "list-group-item-heading" )
     String listGroupItemHeading();
@@ -1074,11 +1355,11 @@ public interface ScoutmgrResourceBundle
     @ClassName( "glyphicon-heart-empty" )
     String glyphiconHeartEmpty();
 
-    @ClassName( "nav-tabs" )
-    String navTabs();
-
     @ClassName( "glyphicon-open" )
     String glyphiconOpen();
+
+    @ClassName( "nav-tabs" )
+    String navTabs();
 
     @ClassName( "glyphicon-remove-circle" )
     String glyphiconRemoveCircle();
@@ -1092,10 +1373,11 @@ public interface ScoutmgrResourceBundle
     @ClassName( "glyphicon-collapse-down" )
     String glyphiconCollapseDown();
 
-    String prettyprint();
-
     @ClassName( "glyphicon-signal" )
     String glyphiconSignal();
+
+    @ClassName( "glyphicon-console" )
+    String glyphiconConsole();
 
     @ClassName( "media-heading" )
     String mediaHeading();
@@ -1106,11 +1388,17 @@ public interface ScoutmgrResourceBundle
     @ClassName( "col-md-push-0" )
     String colMdPush0();
 
+    @ClassName( "text-justify" )
+    String textJustify();
+
     @ClassName( "col-md-push-1" )
     String colMdPush1();
 
     @ClassName( "col-md-push-4" )
     String colMdPush4();
+
+    @ClassName( "glyphicon-text-color" )
+    String glyphiconTextColor();
 
     @ClassName( "col-md-push-5" )
     String colMdPush5();
@@ -1121,11 +1409,11 @@ public interface ScoutmgrResourceBundle
     @ClassName( "col-md-push-2" )
     String colMdPush2();
 
-    @ClassName( "col-md-push-3" )
-    String colMdPush3();
-
     @ClassName( "glyphicon-fire" )
     String glyphiconFire();
+
+    @ClassName( "col-md-push-3" )
+    String colMdPush3();
 
     @ClassName( "col-md-push-8" )
     String colMdPush8();
@@ -1148,19 +1436,37 @@ public interface ScoutmgrResourceBundle
     @ClassName( "glyphicon-hd-video" )
     String glyphiconHdVideo();
 
+    @ClassName( "glyphicon-alert" )
+    String glyphiconAlert();
+
     @ClassName( "glyphicon-eject" )
     String glyphiconEject();
 
     @ClassName( "glyphicon-text-width" )
     String glyphiconTextWidth();
 
+    @ClassName( "bg-success" )
+    String bgSuccess();
+
     @ClassName( "glyphicon-folder-close" )
     String glyphiconFolderClose();
 
     String well();
 
+    @ClassName( "form-group-sm" )
+    String formGroupSm();
+
+    @ClassName( "glyphicon-tent" )
+    String glyphiconTent();
+
+    @ClassName( "glyphicon-paste" )
+    String glyphiconPaste();
+
     @ClassName( "glyphicon-usd" )
     String glyphiconUsd();
+
+    @ClassName( "list-group-item-danger" )
+    String listGroupItemDanger();
 
     @ClassName( "label-warning" )
     String labelWarning();
@@ -1173,11 +1479,11 @@ public interface ScoutmgrResourceBundle
     @ClassName( "glyphicon-floppy-save" )
     String glyphiconFloppySave();
 
-    @ClassName( "glyphicon-chevron-up" )
-    String glyphiconChevronUp();
-
     @ClassName( "glyphicon-sound-stereo" )
     String glyphiconSoundStereo();
+
+    @ClassName( "glyphicon-chevron-up" )
+    String glyphiconChevronUp();
 
     String top();
 
@@ -1205,22 +1511,37 @@ public interface ScoutmgrResourceBundle
     @ClassName( "glyphicon-thumbs-up" )
     String glyphiconThumbsUp();
 
+    @ClassName( "list-group-item-success" )
+    String listGroupItemSuccess();
+
     @ClassName( "glyphicon-circle-arrow-up" )
     String glyphiconCircleArrowUp();
 
     @ClassName( "glyphicon-info-sign" )
     String glyphiconInfoSign();
 
+    @ClassName( "glyphicon-bitcoin" )
+    String glyphiconBitcoin();
+
+    @ClassName( "text-lowercase" )
+    String textLowercase();
+
+    @ClassName( "glyphicon-text-background" )
+    String glyphiconTextBackground();
+
+    @ClassName( "text-uppercase" )
+    String textUppercase();
+
     @ClassName( "hidden-xs" )
     String hiddenXs();
 
     String success();
 
-    @ClassName( "glyphicon-chevron-down" )
-    String glyphiconChevronDown();
-
     @ClassName( "img-circle" )
     String imgCircle();
+
+    @ClassName( "glyphicon-chevron-down" )
+    String glyphiconChevronDown();
 
     @ClassName( "glyphicon-credit-card" )
     String glyphiconCreditCard();
@@ -1242,19 +1563,45 @@ public interface ScoutmgrResourceBundle
     @ClassName( "glyphicon-align-center" )
     String glyphiconAlignCenter();
 
+    @ClassName( "col-xs-offset-1" )
+    String colXsOffset1();
+
     @ClassName( "has-warning" )
     String hasWarning();
+
+    @ClassName( "col-xs-offset-2" )
+    String colXsOffset2();
+
+    @ClassName( "col-xs-offset-3" )
+    String colXsOffset3();
+
+    @ClassName( "col-xs-offset-4" )
+    String colXsOffset4();
 
     @ClassName( "glyphicon-zoom-out" )
     String glyphiconZoomOut();
 
+    @ClassName( "col-xs-offset-0" )
+    String colXsOffset0();
+
+    String info();
+
     String open();
+
+    @ClassName( "col-xs-push-7" )
+    String colXsPush7();
 
     @ClassName( "glyphicon-step-backward" )
     String glyphiconStepBackward();
 
+    @ClassName( "col-xs-push-6" )
+    String colXsPush6();
+
     @ClassName( "modal-content" )
     String modalContent();
+
+    @ClassName( "col-xs-push-9" )
+    String colXsPush9();
 
     @ClassName( "glyphicon-subtitles" )
     String glyphiconSubtitles();
@@ -1262,8 +1609,31 @@ public interface ScoutmgrResourceBundle
     @ClassName( "navbar-left" )
     String navbarLeft();
 
+    @ClassName( "visible-xs-block" )
+    String visibleXsBlock();
+
+    @ClassName( "col-xs-push-8" )
+    String colXsPush8();
+
     @ClassName( "glyphicon-star" )
     String glyphiconStar();
+
+    @ClassName( "col-xs-push-3" )
+    String colXsPush3();
+
+    @ClassName( "col-xs-push-2" )
+    String colXsPush2();
+
+    @ClassName( "form-control-feedback" )
+    String formControlFeedback();
+
+    @ClassName( "col-xs-push-5" )
+    String colXsPush5();
+
+    String focus();
+
+    @ClassName( "col-xs-push-4" )
+    String colXsPush4();
 
     @ClassName( "glyphicon-barcode" )
     String glyphiconBarcode();
@@ -1274,11 +1644,20 @@ public interface ScoutmgrResourceBundle
     @ClassName( "panel-success" )
     String panelSuccess();
 
+    @ClassName( "col-xs-push-1" )
+    String colXsPush1();
+
+    @ClassName( "col-xs-push-0" )
+    String colXsPush0();
+
     @ClassName( "visible-lg" )
     String visibleLg();
 
     @ClassName( "glyphicon-pushpin" )
     String glyphiconPushpin();
+
+    @ClassName( "glyphicon-knight" )
+    String glyphiconKnight();
 
     @ClassName( "input-sm" )
     String inputSm();
@@ -1301,6 +1680,9 @@ public interface ScoutmgrResourceBundle
     @ClassName( "img-responsive" )
     String imgResponsive();
 
+    @ClassName( "glyphicon-bed" )
+    String glyphiconBed();
+
     @ClassName( "glyphicon-star-empty" )
     String glyphiconStarEmpty();
 
@@ -1311,6 +1693,15 @@ public interface ScoutmgrResourceBundle
     String panelPrimary();
 
     String container();
+
+    @ClassName( "glyphicon-modal-window" )
+    String glyphiconModalWindow();
+
+    @ClassName( "list-group-item-warning" )
+    String listGroupItemWarning();
+
+    @ClassName( "glyphicon-option-vertical" )
+    String glyphiconOptionVertical();
 
     @ClassName( "glyphicon-screenshot" )
     String glyphiconScreenshot();
@@ -1330,17 +1721,20 @@ public interface ScoutmgrResourceBundle
     @ClassName( "glyphicon-compressed" )
     String glyphiconCompressed();
 
+    @ClassName( "text-nowrap" )
+    String textNowrap();
+
     @ClassName( "glyphicon-edit" )
     String glyphiconEdit();
 
     @ClassName( "col-xs-3" )
     String colXs3();
 
-    @ClassName( "glyphicon-download-alt" )
-    String glyphiconDownloadAlt();
-
     @ClassName( "col-xs-4" )
     String colXs4();
+
+    @ClassName( "glyphicon-download-alt" )
+    String glyphiconDownloadAlt();
 
     @ClassName( "col-xs-1" )
     String colXs1();
@@ -1357,10 +1751,10 @@ public interface ScoutmgrResourceBundle
     @ClassName( "col-xs-6" )
     String colXs6();
 
-    String btn();
-
     @ClassName( "col-xs-5" )
     String colXs5();
+
+    String btn();
 
     @ClassName( "glyphicon-film" )
     String glyphiconFilm();
@@ -1371,22 +1765,25 @@ public interface ScoutmgrResourceBundle
     @ClassName( "col-md-push-10" )
     String colMdPush10();
 
-    @ClassName( "col-md-push-11" )
-    String colMdPush();
+    @ClassName( "col-md-push-12" )
+    String colMdPush12();
 
-    @ClassName( "glyphicon-file" )
-    String glyphiconFile();
+    @ClassName( "col-md-push-11" )
+    String colMdPush11();
 
     @ClassName( "img-thumbnail" )
     String imgThumbnail();
 
-    String modal();
+    @ClassName( "glyphicon-file" )
+    String glyphiconFile();
 
-    @ClassName( "btn-xs" )
-    String btnXs();
+    String modal();
 
     @ClassName( "col-md-offset-0" )
     String colMdOffset0();
+
+    @ClassName( "btn-xs" )
+    String btnXs();
 
     @ClassName( "col-md-offset-4" )
     String colMdOffset4();
@@ -1399,6 +1796,9 @@ public interface ScoutmgrResourceBundle
 
     @ClassName( "col-md-offset-2" )
     String colMdOffset2();
+
+    @ClassName( "col-sm-pull-0" )
+    String colSmPull0();
 
     @ClassName( "col-md-offset-1" )
     String colMdOffset1();
@@ -1432,13 +1832,31 @@ public interface ScoutmgrResourceBundle
     @ClassName( "hidden-lg" )
     String hiddenLg();
 
-    String caret();
+    @ClassName( "carousel-indicators" )
+    String carouselIndicators();
+
+    @ClassName( "col-xs-offset-8" )
+    String colXsOffset8();
 
     @ClassName( "list-unstyled" )
     String listUnstyled();
 
+    String caret();
+
+    @ClassName( "col-xs-offset-7" )
+    String colXsOffset7();
+
+    @ClassName( "bg-warning" )
+    String bgWarning();
+
     @ClassName( "glyphicon-stats" )
     String glyphiconStats();
+
+    @ClassName( "col-xs-offset-6" )
+    String colXsOffset6();
+
+    @ClassName( "col-xs-offset-5" )
+    String colXsOffset5();
 
     @ClassName( "glyphicon-copyright-mark" )
     String glyphiconCopyrightMark();
@@ -1449,13 +1867,22 @@ public interface ScoutmgrResourceBundle
     @ClassName( "glyphicon-cloud-download" )
     String glyphiconCloudDownload();
 
+    @ClassName( "visible-lg-inline-block" )
+    String visibleLgInlineBlock();
+
+    @ClassName( "col-xs-offset-9" )
+    String colXsOffset9();
+
+    @ClassName( "glyphicon-oil" )
+    String glyphiconOil();
+
     @ClassName( "col-sm-pull-6" )
     String colSmPull6();
 
-    String radio();
-
     @ClassName( "col-sm-pull-7" )
     String colSmPull7();
+
+    String radio();
 
     @ClassName( "col-sm-pull-8" )
     String colSmPull8();
@@ -1488,8 +1915,14 @@ public interface ScoutmgrResourceBundle
     @ClassName( "col-sm-pull-5" )
     String colSmPull5();
 
+    @ClassName( "glyphicon-blackboard" )
+    String glyphiconBlackboard();
+
     @ClassName( "modal-header" )
     String modalHeader();
+
+    @ClassName( "visible-md-inline" )
+    String visibleMdInline();
 
     @ClassName( "glyphicon-indent-right" )
     String glyphiconIndentRight();
@@ -1503,28 +1936,40 @@ public interface ScoutmgrResourceBundle
     @ClassName( "glyphicon-certificate" )
     String glyphiconCertificate();
 
-    @ClassName( "col-lg-pull-4" )
-    String colLgPull4();
-
     @ClassName( "glyphicon-import" )
     String glyphiconImport();
+
+    @ClassName( "col-lg-pull-4" )
+    String colLgPull4();
 
     @ClassName( "col-lg-pull-5" )
     String colLgPull5();
 
     String show();
 
-    @ClassName( "btn-success" )
-    String btnSuccess();
+    @ClassName( "sr-only-focusable" )
+    String srOnlyFocusable();
 
     @ClassName( "col-lg-pull-6" )
     String colLgPull6();
 
+    @ClassName( "btn-success" )
+    String btnSuccess();
+
+    @ClassName( "col-xs-pull-2" )
+    String colXsPull2();
+
     @ClassName( "col-lg-pull-7" )
     String colLgPull7();
 
+    @ClassName( "col-xs-pull-1" )
+    String colXsPull1();
+
     @ClassName( "col-lg-pull-8" )
     String colLgPull8();
+
+    @ClassName( "col-xs-pull-0" )
+    String colXsPull0();
 
     @ClassName( "col-lg-pull-9" )
     String colLgPull9();
@@ -1534,20 +1979,38 @@ public interface ScoutmgrResourceBundle
 
     String breadcrumb();
 
+    @ClassName( "col-xs-pull-5" )
+    String colXsPull5();
+
+    @ClassName( "col-xs-pull-6" )
+    String colXsPull6();
+
+    @ClassName( "col-xs-pull-3" )
+    String colXsPull3();
+
     @ClassName( "glyphicon-sort" )
     String glyphiconSort();
+
+    @ClassName( "col-xs-pull-4" )
+    String colXsPull4();
 
     @ClassName( "glyphicon-align-left" )
     String glyphiconAlignLeft();
 
-    @ClassName( "glyphicon-gbp" )
-    String glyphiconGbp();
+    @ClassName( "col-xs-pull-9" )
+    String colXsPull9();
 
     @ClassName( "glyphicon-resize-horizontal" )
     String glyphiconResizeHorizontal();
 
+    @ClassName( "glyphicon-gbp" )
+    String glyphiconGbp();
+
     @ClassName( "col-lg-pull-0" )
     String colLgPull0();
+
+    @ClassName( "col-xs-pull-7" )
+    String colXsPull7();
 
     @ClassName( "col-lg-pull-2" )
     String colLgPull2();
@@ -1555,11 +2018,19 @@ public interface ScoutmgrResourceBundle
     @ClassName( "panel-danger" )
     String panelDanger();
 
+    @ClassName( "col-xs-pull-8" )
+    String colXsPull8();
+
     @ClassName( "col-lg-pull-1" )
     String colLgPull1();
 
     @ClassName( "glyphicon-off" )
     String glyphiconOff();
+
+    String checkBoxMenuItem();
+
+    @ClassName( "glyphicon-king" )
+    String glyphiconKing();
 
     @ClassName( "glyphicon-time" )
     String glyphiconTime();
@@ -1579,11 +2050,16 @@ public interface ScoutmgrResourceBundle
     @ClassName( "col-sm-6" )
     String colSm6();
 
+    String mark();
+
     @ClassName( "col-sm-7" )
     String colSm7();
 
     @ClassName( "navbar-header" )
     String navbarHeader();
+
+    @ClassName( "bg-primary" )
+    String bgPrimary();
 
     @ClassName( "col-sm-10" )
     String colSm10();
@@ -1608,30 +2084,45 @@ public interface ScoutmgrResourceBundle
     @ClassName( "col-sm-3" )
     String colSm3();
 
+    @ClassName( "col-sm-2" )
+    String colSm2();
+
+    @ClassName( "glyphicon-menu-down" )
+    String glyphiconMenuDown();
+
+    @ClassName( "glyphicon-sound-7-1" )
+    String glyphiconSound();
+
     @ClassName( "glyphicon-tags" )
     String glyphiconTags();
 
     @ClassName( "glyphicon-plus" )
     String glyphiconPlus();
 
-    @ClassName( "col-sm-2" )
-    String colSm2();
+    @ClassName( "icon-prev" )
+    String iconPrev();
 
-    @ClassName( "glyphicon-sound-7-1" )
-    String glyphiconSound();
+    @ClassName( "glyphicon-copy" )
+    String glyphiconCopy();
+
+    @ClassName( "glyphicon-save-file" )
+    String glyphiconSaveFile();
 
     @ClassName( "navbar-collapse" )
     String navbarCollapse();
 
     String media();
 
+    @ClassName( "glyphicon-superscript" )
+    String glyphiconSuperscript();
+
+    @ClassName( "glyphicon-grain" )
+    String glyphiconGrain();
+
     @ClassName( "glyphicon-check" )
     String glyphiconCheck();
 
     String collapsing();
-
-    @ClassName( "pill-content" )
-    String pillContent();
 
     @ClassName( "glyphicon-book" )
     String glyphiconBook();
@@ -1642,23 +2133,41 @@ public interface ScoutmgrResourceBundle
     @ClassName( "form-horizontal" )
     String formHorizontal();
 
+    @ClassName( "media-middle" )
+    String mediaMiddle();
+
     @ClassName( "glyphicon-send" )
     String glyphiconSend();
 
-    @ClassName( "glyphicon-flash" )
-    String glyphiconFlash();
+    @ClassName( "glyphicon-option-horizontal" )
+    String glyphiconOptionHorizontal();
 
     @ClassName( "glyphicon-camera" )
     String glyphiconCamera();
 
+    @ClassName( "glyphicon-flash" )
+    String glyphiconFlash();
+
     @ClassName( "glyphicon-hdd" )
     String glyphiconHdd();
+
+    @ClassName( "col-xs-offset-12" )
+    String colXsOffset12();
+
+    @ClassName( "col-xs-offset-11" )
+    String colXsOffset11();
+
+    @ClassName( "col-xs-offset-10" )
+    String colXsOffset10();
 
     @ClassName( "panel-group" )
     String panelGroup();
 
     @ClassName( "page-header" )
     String pageHeader();
+
+    @ClassName( "glyphicon-open-file" )
+    String glyphiconOpenFile();
 
     @ClassName( "glyphicon-picture" )
     String glyphiconPicture();
@@ -1668,6 +2177,9 @@ public interface ScoutmgrResourceBundle
 
     @ClassName( "progress-striped" )
     String progressStriped();
+
+    @ClassName( "modal-sm" )
+    String modalSm();
 
     @ClassName( "panel-info" )
     String panelInfo();
@@ -1687,10 +2199,14 @@ public interface ScoutmgrResourceBundle
     @ClassName( "icon-bar" )
     String iconBar();
 
+    @ClassName( "visible-xs-inline-block" )
+    String visibleXsInlineBlock();
+
     @ClassName( "glyphicon-headphones" )
     String glyphiconHeadphones();
 
-    String checkBoxMenuItem();
+    @ClassName( "form-group-lg" )
+    String formGroupLg();
   }
 
   interface ScoutmgrCss

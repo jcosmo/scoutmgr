@@ -3,8 +3,8 @@
              xmlns:g="urn:import:com.google.gwt.user.client.ui">
   <ui:with field='_bundle' type='scoutmgr.client.resource.ScoutmgrResourceBundle'/>
   <g:HTMLPanel>
-    <nav class="{_bundle.bootstrap.navbar} {_bundle.bootstrap.navbarFixedTop}">
-      <div class="{_bundle.bootstrap.container}">
+    <nav class="{_bundle.bootstrap.navbar} {_bundle.bootstrap.navbarDefault}">
+      <div class="{_bundle.bootstrap.containerFluid}">
         <div class="{_bundle.bootstrap.navbarHeader}">
           <a class="{_bundle.bootstrap.navbarBrand}" href="#">Scout Manager</a>
         </div>

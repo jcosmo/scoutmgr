@@ -2,9 +2,9 @@
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
              xmlns:g="urn:import:com.google.gwt.user.client.ui">
   <ui:with field='_bundle' type='scoutmgr.client.resource.ScoutmgrResourceBundle'/>
-  <g:HTMLPanel addStyleNames="{_bundle.bootstrap.container}">
+  <g:HTMLPanel addStyleNames="{_bundle.bootstrap.containerFluid}">
     <g:SimplePanel ui:field="_navbarPanel"/>
-    <g:SimplePanel ui:field="_membersPanel" addStyleNames="{_bundle.bootstrap.container}">
+    <g:SimplePanel ui:field="_membersPanel" addStyleNames="{_bundle.bootstrap.containerFluid}">
       <g:HTML>And here we are looking at the member list!
       </g:HTML>
     </g:SimplePanel>
