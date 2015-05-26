@@ -2,7 +2,9 @@
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
              xmlns:g="urn:import:com.google.gwt.user.client.ui">
   <ui:with field='_bundle' type='scoutmgr.client.resource.ScoutmgrResourceBundle'/>
-  <g:HTMLPanel addStyleNames="{_bundle.bootstrap.containerFluid}">
-    A footer!
+  <g:HTMLPanel addStyleNames="{_bundle.scoutmgr.footer}">
+    <div class="{_bundle.bootstrap.container} {_bundle.scoutmgr.footerContainer}">
+      <p class="{_bundle.scoutmgr.footerText}">Here be footers.</p>
+    </div>
   </g:HTMLPanel>
 </ui:UiBinder>

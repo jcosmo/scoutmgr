@@ -2210,6 +2210,11 @@ public interface ScoutmgrResourceBundle
   interface ScoutmgrCss
     extends CssResource
   {
+    String footer();
+
+    String footerText();
+
+    String footerContainer();
   }
 
   @Source( "scoutmgr.main.gss" )
