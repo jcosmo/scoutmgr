@@ -14,4 +14,9 @@ public class ListItemViewModel
     setModelObject( person );
     setDisplayString( person.getFirstName() + " " + person.getLastName() );
   }
+
+  public Object getID()
+  {
+    return ( (Person) asModelObject() ).getID();
+  }
 }

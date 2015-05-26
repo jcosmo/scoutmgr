@@ -5,8 +5,12 @@
   <g:HTMLPanel>
     <g:SimplePanel ui:field="_navbarPanel"/>
     <g:SimplePanel ui:field="_membersPanel" addStyleNames="{_bundle.bootstrap.containerFluid}">
-      <g:HTML>And here we are looking at the member list!
-      </g:HTML>
+      <g:HTMLPanel>
+        <g:HTML>Group Members
+        </g:HTML>
+        <g:ValueListBox ui:field="_list">
+        </g:ValueListBox>
+      </g:HTMLPanel>
     </g:SimplePanel>
     <g:SimplePanel ui:field="_footerPanel"/>
   </g:HTMLPanel>
