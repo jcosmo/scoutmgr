@@ -7,7 +7,7 @@
 .navbar-default a:hover .glyphicon {
   color: #d83b22
 }
-
+/*
 .col-md-1 {
   width: 14.2857142%;
   height: 100%;
@@ -59,30 +59,8 @@
   margin-bottom: 0;
 }
 
-/* this conditional block can be removed if we stop using media queries */
-@if is("ie8"){
-  .navbar-header {
-    background-color: #253341;
-  }
+*/
 
-  .navbar-header {
-    float: left;
-  }
-
-  .navbar-collapse {
-    display: block;
-    width: auto;
-  }
-
-  .navbar-nav > li {
-    float: left;
-  }
-
-  .visible-lg, .visible-md {
-    display: block !important;
-  }
-
-  .hidden-sm, .hidden-xs {
-    display: block !important;
-  }
+body {
+  padding-top: 60px;
 }

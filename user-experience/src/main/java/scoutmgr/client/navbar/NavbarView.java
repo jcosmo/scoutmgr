@@ -1,11 +1,14 @@
 package scoutmgr.client.navbar;
 
+import com.google.gwt.dom.client.ButtonElement;
+import com.google.gwt.dom.client.DivElement;
 import com.google.gwt.dom.client.LIElement;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Anchor;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.gwtplatform.mvp.client.ViewWithUiHandlers;
@@ -28,7 +31,14 @@ public class NavbarView
   @UiField
   LIElement _membersLinkContainer;
 
-  ScoutmgrResourceBundle _resources;
+  @UiField
+  HTML _navToggle;
+
+  @UiField
+  DivElement _navCollapse;
+
+  @UiField
+  ScoutmgrResourceBundle _bundle;
 
   interface Binder
     extends UiBinder<Widget, NavbarView>
@@ -36,11 +46,9 @@ public class NavbarView
   }
 
   @Inject
-  NavbarView( final Binder uiBinder,
-              final ScoutmgrResourceBundle resources )
+  NavbarView( final Binder uiBinder)
   {
     initWidget( uiBinder.createAndBindUi( this ) );
-    _resources = resources;
   }
 
   @Override
@@ -49,13 +57,13 @@ public class NavbarView
     switch (nameToken )
     {
       case NameTokens.EVENTS:
-        _eventsLinkContainer.addClassName( _resources.bootstrap().active() );
-        _membersLinkContainer.removeClassName( _resources.bootstrap().active() );
+        _eventsLinkContainer.addClassName( _bundle.bootstrap().active() );
+        _membersLinkContainer.removeClassName( _bundle.bootstrap().active() );
         break;
 
       case NameTokens.MEMBERS:
-        _eventsLinkContainer.removeClassName( _resources.bootstrap().active() );
-        _membersLinkContainer.addClassName( _resources.bootstrap().active() );
+        _eventsLinkContainer.removeClassName( _bundle.bootstrap().active() );
+        _membersLinkContainer.addClassName( _bundle.bootstrap().active() );
         break;
     }
   }
@@ -72,5 +80,18 @@ public class NavbarView
   void onEventsClicked( final ClickEvent event )
   {
     getUiHandlers().gotoEvents();
+  }
+
+  @UiHandler( "_navToggle" )
+  public void handleClick( final ClickEvent event )
+  {
+    if ( _navCollapse.hasClassName( _bundle.bootstrap().collapse() ) )
+    {
+      _navCollapse.removeClassName( _bundle.bootstrap().collapse() );
+    }
+    else
+    {
+      _navCollapse.addClassName( _bundle.bootstrap().collapse() );
+    }
   }
 }

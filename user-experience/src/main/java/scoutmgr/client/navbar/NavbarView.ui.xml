@@ -3,12 +3,17 @@
              xmlns:g="urn:import:com.google.gwt.user.client.ui">
   <ui:with field='_bundle' type='scoutmgr.client.resource.ScoutmgrResourceBundle'/>
   <g:HTMLPanel>
-    <nav class="{_bundle.bootstrap.navbar} {_bundle.bootstrap.navbarDefault}">
+    <nav class="{_bundle.bootstrap.navbar} {_bundle.bootstrap.navbarDefault} {_bundle.bootstrap.navbarFixedTop}">
       <div class="{_bundle.bootstrap.containerFluid}">
         <div class="{_bundle.bootstrap.navbarHeader}">
+          <g:HTML addStyleNames="{_bundle.bootstrap.navbarToggle}" ui:field="_navToggle">
+            <span class="{_bundle.bootstrap.iconBar}"></span>
+            <span class="{_bundle.bootstrap.iconBar}"></span>
+            <span class="{_bundle.bootstrap.iconBar}"></span>
+          </g:HTML>
           <a class="{_bundle.bootstrap.navbarBrand}" href="#">Scout Manager</a>
         </div>
-        <div>
+        <div ui:field="_navCollapse" class="{_bundle.bootstrap.navbarCollapse} {_bundle.bootstrap.collapse}">
           <ul class="{_bundle.bootstrap.nav} {_bundle.bootstrap.navbarNav}">
             <li ui:field="_eventsLinkContainer"><g:Anchor text="Events" ui:field="_eventsLink"/></li>
             <li ui:field="_membersLinkContainer"><g:Anchor text="Members" ui:field="_membersLink"/></li>

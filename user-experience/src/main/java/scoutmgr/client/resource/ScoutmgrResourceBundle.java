@@ -2027,8 +2027,6 @@ public interface ScoutmgrResourceBundle
     @ClassName( "glyphicon-off" )
     String glyphiconOff();
 
-    String checkBoxMenuItem();
-
     @ClassName( "glyphicon-king" )
     String glyphiconKing();
 
