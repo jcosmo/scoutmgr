@@ -51,14 +51,14 @@ public class EventsPresenter
   protected void onBind()
   {
     super.onBind();
-    setInSlot( SLOT_NAVBAR_CONTENT, _navbarPresenter );
-    setInSlot( SLOT_FOOTER_CONTENT, _footerPresenter );
   }
 
   @Override
   protected void onReveal()
   {
     super.onReveal();
+    setInSlot( SLOT_NAVBAR_CONTENT, _navbarPresenter );
+    setInSlot( SLOT_FOOTER_CONTENT, _footerPresenter );
   }
 
   @Override

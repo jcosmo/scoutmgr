@@ -8,6 +8,6 @@ public class NavbarModule
   @Override
   protected void configure()
   {
-    bindPresenterWidget( NavbarPresenter.class, NavbarPresenter.View.class, NavbarView.class );
+    bindSingletonPresenterWidget( NavbarPresenter.class, NavbarPresenter.View.class, NavbarView.class );
   }
 }

@@ -112,8 +112,6 @@ public class MembersPresenter
   protected void onBind()
   {
     super.onBind();
-    setInSlot( SLOT_NAVBAR_CONTENT, _navbarPresenter );
-    setInSlot( SLOT_FOOTER_CONTENT, _footerPresenter );
   }
 
   @Override
@@ -124,6 +122,8 @@ public class MembersPresenter
     _changeBroker.addChangeListener( Person.class, _entityChangeListener );
     _dataloader.getSession().subscribeToPeople( null );
 
+    setInSlot( SLOT_NAVBAR_CONTENT, _navbarPresenter );
+    setInSlot( SLOT_FOOTER_CONTENT, _footerPresenter );
   }
 
   @Override

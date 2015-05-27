@@ -8,6 +8,6 @@ public class FooterModule
   @Override
   protected void configure()
   {
-    bindPresenterWidget( FooterPresenter.class, FooterPresenter.View.class, FooterView.class );
+    bindSingletonPresenterWidget( FooterPresenter.class, FooterPresenter.View.class, FooterView.class );
   }
 }
