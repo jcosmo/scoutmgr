@@ -1,15 +1,16 @@
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
-             xmlns:g="urn:import:com.google.gwt.user.client.ui">
+             xmlns:g="urn:import:com.google.gwt.user.client.ui"
+             xmlns:c='urn:import:com.google.gwt.user.cellview.client'>
   <ui:with field='_bundle' type='scoutmgr.client.resource.ScoutmgrResourceBundle'/>
+  <ui:with field='_memberList' type='java.lang.String'/>
   <g:HTMLPanel>
     <g:SimplePanel ui:field="_navbarPanel"/>
     <g:SimplePanel ui:field="_membersPanel" addStyleNames="{_bundle.bootstrap.containerFluid}">
       <g:HTMLPanel>
         <g:HTML>Group Members
         </g:HTML>
-        <g:ValueListBox ui:field="_list">
-        </g:ValueListBox>
+        <c:CellList ui:field="_list"/>
       </g:HTMLPanel>
     </g:SimplePanel>
     <g:SimplePanel ui:field="_footerPanel"/>
