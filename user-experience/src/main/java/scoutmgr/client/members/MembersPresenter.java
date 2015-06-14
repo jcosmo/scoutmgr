@@ -10,6 +10,7 @@ import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import javax.annotation.Nonnull;
 import org.realityforge.replicant.client.EntityChangeBroker;
 import org.realityforge.replicant.client.EntityChangeEvent;
 import org.realityforge.replicant.client.EntityChangeListener;
@@ -19,6 +20,7 @@ import scoutmgr.client.navbar.NavbarPresenter;
 import scoutmgr.client.net.ScoutmgrDataLoaderService;
 import scoutmgr.client.place.NameTokens;
 import scoutmgr.client.view.model.ListItemViewModel;
+import scoutmgr.client.view.model.ScoutViewModel;
 
 public class MembersPresenter
   extends Presenter<scoutmgr.client.members.MembersPresenter.View, scoutmgr.client.members.MembersPresenter.Proxy>
@@ -45,7 +47,7 @@ public class MembersPresenter
   interface View
     extends com.gwtplatform.mvp.client.View, HasUiHandlers<MembersUiHandlers>
   {
-    void setMembers( Collection<ListItemViewModel> values );
+    void setMembers( Collection<ScoutViewModel> values );
 
     void resetAndFocus();
   }
@@ -54,7 +56,7 @@ public class MembersPresenter
 
   private EntityChangeBroker _changeBroker;
 
-  private final HashMap<Person, ListItemViewModel> _model2ViewModel = new HashMap<>();
+  private final HashMap<Person, ScoutViewModel> _model2ViewModel = new HashMap<>();
   private final HashMap<ListItemViewModel, ArrayList<Person>> _viewModel2Model = new HashMap<>();
   private EntityChangeListener _entityChangeListener;
 
@@ -72,34 +74,34 @@ public class MembersPresenter
     _entityChangeListener = new EntityChangeListener()
     {
       @Override
-      public void entityAdded( final EntityChangeEvent event )
+      public void entityAdded( @Nonnull final EntityChangeEvent event )
       {
         final Person person = (Person) event.getObject();
-        final ListItemViewModel viewModel = new ListItemViewModel( person );
+        final ScoutViewModel viewModel = new ScoutViewModel( person );
         _model2ViewModel.put( person, viewModel );
         getView().setMembers( _model2ViewModel.values() );
       }
 
       @Override
-      public void entityRemoved( final EntityChangeEvent event )
+      public void entityRemoved( @Nonnull final EntityChangeEvent event )
       {
 
       }
 
       @Override
-      public void attributeChanged( final EntityChangeEvent event )
+      public void attributeChanged( @Nonnull final EntityChangeEvent event )
       {
 
       }
 
       @Override
-      public void relatedAdded( final EntityChangeEvent event )
+      public void relatedAdded( @Nonnull final EntityChangeEvent event )
       {
 
       }
 
       @Override
-      public void relatedRemoved( final EntityChangeEvent event )
+      public void relatedRemoved( @Nonnull final EntityChangeEvent event )
       {
 
       }

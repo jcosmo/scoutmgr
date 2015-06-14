@@ -4,13 +4,35 @@
              xmlns:c='urn:import:com.google.gwt.user.cellview.client'>
   <ui:with field='_bundle' type='scoutmgr.client.resource.ScoutmgrResourceBundle'/>
   <ui:with field='_memberList' type='java.lang.String'/>
+  <ui:style field="_style" gss="true">
+    .calendarDiv {
+      position: absolute;
+      top: 70px;
+      left: 0;
+      bottom: 0;
+      right: 0;
+    }
+
+    .calendar {
+      overflow: auto;
+      position: absolute;
+      top: 20px;
+      bottom: 0;
+      left: 0;
+      right: 0;
+    }
+  </ui:style>
+
   <g:HTMLPanel>
     <g:SimplePanel ui:field="_navbarPanel"/>
     <g:SimplePanel ui:field="_membersPanel" addStyleNames="{_bundle.bootstrap.containerFluid}">
-      <g:HTMLPanel>
-        <g:HTML>Group Members
-        </g:HTML>
-        <c:CellList ui:field="_list"/>
+      <g:HTMLPanel addStyleNames="{_style.calendarDiv}">
+        <g:HTML>Group Members</g:HTML>
+        <div class="{_bundle.bootstrap.row}">
+          <div class="{_style.calendar}">
+            <c:DataGrid height="100%" width="100%" ui:field="_memberTable"/>
+          </div>
+        </div>
       </g:HTMLPanel>
     </g:SimplePanel>
     <g:SimplePanel ui:field="_footerPanel"/>

@@ -1,0 +1,166 @@
+@def SELECTION_BORDER_WIDTH 2px;
+
+.dataGridWidget {
+}
+
+.dataGridFirstColumn {
+}
+
+.dataGridLastColumn {
+}
+
+.dataGridFooter {
+  border-top: 2px solid #6f7277;
+  padding: 3px 15px;
+  text-align: left;
+  color: #4b4a4a;
+  text-shadow: #ddf 1px 1px 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.dataGridHeader {
+  border-bottom: 2px solid #6f7277;
+  padding: 3px 15px;
+  text-align: left;
+  color: #4b4a4a;
+  text-shadow: #ddf 1px 1px 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.dataGridCell {
+  padding: 2px 15px;
+  overflow: hidden;
+}
+
+.dataGridFirstColumnFooter {
+}
+
+.dataGridFirstColumnHeader {
+}
+
+.dataGridLastColumnFooter {
+}
+
+.dataGridLastColumnHeader {
+}
+
+.dataGridSortableHeader {
+  cursor: pointer;
+   /* @alternate */ cursor: hand;
+}
+
+.dataGridSortableHeader:hover {
+  color: #6c6b6b;
+}
+
+.dataGridSortedHeaderAscending {
+}
+
+.dataGridSortedHeaderDescending {
+}
+
+.dataGridEvenRow {
+  background: #ffffff;
+}
+
+.dataGridEvenRowCell {
+  border: SELECTION_BORDER_WIDTH solid #ffffff;
+}
+
+.dataGridOddRow {
+  background: #f3f7fb;
+}
+
+.dataGridOddRowCell {
+  border: SELECTION_BORDER_WIDTH solid #f3f7fb;
+}
+
+.dataGridHoveredRow {
+  background: #eee;
+}
+
+.dataGridHoveredRowCell {
+  border: SELECTION_BORDER_WIDTH solid #eee;
+}
+
+.dataGridKeyboardSelectedRow {
+  background: #ffc;
+}
+
+.dataGridKeyboardSelectedRowCell {
+  border: SELECTION_BORDER_WIDTH solid #ffc;
+}
+
+.dataGridSelectedRow {
+  background: #628cd5;
+  color: white;
+  height: auto;
+  overflow: auto;
+}
+
+.dataGridSelectedRowCell {
+  border: SELECTION_BORDER_WIDTH solid #628cd5;
+}
+
+/**
+ * The keyboard selected cell is visible over selection.
+ */
+.dataGridKeyboardSelectedCell {
+  border: SELECTION_BORDER_WIDTH solid #d7dde8;
+}
+
+.dataGridHeader {
+  padding: 3px 15px;
+  overflow: hidden;
+  white-space: nowrap;
+  background-color: #8c94a2;
+  color: #ffffff;
+  text-shadow: none;
+  font-weight: normal;
+  border-bottom: 1px solid #808080;
+  border-right: 1px solid #808080;
+  text-align: center;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.dataGridFirstColumnHeader {
+  border-left: 1px solid #808080;
+}
+
+.dataGridFirstColumn {
+  border-left: 1px solid #e5e5e5;
+}
+
+.left {
+  text-align: left;
+}
+
+.dataGridEvenRowCell,
+.dataGridOddRowCell {
+  border: none;
+  border-bottom: 1px solid #e5e5e5;
+  border-right: 1px solid #e5e5e5;
+}
+
+.dataGridCell {
+  padding: 0;
+  height: 32px;
+  position: relative;
+  vertical-align: middle;
+}
+
+.dataGridCell > div {
+  height: 100%;
+}
+
+.dataGridSortableHeader:hover {
+  color: #87ceeb;
+}
+
+.headerHighlight{
+  color: #ffa500;
+  font-weight: bold;
+}
