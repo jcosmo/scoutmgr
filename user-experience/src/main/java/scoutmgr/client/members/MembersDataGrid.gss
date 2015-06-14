@@ -150,8 +150,9 @@
 }
 
 .dataGridCell {
-  padding: 0;
-  height: 32px;
+  padding-top: 0.4em;
+  padding-left: 0.5em;
+  height: 2em;
   position: relative;
   vertical-align: middle;
 }
