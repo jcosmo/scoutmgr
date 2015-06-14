@@ -2,6 +2,7 @@ package scoutmgr.client.members;
 
 import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.Style;
 import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -121,6 +122,18 @@ public class MembersView
       }
     } );
     _memberTable.addColumn( surnameColumn, SafeHtmlUtils.fromString( "Surname" ) );
+
+    final Column<ScoutViewModel, ScoutViewModel> actionsColumn =
+      new Column<ScoutViewModel, ScoutViewModel>(new ActionsCell())
+      {
+        @Override
+        public ScoutViewModel getValue( final ScoutViewModel object )
+        {
+          return object;
+        }
+      };
+    _memberTable.addColumn( actionsColumn );
+    _memberTable.setColumnWidth( actionsColumn, 30, Style.Unit.PX );
 
     _provider.addDataDisplay( _memberTable );
     initWidget( uiBinder.createAndBindUi( this ) );

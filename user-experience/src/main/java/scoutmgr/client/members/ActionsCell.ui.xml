@@ -1,0 +1,14 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+  <ui:with field='_bundle' type='scoutmgr.client.resource.ScoutmgrResourceBundle'/>
+  <ui:style field="_style" gss="true">
+    .actionDiv {
+      padding-top: 0;
+      text-align: center;
+    }
+  </ui:style>
+
+  <g:HTMLPanel>
+    <span class="{_bundle.bootstrap.glyphicon} {_bundle.bootstrap.glyphiconPencil} {_style.actionDiv}"/>
+  </g:HTMLPanel>
+</ui:UiBinder>
