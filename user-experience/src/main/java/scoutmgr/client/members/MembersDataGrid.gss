@@ -145,6 +145,10 @@
   border-right: 1px solid #e5e5e5;
 }
 
+.dataGridFirstColumn {
+  border-left: 1px solid #e5e5e5;
+}
+
 .dataGridCell {
   padding: 0;
   height: 32px;

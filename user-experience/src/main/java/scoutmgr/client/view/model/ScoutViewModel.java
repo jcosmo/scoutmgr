@@ -14,7 +14,6 @@ public class ScoutViewModel
 
   public String getFirstName()
   {
-    LOG.warning( "Getting firstname" );
     if ( null == asModelObject() )
       return "Noone";
 
@@ -23,7 +22,6 @@ public class ScoutViewModel
 
   public String getLastName()
   {
-    LOG.warning( "Getting lastname" );
     if ( null == asModelObject() )
       return "Noone";
     return ((Person)asModelObject()).getLastName();
