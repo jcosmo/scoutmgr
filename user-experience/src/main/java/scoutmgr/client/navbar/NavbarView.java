@@ -1,22 +1,20 @@
 package scoutmgr.client.navbar;
 
-import com.google.gwt.dom.client.ButtonElement;
 import com.google.gwt.dom.client.DivElement;
 import com.google.gwt.dom.client.LIElement;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
-import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
-import com.gwtplatform.mvp.client.ViewWithUiHandlers;
+import com.gwtplatform.mvp.client.ViewImpl;
 import scoutmgr.client.place.NameTokens;
 import scoutmgr.client.resource.ScoutmgrResourceBundle;
 
 public class NavbarView
-  extends ViewWithUiHandlers<NavbarUiHandlers>
+  extends ViewImpl
   implements NavbarPresenter.View
 {
   @UiField
@@ -62,6 +60,7 @@ public class NavbarView
     }
   }
 
+  @SuppressWarnings( "UnusedParameters" )
   @UiHandler( "_navToggle" )
   public void handleClick( final ClickEvent event )
   {
