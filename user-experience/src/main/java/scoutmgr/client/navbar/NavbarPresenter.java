@@ -30,6 +30,7 @@ public class NavbarPresenter
   @Override
   protected void onBind()
   {
+    super.onBind();
     addRegisteredHandler( NavigationEvent.getType(), this );
     getView().setMenuItemActive( _placeManager.getCurrentPlaceRequest().getNameToken() );
   }
