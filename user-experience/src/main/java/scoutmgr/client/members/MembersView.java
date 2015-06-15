@@ -10,10 +10,8 @@ import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.ColumnSortEvent;
 import com.google.gwt.user.cellview.client.DataGrid;
 import com.google.gwt.user.cellview.client.SimplePager;
-import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.LayoutPanel;
-import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.ListDataProvider;
 import com.google.inject.Inject;
@@ -32,11 +30,7 @@ public class MembersView
   private final ListDataProvider<ScoutViewModel> _provider;
 
   @UiField
-  SimplePanel _navbarPanel;
-  @UiField
   LayoutPanel _membersPanel;
-  @UiField
-  SimplePanel _footerPanel;
 
   @UiField( provided = true )
   SimplePager _pager;
@@ -137,23 +131,6 @@ public class MembersView
 
     _provider.addDataDisplay( _memberTable );
     initWidget( uiBinder.createAndBindUi( this ) );
-  }
-
-  @Override
-  public void setInSlot( final Object slot, final IsWidget content )
-  {
-    if ( slot == scoutmgr.client.members.MembersPresenter.SLOT_NAVBAR_CONTENT )
-    {
-      _navbarPanel.setWidget( content );
-    }
-    else if ( slot == MembersPresenter.SLOT_FOOTER_CONTENT )
-    {
-      _footerPanel.setWidget( content );
-    }
-    else
-    {
-      throw new UnsupportedOperationException( "Can't insert into slot: " + slot );
-    }
   }
 
   @Override

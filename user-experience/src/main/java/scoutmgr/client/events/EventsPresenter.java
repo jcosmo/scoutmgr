@@ -7,24 +7,13 @@ import com.gwtplatform.mvp.client.Presenter;
 import com.gwtplatform.mvp.client.annotations.NameToken;
 import com.gwtplatform.mvp.client.annotations.ProxyStandard;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
-import scoutmgr.client.footer.FooterPresenter;
-import scoutmgr.client.navbar.NavbarPresenter;
+import scoutmgr.client.application.ApplicationPresenter;
 import scoutmgr.client.place.NameTokens;
 
 public class EventsPresenter
   extends Presenter<EventsPresenter.View, EventsPresenter.Proxy>
   implements EventsUiHandlers
 {
-  static final Object SLOT_MAIN_CONTENT = new Object();
-  static final Object SLOT_NAVBAR_CONTENT = new Object();
-  static final Object SLOT_FOOTER_CONTENT = new Object();
-
-  @Inject
-  private NavbarPresenter _navbarPresenter;
-
-  @Inject
-  private FooterPresenter _footerPresenter;
-
   @ProxyStandard
   @NameToken( NameTokens.EVENTS )
   interface Proxy
@@ -42,34 +31,8 @@ public class EventsPresenter
                    final View view,
                    final Proxy proxy )
   {
-    super( eventBus, view, proxy, RevealType.Root );
+    super( eventBus, view, proxy, ApplicationPresenter.SLOT_MAIN_CONTENT );
 
     getView().setUiHandlers( this );
-  }
-
-  @Override
-  protected void onBind()
-  {
-    super.onBind();
-  }
-
-  @Override
-  protected void onReveal()
-  {
-    super.onReveal();
-    setInSlot( SLOT_NAVBAR_CONTENT, _navbarPresenter );
-    setInSlot( SLOT_FOOTER_CONTENT, _footerPresenter );
-  }
-
-  @Override
-  protected void onHide()
-  {
-    super.onReveal();
-  }
-
-  @Override
-  protected void onReset()
-  {
-    super.onReset();
   }
 }

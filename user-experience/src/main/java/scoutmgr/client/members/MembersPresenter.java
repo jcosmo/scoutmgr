@@ -13,9 +13,8 @@ import javax.annotation.Nonnull;
 import org.realityforge.replicant.client.EntityChangeBroker;
 import org.realityforge.replicant.client.EntityChangeEvent;
 import org.realityforge.replicant.client.EntityChangeListener;
+import scoutmgr.client.application.ApplicationPresenter;
 import scoutmgr.client.entity.Person;
-import scoutmgr.client.footer.FooterPresenter;
-import scoutmgr.client.navbar.NavbarPresenter;
 import scoutmgr.client.net.ScoutmgrDataLoaderService;
 import scoutmgr.client.place.NameTokens;
 import scoutmgr.client.view.model.ScoutViewModel;
@@ -24,15 +23,6 @@ public class MembersPresenter
   extends Presenter<scoutmgr.client.members.MembersPresenter.View, scoutmgr.client.members.MembersPresenter.Proxy>
   implements MembersUiHandlers
 {
-  static final Object SLOT_NAVBAR_CONTENT = new Object();
-  static final Object SLOT_FOOTER_CONTENT = new Object();
-
-  @Inject
-  private NavbarPresenter _navbarPresenter;
-
-  @Inject
-  private FooterPresenter _footerPresenter;
-
   @ProxyStandard
   @NameToken( NameTokens.MEMBERS )
   interface Proxy
@@ -60,7 +50,7 @@ public class MembersPresenter
                     final EntityChangeBroker changeBroker,
                     final ScoutmgrDataLoaderService dataLoader )
   {
-    super( eventBus, view, proxy, RevealType.RootLayout );
+    super( eventBus, view, proxy, ApplicationPresenter.SLOT_MAIN_CONTENT );
     _changeBroker = changeBroker;
     _dataloader = dataLoader;
 
@@ -112,9 +102,6 @@ public class MembersPresenter
     _dataloader.getSession().subscribeToPeople( null );
 
     super.onReveal();
-
-    setInSlot( SLOT_NAVBAR_CONTENT, _navbarPresenter );
-    setInSlot( SLOT_FOOTER_CONTENT, _footerPresenter );
   }
 
   @Override

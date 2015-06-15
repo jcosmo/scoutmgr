@@ -10,25 +10,15 @@
     }
   </ui:style>
 
-  <g:DockLayoutPanel unit="PX">
-    <g:north size="50">
-      <g:SimplePanel ui:field="_navbarPanel"/>
-    </g:north>
-    <g:center>
-      <g:LayoutPanel ui:field="_membersPanel" addStyleNames="{_style.memberDiv}">
-        <g:layer top="0"  height="30px" left="0" width="50%">
-          <g:Label>Group Members</g:Label>
-        </g:layer>
-        <g:layer top="0" height="30px" right="0" width="50%">
-          <c:SimplePager ui:field='_pager' />
-        </g:layer>
-        <g:layer top="30px" bottom="0">
-          <c:DataGrid ui:field="_memberTable"/>
-        </g:layer>
-      </g:LayoutPanel>
-    </g:center>
-    <g:south size="70">
-      <g:SimplePanel ui:field="_footerPanel"/>
-    </g:south>
-  </g:DockLayoutPanel>
+  <g:LayoutPanel ui:field="_membersPanel" addStyleNames="{_style.memberDiv}">
+    <g:layer top="0" height="30px" left="0" width="50%">
+      <g:Label>Group Members</g:Label>
+    </g:layer>
+    <g:layer top="0" height="30px" right="0" width="50%">
+      <c:SimplePager ui:field='_pager'/>
+    </g:layer>
+    <g:layer top="30px" bottom="0">
+      <c:DataGrid ui:field="_memberTable"/>
+    </g:layer>
+  </g:LayoutPanel>
 </ui:UiBinder>
