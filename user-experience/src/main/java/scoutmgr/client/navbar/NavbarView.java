@@ -20,12 +20,6 @@ public class NavbarView
   implements NavbarPresenter.View
 {
   @UiField
-  Anchor _eventsLink;
-
-  @UiField
-  Anchor _membersLink;
-
-  @UiField
   LIElement _eventsLinkContainer;
 
   @UiField
@@ -66,20 +60,6 @@ public class NavbarView
         _membersLinkContainer.addClassName( _bundle.bootstrap().active() );
         break;
     }
-  }
-
-  @UiHandler( "_membersLink" )
-  @SuppressWarnings( "unused" )
-  void onMembersClicked( final ClickEvent event )
-  {
-    getUiHandlers().gotoMembers();
-  }
-
-  @UiHandler( "_eventsLink" )
-  @SuppressWarnings( "unused" )
-  void onEventsClicked( final ClickEvent event )
-  {
-    getUiHandlers().gotoEvents();
   }
 
   @UiHandler( "_navToggle" )
