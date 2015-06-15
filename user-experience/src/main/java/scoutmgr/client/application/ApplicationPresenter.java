@@ -9,10 +9,18 @@ import com.gwtplatform.mvp.client.annotations.ProxyEvent;
 import com.gwtplatform.mvp.client.annotations.ProxyStandard;
 import com.gwtplatform.mvp.client.proxy.LockInteractionEvent;
 import com.gwtplatform.mvp.client.proxy.RevealContentHandler;
+import scoutmgr.client.footer.FooterPresenter;
+import scoutmgr.client.navbar.NavbarPresenter;
 
 public class ApplicationPresenter
   extends Presenter<ApplicationPresenter.View, ApplicationPresenter.Proxy>
 {
+  @Inject
+  private NavbarPresenter _navbarPresenter;
+
+  @Inject
+  private FooterPresenter _footerPresenter;
+
   @ProxyStandard
   public interface Proxy extends com.gwtplatform.mvp.client.proxy.Proxy<ApplicationPresenter>
   {
@@ -32,12 +40,11 @@ public class ApplicationPresenter
     super( eventBus, view, proxy, RevealType.RootLayout );
   }
 
-  /**
-   * Use this in leaf presenters, inside their {@link #revealInParent} method.
-   */
   @ContentSlot
-  public static final Type<RevealContentHandler<?>> SLOT_SetMainContent = new Type<>();
+  public static final Type<RevealContentHandler<?>> SLOT_MAIN_CONTENT = new Type<>();
 
+  public static final Object SLOT_NAVBAR = new Object();
+  public static final Object SLOT_FOOTER = new Object();
 
   /**
    * Display a short lock message whenever navigation is in progress.
@@ -48,5 +55,13 @@ public class ApplicationPresenter
   public void onLockInteraction( final LockInteractionEvent event )
   {
     getView().showLoading( event.shouldLock() );
+  }
+
+  @Override
+  protected void onBind()
+  {
+    super.onBind();
+    setInSlot( SLOT_NAVBAR, _navbarPresenter );
+    setInSlot( SLOT_FOOTER, _footerPresenter );
   }
 }
