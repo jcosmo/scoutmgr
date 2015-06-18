@@ -42,9 +42,10 @@ public class ApplicationPresenter
 
   @ContentSlot
   public static final Type<RevealContentHandler<?>> SLOT_MAIN_CONTENT = new Type<>();
-
-  public static final Object SLOT_NAVBAR = new Object();
-  public static final Object SLOT_FOOTER = new Object();
+  @ContentSlot
+  public static final Type<RevealContentHandler<?>> SLOT_MAIN_NAVBAR = new Type<>();
+  @ContentSlot
+  public static final Type<RevealContentHandler<?>> SLOT_MAIN_FOOTER = new Type<>();
 
   /**
    * Display a short lock message whenever navigation is in progress.
@@ -61,7 +62,7 @@ public class ApplicationPresenter
   protected void onBind()
   {
     super.onBind();
-    setInSlot( SLOT_NAVBAR, _navbarPresenter );
-    setInSlot( SLOT_FOOTER, _footerPresenter );
+    setInSlot( SLOT_MAIN_NAVBAR, _navbarPresenter );
+    setInSlot( SLOT_MAIN_FOOTER, _footerPresenter );
   }
 }

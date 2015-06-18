@@ -36,7 +36,7 @@ public class ApplicationView
   }
 
   @Override
-  public void setInSlot( Object slot, IsWidget content )
+  public void setInSlot( final Object slot, final IsWidget content )
   {
     if ( slot == ApplicationPresenter.SLOT_MAIN_CONTENT )
     {
@@ -45,11 +45,11 @@ public class ApplicationView
       _content.setWidgetLeftRight( content, 0, Style.Unit.PX, 0, Style.Unit.PX );
       _content.setWidgetTopBottom( content, 0, Style.Unit.PX, 0, Style.Unit.PX );
     }
-    else if ( slot == ApplicationPresenter.SLOT_NAVBAR )
+    else if ( slot == ApplicationPresenter.SLOT_MAIN_NAVBAR )
     {
       _navbarPanel.setWidget( content );
     }
-    else if ( slot == ApplicationPresenter.SLOT_FOOTER )
+    else if ( slot == ApplicationPresenter.SLOT_MAIN_FOOTER )
     {
       _footerPanel.setWidget( content );
     }
