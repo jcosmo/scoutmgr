@@ -46,9 +46,9 @@ public class ScoutmgrModule
     install( new FooterModule() );
     install( new NavbarModule() );
 
-    bindConstant().annotatedWith( DefaultPlace.class ).to( NameTokens.EVENTS );
-    bindConstant().annotatedWith( ErrorPlace.class ).to( NameTokens.HOME );
-    bindConstant().annotatedWith( UnauthorizedPlace.class ).to( NameTokens.HOME );
+    bindConstant().annotatedWith( DefaultPlace.class ).to( NameTokens.MEMBERS );
+    bindConstant().annotatedWith( ErrorPlace.class ).to( NameTokens.MEMBERS );
+    bindConstant().annotatedWith( UnauthorizedPlace.class ).to( NameTokens.MEMBERS );
 
     bind(ResourceLoader.class).asEagerSingleton();
   }
