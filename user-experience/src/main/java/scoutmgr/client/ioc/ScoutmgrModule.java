@@ -19,6 +19,7 @@ import scoutmgr.client.members.MembersModule;
 import scoutmgr.client.navbar.NavbarModule;
 import scoutmgr.client.place.NameTokens;
 import scoutmgr.client.resource.ScoutmgrResourceBundle;
+import scoutmgr.client.scoutdetails.ScoutdetailsModule;
 import scoutmgr.client.util.GlobalAsyncCallback;
 
 public class ScoutmgrModule
@@ -45,6 +46,7 @@ public class ScoutmgrModule
     install( new AppbarModule() );
     install( new FooterModule() );
     install( new NavbarModule() );
+    install( new ScoutdetailsModule() );
 
     bindConstant().annotatedWith( DefaultPlace.class ).to( NameTokens.MEMBERS );
     bindConstant().annotatedWith( ErrorPlace.class ).to( NameTokens.MEMBERS );

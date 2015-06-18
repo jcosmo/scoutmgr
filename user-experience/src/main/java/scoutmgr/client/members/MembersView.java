@@ -3,13 +3,17 @@ package scoutmgr.client.members;
 import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style;
+import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.ColumnSortEvent;
 import com.google.gwt.user.cellview.client.DataGrid;
 import com.google.gwt.user.cellview.client.SimplePager;
+import com.google.gwt.user.client.Event;
+import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.LayoutPanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -36,6 +40,8 @@ public class MembersView
   SimplePager _pager;
   @UiField( provided = true )
   DataGrid<ScoutViewModel> _memberTable;
+  @UiField
+  Button _addScoutButton;
 
   interface Binder
     extends UiBinder<Widget, MembersView>
@@ -143,4 +149,12 @@ public class MembersView
     }
     ColumnSortEvent.fire( _memberTable, _memberTable.getColumnSortList() );
   }
+
+  @UiHandler( value = "_addScoutButton")
+  public void addScoutClicked( final ClickEvent e)
+  {
+    getUiHandlers().addScout();
+  }
+
+
 }

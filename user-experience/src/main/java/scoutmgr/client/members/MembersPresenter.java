@@ -8,21 +8,27 @@ import com.gwtplatform.mvp.client.annotations.NameToken;
 import com.gwtplatform.mvp.client.annotations.ProxyStandard;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 import javax.annotation.Nonnull;
 import org.realityforge.replicant.client.EntityChangeBroker;
 import org.realityforge.replicant.client.EntityChangeEvent;
 import org.realityforge.replicant.client.EntityChangeListener;
+import org.realityforge.replicant.client.EntityChangeListenerAdapter;
 import scoutmgr.client.application.ApplicationPresenter;
 import scoutmgr.client.entity.Person;
 import scoutmgr.client.net.ScoutmgrDataLoaderService;
 import scoutmgr.client.place.NameTokens;
+import scoutmgr.client.scoutdetails.ScoutdetailsPresenter;
+import scoutmgr.client.service.PersonnelService;
 import scoutmgr.client.view.model.ScoutViewModel;
 
 public class MembersPresenter
   extends Presenter<scoutmgr.client.members.MembersPresenter.View, scoutmgr.client.members.MembersPresenter.Proxy>
   implements MembersUiHandlers
 {
+  private static final java.util.logging.Logger LOG = java.util.logging.Logger.getLogger( MembersPresenter.class.getName() );
+
   @ProxyStandard
   @NameToken( NameTokens.MEMBERS )
   interface Proxy
@@ -36,7 +42,13 @@ public class MembersPresenter
     void setMembers( Collection<ScoutViewModel> values );
   }
 
+  @Inject
+  private ScoutdetailsPresenter _scoutDetailsPresenter;
+
   private ScoutmgrDataLoaderService _dataloader;
+
+  @Inject
+  private PersonnelService _personnelService;
 
   private EntityChangeBroker _changeBroker;
 
@@ -54,7 +66,7 @@ public class MembersPresenter
     _changeBroker = changeBroker;
     _dataloader = dataLoader;
 
-    _entityChangeListener = new EntityChangeListener()
+    _entityChangeListener = new EntityChangeListenerAdapter()
     {
       @Override
       public void entityAdded( @Nonnull final EntityChangeEvent event )
@@ -63,30 +75,6 @@ public class MembersPresenter
         final ScoutViewModel viewModel = new ScoutViewModel( person );
         _model2ViewModel.put( person, viewModel );
         getView().setMembers( _model2ViewModel.values() );
-      }
-
-      @Override
-      public void entityRemoved( @Nonnull final EntityChangeEvent event )
-      {
-
-      }
-
-      @Override
-      public void attributeChanged( @Nonnull final EntityChangeEvent event )
-      {
-
-      }
-
-      @Override
-      public void relatedAdded( @Nonnull final EntityChangeEvent event )
-      {
-
-      }
-
-      @Override
-      public void relatedRemoved( @Nonnull final EntityChangeEvent event )
-      {
-
       }
     };
 
@@ -110,5 +98,18 @@ public class MembersPresenter
     super.onHide();
     _changeBroker.removeChangeListener( Person.class, _entityChangeListener );
     _dataloader.getSession().unsubscribeFromPeople( null );
+  }
+
+  public void editScout()
+  {
+    addToPopupSlot( _scoutDetailsPresenter );
+  }
+
+  @Override
+  public void addScout()
+  {
+    addToPopupSlot( _scoutDetailsPresenter );
+    LOG.warning( "Add a scout!" );
+    _personnelService.addScout( "a", "b", new Date(  ), "c");
   }
 }

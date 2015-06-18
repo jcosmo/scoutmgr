@@ -12,7 +12,7 @@
 
   <g:LayoutPanel ui:field="_membersPanel" addStyleNames="{_style.memberDiv}">
     <g:layer top="0" height="30px" left="0" width="50%">
-      <g:Label>Group Members</g:Label>
+      <g:Button ui:field="_addScoutButton">Add Scout</g:Button>
     </g:layer>
     <g:layer top="0" height="30px" right="0" width="50%">
       <c:SimplePager ui:field='_pager'/>

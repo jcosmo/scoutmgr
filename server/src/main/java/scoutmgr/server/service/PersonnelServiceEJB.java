@@ -1,6 +1,7 @@
 package scoutmgr.server.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.Nonnull;
 import javax.ejb.Stateless;
@@ -25,5 +26,23 @@ public class PersonnelServiceEJB
       results.add( new PersonDTO( person.getID(), person.getFirstName(), person.getLastName(), person.getDob(), person.getRegistrationNumber() ) );
     }
     return results;
+  }
+
+  @Override
+  public void addScout( @Nonnull final String firstName, @Nonnull final String lastName, @Nonnull final Date dob, @Nonnull final String registrationNumber)
+  {
+    Person p = new Person();
+    p.setFirstName( firstName );
+    p.setLastName( lastName );
+    p.setDob( dob );
+    p.setRegistrationNumber( registrationNumber );
+    try
+    {
+      _personRepository.persist( p );
+    }
+    catch ( Exception e )
+    {
+      e.printStackTrace();
+    }
   }
 }

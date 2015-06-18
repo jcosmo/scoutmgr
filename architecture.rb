@@ -44,6 +44,13 @@ Domgen.repository(:Scoutmgr) do |repository|
       s.method(:GetPeople) do |m|
         m.returns(:struct, :referenced_struct => :PersonDTO, :collection_type => :sequence)
       end
+
+      s.method(:AddScout) do |m|
+        m.string :FirstName, 255
+        m.string :LastName, 255
+        m.datetime :Dob
+        m.string :RegistrationNumber, 20
+      end
     end
   end
 end

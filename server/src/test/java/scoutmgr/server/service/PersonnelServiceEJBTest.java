@@ -21,4 +21,11 @@ public class PersonnelServiceEJBTest
     assertEquals( personDTO.getDob(), person.getDob() );
     assertEquals( personDTO.getRegistrationNumber(), person.getRegistrationNumber() );
   }
+
+  @Override
+  public void addScout()
+    throws Exception
+  {
+
+  }
 }
