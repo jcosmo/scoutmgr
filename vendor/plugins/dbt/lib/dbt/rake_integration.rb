@@ -30,23 +30,9 @@ class Dbt #nodoc
       desc 'Verify constraints on database.'
       task "#{task_prefix}:verify_constraints" => ["#{task_prefix}:load_config"] do
         Dbt.banner('Verifying database', key)
+        repository = get_domgen_repository(repository_key)
+
         failed_constraints = []
-
-        repository = nil
-        if repository_key
-          repository = Domgen.repository_by_name(repository_key)
-          if Domgen.repositorys.size == 1
-            Domgen.warn("Dbt database #{key} specifies a repository_key parameter in the domgen integration but it can be be derived as there is only a single repository. The parameter should be removed.")
-          end
-        elsif repository_key.nil?
-          repositorys = Domgen.repositorys
-          if repositorys.size == 1
-            repository = repositorys[0]
-          else
-            Domgen.error("Dbt database #{key} does not specify a repository_key parameter and it can not be derived. Candidate repositories include #{repositorys.collect { |r| r.name }.inspect}")
-          end
-        end
-
         repository.data_modules.select { |data_module| data_module.sql? }.each do |data_module|
           failed_constraints += Dbt.runtime.query(self, "EXEC #{data_module.sql.schema}.spCheckConstraints")
         end
@@ -57,6 +43,28 @@ class Dbt #nodoc
           raise error_message
         end
         Dbt.banner('Database verified', key)
+      end
+
+      task "#{task_prefix}:emit_standard_imports" => ["#{task_prefix}:prepare"] do
+        base_dir = ENV['IMPORTS_OUTPUT_DIR'] || 'tmp/imports'
+
+        Dbt.banner("Emit standard imports to IMPORTS_OUTPUT_DIR=#{base_dir}", key)
+
+        repository = get_domgen_repository(repository_key)
+
+        repository.data_modules.select { |data_module| data_module.sql? }.each do |data_module|
+          data_module.entities.select{|entity| entity.sql? && !entity.abstract? && !entity.sql.load_from_fixture? }.each do |entity|
+            file = File.expand_path("#{base_dir}/#{data_module.name}/import/#{entity.sql.qualified_table_name.to_s.gsub('[','').gsub(']','').gsub('"','')}.sql")
+            FileUtils.mkdir_p File.dirname(file)
+            File.open(file, 'wb') do |f|
+              f.write <<-SQL
+INSERT INTO @@TARGET@@.#{entity.sql.qualified_table_name}(#{entity.attributes.select{|a|a.sql?}.collect{|a|a.sql.quoted_column_name }.join(', ')})
+  SELECT #{entity.attributes.select{|a|a.sql?}.collect{|a|a.sql.quoted_column_name }.join(', ')}
+  FROM @@SOURCE@@.#{entity.sql.qualified_table_name}
+              SQL
+            end
+          end
+        end
       end
     end
 
@@ -69,6 +77,25 @@ class Dbt #nodoc
       (up_dirs + down_dirs).each do |relative_dir_name|
         dirs_for_database(relative_dir_name).each do |dir|
           task "#{task_prefix}:db_doc" => Dbt::DbDoc.define_doc_tasks(dir, "#{target_directory}/#{relative_dir_name}")
+        end
+      end
+    end
+
+    private
+
+    def get_domgen_repository(repository_key)
+      if repository_key
+        repository = Domgen.repository_by_name(repository_key)
+        if Domgen.repositorys.size == 1
+          Domgen.warn("Dbt database #{key} specifies a repository_key parameter in the domgen integration but it can be be derived as there is only a single repository. The parameter should be removed.")
+        end
+        return repository
+      elsif repository_key.nil?
+        repositorys = Domgen.repositorys
+        if repositorys.size == 1
+          return repositorys[0]
+        else
+          Domgen.error("Dbt database #{key} does not specify a repository_key parameter and it can not be derived. Candidate repositories include #{repositorys.collect { |r| r.name }.inspect}")
         end
       end
     end
