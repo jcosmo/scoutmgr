@@ -39,7 +39,7 @@ public class ScoutmgrJpaEncoderTest
     final PreparedStatement statement = connection.prepareStatement( sql );
     ChangeSet changeSet = new ChangeSet();
 
-    ScoutmgrJpaEncoder.encodePerson( changeSet, ScoutmgrReplicationGraph.PERSON, statement, null );
+    ScoutmgrJpaEncoder.encodeScoutmgrPerson( changeSet, ScoutmgrReplicationGraph.PERSON, statement, null );
     Map<String, Serializable> dbEncodeResult = getStringSerializableMap( changeSet );
     assertEquals( dbEncodeResult.get( "FirstName" ), "bilbo" );
     assertEquals( dbEncodeResult.get( "LastName" ), "baggins" );
