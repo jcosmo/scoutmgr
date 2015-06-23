@@ -480,6 +480,7 @@ module Domgen
     end
 
     def entity
+      return self.dao.entity if dao.repository?
       Domgen.error("entity called on #{qualified_name} before being specified") unless @entity
       @entity
     end
@@ -526,6 +527,11 @@ module Domgen
         return base_name
       elsif base_name =~ /^[iI]nsert.+$/
         self.query_type = :insert if @query_type.nil?
+        return base_name
+      elsif base_name =~ /^[cC]ount.+$/
+        self.query_type = :select if @query_type.nil?
+        self.multiplicity = :one if @multiplicity.nil?
+        self.result_type = :long if @result_type.nil?
         return base_name
       elsif self.query_type == :select
         if self.multiplicity == :many
@@ -597,8 +603,10 @@ module Domgen
 
     def query(name, options = {}, &block)
       Domgen.error("Attempting to override query #{name} on #{self.name}") if @queries[name.to_s]
-      params = repository? ? options.merge(:result_entity => entity) : options.dup
-      query = Query.new(self, name, params, &block)
+      query = Query.new(self, name, options, &block)
+      if repository?
+        query.result_entity = entity unless query.result_type?
+      end
       @queries[name.to_s] = query
       query
     end
@@ -684,8 +692,6 @@ module Domgen
     attr_reader :cycle_constraints
     attr_reader :referencing_attributes
     attr_reader :queries
-    attr_accessor :extends
-    attr_accessor :subtypes
 
     include GenerateFacet
     include InheritableCharacteristicContainer
@@ -700,9 +706,7 @@ module Domgen
       @cycle_constraints = Domgen::OrderedHash.new
       @queries = Domgen::OrderedHash.new
       @referencing_attributes = []
-      @subtypes = []
       data_module.send :register_entity, name, self
-      perform_extend(data_module, :entity, options[:extends]) if options[:extends]
       super(data_module, options, &block)
     end
 
@@ -712,6 +716,14 @@ module Domgen
 
     def non_abstract_superclass?
       extends.nil? ? false : !data_module.entity_by_name(extends).abstract?
+    end
+
+    # Return the root entity in the hierarchy
+    #
+    # This means the current entity if it does not extend any other entity, else it means the root of the inheritance tree.
+    #
+    def root_entity
+      self.extends.nil? ? self : data_module.entity_by_name(self.extends).root_entity
     end
 
     attr_writer :read_only
@@ -736,7 +748,7 @@ module Domgen
       characteristic(name, type, options, &block)
     end
 
-    def attribute_by_name?(name)
+    def attribute_exists?(name)
       characteristic_exists?(name)
     end
 
@@ -847,16 +859,8 @@ module Domgen
     # Assume single column pk
     def primary_key
       primary_key = attributes.find { |a| a.primary_key? }
-      Domgen.error("Unable to locate primary key for #{self.name}, attributes => #{attributes.collect { |a| a.name }}") unless primary_key
+      Domgen.error("Unable to locate primary key for #{self.qualified_name}, attributes: #{attributes.collect { |a| a.name }.inspect}") unless primary_key
       primary_key
-    end
-
-    def attribute_by_name(name)
-      characteristic_by_name(name)
-    end
-
-    def attribute_exists?(name)
-      characteristic_exists?(name)
     end
 
     def to_s
@@ -871,10 +875,9 @@ module Domgen
 
     def new_characteristic(name, type, options, &block)
       override = false
-      if characteristic_map[name.to_s]
-        Domgen.error("Attempting to override non abstract attribute #{name} on #{self.name}") if !characteristic_map[name.to_s].abstract?
-        # nil out atribute so the characteristic container will not complain about it overriding an existing value
-        characteristic_map[name.to_s] = nil
+      if characteristic_exists?(name)
+        c = characteristic_by_name(name)
+        Domgen.error("Attempting to override non abstract attribute #{name} on #{self.qualified_name}") unless (c.abstract? || c.override?)
         override = true
       end
       Attribute.new(self, name, type, {:override => override}.merge(options), &block)
@@ -891,13 +894,17 @@ module Domgen
         end
       end
 
-      Domgen.error("Entity #{name} must define exactly one primary key") if attributes.select { |a| a.primary_key? }.size != 1
+      Domgen.error("Entity #{qualified_name} must define exactly one primary key") if attributes.select { |a| a.primary_key? }.size != 1
       attributes.each do |a|
-        Domgen.error("Abstract attribute #{a.name} on non abstract object type #{name}") if !abstract? && a.abstract?
+        Domgen.error("Abstract attribute #{a.name} on non abstract object type #{qualified_name}") if !abstract? && a.abstract?
       end
     end
 
     private
+
+    def container_kind
+      :entity
+    end
 
     def add_unique_to_set(type, constraint, set)
       Domgen.error("Only 1 #{type} constraint with name #{constraint.name} should be defined") if set[constraint.name]
@@ -1090,7 +1097,6 @@ module Domgen
     def initialize(data_module, name, options, &block)
       @name = name
       data_module.send :register_exception, name, self
-      perform_extend(data_module, :exception, options[:extends]) if options[:extends]
       super(data_module, options, &block)
     end
 
@@ -1119,17 +1125,20 @@ module Domgen
     end
 
     def characteristic_kind
-      "parameter"
+      'parameter'
     end
 
     protected
 
+    def container_kind
+      :exception
+    end
+
     def new_characteristic(name, type, options, &block)
       override = false
-      if characteristic_map[name.to_s]
-        Domgen.error("Attempting to override non abstract parameter #{name} on #{self.name}") if !characteristic_map[name.to_s].abstract?
-        # nil out atribute so the characteristic container will not complain about it overriding an existing value
-        characteristic_map[name.to_s] = nil
+      if characteristic_exists?(name)
+        c = characteristic_by_name(name)
+        Domgen.error("Attempting to override non abstract parameter #{name} on #{self.name}") unless (c.abstract? || c.override?)
         override = true
       end
 
@@ -1218,7 +1227,7 @@ module Domgen
     end
 
     def parameters
-      characteristic_map.values
+      characteristics
     end
 
     def parameter(name, type, options = {}, &block)
@@ -1296,6 +1305,16 @@ module Domgen
       method = Method.new(self, name, options, &block)
       @methods[name.to_s] = method
       method
+    end
+
+    def method_by_name(name)
+      m = @methods[name.to_s]
+      Domgen.error("Attempting to retrieve non-existent method #{name} on #{self.name}") unless m
+      m
+    end
+
+    def method_by_name?(name)
+      !!@methods[name.to_s]
     end
   end
 
@@ -1832,24 +1851,6 @@ module Domgen
                 other_entity.direct_subtypes.each { |st| other_entities << st }
                 other_entity.referencing_attributes << attribute
               end
-            end
-          end
-        end
-      end
-      # generate lists of subtypes for entity types
-      Logger.debug "Repository #{name}: Generate lists of subtypes for entities"
-      self.data_modules.each do |data_module|
-        data_module.entities.select { |entity| !entity.final? }.each do |entity|
-          subtypes = entity.subtypes
-          to_process = [entity]
-          completed = []
-          while to_process.size > 0
-            ot = to_process.pop
-            ot.direct_subtypes.each do |subtype|
-              next if completed.include?(subtype)
-              subtypes << subtype
-              to_process << subtype
-              completed << subtype
             end
           end
         end

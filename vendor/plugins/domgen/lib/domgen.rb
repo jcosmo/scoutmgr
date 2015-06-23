@@ -16,6 +16,7 @@ require 'erb'
 require 'fileutils'
 require 'logger'
 
+require 'domgen/version'
 require 'domgen/orderedhash'
 require 'domgen/naming'
 
@@ -136,3 +137,7 @@ require 'domgen/auto_bean/generator'
 # Database level auditing
 require 'domgen/audit/model'
 require 'domgen/audit/generator'
+
+# Database level synchronization
+require 'domgen/sync/model'
+require 'domgen/sync/generator'

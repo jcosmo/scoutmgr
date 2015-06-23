@@ -2,6 +2,7 @@
 package <%= to_package(repository.imit.qualified_session_manager_name) %>;
 
 @javax.annotation.Generated( "Domgen" )
+@java.lang.SuppressWarnings( "unchecked" )
 @javax.ejb.Singleton( name = <%= repository.service_by_name(repository.imit.subscription_manager).ejb.qualified_service_name %>.NAME )
 @javax.ejb.ConcurrencyManagement( javax.ejb.ConcurrencyManagementType.BEAN )
 @javax.ejb.Local( { org.realityforge.replicant.server.ee.rest.ReplicantPollSource.class, org.realityforge.replicant.server.EntityMessageEndpoint.class, org.realityforge.ssf.SessionManager.class, <%= repository.service_by_name(repository.imit.subscription_manager).ejb.qualified_service_name %>.class } )
@@ -32,9 +33,9 @@ entities.uniq.each do |entity| -%>
   private <%= repository.imit.qualified_server_session_context_name %> _context;
 
   /**
-   * Remove idle session changes every 30 seconds.
+   * Remove idle session changes. This is called by a scheduler.
    */
-  @javax.ejb.Schedule( info = "<%= repository.name %>.removeIdleSessions", second = "30", minute = "*", hour = "*", persistent = false )
+  @java.lang.Override
   public void removeIdleSessions()
   {
     final int maxIdleTime = 1000 * 60 * 5;

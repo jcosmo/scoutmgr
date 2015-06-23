@@ -14,6 +14,17 @@
 
 module Domgen
   module Sql
+    class Sequence < Domgen.ParentedElement(:schema)
+      def initialize(schema, name, options, &block)
+        @name = name
+        schema.send(:register_sequence, name, self)
+        super(schema, options, &block)
+      end
+
+      attr_reader :name
+      attr_accessor :sql_type
+    end
+
     class Index < Domgen.ParentedElement(:table)
       attr_accessor :attribute_names
       attr_accessor :include_attribute_names
@@ -91,11 +102,11 @@ module Domgen
     class ForeignKey < Domgen.ParentedElement(:table)
       ACTION_MAP =
         {
-          :cascade => "CASCADE",
-          :restrict => "RESTRICT",
-          :set_null => "SET NULL",
-          :set_default => "SET DEFAULT",
-          :no_action => "NO ACTION"
+          :cascade => 'CASCADE',
+          :restrict => 'RESTRICT',
+          :set_null => 'SET NULL',
+          :set_default => 'SET DEFAULT',
+          :no_action => 'NO ACTION'
         }.freeze
 
       attr_accessor :attribute_names
@@ -373,6 +384,7 @@ module Domgen
       end
 
       def pre_complete
+        # TODO: This will re-enable disabled sql facets which seems sub-par
         self.repository.enable_facet(:mssql) if !self.repository.mssql? && !self.repository.pgsql?
       end
 
@@ -418,6 +430,34 @@ module Domgen
       def quoted_schema
         self.dialect.quote(self.schema)
       end
+
+      def sequence(name, options = {}, &block)
+        Domgen::Sql::Sequence.new(self, name, options, &block)
+      end
+
+      def sequences
+        sequence_map.values
+      end
+
+      def sequence_by_name(name)
+        sequence = sequence_map[name.to_s]
+        raise "Unable to lcoate sequence #{name} in #{data_module.name}" unless sequence
+        sequence
+      end
+
+      def sequence_exists?(name)
+        !!sequence_map[name.to_s]
+      end
+
+      protected
+
+      def sequence_map
+        @sequences ||= Domgen::OrderedHash.new
+      end
+
+      def register_sequence(name, sequence)
+        sequence_map[name.to_s] = sequence
+      end
     end
 
     facet.enhance(Entity) do
@@ -441,7 +481,6 @@ module Domgen
         @sequence_table.nil? ? false : !!@sequence_table
       end
 
-      attr_writer :table_name
       attr_accessor :partition_scheme
 
       #+force_overflow_for_large_objects+ if set to true will force the native *VARCHAR(max) and XML datatypes (i.e.
@@ -451,7 +490,13 @@ module Domgen
       # TODO: MSSQL Specific
       attr_accessor :force_overflow_for_large_objects
 
+      def table_name=(table_name)
+        raise "sql.table_name= invoked on abstract entity #{entity.qualified_name}" if entity.abstract?
+        @table_name = table_name
+      end
+
       def table_name
+        raise "sql.table_name invoked on abstract entity #{entity.qualified_name}" if entity.abstract?
         @table_name ||= sql_name(:table, entity.name)
       end
 
@@ -796,7 +841,7 @@ SQL
         end
 
         if self.entity.read_only?
-          trigger_name = "ReadOnlyCheck"
+          trigger_name = 'ReadOnlyCheck'
           unless trigger?(trigger_name)
             trigger(trigger_name) do |trigger|
               trigger.description("Ensure that #{self.entity.name} is read only.")
@@ -912,6 +957,15 @@ SQL
         @sequence_name = sequence_name
       end
 
+      def sequence
+        Domgen.error("sequence called on #{attribute.qualified_name} when not a sequence") unless self.sequence?
+        if attribute.entity.data_module.sql.sequence_exists?(self.sequence_name)
+          attribute.entity.data_module.sql.sequence_by_name(self.sequence_name)
+        else
+          attribute.entity.data_module.sql.sequence(self.sequence_name, 'sql_type' => self.sql_type)
+        end
+      end
+
       # TODO: MSSQL Specific
       attr_writer :sparse
 
@@ -923,7 +977,7 @@ SQL
       attr_accessor :calculation
 
       def persistent_calculation=(persistent_calculation)
-        Domgen.error("Non calculated column can not be persistent") unless @calculation
+        Domgen.error('Non calculated column can not be persistent') unless @calculation
         @persistent_calculation = persistent_calculation
       end
 
@@ -959,6 +1013,10 @@ SQL
       end
 
       attr_accessor :default_value
+
+      def perform_complete
+        self.sequence if self.sequence?
+      end
     end
   end
 end
