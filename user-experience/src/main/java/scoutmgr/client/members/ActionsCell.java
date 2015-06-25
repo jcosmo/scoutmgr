@@ -18,6 +18,8 @@ import scoutmgr.client.view.model.ScoutViewModel;
 public class ActionsCell
   extends AbstractCell<ScoutViewModel>
 {
+  private static final java.util.logging.Logger LOG = java.util.logging.Logger.getLogger( ActionsCell.class.getName() );
+
   private final SimpleEventBus _eventBus = new SimpleEventBus();
 
   interface ActionsUiRenderer
@@ -57,17 +59,10 @@ public class ActionsCell
                               final ValueUpdater<ScoutViewModel> valueUpdater )
   {
     RENDERER.onBrowserEvent( this, event, parent, value );
-    if ( BrowserEvents.CLICK.equals( event.getType() ) )
-    {
-      _eventBus.fireEvent( new ScoutClickEvent( value ) );
-      LOG.warning( "Edit clicked for " + value.getFirstName() + "/" + value.getLastName() );
-    }
   }
 
-  private static final java.util.logging.Logger LOG = java.util.logging.Logger.getLogger( ActionsCell.class.getName() );
-
   @SuppressWarnings( "GwtUiHandlerErrors" )
-  @UiHandler( "_editLink" )
+  @UiHandler( "editLink" )
   void editLinkClicked( final ClickEvent event, final Element parent, final ScoutViewModel viewModel )
   {
     LOG.warning( "Edit scout clicked" );
