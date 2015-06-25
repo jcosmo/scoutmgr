@@ -12,7 +12,6 @@ import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.ColumnSortEvent;
 import com.google.gwt.user.cellview.client.DataGrid;
 import com.google.gwt.user.cellview.client.SimplePager;
-import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.LayoutPanel;
@@ -22,12 +21,14 @@ import com.google.inject.Inject;
 import com.gwtplatform.mvp.client.ViewWithUiHandlers;
 import java.util.Collection;
 import java.util.Comparator;
+import javax.annotation.Nonnull;
+import scoutmgr.client.event.ScoutClickEvent;
 import scoutmgr.client.view.model.ScoutViewModel;
 
 @SuppressWarnings( "Convert2Lambda" )
 public class MembersView
   extends ViewWithUiHandlers<MembersUiHandlers>
-  implements scoutmgr.client.members.MembersPresenter.View
+  implements MembersPresenter.View, ScoutClickEvent.Handler
 {
   // private static final java.util.logging.Logger LOG = java.util.logging.Logger.getLogger( MembersPresenter.class.getName() );
 
@@ -123,8 +124,10 @@ public class MembersView
     } );
     _memberTable.addColumn( surnameColumn, SafeHtmlUtils.fromString( "Surname" ) );
 
+    final ActionsCell actionsCell = new ActionsCell();
+    //actionsCell.addClickEventHandler( this );
     final Column<ScoutViewModel, ScoutViewModel> actionsColumn =
-      new Column<ScoutViewModel, ScoutViewModel>(new ActionsCell())
+      new Column<ScoutViewModel, ScoutViewModel>( actionsCell )
       {
         @Override
         public ScoutViewModel getValue( final ScoutViewModel object )
@@ -156,5 +159,9 @@ public class MembersView
     getUiHandlers().addScout();
   }
 
-
+  @Override
+  public void onScoutClicked( @Nonnull final ScoutClickEvent event )
+  {
+    getUiHandlers().editScout( event.getScoutViewModel().asModelObject() );
+  }
 }

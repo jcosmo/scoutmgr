@@ -2,9 +2,18 @@
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
              xmlns:g="urn:import:com.google.gwt.user.client.ui">
   <ui:with field='_bundle' type='scoutmgr.client.resource.ScoutmgrResourceBundle'/>
-  <g:PopupPanel autoHideOnHistoryEventsEnabled="false" autoHideEnabled="false">
-    <g:HTML>
-      This is our popup panel!
-    </g:HTML>
+  <g:PopupPanel autoHideOnHistoryEventsEnabled="true" autoHideEnabled="true">
+    <g:HTMLPanel>
+      <p>
+        This is an example of an auto-hiding
+        <br/>
+        popup PresenterWidget.
+      </p>
+      <p>
+        It will automatically go away if you click
+        <br/>
+        anywhere or navigate.
+      </p>
+    </g:HTMLPanel>
   </g:PopupPanel>
 </ui:UiBinder>

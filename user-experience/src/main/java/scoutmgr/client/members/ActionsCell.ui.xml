@@ -9,6 +9,8 @@
   </ui:style>
 
   <g:HTMLPanel>
-    <span class="{_bundle.bootstrap.glyphicon} {_bundle.bootstrap.glyphiconPencil} {_style.actionDiv}"/>
+    <a ui:field="_editLink">
+      <span class="{_bundle.bootstrap.glyphicon} {_bundle.bootstrap.glyphiconPencil} {_style.actionDiv}"/>
+    </a>
   </g:HTMLPanel>
 </ui:UiBinder>

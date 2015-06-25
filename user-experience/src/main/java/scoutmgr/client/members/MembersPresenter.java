@@ -6,9 +6,10 @@ import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
 import com.gwtplatform.mvp.client.annotations.NameToken;
 import com.gwtplatform.mvp.client.annotations.ProxyStandard;
+import com.gwtplatform.mvp.client.proxy.PlaceManager;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
+import com.gwtplatform.mvp.shared.proxy.PlaceRequest;
 import java.util.Collection;
-import java.util.Date;
 import java.util.HashMap;
 import javax.annotation.Nonnull;
 import org.realityforge.replicant.client.EntityChangeBroker;
@@ -27,10 +28,11 @@ public class MembersPresenter
   extends Presenter<scoutmgr.client.members.MembersPresenter.View, scoutmgr.client.members.MembersPresenter.Proxy>
   implements MembersUiHandlers
 {
-  private static final java.util.logging.Logger LOG = java.util.logging.Logger.getLogger( MembersPresenter.class.getName() );
+  private static final java.util.logging.Logger LOG =
+    java.util.logging.Logger.getLogger( MembersPresenter.class.getName() );
 
   @ProxyStandard
-  @NameToken( NameTokens.MEMBERS )
+  @NameToken( { NameTokens.MEMBERS, NameTokens.MEMBER_EDIT } )
   interface Proxy
     extends ProxyPlace<scoutmgr.client.members.MembersPresenter>
   {
@@ -41,6 +43,9 @@ public class MembersPresenter
   {
     void setMembers( Collection<ScoutViewModel> values );
   }
+
+  @Inject
+  private PlaceManager _placeManager;
 
   @Inject
   private ScoutdetailsPresenter _scoutDetailsPresenter;
@@ -93,6 +98,18 @@ public class MembersPresenter
   }
 
   @Override
+  public void prepareFromRequest( final PlaceRequest request )
+  {
+    super.prepareFromRequest( request );
+
+    if ( NameTokens.getMemberEdit().equals( request.getNameToken() ) )
+    {
+      final String memberID = request.getParameter( "memberID", "" );
+      addToPopupSlot( _scoutDetailsPresenter );
+    }
+  }
+
+  @Override
   protected void onHide()
   {
     super.onHide();
@@ -100,16 +117,19 @@ public class MembersPresenter
     _dataloader.getSession().unsubscribeFromPeople( null );
   }
 
-  public void editScout()
+  public void editScout( final Person person )
   {
-    addToPopupSlot( _scoutDetailsPresenter );
+    _placeManager.revealPlace( new PlaceRequest.Builder().nameToken( NameTokens.getMemberEdit() )
+                                 .with( "memberID", person.getID().toString() )
+                                 .build() );
   }
 
   @Override
   public void addScout()
   {
-    addToPopupSlot( _scoutDetailsPresenter );
-    LOG.warning( "Add a scout!" );
-    _personnelService.addScout( "a", "b", new Date(  ), "c");
+    _placeManager.revealPlace( new PlaceRequest.Builder().nameToken( NameTokens.getMemberEdit() )
+                                 .with( "memberID", "" )
+                                 .build() );
+    //_personnelService.addScout( "a", "b", new Date(  ), "c");
   }
 }

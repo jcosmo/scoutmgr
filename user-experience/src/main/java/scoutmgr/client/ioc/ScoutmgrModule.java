@@ -8,6 +8,8 @@ import com.gwtplatform.mvp.client.annotations.ErrorPlace;
 import com.gwtplatform.mvp.client.annotations.UnauthorizedPlace;
 import com.gwtplatform.mvp.client.gin.AbstractPresenterModule;
 import com.gwtplatform.mvp.client.gin.DefaultModule;
+import com.gwtplatform.mvp.client.proxy.DefaultPlaceManager;
+import com.gwtplatform.mvp.shared.proxy.RouteTokenFormatter;
 import org.realityforge.replicant.client.json.gwt.ReplicantGinModule;
 import org.realityforge.replicant.client.transport.CacheService;
 import org.realityforge.replicant.client.transport.gwt.LocalCacheService;
@@ -39,7 +41,7 @@ public class ScoutmgrModule
     install( new ScoutmgrImitServicesModule() );
     install( new ScoutmgrGwtRpcServicesModule() );
 
-    install( new DefaultModule() );
+    install( new DefaultModule.Builder().tokenFormatter( RouteTokenFormatter.class ).build() );
     install( new ApplicationModule() );
     install( new EventsModule() );
     install( new MembersModule() );
@@ -52,7 +54,7 @@ public class ScoutmgrModule
     bindConstant().annotatedWith( ErrorPlace.class ).to( NameTokens.MEMBERS );
     bindConstant().annotatedWith( UnauthorizedPlace.class ).to( NameTokens.MEMBERS );
 
-    bind(ResourceLoader.class).asEagerSingleton();
+    bind( ResourceLoader.class ).asEagerSingleton();
   }
 
   protected <T> void bindNamedService( final String name,

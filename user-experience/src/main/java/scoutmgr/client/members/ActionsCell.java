@@ -3,17 +3,23 @@ package scoutmgr.client.members;
 import com.google.gwt.cell.client.AbstractCell;
 import com.google.gwt.cell.client.ValueUpdater;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.BrowserEvents;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
+import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.uibinder.client.UiRenderer;
-import scoutmgr.client.view.model.ListItemViewModel;
+import scoutmgr.client.event.ScoutClickEvent;
 import scoutmgr.client.view.model.ScoutViewModel;
 
 public class ActionsCell
   extends AbstractCell<ScoutViewModel>
 {
+  private final SimpleEventBus _eventBus = new SimpleEventBus();
+
   interface ActionsUiRenderer
     extends UiRenderer
   {
@@ -22,15 +28,14 @@ public class ActionsCell
     void onBrowserEvent( final ActionsCell cell,
                          final NativeEvent event,
                          final Element parent,
-                         final ListItemViewModel viewModel,
-                         final Context context );
+                         final ScoutViewModel viewModel );
   }
 
   private static final ActionsUiRenderer RENDERER = GWT.create( ActionsUiRenderer.class );
 
   public ActionsCell()
   {
-    super( "click" );
+    super( BrowserEvents.CLICK );
   }
 
   @Override
@@ -44,13 +49,6 @@ public class ActionsCell
     RENDERER.render( sb );
   }
 
-  private static final java.util.logging.Logger LOG = java.util.logging.Logger.getLogger( ActionsCell.class.getName() );
-
-  public void editClicked( final ClickEvent e )
-  {
-    LOG.warning( "Edit clicked" );
-  }
-
   @Override
   public void onBrowserEvent( final Context context,
                               final Element parent,
@@ -58,10 +56,26 @@ public class ActionsCell
                               final NativeEvent event,
                               final ValueUpdater<ScoutViewModel> valueUpdater )
   {
-    super.onBrowserEvent( context, parent, value, event, valueUpdater );
-    if ( "click".equals( event.getType() ) )
+    RENDERER.onBrowserEvent( this, event, parent, value );
+    if ( BrowserEvents.CLICK.equals( event.getType() ) )
     {
+      _eventBus.fireEvent( new ScoutClickEvent( value ) );
       LOG.warning( "Edit clicked for " + value.getFirstName() + "/" + value.getLastName() );
     }
+  }
+
+  private static final java.util.logging.Logger LOG = java.util.logging.Logger.getLogger( ActionsCell.class.getName() );
+
+  @SuppressWarnings( "GwtUiHandlerErrors" )
+  @UiHandler( "_editLink" )
+  void editLinkClicked( final ClickEvent event, final Element parent, final ScoutViewModel viewModel )
+  {
+    LOG.warning( "Edit scout clicked" );
+    _eventBus.fireEvent( new ScoutClickEvent( viewModel ) );
+  }
+
+  public HandlerRegistration addClickEventHandler( final ScoutClickEvent.Handler handler )
+  {
+    return _eventBus.addHandler( ScoutClickEvent.TYPE, handler );
   }
 }
