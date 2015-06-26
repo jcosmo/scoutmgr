@@ -17,6 +17,7 @@ import scoutmgr.client.view.model.ScoutViewModel;
 
 public class ActionsCell
   extends AbstractCell<ScoutViewModel>
+  implements ScoutClickEvent.HasHandlers
 {
   private static final java.util.logging.Logger LOG = java.util.logging.Logger.getLogger( ActionsCell.class.getName() );
 
@@ -66,10 +67,11 @@ public class ActionsCell
   void editLinkClicked( final ClickEvent event, final Element parent, final ScoutViewModel viewModel )
   {
     LOG.warning( "Edit scout clicked" );
-    _eventBus.fireEvent( new ScoutClickEvent( viewModel ) );
+    ScoutClickEvent.fire( _eventBus, viewModel );
   }
 
-  public HandlerRegistration addClickEventHandler( final ScoutClickEvent.Handler handler )
+  @Override
+  public HandlerRegistration addScoutClickEventHandler( final ScoutClickEvent.Handler handler )
   {
     return _eventBus.addHandler( ScoutClickEvent.TYPE, handler );
   }

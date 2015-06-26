@@ -22,6 +22,7 @@ import com.gwtplatform.mvp.client.ViewWithUiHandlers;
 import java.util.Collection;
 import java.util.Comparator;
 import javax.annotation.Nonnull;
+import scoutmgr.client.entity.Person;
 import scoutmgr.client.event.ScoutClickEvent;
 import scoutmgr.client.view.model.ScoutViewModel;
 
@@ -125,7 +126,7 @@ public class MembersView
     _memberTable.addColumn( surnameColumn, SafeHtmlUtils.fromString( "Surname" ) );
 
     final ActionsCell actionsCell = new ActionsCell();
-    //actionsCell.addClickEventHandler( this );
+    actionsCell.addScoutClickEventHandler( this );
     final Column<ScoutViewModel, ScoutViewModel> actionsColumn =
       new Column<ScoutViewModel, ScoutViewModel>( actionsCell )
       {
