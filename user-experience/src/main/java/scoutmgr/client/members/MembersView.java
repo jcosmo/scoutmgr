@@ -153,8 +153,8 @@ public class MembersView
     ColumnSortEvent.fire( _memberTable, _memberTable.getColumnSortList() );
   }
 
-  @UiHandler( value = "_addScoutButton")
-  public void addScoutClicked( final ClickEvent e)
+  @UiHandler( value = "_addScoutButton" )
+  public void addScoutClicked( final ClickEvent e )
   {
     getUiHandlers().addScout();
   }
