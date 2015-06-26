@@ -162,6 +162,6 @@ public class MembersView
   @Override
   public void onScoutClicked( @Nonnull final ScoutClickEvent event )
   {
-    getUiHandlers().editScout( event.getScoutViewModel().asModelObject() );
+    getUiHandlers().editScout( (Person) event.getScoutViewModel().asModelObject() );
   }
 }
