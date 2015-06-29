@@ -8,20 +8,17 @@ import com.gwtplatform.mvp.client.annotations.ErrorPlace;
 import com.gwtplatform.mvp.client.annotations.UnauthorizedPlace;
 import com.gwtplatform.mvp.client.gin.AbstractPresenterModule;
 import com.gwtplatform.mvp.client.gin.DefaultModule;
-import com.gwtplatform.mvp.client.proxy.DefaultPlaceManager;
-import com.gwtplatform.mvp.shared.proxy.RouteTokenFormatter;
 import org.realityforge.replicant.client.json.gwt.ReplicantGinModule;
 import org.realityforge.replicant.client.transport.CacheService;
 import org.realityforge.replicant.client.transport.gwt.LocalCacheService;
 import scoutmgr.client.application.ApplicationModule;
-import scoutmgr.client.events.EventsModule;
-import scoutmgr.client.appbar.AppbarModule;
-import scoutmgr.client.footer.FooterModule;
-import scoutmgr.client.members.MembersModule;
-import scoutmgr.client.navbar.NavbarModule;
+import scoutmgr.client.application.appbar.AppbarModule;
+import scoutmgr.client.application.events.EventsModule;
+import scoutmgr.client.application.footer.FooterModule;
+import scoutmgr.client.application.members.MembersModule;
+import scoutmgr.client.application.navbar.NavbarModule;
+import scoutmgr.client.application.scoutdetails.ScoutdetailsModule;
 import scoutmgr.client.place.NameTokens;
-import scoutmgr.client.resource.ScoutmgrResourceBundle;
-import scoutmgr.client.scoutdetails.ScoutdetailsModule;
 import scoutmgr.client.util.GlobalAsyncCallback;
 
 public class ScoutmgrModule

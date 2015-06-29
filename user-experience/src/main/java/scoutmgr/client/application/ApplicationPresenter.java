@@ -9,8 +9,8 @@ import com.gwtplatform.mvp.client.annotations.ProxyEvent;
 import com.gwtplatform.mvp.client.annotations.ProxyStandard;
 import com.gwtplatform.mvp.client.proxy.LockInteractionEvent;
 import com.gwtplatform.mvp.client.proxy.RevealContentHandler;
-import scoutmgr.client.footer.FooterPresenter;
-import scoutmgr.client.navbar.NavbarPresenter;
+import scoutmgr.client.application.footer.FooterPresenter;
+import scoutmgr.client.application.navbar.NavbarPresenter;
 
 public class ApplicationPresenter
   extends Presenter<ApplicationPresenter.View, ApplicationPresenter.Proxy>
