@@ -10,6 +10,7 @@ import com.gwtplatform.mvp.client.proxy.PlaceManager;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 import com.gwtplatform.mvp.shared.proxy.PlaceRequest;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 import javax.annotation.Nonnull;
 import org.realityforge.replicant.client.EntityChangeBroker;
@@ -17,10 +18,10 @@ import org.realityforge.replicant.client.EntityChangeEvent;
 import org.realityforge.replicant.client.EntityChangeListener;
 import org.realityforge.replicant.client.EntityChangeListenerAdapter;
 import scoutmgr.client.application.ApplicationPresenter;
+import scoutmgr.client.application.scoutdetails.ScoutdetailsPresenter;
 import scoutmgr.client.entity.Person;
 import scoutmgr.client.net.ScoutmgrDataLoaderService;
 import scoutmgr.client.place.NameTokens;
-import scoutmgr.client.application.scoutdetails.ScoutdetailsPresenter;
 import scoutmgr.client.service.PersonnelService;
 import scoutmgr.client.view.model.ScoutViewModel;
 
@@ -42,6 +43,8 @@ public class MembersPresenter
     extends com.gwtplatform.mvp.client.View, HasUiHandlers<MembersUiHandlers>
   {
     void setMembers( Collection<ScoutViewModel> values );
+
+    boolean confirmDelete( Person person );
   }
 
   @Inject
@@ -80,6 +83,15 @@ public class MembersPresenter
         final ScoutViewModel viewModel = new ScoutViewModel( person );
         _model2ViewModel.put( person, viewModel );
         getView().setMembers( _model2ViewModel.values() );
+      }
+
+      @Override
+      public void entityRemoved( @Nonnull final EntityChangeEvent event )
+      {
+        if ( null != _model2ViewModel.remove( (Person) event.getObject() ) )
+        {
+          getView().setMembers( _model2ViewModel.values() );
+        }
       }
     };
 
@@ -128,14 +140,17 @@ public class MembersPresenter
   }
 
   @Override
+  public void deleteScout( final Person person )
+  {
+    if ( getView().confirmDelete( person ))
+    {
+      _personnelService.deleteScout( person.getID() );
+    }
+  }
+
+  @Override
   public void addScout()
   {
-    PlaceRequest request = _placeManager.getCurrentPlaceRequest();
-    final PlaceRequest newPlace = new PlaceRequest.Builder( request ).nameToken( NameTokens.getMemberEdit() )
-      .with( "memberID", "" )
-      .build();
-    LOG.warning( newPlace.toString() );
-    _placeManager.revealPlace( newPlace );
-    //_personnelService.addScout( "a", "b", new Date(  ), "c");
+    _personnelService.addScout( "a", "b", new Date(  ), "c");
   }
 }

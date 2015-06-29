@@ -9,9 +9,20 @@ import scoutmgr.client.view.model.ScoutViewModel;
 public class ScoutClickEvent
   extends GwtEvent<ScoutClickEvent.Handler>
 {
-  public static void fire( final com.google.gwt.event.shared.HasHandlers source, final ScoutViewModel model )
+  public enum ACTION
   {
-    source.fireEvent( new ScoutClickEvent( model ) );
+    EDIT,
+    DELETE
+  }
+
+  public static void fireEdit( final com.google.gwt.event.shared.HasHandlers source, final ScoutViewModel model )
+  {
+    source.fireEvent( new ScoutClickEvent( model, ACTION.EDIT ) );
+  }
+
+  public static void fireDelete( final com.google.gwt.event.shared.HasHandlers source, final ScoutViewModel model )
+  {
+    source.fireEvent( new ScoutClickEvent( model, ACTION.DELETE ) );
   }
 
   public interface HasHandlers
@@ -22,15 +33,19 @@ public class ScoutClickEvent
   public interface Handler
     extends EventHandler
   {
-    void onScoutClicked( @Nonnull ScoutClickEvent event );
+    void onScoutDelete( @Nonnull ScoutClickEvent event );
+    void onScoutEdit( @Nonnull ScoutClickEvent event );
   }
 
   public static final GwtEvent.Type<Handler> TYPE = new GwtEvent.Type<>();
-  private ScoutViewModel _scoutViewModel;
+  private final ScoutViewModel _scoutViewModel;
+  private final ACTION _action;
 
-  public ScoutClickEvent( @Nonnull final ScoutViewModel scoutViewModel )
+  public ScoutClickEvent( @Nonnull final ScoutViewModel scoutViewModel,
+                          @Nonnull final ACTION action)
   {
     _scoutViewModel = scoutViewModel;
+    _action = action;
   }
 
   @Nonnull
@@ -48,7 +63,14 @@ public class ScoutClickEvent
   @Override
   protected void dispatch( final Handler handler )
   {
-    handler.onScoutClicked( this );
+    if ( ACTION.EDIT == _action )
+    {
+      handler.onScoutEdit( this );
+    }
+    else if ( ACTION.DELETE == _action )
+    {
+      handler.onScoutDelete( this );
+    }
   }
 
   public String toDebugString()
@@ -58,6 +80,6 @@ public class ScoutClickEvent
 
   public String toString()
   {
-    return "Scout Clicked[" + "Scout=" + _scoutViewModel.getDisplayString() + "]";
+    return "Scout " + _action +  " [" + "Scout=" + _scoutViewModel.getDisplayString() + "]";
   }
 }

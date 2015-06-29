@@ -64,10 +64,16 @@ public class ActionsCell
 
   @SuppressWarnings( "GwtUiHandlerErrors" )
   @UiHandler( "editLink" )
-  void editLinkClicked( final ClickEvent event, final Element parent, final ScoutViewModel viewModel )
+  void editClicked( final ClickEvent event, final Element parent, final ScoutViewModel viewModel )
   {
-    LOG.warning( "Edit scout clicked" );
-    ScoutClickEvent.fire( _eventBus, viewModel );
+    ScoutClickEvent.fireEdit( _eventBus, viewModel );
+  }
+
+  @SuppressWarnings( "GwtUiHandlerErrors" )
+  @UiHandler( "deleteLink" )
+  void deleteClicked( final ClickEvent event, final Element parent, final ScoutViewModel viewModel )
+  {
+    ScoutClickEvent.fireDelete( _eventBus, viewModel );
   }
 
   @Override

@@ -51,6 +51,10 @@ Domgen.repository(:Scoutmgr) do |repository|
         m.datetime :Dob
         m.string :RegistrationNumber, 20
       end
+
+      s.method(:DeleteScout) do |m|
+        m.integer(:ID)
+      end
     end
   end
 end

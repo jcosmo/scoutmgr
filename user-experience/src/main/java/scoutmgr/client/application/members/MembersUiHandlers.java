@@ -8,4 +8,5 @@ public interface MembersUiHandlers
 {
   void addScout();
   void editScout( Person person );
+  void deleteScout( Person person );
 }

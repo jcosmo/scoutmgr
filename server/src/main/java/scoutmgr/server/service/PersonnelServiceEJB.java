@@ -45,4 +45,11 @@ public class PersonnelServiceEJB
       e.printStackTrace();
     }
   }
+
+  @Override
+  public void deleteScout( final int id )
+  {
+    final Person person = _personRepository.getByID( id );
+    _personRepository.remove( person );
+  }
 }

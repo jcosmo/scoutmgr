@@ -2,15 +2,20 @@
              xmlns:g='urn:import:com.google.gwt.user.client.ui'>
   <ui:with field='_bundle' type='scoutmgr.client.resource.ScoutmgrResourceBundle'/>
   <ui:style field="_style" gss="true">
-    .actionDiv {
+    .actionsDiv {
       padding-top: 0;
       text-align: center;
     }
   </ui:style>
 
   <g:HTMLPanel>
-    <a href="#">
-      <span ui:field="editLink" class="{_bundle.bootstrap.glyphicon} {_bundle.bootstrap.glyphiconPencil} {_style.actionDiv}"/>
-    </a>
+    <div class="{_style.actionsDiv}">
+      <a href="#">
+        <span ui:field="editLink" class="{_bundle.bootstrap.glyphicon} {_bundle.bootstrap.glyphiconPencil}"/>
+      </a>
+      <a href="#">
+        <span ui:field="deleteLink" class="{_bundle.bootstrap.glyphicon} {_bundle.bootstrap.glyphiconTrash}"/>
+      </a>
+    </div>
   </g:HTMLPanel>
 </ui:UiBinder>

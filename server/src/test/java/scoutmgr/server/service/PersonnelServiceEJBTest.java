@@ -28,4 +28,11 @@ public class PersonnelServiceEJBTest
   {
 
   }
+
+  @Override
+  public void deleteScout()
+    throws Exception
+  {
+
+  }
 }

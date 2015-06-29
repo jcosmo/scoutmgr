@@ -137,7 +137,7 @@ public class MembersView
         }
       };
     _memberTable.addColumn( actionsColumn );
-    _memberTable.setColumnWidth( actionsColumn, 30, Style.Unit.PX );
+    _memberTable.setColumnWidth( actionsColumn, 60, Style.Unit.PX );
 
     _provider.addDataDisplay( _memberTable );
     initWidget( uiBinder.createAndBindUi( this ) );
@@ -161,8 +161,20 @@ public class MembersView
   }
 
   @Override
-  public void onScoutClicked( @Nonnull final ScoutClickEvent event )
+  public void onScoutEdit( @Nonnull final ScoutClickEvent event )
   {
     getUiHandlers().editScout( (Person) event.getScoutViewModel().asModelObject() );
+  }
+
+  @Override
+  public void onScoutDelete( @Nonnull final ScoutClickEvent event )
+  {
+    getUiHandlers().deleteScout( (Person) event.getScoutViewModel().asModelObject() );
+  }
+
+  @Override
+  public boolean confirmDelete( final Person person )
+  {
+    return true;
   }
 }
