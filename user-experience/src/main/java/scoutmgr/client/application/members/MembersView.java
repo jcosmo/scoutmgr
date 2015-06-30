@@ -21,17 +21,17 @@ import com.google.inject.Inject;
 import com.gwtplatform.mvp.client.ViewWithUiHandlers;
 import java.util.Collection;
 import java.util.Comparator;
-import javax.annotation.Nonnull;
 import scoutmgr.client.entity.Person;
-import scoutmgr.client.event.ScoutClickEvent;
+import scoutmgr.client.resource.ScoutmgrResourceBundle;
+import scoutmgr.client.view.cell.ActionCell;
 import scoutmgr.client.view.model.ScoutViewModel;
 
 @SuppressWarnings( "Convert2Lambda" )
 public class MembersView
   extends ViewWithUiHandlers<MembersUiHandlers>
-  implements MembersPresenter.View, ScoutClickEvent.Handler
+  implements MembersPresenter.View, ActionCell.UiActionHandler<ScoutViewModel>
 {
-  // private static final java.util.logging.Logger LOG = java.util.logging.Logger.getLogger( MembersPresenter.class.getName() );
+  private static final java.util.logging.Logger LOG = java.util.logging.Logger.getLogger( MembersPresenter.class.getName() );
 
   private final ListDataProvider<ScoutViewModel> _provider;
 
@@ -44,6 +44,8 @@ public class MembersView
   DataGrid<ScoutViewModel> _memberTable;
   @UiField
   Button _addScoutButton;
+  @UiField
+  ScoutmgrResourceBundle _bundle;
 
   interface Binder
     extends UiBinder<Widget, MembersView>
@@ -125,10 +127,9 @@ public class MembersView
     } );
     _memberTable.addColumn( surnameColumn, SafeHtmlUtils.fromString( "Surname" ) );
 
-    final ActionsCell actionsCell = new ActionsCell();
-    actionsCell.addScoutClickEventHandler( this );
+    final ActionCell<ScoutViewModel> actionCell = new ActionCell<>( this, true, true, false );
     final Column<ScoutViewModel, ScoutViewModel> actionsColumn =
-      new Column<ScoutViewModel, ScoutViewModel>( actionsCell )
+      new Column<ScoutViewModel, ScoutViewModel>( actionCell )
       {
         @Override
         public ScoutViewModel getValue( final ScoutViewModel object )
@@ -141,6 +142,8 @@ public class MembersView
 
     _provider.addDataDisplay( _memberTable );
     initWidget( uiBinder.createAndBindUi( this ) );
+
+    actionCell.setBundle( _bundle );
   }
 
   @Override
@@ -161,20 +164,21 @@ public class MembersView
   }
 
   @Override
-  public void onScoutEdit( @Nonnull final ScoutClickEvent event )
+  public void onEdit( final ScoutViewModel viewModel )
   {
-    getUiHandlers().editScout( (Person) event.getScoutViewModel().asModelObject() );
+    getUiHandlers().editScout( (Person)viewModel.asModelObject() );
   }
 
   @Override
-  public void onScoutDelete( @Nonnull final ScoutClickEvent event )
+  public void onDelete( final ScoutViewModel viewModel )
   {
-    getUiHandlers().deleteScout( (Person) event.getScoutViewModel().asModelObject() );
+    getUiHandlers().deleteScout( (Person)viewModel.asModelObject() );
   }
 
   @Override
   public boolean confirmDelete( final Person person )
   {
+
     return true;
   }
 }
