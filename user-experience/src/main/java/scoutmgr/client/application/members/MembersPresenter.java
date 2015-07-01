@@ -18,6 +18,7 @@ import org.realityforge.replicant.client.EntityChangeEvent;
 import org.realityforge.replicant.client.EntityChangeListener;
 import org.realityforge.replicant.client.EntityChangeListenerAdapter;
 import scoutmgr.client.application.ApplicationPresenter;
+import scoutmgr.client.application.dialog.DialogPresenter;
 import scoutmgr.client.application.scoutdetails.ScoutdetailsPresenter;
 import scoutmgr.client.entity.Person;
 import scoutmgr.client.net.ScoutmgrDataLoaderService;
@@ -52,6 +53,9 @@ public class MembersPresenter
 
   @Inject
   private ScoutdetailsPresenter _scoutDetailsPresenter;
+
+  @Inject
+  private DialogPresenter _dialogPresenter;
 
   private ScoutmgrDataLoaderService _dataloader;
 
@@ -114,11 +118,13 @@ public class MembersPresenter
   {
     super.prepareFromRequest( request );
 
+    /*
     if ( NameTokens.getMemberEdit().equals( request.getNameToken() ) )
     {
       final String memberID = request.getParameter( "memberID", "" );
       addToPopupSlot( _scoutDetailsPresenter );
     }
+    */
   }
 
   @Override
@@ -151,6 +157,7 @@ public class MembersPresenter
   @Override
   public void addScout()
   {
+    addToPopupSlot( _dialogPresenter );
     _personnelService.addScout( "a", "b", new Date(  ), "c");
   }
 }

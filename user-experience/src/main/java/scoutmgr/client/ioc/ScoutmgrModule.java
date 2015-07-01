@@ -15,6 +15,7 @@ import org.realityforge.replicant.client.transport.gwt.LocalCacheService;
 import scoutmgr.client.application.ApplicationModule;
 import scoutmgr.client.application.appbar.AppbarModule;
 import scoutmgr.client.application.crash.CrashModule;
+import scoutmgr.client.application.dialog.DialogModule;
 import scoutmgr.client.application.events.EventsModule;
 import scoutmgr.client.application.footer.FooterModule;
 import scoutmgr.client.application.members.MembersModule;
@@ -48,6 +49,7 @@ public class ScoutmgrModule
     install( new FooterModule() );
     install( new NavbarModule() );
     install( new ScoutdetailsModule() );
+    install( new DialogModule() );
     install( new CrashModule() );
 
     bindConstant().annotatedWith( DefaultPlace.class ).to( NameTokens.MEMBERS );

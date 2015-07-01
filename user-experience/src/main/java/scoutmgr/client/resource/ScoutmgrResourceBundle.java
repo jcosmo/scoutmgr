@@ -2,7 +2,6 @@ package scoutmgr.client.resource;
 
 import com.google.gwt.resources.client.ClientBundle;
 import com.google.gwt.resources.client.CssResource;
-import com.google.gwt.resources.client.ImageResource;
 
 // Turn of checkstyle as the names match the images names
 //CHECKSTYLE OFF: MethodName
@@ -2215,6 +2214,16 @@ public interface ScoutmgrResourceBundle
     String footerText();
 
     String footerContainer();
+
+    String dialog();
+
+    String dialogContainer();
+
+    String dialogHeader();
+
+    String dialogContent();
+
+    String dialogButtonbar();
   }
 
   @Source( "scoutmgr.main.gss" )

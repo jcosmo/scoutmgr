@@ -1,0 +1,19 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+             xmlns:g="urn:import:com.google.gwt.user.client.ui">
+  <ui:with field='_bundle' type='scoutmgr.client.resource.ScoutmgrResourceBundle'/>
+  <g:PopupPanel autoHideOnHistoryEventsEnabled="true" autoHideEnabled="false">
+    <g:HTMLPanel addStyleNames="{_bundle.scoutmgr.dialog}">
+      <div class="{_bundle.scoutmgr.dialogContainer}">
+        <div class="{_bundle.scoutmgr.dialogHeader}">
+        </div>
+        <div class="{_bundle.scoutmgr.dialogContent}">
+        </div>
+        <div class="{_bundle.scoutmgr.dialogButtonbar}">
+          <g:Button ui:field="_okButton">OK</g:Button>
+          <g:Button ui:field="_cancelButton">Cancel</g:Button>
+        </div>
+      </div>
+    </g:HTMLPanel>
+  </g:PopupPanel>
+</ui:UiBinder>

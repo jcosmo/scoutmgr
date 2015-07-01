@@ -25,3 +25,19 @@ body {
 .footerText {
   margin: 20px 0;
 }
+
+.dialog {
+}
+
+.dialog .dialogContainer {
+}
+
+.dialog  .dialogContainer .dialogHeader {
+}
+
+.dialog .dialogContainer .dialogContent{
+}
+
+.dialog .dialogContainer .dialogButtonbar{
+
+}
