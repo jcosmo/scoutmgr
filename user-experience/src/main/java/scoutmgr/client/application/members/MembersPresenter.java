@@ -1,5 +1,7 @@
 package scoutmgr.client.application.members;
 
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gwtplatform.mvp.client.HasUiHandlers;
@@ -44,8 +46,6 @@ public class MembersPresenter
     extends com.gwtplatform.mvp.client.View, HasUiHandlers<MembersUiHandlers>
   {
     void setMembers( Collection<ScoutViewModel> values );
-
-    boolean confirmDelete( Person person );
   }
 
   @Inject
@@ -146,18 +146,30 @@ public class MembersPresenter
   }
 
   @Override
-  public void deleteScout( final Person person )
+  public void requestDeleteScout( final Person person )
   {
-    if ( getView().confirmDelete( person ))
-    {
-      _personnelService.deleteScout( person.getID() );
-    }
+    _dialogPresenter.configureConfirmation( "Are you sure?",
+                                            "Delete " + person.getFirstName() + " " + person.getLastName() + "?",
+                                            new ClickHandler()
+                                            {
+                                              @Override
+                                              public void onClick( final ClickEvent event )
+                                              {
+                                                deleteScout( person );
+                                                removeFromPopupSlot( _dialogPresenter );
+                                              }
+                                            } );
+    addToPopupSlot( _dialogPresenter, true );
+  }
+
+  void deleteScout( final Person person )
+  {
+    _personnelService.deleteScout( person.getID() );
   }
 
   @Override
   public void addScout()
   {
-    addToPopupSlot( _dialogPresenter );
-    _personnelService.addScout( "a", "b", new Date(  ), "c");
+    _personnelService.addScout( "a", "b", new Date(), "c" );
   }
 }

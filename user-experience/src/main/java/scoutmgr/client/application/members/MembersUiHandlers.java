@@ -7,6 +7,8 @@ public interface MembersUiHandlers
   extends UiHandlers
 {
   void addScout();
+
   void editScout( Person person );
-  void deleteScout( Person person );
+
+  void requestDeleteScout( Person person );
 }

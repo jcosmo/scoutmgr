@@ -31,7 +31,8 @@ public class MembersView
   extends ViewWithUiHandlers<MembersUiHandlers>
   implements MembersPresenter.View, ActionCell.UiActionHandler<ScoutViewModel>
 {
-  private static final java.util.logging.Logger LOG = java.util.logging.Logger.getLogger( MembersPresenter.class.getName() );
+  private static final java.util.logging.Logger LOG =
+    java.util.logging.Logger.getLogger( MembersPresenter.class.getName() );
 
   private final ListDataProvider<ScoutViewModel> _provider;
 
@@ -166,19 +167,12 @@ public class MembersView
   @Override
   public void onEdit( final ScoutViewModel viewModel )
   {
-    getUiHandlers().editScout( (Person)viewModel.asModelObject() );
+    getUiHandlers().editScout( (Person) viewModel.asModelObject() );
   }
 
   @Override
   public void onDelete( final ScoutViewModel viewModel )
   {
-    getUiHandlers().deleteScout( (Person)viewModel.asModelObject() );
-  }
-
-  @Override
-  public boolean confirmDelete( final Person person )
-  {
-
-    return true;
+    getUiHandlers().requestDeleteScout( (Person) viewModel.asModelObject() );
   }
 }

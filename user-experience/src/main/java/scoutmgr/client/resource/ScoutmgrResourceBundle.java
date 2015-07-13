@@ -2215,15 +2215,9 @@ public interface ScoutmgrResourceBundle
 
     String footerContainer();
 
-    String dialog();
+    String modal();
 
-    String dialogContainer();
-
-    String dialogHeader();
-
-    String dialogContent();
-
-    String dialogButtonbar();
+    String modalBackdrop();
   }
 
   @Source( "scoutmgr.main.gss" )

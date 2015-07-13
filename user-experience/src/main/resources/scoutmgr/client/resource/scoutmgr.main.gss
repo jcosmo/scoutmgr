@@ -26,18 +26,17 @@ body {
   margin: 20px 0;
 }
 
-.dialog {
+.modalBackdrop {
+  z-index: 1000;
+  background-color: #000000;
+  opacity: 0.6;
+  filter: alpha(opacity=50);
 }
 
-.dialog .dialogContainer {
+.modal {
+  z-index: 1001;
+  margin: 10px;
+  right: 10px;
+  max-width: 400px;
 }
 
-.dialog  .dialogContainer .dialogHeader {
-}
-
-.dialog .dialogContainer .dialogContent{
-}
-
-.dialog .dialogContainer .dialogButtonbar{
-
-}
