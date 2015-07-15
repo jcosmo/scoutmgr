@@ -31,7 +31,7 @@ public class MembersPresenter
   implements MembersUiHandlers
 {
   @ProxyStandard
-  @NameToken( { NameTokens.MEMBERS } )
+  @NameToken( { NameTokens.SCOUT_LIST } )
   interface Proxy
     extends ProxyPlace<scoutmgr.client.application.members.MembersPresenter>
   {
@@ -117,7 +117,7 @@ public class MembersPresenter
   public void editScout( final Person person )
   {
     final PlaceRequest request = _placeManager.getCurrentPlaceRequest();
-    final PlaceRequest newPlace = new PlaceRequest.Builder( request ).nameToken( NameTokens.getMember() )
+    final PlaceRequest newPlace = new PlaceRequest.Builder( request ).nameToken( NameTokens.getScout() )
       .with( "id", person.getID().toString() ).build();
     _placeManager.revealPlace( newPlace );
   }
@@ -148,7 +148,7 @@ public class MembersPresenter
   public void addScout()
   {
     final PlaceRequest request = _placeManager.getCurrentPlaceRequest();
-    final PlaceRequest newPlace = new PlaceRequest.Builder( request ).nameToken( NameTokens.getNewMember() ).build();
+    final PlaceRequest newPlace = new PlaceRequest.Builder( request ).nameToken( NameTokens.getNewScout() ).build();
     _placeManager.revealPlace( newPlace );
   }
 }

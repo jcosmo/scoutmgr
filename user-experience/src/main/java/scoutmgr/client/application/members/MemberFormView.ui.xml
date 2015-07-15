@@ -31,7 +31,7 @@
         </div>
         <div class="spacer"/>
         <div class="editable-panel-buttons {_bundle.bootstrap.colSmOffset2} {_bundle.bootstrap.colSm4}">
-          <g:Anchor href="#{_nameTokens.getMembers}" ui:field="_cancelButton" addStyleNames="{_bundle.bootstrap.btn} {_bundle.bootstrap.btnDefault} cancel-button">
+          <g:Anchor href="#{_nameTokens.getScoutList}" ui:field="_cancelButton" addStyleNames="{_bundle.bootstrap.btn} {_bundle.bootstrap.btnDefault} cancel-button">
             <i class="{_bundle.bootstrap.glyphicon} {_bundle.bootstrap.glyphiconRemove}"/>
             Cancel
           </g:Anchor>

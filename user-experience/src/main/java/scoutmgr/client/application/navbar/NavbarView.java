@@ -53,7 +53,7 @@ public class NavbarView
         _membersLinkContainer.removeClassName( _bundle.bootstrap().active() );
         break;
 
-      case NameTokens.MEMBERS:
+      case NameTokens.SCOUT_LIST:
         _eventsLinkContainer.removeClassName( _bundle.bootstrap().active() );
         _membersLinkContainer.addClassName( _bundle.bootstrap().active() );
         break;

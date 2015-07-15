@@ -28,7 +28,7 @@ public class MemberFormPresenter
   private int _idForEdit;
 
   @ProxyStandard
-  @NameToken( { NameTokens.MEMBER, NameTokens.NEW_MEMBER } )
+  @NameToken( { NameTokens.SCOUT, NameTokens.NEW_SCOUT } )
   interface Proxy
     extends ProxyPlace<MemberFormPresenter>
   {
@@ -99,7 +99,7 @@ public class MemberFormPresenter
     else {
       _personnelService.updateScout( _idForEdit, givenName, familyName, new Date(), "c" );
     }
-    final PlaceRequest newRequest = new PlaceRequest.Builder().nameToken( NameTokens.MEMBERS ).build();
+    final PlaceRequest newRequest = new PlaceRequest.Builder().nameToken( NameTokens.SCOUT_LIST ).build();
     _placeManager.revealPlace( newRequest );
   }
 }

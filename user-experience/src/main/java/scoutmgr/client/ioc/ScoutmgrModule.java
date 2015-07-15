@@ -50,7 +50,7 @@ public class ScoutmgrModule
     install( new DialogModule() );
     install( new CrashModule() );
 
-    bindConstant().annotatedWith( DefaultPlace.class ).to( NameTokens.MEMBERS );
+    bindConstant().annotatedWith( DefaultPlace.class ).to( NameTokens.SCOUT_LIST );
     bindConstant().annotatedWith( ErrorPlace.class ).to( NameTokens.CRASH );
     bindConstant().annotatedWith( UnauthorizedPlace.class ).to( NameTokens.CRASH );
 
