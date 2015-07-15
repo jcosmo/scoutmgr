@@ -1,5 +1,6 @@
 package scoutmgr.client.view.model;
 
+import org.realityforge.gwt.datatypes.client.date.RDate;
 import scoutmgr.client.entity.Person;
 
 public class ScoutViewModel
@@ -18,5 +19,15 @@ public class ScoutViewModel
   public String getLastName()
   {
     return ((Person)asModelObject()).getLastName();
+  }
+
+  public RDate getDob()
+  {
+    return ((Person)asModelObject()).getDob();
+  }
+
+  public String getRegistrationNumber()
+  {
+    return ((Person)asModelObject()).getRegistrationNumber();
   }
 }
