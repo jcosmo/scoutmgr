@@ -30,6 +30,13 @@ public class PersonnelServiceEJBTest
   }
 
   @Override
+  public void updateScout()
+    throws Exception
+  {
+
+  }
+
+  @Override
   public void deleteScout()
     throws Exception
   {

@@ -52,4 +52,19 @@ public class PersonnelServiceEJB
     final Person person = _personRepository.getByID( id );
     _personRepository.remove( person );
   }
+
+  @Override
+  public void updateScout( final int idForUpdate,
+                           @Nonnull final String firstName,
+                           @Nonnull final String lastName,
+                           @Nonnull final Date dob,
+                           @Nonnull final String registrationNumber )
+  {
+    final Person person = _personRepository.getByID( idForUpdate );
+    person.setFirstName( firstName );
+    person.setLastName( lastName );
+    person.setRegistrationNumber( registrationNumber );
+    person.setDob( dob );
+    _personRepository.persist( person );
+  }
 }

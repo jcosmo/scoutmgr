@@ -10,5 +10,7 @@ public class MembersModule
   {
     bindPresenter( MembersPresenter.class, MembersPresenter.View.class, MembersView.class,
                    MembersPresenter.Proxy.class );
+    bindPresenter( MemberFormPresenter.class, MemberFormPresenter.View.class, MemberFormView.class,
+                   MemberFormPresenter.Proxy.class );
   }
 }

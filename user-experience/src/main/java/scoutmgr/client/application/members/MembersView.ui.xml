@@ -3,14 +3,8 @@
              xmlns:g="urn:import:com.google.gwt.user.client.ui"
              xmlns:c='urn:import:com.google.gwt.user.cellview.client'>
   <ui:with field='_bundle' type='scoutmgr.client.resource.ScoutmgrResourceBundle'/>
-  <ui:style field="_style" gss="true">
-    .memberDiv {
-      margin: 10px;
-      margin-bottom: 20px;
-    }
-  </ui:style>
 
-  <g:LayoutPanel ui:field="_membersPanel" addStyleNames="{_style.memberDiv}">
+  <g:LayoutPanel ui:field="_membersPanel" addStyleNames="{_bundle.scoutmgr.content}">
     <g:layer top="0" height="30px" left="0" width="50%">
       <g:Button ui:field="_addScoutButton">Add Scout</g:Button>
     </g:layer>

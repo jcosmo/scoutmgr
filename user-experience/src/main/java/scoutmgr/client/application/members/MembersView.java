@@ -31,9 +31,6 @@ public class MembersView
   extends ViewWithUiHandlers<MembersUiHandlers>
   implements MembersPresenter.View, ActionCell.UiActionHandler<ScoutViewModel>
 {
-  private static final java.util.logging.Logger LOG =
-    java.util.logging.Logger.getLogger( MembersPresenter.class.getName() );
-
   private final ListDataProvider<ScoutViewModel> _provider;
 
   @UiField

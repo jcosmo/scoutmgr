@@ -2218,6 +2218,8 @@ public interface ScoutmgrResourceBundle
     String modal();
 
     String modalBackdrop();
+
+    String content();
   }
 
   @Source( "scoutmgr.main.gss" )

@@ -20,7 +20,6 @@ import scoutmgr.client.application.events.EventsModule;
 import scoutmgr.client.application.footer.FooterModule;
 import scoutmgr.client.application.members.MembersModule;
 import scoutmgr.client.application.navbar.NavbarModule;
-import scoutmgr.client.application.scoutdetails.ScoutdetailsModule;
 import scoutmgr.client.place.NameTokens;
 import scoutmgr.client.util.GlobalAsyncCallback;
 
@@ -48,7 +47,6 @@ public class ScoutmgrModule
     install( new AppbarModule() );
     install( new FooterModule() );
     install( new NavbarModule() );
-    install( new ScoutdetailsModule() );
     install( new DialogModule() );
     install( new CrashModule() );
 

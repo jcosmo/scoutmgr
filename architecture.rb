@@ -52,6 +52,14 @@ Domgen.repository(:Scoutmgr) do |repository|
         m.string :RegistrationNumber, 20
       end
 
+      s.method(:UpdateScout) do |m|
+        m.integer(:IdForUpdate)
+        m.string :FirstName, 255
+        m.string :LastName, 255
+        m.datetime :Dob
+        m.string :RegistrationNumber, 20
+      end
+
       s.method(:DeleteScout) do |m|
         m.integer(:ID)
       end

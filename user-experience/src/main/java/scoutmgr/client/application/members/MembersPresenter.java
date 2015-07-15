@@ -12,7 +12,6 @@ import com.gwtplatform.mvp.client.proxy.PlaceManager;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 import com.gwtplatform.mvp.shared.proxy.PlaceRequest;
 import java.util.Collection;
-import java.util.Date;
 import java.util.HashMap;
 import javax.annotation.Nonnull;
 import org.realityforge.replicant.client.EntityChangeBroker;
@@ -21,7 +20,6 @@ import org.realityforge.replicant.client.EntityChangeListener;
 import org.realityforge.replicant.client.EntityChangeListenerAdapter;
 import scoutmgr.client.application.ApplicationPresenter;
 import scoutmgr.client.application.dialog.DialogPresenter;
-import scoutmgr.client.application.scoutdetails.ScoutdetailsPresenter;
 import scoutmgr.client.entity.Person;
 import scoutmgr.client.net.ScoutmgrDataLoaderService;
 import scoutmgr.client.place.NameTokens;
@@ -32,11 +30,8 @@ public class MembersPresenter
   extends Presenter<scoutmgr.client.application.members.MembersPresenter.View, scoutmgr.client.application.members.MembersPresenter.Proxy>
   implements MembersUiHandlers
 {
-  private static final java.util.logging.Logger LOG =
-    java.util.logging.Logger.getLogger( MembersPresenter.class.getName() );
-
   @ProxyStandard
-  @NameToken( { NameTokens.MEMBERS, NameTokens.MEMBER_EDIT } )
+  @NameToken( { NameTokens.MEMBERS } )
   interface Proxy
     extends ProxyPlace<scoutmgr.client.application.members.MembersPresenter>
   {
@@ -50,9 +45,6 @@ public class MembersPresenter
 
   @Inject
   private PlaceManager _placeManager;
-
-  @Inject
-  private ScoutdetailsPresenter _scoutDetailsPresenter;
 
   @Inject
   private DialogPresenter _dialogPresenter;
@@ -114,20 +106,6 @@ public class MembersPresenter
   }
 
   @Override
-  public void prepareFromRequest( final PlaceRequest request )
-  {
-    super.prepareFromRequest( request );
-
-    /*
-    if ( NameTokens.getMemberEdit().equals( request.getNameToken() ) )
-    {
-      final String memberID = request.getParameter( "memberID", "" );
-      addToPopupSlot( _scoutDetailsPresenter );
-    }
-    */
-  }
-
-  @Override
   protected void onHide()
   {
     super.onHide();
@@ -138,10 +116,9 @@ public class MembersPresenter
   @Override
   public void editScout( final Person person )
   {
-    PlaceRequest request = _placeManager.getCurrentPlaceRequest();
-    final PlaceRequest newPlace = new PlaceRequest.Builder( request ).nameToken( NameTokens.getMemberEdit() )
-      .with( "memberID", "" ).build();
-    LOG.warning( newPlace.toString() );
+    final PlaceRequest request = _placeManager.getCurrentPlaceRequest();
+    final PlaceRequest newPlace = new PlaceRequest.Builder( request ).nameToken( NameTokens.getMember() )
+      .with( "id", person.getID().toString() ).build();
     _placeManager.revealPlace( newPlace );
   }
 
@@ -170,6 +147,8 @@ public class MembersPresenter
   @Override
   public void addScout()
   {
-    _personnelService.addScout( "a", "b", new Date(), "c" );
+    final PlaceRequest request = _placeManager.getCurrentPlaceRequest();
+    final PlaceRequest newPlace = new PlaceRequest.Builder( request ).nameToken( NameTokens.getNewMember() ).build();
+    _placeManager.revealPlace( newPlace );
   }
 }
