@@ -20,7 +20,7 @@ Domgen.repository(:Scoutmgr) do |repository|
       t.integer(:ID, :primary_key => true)
       t.string(:FirstName, 255)
       t.string(:LastName, 255)
-      t.datetime(:Dob)
+      t.date(:Dob)
       t.string(:RegistrationNumber, 20)
 
       t.unique_constraint([:FirstName, :LastName, :Dob])
@@ -36,7 +36,7 @@ Domgen.repository(:Scoutmgr) do |repository|
       s.integer(:ID)
       s.text(:FirstName)
       s.text(:LastName)
-      s.datetime(:Dob)
+      s.date(:Dob)
       s.text(:RegistrationNumber)
     end
 
