@@ -48,7 +48,7 @@ Domgen.repository(:Scoutmgr) do |repository|
       s.method(:AddScout) do |m|
         m.string :FirstName, 255
         m.string :LastName, 255
-        m.datetime :Dob
+        m.date :Dob
         m.string :RegistrationNumber, 20
       end
 
@@ -56,7 +56,7 @@ Domgen.repository(:Scoutmgr) do |repository|
         m.integer(:IdForUpdate)
         m.string :FirstName, 255
         m.string :LastName, 255
-        m.datetime :Dob
+        m.date :Dob
         m.string :RegistrationNumber, 20
       end
 

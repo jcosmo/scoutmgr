@@ -10,6 +10,17 @@
         <div class="{_bundle.bootstrap.formGroup}">
           <label class="{_bundle.bootstrap.controlLabel} required star-added {_bundle.bootstrap.colSm2}">
             <span class="star">*</span>
+            Registration Number
+          </label>
+          <div class="{_bundle.bootstrap.inputGroup} nopadding disableable {_bundle.bootstrap.colSm4}">
+            <span class="edit-panel-control-holder">
+              <g:TextBox ui:field="_regNum" addStyleNames="{_bundle.bootstrap.formControl}"/>
+            </span>
+          </div>
+        </div>
+        <div class="{_bundle.bootstrap.formGroup}">
+          <label class="{_bundle.bootstrap.controlLabel} required star-added {_bundle.bootstrap.colSm2}">
+            <span class="star">*</span>
             Given Name
           </label>
           <div class="{_bundle.bootstrap.inputGroup} nopadding disableable {_bundle.bootstrap.colSm4}">
@@ -26,6 +37,17 @@
           <div class="{_bundle.bootstrap.inputGroup} nopadding disableable {_bundle.bootstrap.colSm4}">
             <span class="edit-panel-control-holder">
               <g:TextBox ui:field="_familyName" addStyleNames="{_bundle.bootstrap.formControl}"/>
+            </span>
+          </div>
+        </div>
+        <div class="{_bundle.bootstrap.formGroup}">
+          <label class="{_bundle.bootstrap.controlLabel} required star-added {_bundle.bootstrap.colSm2}">
+            <span class="star">*</span>
+            Date of Birth
+          </label>
+          <div class="{_bundle.bootstrap.inputGroup} nopadding disableable {_bundle.bootstrap.colSm4}">
+            <span class="edit-panel-control-holder">
+              <d:DateBox ui:field="_dob" addStyleNames="{_bundle.bootstrap.formControl}"/>
             </span>
           </div>
         </div>

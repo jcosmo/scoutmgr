@@ -9,7 +9,7 @@ import com.gwtplatform.mvp.client.annotations.ProxyStandard;
 import com.gwtplatform.mvp.client.proxy.PlaceManager;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 import com.gwtplatform.mvp.shared.proxy.PlaceRequest;
-import java.util.Date;
+import org.realityforge.gwt.datatypes.client.date.RDate;
 import org.realityforge.replicant.client.EntityRepository;
 import scoutmgr.client.application.ApplicationPresenter;
 import scoutmgr.client.entity.Person;
@@ -90,14 +90,14 @@ public class MemberFormPresenter
     }
   }
 
-  public void saveMember( final String givenName, final String familyName )
+  public void saveMember( final String regNumber, final String givenName, final String familyName, final RDate dob )
   {
     if ( -1 == _idForEdit )
     {
-      _personnelService.addScout( givenName, familyName, new Date(), "c" );
+      _personnelService.addScout( givenName, familyName, dob, regNumber );
     }
     else {
-      _personnelService.updateScout( _idForEdit, givenName, familyName, new Date(), "c" );
+      _personnelService.updateScout( _idForEdit, givenName, familyName, dob, regNumber );
     }
     final PlaceRequest newRequest = new PlaceRequest.Builder().nameToken( NameTokens.SCOUT_LIST ).build();
     _placeManager.revealPlace( newRequest );
