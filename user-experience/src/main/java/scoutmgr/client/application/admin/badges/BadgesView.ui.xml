@@ -6,19 +6,10 @@
 
   <g:LayoutPanel ui:field="_membersPanel" addStyleNames="{_bundle.scoutmgr.content}">
     <g:layer left="0" width="100px" top="0" height="100%">
-      <g:HTMLPanel>
-        <p>hi</p>
-      </g:HTMLPanel>
+      <g:SimplePanel ui:field="_leftNav"/>
     </g:layer>
-    <g:layer top="0" height="30px" left="101px" right="0" >
-      <g:HTMLPanel>
-        <p>pager</p>
-      </g:HTMLPanel>
-    </g:layer>
-    <g:layer top="30px" bottom="0"  left="101px" right="0">
-      <g:HTMLPanel>
-        <p>Badges in category</p>
-      </g:HTMLPanel>
+    <g:layer left="101px" right="0" top="0" bottom="100%">
+      <g:SimplePanel ui:field="_content"/>
     </g:layer>
   </g:LayoutPanel>
 </ui:UiBinder>

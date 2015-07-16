@@ -1,13 +1,16 @@
 package scoutmgr.client.application.admin.badges;
 
+import com.google.gwt.event.shared.GwtEvent;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
+import com.gwtplatform.mvp.client.annotations.ContentSlot;
 import com.gwtplatform.mvp.client.annotations.NameToken;
 import com.gwtplatform.mvp.client.annotations.ProxyStandard;
 import com.gwtplatform.mvp.client.proxy.PlaceManager;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
+import com.gwtplatform.mvp.client.proxy.RevealContentHandler;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -30,22 +33,30 @@ public class BadgesPresenter
 
   @ProxyStandard
   @NameToken( { NameTokens.ADMIN_BADGES, NameTokens.ADMIN_BADGES_LEVEL } )
-  public interface Proxy
+  interface Proxy
     extends ProxyPlace<BadgesPresenter>
   {
   }
 
-  public interface View
+  interface View
     extends com.gwtplatform.mvp.client.View, HasUiHandlers<BadgesUiHandlers>
   {
     void setBadgeCategoryViewModels( List<BadgeCategoryViewModel> badgeCategoryViewModels );
   }
+
+  @ContentSlot
+  public static final GwtEvent.Type<RevealContentHandler<?>> SLOT_LEFT_NAV = new GwtEvent.Type<>();
+  @ContentSlot
+  public static final GwtEvent.Type<RevealContentHandler<?>> SLOT_BADGES_CONTENT = new GwtEvent.Type<>();
 
   @Inject
   private PlaceManager _placeManager;
 
   @javax.inject.Inject
   private EntityRepository _repository;
+
+  @Inject
+  private NavPresenter _navPresenter;
 
   @Inject
   BadgesPresenter( final EventBus eventBus,
@@ -68,6 +79,12 @@ public class BadgesPresenter
         setBadgesToUI();
       }
     } );
+  }
+
+  protected void onBind()
+  {
+    super.onBind();
+    setInSlot( SLOT_LEFT_NAV, _navPresenter );
   }
 
   @Override
