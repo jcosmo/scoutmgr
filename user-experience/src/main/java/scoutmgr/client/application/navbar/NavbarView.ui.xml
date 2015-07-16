@@ -23,6 +23,7 @@
           <ul class="{_bundle.bootstrap.nav} {_bundle.bootstrap.navbarNav}">
             <li ui:field="_eventsLinkContainer"><g:Anchor text="Events" href="#{_nameTokens.getEvents}"/></li>
             <li ui:field="_membersLinkContainer"><g:Anchor text="Scouts" href="#{_nameTokens.getScoutList}"/></li>
+            <li ui:field="_badgesLinkContainer"><g:Anchor text="Badge Management" href="#{_nameTokens.getAdminBadges}"/></li>
           </ul>
         </div>
       </div>

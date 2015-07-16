@@ -1,0 +1,25 @@
+1:
+  ID: 1
+  Name: 'Pioneer'
+  ScoutLevel: 'SCOUT'
+  Rank: 1
+2:
+  ID: 2
+  Name: 'Explorer'
+  ScoutLevel: 'SCOUT'
+  Rank: 2
+3:
+  ID: 3
+  Name: 'Adventurer'
+  ScoutLevel: 'SCOUT'
+  Rank: 3
+4:
+  ID: 4
+  Name: 'Proficiency'
+  ScoutLevel: 'SCOUT'
+  Rank: 4
+5:
+  ID: 5
+  Name: 'Brown Wolf'
+  ScoutLevel: 'CUB'
+  Rank: 1

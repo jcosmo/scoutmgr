@@ -12,8 +12,11 @@ Domgen.repository(:Scoutmgr) do |repository|
 
   repository.xml.base_namespace = 'http://tharsis-gate.org'
 
+  repository.imit.graph(:Metadata)
   repository.imit.graph(:Person)
   repository.imit.graph(:People)
+
+  SCOUT_LEVELS = %w(JOEY CUB SCOUT VENTURER)
 
   repository.data_module(:Scoutmgr) do |data_module|
     data_module.entity(:Person) do |t|
@@ -30,6 +33,29 @@ Domgen.repository(:Scoutmgr) do |repository|
       t.query(:FindAllWhereNameLike, 'jpa.jpql' => 'O.firstName LIKE :Name OR O.lastName LIKE :Name') do |q|
         q.string(:Name, 255)
       end
+    end
+
+    data_module.entity(:BadgeCategory) do |t|
+      t.integer(:ID, :primary_key => true)
+      t.s_enum(:ScoutLevel, SCOUT_LEVELS)
+      t.string(:Name, 255)
+      t.integer(:Rank)
+
+      t.unique_constraint([:ScoutLevel, :Name])
+
+      t.imit.replicate(:Metadata, :type)
+    end
+
+    data_module.entity(:Badge) do |t|
+      t.integer(:ID, :primary_key => true)
+      t.s_enum(:ScoutLevel, SCOUT_LEVELS)
+      t.string(:Name, 255)
+      t.integer(:Rank)
+
+      t.reference(:BadgeCategory, :nullable => true)
+      t.unique_constraint([:ScoutLevel, :Name])
+
+      t.imit.replicate(:Metadata, :type)
     end
 
     data_module.struct(:PersonDTO) do |s|
@@ -64,5 +90,7 @@ Domgen.repository(:Scoutmgr) do |repository|
         m.integer(:ID)
       end
     end
+
+    data_module.message(:MetadataLoaded)
   end
 end

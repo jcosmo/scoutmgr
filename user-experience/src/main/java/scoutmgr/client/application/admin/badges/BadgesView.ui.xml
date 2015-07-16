@@ -1,0 +1,24 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+             xmlns:c='urn:import:com.google.gwt.user.cellview.client'
+             xmlns:g="urn:import:com.google.gwt.user.client.ui">
+  <ui:with field='_bundle' type='scoutmgr.client.resource.ScoutmgrResourceBundle'/>
+
+  <g:LayoutPanel ui:field="_membersPanel" addStyleNames="{_bundle.scoutmgr.content}">
+    <g:layer left="0" width="100px" top="0" height="100%">
+      <g:HTMLPanel>
+        <p>hi</p>
+      </g:HTMLPanel>
+    </g:layer>
+    <g:layer top="0" height="30px" left="101px" right="0" >
+      <g:HTMLPanel>
+        <p>pager</p>
+      </g:HTMLPanel>
+    </g:layer>
+    <g:layer top="30px" bottom="0"  left="101px" right="0">
+      <g:HTMLPanel>
+        <p>Badges in category</p>
+      </g:HTMLPanel>
+    </g:layer>
+  </g:LayoutPanel>
+</ui:UiBinder>

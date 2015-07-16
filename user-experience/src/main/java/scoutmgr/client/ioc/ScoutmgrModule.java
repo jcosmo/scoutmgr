@@ -13,6 +13,7 @@ import org.realityforge.replicant.client.json.gwt.ReplicantGinModule;
 import org.realityforge.replicant.client.transport.CacheService;
 import org.realityforge.replicant.client.transport.gwt.LocalCacheService;
 import scoutmgr.client.application.ApplicationModule;
+import scoutmgr.client.application.admin.AdminModule;
 import scoutmgr.client.application.appbar.AppbarModule;
 import scoutmgr.client.application.crash.CrashModule;
 import scoutmgr.client.application.dialog.DialogModule;
@@ -49,6 +50,7 @@ public class ScoutmgrModule
     install( new NavbarModule() );
     install( new DialogModule() );
     install( new CrashModule() );
+    install( new AdminModule() );
 
     bindConstant().annotatedWith( DefaultPlace.class ).to( NameTokens.SCOUT_LIST );
     bindConstant().annotatedWith( ErrorPlace.class ).to( NameTokens.CRASH );

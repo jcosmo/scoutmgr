@@ -10,6 +10,7 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.gwtplatform.mvp.client.ViewImpl;
+import scoutmgr.client.application.members.MemberFormPresenter;
 import scoutmgr.client.place.NameTokens;
 import scoutmgr.client.resource.ScoutmgrResourceBundle;
 
@@ -22,6 +23,11 @@ public class NavbarView
 
   @UiField
   LIElement _membersLinkContainer;
+
+  @UiField
+  LIElement _badgesLinkContainer;
+
+  LIElement _currentLink;
 
   @UiField
   HTML _navToggle;
@@ -38,7 +44,7 @@ public class NavbarView
   }
 
   @Inject
-  NavbarView( final Binder uiBinder)
+  NavbarView( final Binder uiBinder )
   {
     initWidget( uiBinder.createAndBindUi( this ) );
   }
@@ -46,17 +52,43 @@ public class NavbarView
   @Override
   public void setMenuItemActive( final String nameToken )
   {
-    switch (nameToken )
+    final LIElement newLink;
+    switch ( nameToken )
     {
       case NameTokens.EVENTS:
-        _eventsLinkContainer.addClassName( _bundle.bootstrap().active() );
-        _membersLinkContainer.removeClassName( _bundle.bootstrap().active() );
+        newLink = _eventsLinkContainer;
         break;
 
       case NameTokens.SCOUT_LIST:
-        _eventsLinkContainer.removeClassName( _bundle.bootstrap().active() );
-        _membersLinkContainer.addClassName( _bundle.bootstrap().active() );
+      case NameTokens.SCOUT:
+      case NameTokens.NEW_SCOUT:
+        newLink = _membersLinkContainer;
         break;
+
+      case NameTokens.ADMIN_BADGES_LEVEL:
+      case NameTokens.ADMIN_BADGE:
+      case NameTokens.ADMIN_BADGES:
+      case NameTokens.ADMIN_NEW_BADGE:
+        newLink = _badgesLinkContainer;
+        break;
+
+      default:
+        newLink = null;
+    }
+
+    if ( newLink != _currentLink )
+    {
+      if ( null != _currentLink )
+      {
+        _currentLink.removeClassName( _bundle.bootstrap().active() );
+      }
+
+      if ( null != newLink )
+      {
+        newLink.addClassName( _bundle.bootstrap().active() );
+      }
+
+      _currentLink = newLink;
     }
   }
 
