@@ -1,20 +1,23 @@
 package scoutmgr.client.application.admin.badges;
 
 import com.google.gwt.cell.client.TextCell;
-import com.google.gwt.dom.client.LIElement;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.cellview.client.CellList;
+import com.google.gwt.user.cellview.client.HasKeyboardSelectionPolicy;
 import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.view.client.SelectionChangeEvent;
+import com.google.gwt.view.client.SingleSelectionModel;
 import com.google.inject.Inject;
-import com.gwtplatform.mvp.client.ViewImpl;
+import com.gwtplatform.mvp.client.ViewWithUiHandlers;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 import scoutmgr.client.data_type.BadgeScoutLevel;
 import scoutmgr.client.resource.ScoutmgrResourceBundle;
 
 public class NavView
-  extends ViewImpl
+  extends ViewWithUiHandlers<NavUiHandlers>
   implements NavPresenter.View
 {
   private final List<String> _provider;
@@ -25,7 +28,7 @@ public class NavView
   @UiField
   ScoutmgrResourceBundle _bundle;
 
-  private LIElement _currentLink;
+  private final SingleSelectionModel<String> _selectionModel;
 
   interface Binder
     extends UiBinder<Widget, NavView>
@@ -43,6 +46,19 @@ public class NavView
 
     TextCell textCell = new TextCell(  );
     _categoryList = new CellList<>( textCell );
+    _categoryList.setKeyboardSelectionPolicy( HasKeyboardSelectionPolicy.KeyboardSelectionPolicy.DISABLED );
+    _selectionModel = new SingleSelectionModel<>(  );
+    _categoryList.setSelectionModel( _selectionModel );
+    _selectionModel.addSelectionChangeHandler( new SelectionChangeEvent.Handler()
+    {
+      @Override
+      public void onSelectionChange( final SelectionChangeEvent event )
+      {
+        final String selected = _selectionModel.getSelectedObject();
+        getUiHandlers().changeScoutLevel( null == selected ? null : BadgeScoutLevel.valueOf( selected ) );
+      }
+    } );
+
     _categoryList.setRowCount( _provider.size(), true );
     _categoryList.setRowData( 0, _provider );
 
@@ -50,28 +66,12 @@ public class NavView
   }
 
   @Override
-  public void setMenuItemActive( final String nameToken )
+  public void setBadgeLevelActive( final BadgeScoutLevel level )
   {
-    final LIElement newLink;
-    switch ( nameToken )
+    _selectionModel.clear();
+    if ( null != level )
     {
-      default:
-        newLink = null;
-    }
-
-    if ( newLink != _currentLink )
-    {
-      if ( null != _currentLink )
-      {
-        _currentLink.removeClassName( _bundle.bootstrap().active() );
-      }
-
-      if ( null != newLink )
-      {
-        newLink.addClassName( _bundle.bootstrap().active() );
-      }
-
-      _currentLink = newLink;
+      _selectionModel.setSelected( level.name(), true );
     }
   }
 }
