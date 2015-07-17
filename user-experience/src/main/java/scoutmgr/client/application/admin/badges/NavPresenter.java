@@ -25,11 +25,14 @@ public class NavPresenter
   @Inject
   private PlaceManager _placeManager;
 
+  BadgeScoutLevel _lastBadgeLevel;
+
   @Inject
   NavPresenter( final EventBus eventBus,
                 final View view )
   {
     super( eventBus, view );
+    _lastBadgeLevel = null;
     getView().setUiHandlers( this );
   }
 
@@ -38,35 +41,32 @@ public class NavPresenter
   {
     super.onBind();
     addRegisteredHandler( NavigationEvent.getType(), this );
-    updateViewLocation( _placeManager.getCurrentPlaceRequest() );
   }
 
   @Override
   public void onNavigation( final NavigationEvent navigationEvent )
   {
-    final String nameToken = navigationEvent.getRequest().getNameToken();
-    if ( NameTokens.ADMIN_BADGES.equals( nameToken ) || NameTokens.ADMIN_BADGE.equals( nameToken ) )
+    final PlaceRequest request = navigationEvent.getRequest();
+    final String nameToken = request.getNameToken();
+    if ( NameTokens.ADMIN_BADGES_LEVEL.equals( nameToken ) )
     {
-      updateViewLocation( navigationEvent.getRequest() );
+      final String level = request.getParameter( "level", null );
+      if ( null != level )
+      {
+        _lastBadgeLevel = BadgeScoutLevel.valueOf( level );
+      }
+      getView().setBadgeLevelActive( _lastBadgeLevel );
     }
-  }
-
-  private void updateViewLocation( final PlaceRequest request )
-  {
-    final String level = request.getParameter( "level", null );
-    if ( null == level )
+    else if ( NameTokens.ADMIN_BADGES.equals( nameToken ) )
     {
-      getView().setBadgeLevelActive( null );
-    }
-    else
-    {
-      getView().setBadgeLevelActive( BadgeScoutLevel.valueOf( level ) );
+      changeScoutLevel( _lastBadgeLevel );
     }
   }
 
   @Override
   public void changeScoutLevel( final BadgeScoutLevel badgeScoutLevel )
   {
+    _lastBadgeLevel = badgeScoutLevel;
     final PlaceRequest currentPlace = _placeManager.getCurrentPlaceRequest();
     if ( null == badgeScoutLevel )
     {
