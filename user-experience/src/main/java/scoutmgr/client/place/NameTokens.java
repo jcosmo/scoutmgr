@@ -5,9 +5,9 @@ public class NameTokens
   public static final String CRASH = "/error";
   public static final String EVENTS = "/events";
 
-  public static final String SCOUT_LIST = "/admin/scouts";
-  public static final String SCOUT = "/admin/scout/{id}";
-  public static final String NEW_SCOUT = "/admin/scout";
+  public static final String ADMIN_SCOUTS = "/admin/scouts";
+  public static final String ADMIN_SCOUT = "/admin/scout/{id}";
+  public static final String ADMIN_NEW_SCOUT = "/admin/scout";
 
   public static final String ADMIN_BADGES = "/admin/badges";
   public static final String ADMIN_BADGES_LEVEL = "/admin/badges/{level}";
@@ -19,19 +19,19 @@ public class NameTokens
     return EVENTS;
   }
 
-  public static String getScoutList()
+  public static String getAdminScouts()
   {
-    return SCOUT_LIST;
+    return ADMIN_SCOUTS;
   }
 
-  public static String getScout()
+  public static String getAdminScout()
   {
-    return SCOUT;
+    return ADMIN_SCOUT;
   }
 
-  public static String getNewScout()
+  public static String getAdminNewScout()
   {
-    return NEW_SCOUT;
+    return ADMIN_NEW_SCOUT;
   }
 
   public static String getAdminBadges()

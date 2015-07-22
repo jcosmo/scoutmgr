@@ -19,7 +19,6 @@ import scoutmgr.client.application.crash.CrashModule;
 import scoutmgr.client.application.dialog.DialogModule;
 import scoutmgr.client.application.events.EventsModule;
 import scoutmgr.client.application.footer.FooterModule;
-import scoutmgr.client.application.members.MembersModule;
 import scoutmgr.client.application.navbar.NavbarModule;
 import scoutmgr.client.place.NameTokens;
 import scoutmgr.client.util.GlobalAsyncCallback;
@@ -44,7 +43,6 @@ public class ScoutmgrModule
     install( new DefaultModule.Builder().tokenFormatter( RouteTokenFormatter.class ).build() );
     install( new ApplicationModule() );
     install( new EventsModule() );
-    install( new MembersModule() );
     install( new AppbarModule() );
     install( new FooterModule() );
     install( new NavbarModule() );
@@ -52,7 +50,7 @@ public class ScoutmgrModule
     install( new CrashModule() );
     install( new AdminModule() );
 
-    bindConstant().annotatedWith( DefaultPlace.class ).to( NameTokens.SCOUT_LIST );
+    bindConstant().annotatedWith( DefaultPlace.class ).to( NameTokens.ADMIN_SCOUTS );
     bindConstant().annotatedWith( ErrorPlace.class ).to( NameTokens.CRASH );
     bindConstant().annotatedWith( UnauthorizedPlace.class ).to( NameTokens.CRASH );
 

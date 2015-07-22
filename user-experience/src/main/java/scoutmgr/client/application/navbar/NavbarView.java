@@ -10,7 +10,6 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.gwtplatform.mvp.client.ViewImpl;
-import scoutmgr.client.application.members.MemberFormPresenter;
 import scoutmgr.client.place.NameTokens;
 import scoutmgr.client.resource.ScoutmgrResourceBundle;
 
@@ -59,9 +58,9 @@ public class NavbarView
         newLink = _eventsLinkContainer;
         break;
 
-      case NameTokens.SCOUT_LIST:
-      case NameTokens.SCOUT:
-      case NameTokens.NEW_SCOUT:
+      case NameTokens.ADMIN_SCOUTS:
+      case NameTokens.ADMIN_SCOUT:
+      case NameTokens.ADMIN_NEW_SCOUT:
         newLink = _membersLinkContainer;
         break;
 

@@ -8,6 +8,7 @@ import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.gwtplatform.mvp.client.ViewWithUiHandlers;
 import java.util.List;
+import java.util.logging.Logger;
 import scoutmgr.client.resource.ScoutmgrResourceBundle;
 import scoutmgr.client.view.model.BadgeCategoryViewModel;
 
@@ -40,6 +41,8 @@ public class BadgesView
   {
 
   }
+
+  private static final Logger LOG = Logger.getLogger( BadgesView.class.getName() );
 
   @Override
   public void setInSlot( final Object slot, final IsWidget content )

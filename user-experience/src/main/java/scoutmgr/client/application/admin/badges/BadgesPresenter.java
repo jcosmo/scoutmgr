@@ -8,6 +8,8 @@ import com.gwtplatform.mvp.client.Presenter;
 import com.gwtplatform.mvp.client.annotations.ContentSlot;
 import com.gwtplatform.mvp.client.annotations.NameToken;
 import com.gwtplatform.mvp.client.annotations.ProxyStandard;
+import com.gwtplatform.mvp.client.proxy.NavigationEvent;
+import com.gwtplatform.mvp.client.proxy.NavigationHandler;
 import com.gwtplatform.mvp.client.proxy.PlaceManager;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 import com.gwtplatform.mvp.client.proxy.RevealContentHandler;
@@ -26,7 +28,7 @@ import scoutmgr.client.view.model.comparator.ViewModelComparator;
 
 public class BadgesPresenter
   extends Presenter<BadgesPresenter.View, BadgesPresenter.Proxy>
-  implements BadgesUiHandlers
+  implements NavigationHandler, BadgesUiHandlers
 {
   private final ViewModelComparator<BadgeCategoryViewModel> _badgeCategoryComparator;
   private List<BadgeCategoryViewModel> _badgeCategoryViewModels;
@@ -59,6 +61,9 @@ public class BadgesPresenter
   private NavPresenter _navPresenter;
 
   @Inject
+  private BadgeLevelPresenter _badgeLevelPresenter;
+
+  @Inject
   BadgesPresenter( final EventBus eventBus,
                    final View view,
                    final Proxy proxy )
@@ -85,6 +90,16 @@ public class BadgesPresenter
   {
     super.onBind();
     setInSlot( SLOT_LEFT_NAV, _navPresenter );
+    addRegisteredHandler( NavigationEvent.getType(), this );
+  }
+
+  @Override
+  public void onNavigation( final NavigationEvent navigationEvent )
+  {
+    if ( NameTokens.ADMIN_BADGES_LEVEL.equals( navigationEvent.getRequest().getNameToken()))
+    {
+      setInSlot( SLOT_BADGES_CONTENT, _badgeLevelPresenter );
+    }
   }
 
   @Override
