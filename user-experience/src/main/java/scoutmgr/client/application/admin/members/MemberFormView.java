@@ -6,12 +6,14 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Anchor;
+import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.user.datepicker.client.DateBox;
 import com.google.inject.Inject;
 import com.gwtplatform.mvp.client.ViewWithUiHandlers;
 import org.realityforge.gwt.datatypes.client.date.RDate;
+import org.realityforge.replicant.client.EntityRepository;
 import scoutmgr.client.view.model.ScoutViewModel;
 
 @SuppressWarnings( "Convert2Lambda" )
@@ -31,6 +33,11 @@ public class MemberFormView
   DateBox _dob;
   @UiField
   TextBox _regNum;
+  @UiField
+  ListBox _scoutLevel;
+
+  @Inject
+  EntityRepository _entityRepository;
 
   interface Binder
     extends UiBinder<Widget, MemberFormView>
@@ -48,6 +55,15 @@ public class MemberFormView
   @Override
   public void reset()
   {
+    //final ArrayList<ScoutLevel> scoutLevels = _entityRepository.findAll( ScoutLevel.class );
+    //Arrays.sort( scoutLevels, ScoutLevelComparator.BY_RANK );
+    _scoutLevel.clear();
+    /*
+    for ( ScoutLevel scoutLevel : scoutLevels )
+    {
+      _scoutLevel.addItem( scoutLevel.getCode() );
+    }
+    */
     _givenName.setValue( "" );
     _familyName.setValue( "" );
     _regNum.setValue( "" );
@@ -57,6 +73,7 @@ public class MemberFormView
   @Override
   public void setMember( final ScoutViewModel member )
   {
+    _scoutLevel.setSelectedIndex( member.getScoutLevel().getRank() - 1 );
     _regNum.setValue( member.getRegistrationNumber() );
     _givenName.setValue( member.getFirstName() );
     _familyName.setValue( member.getLastName() );
@@ -68,7 +85,7 @@ public class MemberFormView
   {
     event.preventDefault();
     event.stopPropagation();
-    getUiHandlers().saveMember( _regNum.getText(), _givenName.getText(), _familyName.getText(), RDate.fromDate(
-      _dob.getValue() ) );
+    getUiHandlers().saveMember( _scoutLevel.getSelectedValue(), _regNum.getText(), _givenName.getText(),
+                                _familyName.getText(), RDate.fromDate( _dob.getValue() ) );
   }
 }

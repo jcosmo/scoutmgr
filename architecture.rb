@@ -16,15 +16,20 @@ Domgen.repository(:Scoutmgr) do |repository|
   repository.imit.graph(:Person)
   repository.imit.graph(:People)
 
-  SCOUT_LEVELS = %w(JOEY CUB SCOUT VENTURER)
-
   repository.data_module(:Scoutmgr) do |data_module|
+
+    data_module.entity(:ScoutLevel) do |t|
+      t.string(:Code, 255, :primary_key => true)
+      t.integer(:Rank)
+    end
+
     data_module.entity(:Person) do |t|
       t.integer(:ID, :primary_key => true)
       t.string(:FirstName, 255)
       t.string(:LastName, 255)
       t.date(:Dob)
       t.string(:RegistrationNumber, 20)
+      t.reference(:ScoutLevel)
 
       t.unique_constraint([:FirstName, :LastName, :Dob])
       t.imit.replicate(:Person, :instance)
@@ -37,7 +42,7 @@ Domgen.repository(:Scoutmgr) do |repository|
 
     data_module.entity(:BadgeCategory) do |t|
       t.integer(:ID, :primary_key => true)
-      t.s_enum(:ScoutLevel, SCOUT_LEVELS)
+      t.reference(:ScoutLevel)
       t.string(:Name, 255)
       t.integer(:Rank)
 
@@ -48,7 +53,7 @@ Domgen.repository(:Scoutmgr) do |repository|
 
     data_module.entity(:Badge) do |t|
       t.integer(:ID, :primary_key => true)
-      t.s_enum(:ScoutLevel, SCOUT_LEVELS)
+      t.reference(:ScoutLevel)
       t.string(:Name, 255)
       t.integer(:Rank)
 
@@ -60,6 +65,7 @@ Domgen.repository(:Scoutmgr) do |repository|
 
     data_module.struct(:PersonDTO) do |s|
       s.integer(:ID)
+      s.text(:ScoutLevel)
       s.text(:FirstName)
       s.text(:LastName)
       s.date(:Dob)
@@ -72,6 +78,7 @@ Domgen.repository(:Scoutmgr) do |repository|
       end
 
       s.method(:AddScout) do |m|
+        m.string :ScoutLevel, 255
         m.string :FirstName, 255
         m.string :LastName, 255
         m.date :Dob
@@ -80,6 +87,7 @@ Domgen.repository(:Scoutmgr) do |repository|
 
       s.method(:UpdateScout) do |m|
         m.integer(:IdForUpdate)
+        m.string :ScoutLevel, 255
         m.string :FirstName, 255
         m.string :LastName, 255
         m.date :Dob

@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import scoutmgr.server.data_type.PersonDTO;
 import scoutmgr.server.entity.Person;
 import scoutmgr.server.entity.dao.PersonRepository;
+import scoutmgr.server.entity.dao.ScoutLevelRepository;
 
 @Stateless( name = PersonnelService.NAME )
 public class PersonnelServiceEJB
@@ -17,21 +18,31 @@ public class PersonnelServiceEJB
   @Inject
   private PersonRepository _personRepository;
 
+  @Inject
+  private ScoutLevelRepository _scoutLevelRepository;
+
   @Nonnull
   public List<PersonDTO> getPeople()
   {
     final ArrayList<PersonDTO> results = new ArrayList<>();
     for ( final Person person : _personRepository.findAll() )
     {
-      results.add( new PersonDTO( person.getID(), person.getFirstName(), person.getLastName(), person.getDob(), person.getRegistrationNumber() ) );
+      results.add(
+        new PersonDTO( person.getID(), person.getScoutLevel().getCode(), person.getFirstName(), person.getLastName(),
+                       person.getDob(), person.getRegistrationNumber() ) );
     }
     return results;
   }
 
   @Override
-  public void addScout( @Nonnull final String firstName, @Nonnull final String lastName, @Nonnull final Date dob, @Nonnull final String registrationNumber)
+  public void addScout( @Nonnull final String scoutLevel,
+                        @Nonnull final String firstName,
+                        @Nonnull final String lastName,
+                        @Nonnull final Date dob,
+                        @Nonnull final String registrationNumber )
   {
     Person p = new Person();
+    p.setScoutLevel( _scoutLevelRepository.getByCode( scoutLevel ) );
     p.setFirstName( firstName );
     p.setLastName( lastName );
     p.setDob( dob );
@@ -55,12 +66,14 @@ public class PersonnelServiceEJB
 
   @Override
   public void updateScout( final int idForUpdate,
+                           @Nonnull final String scoutLevel,
                            @Nonnull final String firstName,
                            @Nonnull final String lastName,
                            @Nonnull final Date dob,
                            @Nonnull final String registrationNumber )
   {
     final Person person = _personRepository.getByID( idForUpdate );
+    person.setScoutLevel( _scoutLevelRepository.getByCode( scoutLevel ) );
     person.setFirstName( firstName );
     person.setLastName( lastName );
     person.setRegistrationNumber( registrationNumber );

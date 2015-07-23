@@ -2,6 +2,7 @@ package scoutmgr.client.view.model;
 
 import org.realityforge.gwt.datatypes.client.date.RDate;
 import scoutmgr.client.entity.Person;
+import scoutmgr.client.entity.ScoutLevel;
 
 public class ScoutViewModel
   extends AbstractViewModel
@@ -9,6 +10,11 @@ public class ScoutViewModel
   public ScoutViewModel( final Person person )
   {
     super(person, person.getFirstName() + " " + person.getLastName() );
+  }
+
+  public ScoutLevel getScoutLevel()
+  {
+    return ((Person)asModelObject()).getScoutLevel();
   }
 
   public String getFirstName()

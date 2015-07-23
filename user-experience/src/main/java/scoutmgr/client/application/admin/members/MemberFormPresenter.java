@@ -22,9 +22,6 @@ public class MemberFormPresenter
   extends Presenter<MemberFormPresenter.View, MemberFormPresenter.Proxy>
   implements MemberFormUiHandlers
 {
-  private static final java.util.logging.Logger LOG =
-    java.util.logging.Logger.getLogger( MemberFormPresenter.class.getName() );
-
   private int _idForEdit;
 
   @ProxyStandard
@@ -90,14 +87,19 @@ public class MemberFormPresenter
     }
   }
 
-  public void saveMember( final String regNumber, final String givenName, final String familyName, final RDate dob )
+  public void saveMember( final String scoutLevel,
+                          final String regNumber,
+                          final String givenName,
+                          final String familyName,
+                          final RDate dob )
   {
     if ( -1 == _idForEdit )
     {
-      _personnelService.addScout( givenName, familyName, dob, regNumber );
+      _personnelService.addScout( scoutLevel, givenName, familyName, dob, regNumber );
     }
-    else {
-      _personnelService.updateScout( _idForEdit, givenName, familyName, dob, regNumber );
+    else
+    {
+      _personnelService.updateScout( _idForEdit, scoutLevel, givenName, familyName, dob, regNumber );
     }
     final PlaceRequest newRequest = new PlaceRequest.Builder().nameToken( NameTokens.ADMIN_SCOUTS ).build();
     _placeManager.revealPlace( newRequest );

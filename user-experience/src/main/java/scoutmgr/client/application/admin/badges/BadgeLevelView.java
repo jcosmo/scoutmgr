@@ -14,11 +14,9 @@ import com.google.gwt.view.client.ListDataProvider;
 import com.google.inject.Inject;
 import com.gwtplatform.mvp.client.ViewWithUiHandlers;
 import java.util.ArrayList;
-import java.util.logging.Logger;
 import org.realityforge.replicant.client.EntityRepository;
-import scoutmgr.client.data_type.BadgeCategoryScoutLevel;
-import scoutmgr.client.data_type.BadgeScoutLevel;
 import scoutmgr.client.entity.BadgeCategory;
+import scoutmgr.client.entity.ScoutLevel;
 import scoutmgr.client.resource.ScoutmgrResourceBundle;
 import scoutmgr.client.view.model.BadgeCategoryViewModel;
 
@@ -33,7 +31,7 @@ public class BadgeLevelView
   @UiField( provided = true )
   DataGrid<BadgeCategoryViewModel> _grid;
 
-  BadgeScoutLevel _badgeLevel;
+  ScoutLevel _badgeLevel;
 
   @Inject
   EntityRepository _entityRepository;
@@ -87,7 +85,7 @@ public class BadgeLevelView
   }
 
   @Override
-  public void setBadgeLevel( final BadgeScoutLevel level )
+  public void setBadgeLevel( final ScoutLevel level )
   {
     if ( level != _badgeLevel )
     {
@@ -95,23 +93,17 @@ public class BadgeLevelView
     }
   }
 
-  private static final Logger LOG = Logger.getLogger( BadgeLevelView.class.getName() );
-
-  private void changeBadgeLevel( final BadgeScoutLevel badgeLevel )
+  private void changeBadgeLevel( final ScoutLevel badgeLevel )
   {
-    LOG.warning("changing to " + badgeLevel );
     _badgeLevel = badgeLevel;
     _provider.getList().clear();
     if ( null != badgeLevel )
     {
-      final BadgeCategoryScoutLevel level = BadgeCategoryScoutLevel.valueOf( badgeLevel.name() );
       final ArrayList<BadgeCategory> categories = _entityRepository.findAll( BadgeCategory.class );
-      LOG.warning("got " + categories.size() );
       for ( final BadgeCategory category : categories )
       {
-        if ( level == category.getScoutLevel() )
+        if ( badgeLevel == category.getScoutLevel() )
         {
-          LOG.warning("matched " + category );
           _provider.getList().add( buildViewModel( category) );
         }
       }

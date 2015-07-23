@@ -1,10 +1,10 @@
 package scoutmgr.client.application.admin.badges;
 
 import com.gwtplatform.mvp.client.UiHandlers;
-import scoutmgr.client.data_type.BadgeScoutLevel;
+import scoutmgr.client.entity.ScoutLevel;
 
 public interface NavUiHandlers
   extends UiHandlers
 {
-  void changeScoutLevel( BadgeScoutLevel badgeScoutLevel );
+  void changeScoutLevel( ScoutLevel badgeScoutLevel );
 }

@@ -21,6 +21,17 @@
         <div class="{_bundle.bootstrap.formGroup}">
           <label class="{_bundle.bootstrap.controlLabel} required star-added {_bundle.bootstrap.colSm2}">
             <span class="star">*</span>
+            Scout Level
+          </label>
+          <div class="{_bundle.bootstrap.inputGroup} nopadding disableable {_bundle.bootstrap.colSm4}">
+            <span class="edit-panel-control-holder">
+              <g:ListBox ui:field="_scoutLevel" addStyleNames="{_bundle.bootstrap.formControl}"/>
+            </span>
+          </div>
+        </div>
+        <div class="{_bundle.bootstrap.formGroup}">
+          <label class="{_bundle.bootstrap.controlLabel} required star-added {_bundle.bootstrap.colSm2}">
+            <span class="star">*</span>
             Given Name
           </label>
           <div class="{_bundle.bootstrap.inputGroup} nopadding disableable {_bundle.bootstrap.colSm4}">

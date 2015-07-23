@@ -27,13 +27,13 @@ import scoutmgr.client.service.PersonnelService;
 import scoutmgr.client.view.model.ScoutViewModel;
 
 public class MembersPresenter
-  extends Presenter<scoutmgr.client.application.admin.members.MembersPresenter.View, scoutmgr.client.application.admin.members.MembersPresenter.Proxy>
+  extends Presenter<MembersPresenter.View, MembersPresenter.Proxy>
   implements MembersUiHandlers
 {
   @ProxyStandard
   @NameToken( { NameTokens.ADMIN_SCOUTS } )
   interface Proxy
-    extends ProxyPlace<scoutmgr.client.application.admin.members.MembersPresenter>
+    extends ProxyPlace<MembersPresenter>
   {
   }
 

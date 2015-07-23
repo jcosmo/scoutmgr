@@ -95,6 +95,17 @@ public class MembersView
           return viewModel.getLastName();
         }
       };
+    final Column<ScoutViewModel, String> scoutLevelColumn = null;
+      /*
+      new Column<ScoutViewModel, String>( new TextCell() )
+      {
+        @Override
+        public String getValue( final ScoutViewModel viewModel )
+        {
+          return viewModel.getScoutLevel().getCode();
+        }
+      };
+      */
     final Column<ScoutViewModel, String> dobColumn =
       new Column<ScoutViewModel, String>( new TextCell() )
       {
@@ -125,10 +136,11 @@ public class MembersView
         }
       };
 
-    createColumnSorters( givenNameColumn, familyNameColumn );
+    createColumnSorters( givenNameColumn, familyNameColumn, scoutLevelColumn );
 
     _memberTable.addColumn( givenNameColumn, SafeHtmlUtils.fromString( "Given Name" ) );
     _memberTable.addColumn( familyNameColumn, SafeHtmlUtils.fromString( "Family Name" ) );
+//    _memberTable.addColumn( scoutLevelColumn, SafeHtmlUtils.fromString( "Level" ) );
     _memberTable.addColumn( dobColumn, SafeHtmlUtils.fromString( "Birthday" ) );
     _memberTable.addColumn( regNumColumn, SafeHtmlUtils.fromString( "Reg. Num" ) );
     _memberTable.addColumn( actionsColumn );
@@ -150,7 +162,8 @@ public class MembersView
   }
 
   private void createColumnSorters( final Column<ScoutViewModel, String> givenNameColumn,
-                                    final Column<ScoutViewModel, String> familyNameColumn )
+                                    final Column<ScoutViewModel, String> familyNameColumn,
+                                    final Column<ScoutViewModel, String> scoutLevelColumn)
   {
     final ColumnSortEvent.ListHandler<ScoutViewModel> sortHandler =
       new ColumnSortEvent.ListHandler<>( _provider.getList() );
@@ -175,6 +188,18 @@ public class MembersView
         return o1.getLastName().compareTo( o2.getLastName() );
       }
     } );
+
+    /*
+    scoutLevelColumn.setSortable( true );
+    sortHandler.setComparator( scoutLevelColumn, new Comparator<ScoutViewModel>()
+    {
+      @Override
+      public int compare( final ScoutViewModel o1, final ScoutViewModel o2 )
+      {
+        return Integer.compare( o1.getScoutLevel().getRank(), o2.getScoutLevel().getRank() );
+      }
+    } );
+    */
   }
 
   @Override

@@ -8,8 +8,8 @@ import com.gwtplatform.mvp.client.proxy.NavigationEvent;
 import com.gwtplatform.mvp.client.proxy.NavigationHandler;
 import com.gwtplatform.mvp.client.proxy.PlaceManager;
 import com.gwtplatform.mvp.shared.proxy.PlaceRequest;
-import java.util.logging.Logger;
-import scoutmgr.client.data_type.BadgeScoutLevel;
+import org.realityforge.replicant.client.EntityRepository;
+import scoutmgr.client.entity.ScoutLevel;
 import scoutmgr.client.place.NameTokens;
 
 public class NavPresenter
@@ -19,13 +19,16 @@ public class NavPresenter
   interface View
     extends com.gwtplatform.mvp.client.View, HasUiHandlers<NavUiHandlers>
   {
-    void setBadgeLevelActive( BadgeScoutLevel level );
+    void setBadgeLevelActive( ScoutLevel level );
   }
 
   @Inject
   private PlaceManager _placeManager;
 
-  BadgeScoutLevel _lastBadgeLevel;
+  @Inject
+  private EntityRepository _entityRepository;
+
+  ScoutLevel _lastBadgeLevel;
 
   @Inject
   NavPresenter( final EventBus eventBus,
@@ -51,9 +54,10 @@ public class NavPresenter
     if ( NameTokens.ADMIN_BADGES_LEVEL.equals( nameToken ) )
     {
       final String level = request.getParameter( "level", null );
-      if ( null != level )
+      final ScoutLevel scoutLevel = _entityRepository.findByID( ScoutLevel.class, level );
+      if ( null != scoutLevel )
       {
-        _lastBadgeLevel = BadgeScoutLevel.valueOf( level );
+        _lastBadgeLevel = scoutLevel;
       }
       getView().setBadgeLevelActive( _lastBadgeLevel );
     }
@@ -64,7 +68,7 @@ public class NavPresenter
   }
 
   @Override
-  public void changeScoutLevel( final BadgeScoutLevel badgeScoutLevel )
+  public void changeScoutLevel( final ScoutLevel badgeScoutLevel )
   {
     _lastBadgeLevel = badgeScoutLevel;
     final PlaceRequest currentPlace = _placeManager.getCurrentPlaceRequest();
@@ -78,7 +82,7 @@ public class NavPresenter
     else
     {
       final PlaceRequest newPlace = new PlaceRequest.Builder().nameToken( NameTokens.ADMIN_BADGES_LEVEL )
-        .with( "level", badgeScoutLevel.name() ).build();
+        .with( "level", badgeScoutLevel.getCode() ).build();
       _placeManager.revealPlace( newPlace );
     }
   }

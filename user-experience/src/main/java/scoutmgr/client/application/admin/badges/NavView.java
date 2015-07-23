@@ -1,6 +1,5 @@
 package scoutmgr.client.application.admin.badges;
 
-import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.cellview.client.CellList;
@@ -12,23 +11,27 @@ import com.google.inject.Inject;
 import com.gwtplatform.mvp.client.ViewWithUiHandlers;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
-import scoutmgr.client.data_type.BadgeScoutLevel;
+import org.realityforge.replicant.client.EntityRepository;
+import scoutmgr.client.entity.ScoutLevel;
 import scoutmgr.client.resource.ScoutmgrResourceBundle;
+import scoutmgr.client.view.cell.ScoutLevelCell;
 
 public class NavView
   extends ViewWithUiHandlers<NavUiHandlers>
   implements NavPresenter.View
 {
-  private final List<String> _provider;
+  private final List<ScoutLevel> _provider;
 
   @UiField( provided = true )
-  CellList<String> _categoryList;
+  CellList<ScoutLevel> _categoryList;
 
   @UiField
   ScoutmgrResourceBundle _bundle;
 
-  private final SingleSelectionModel<String> _selectionModel;
+  @Inject
+  EntityRepository _entityRepository;
+
+  private final SingleSelectionModel<ScoutLevel> _selectionModel;
 
   interface Binder
     extends UiBinder<Widget, NavView>
@@ -39,13 +42,11 @@ public class NavView
   NavView( final Binder uiBinder )
   {
     _provider = new ArrayList<>(  );
-    _provider.add( BadgeScoutLevel.JOEY.name() );
-    _provider.add( BadgeScoutLevel.CUB.name() );
-    _provider.add( BadgeScoutLevel.SCOUT.name() );
-    _provider.add( BadgeScoutLevel.VENTURER.name() );
+    final ArrayList<ScoutLevel> scoutLevels = _entityRepository.findAll( ScoutLevel.class );
+    _provider.addAll( scoutLevels );
 
-    TextCell textCell = new TextCell(  );
-    _categoryList = new CellList<>( textCell );
+    ScoutLevelCell scoutLevelCell = new ScoutLevelCell(  );
+    _categoryList = new CellList<>( scoutLevelCell );
     _categoryList.setKeyboardSelectionPolicy( HasKeyboardSelectionPolicy.KeyboardSelectionPolicy.DISABLED );
     _selectionModel = new SingleSelectionModel<>(  );
     _categoryList.setSelectionModel( _selectionModel );
@@ -54,8 +55,8 @@ public class NavView
       @Override
       public void onSelectionChange( final SelectionChangeEvent event )
       {
-        final String selected = _selectionModel.getSelectedObject();
-        getUiHandlers().changeScoutLevel( null == selected ? null : BadgeScoutLevel.valueOf( selected ) );
+        final ScoutLevel selected = _selectionModel.getSelectedObject();
+        getUiHandlers().changeScoutLevel( selected );
       }
     } );
 
@@ -66,12 +67,12 @@ public class NavView
   }
 
   @Override
-  public void setBadgeLevelActive( final BadgeScoutLevel level )
+  public void setBadgeLevelActive( final ScoutLevel level )
   {
     _selectionModel.clear();
     if ( null != level )
     {
-      _selectionModel.setSelected( level.name(), true );
+      _selectionModel.setSelected( level, true );
     }
   }
 }
