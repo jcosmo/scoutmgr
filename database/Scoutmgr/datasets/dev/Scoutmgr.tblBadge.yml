@@ -1,29 +1,29 @@
 1:
   ID: 1
   Name: 'Scout Craft'
-  ScoutLevel: 'SCOUT'
+  ScoutLevelCode: 'Scout'
   Rank: 1
 2:
   ID: 2
   Name: 'Campcraft'
-  ScoutLevel: 'SCOUT'
+  ScoutLevelCode: 'Scout'
   BadgeCategoryID: 1
   Rank: 1
 3:
   ID: 3
   Name: 'Citizenship'
-  ScoutLevel: 'SCOUT'
+  ScoutLevelCode: 'Scout'
   BadgeCategoryID: 1
   Rank: 2
 4:
   ID: 4
   Name: 'Animal Keeper'
-  ScoutLevel: 'SCOUT'
+  ScoutLevelCode: 'Scout'
   BadgeCategoryID: 4
   Rank: 1
 5:
   ID: 5
   Name: 'Something'
-  ScoutLevel: 'CUB'
+  ScoutLevelCode: 'Cub Scout'
   BadgeCategoryID: 5
   Rank: 1

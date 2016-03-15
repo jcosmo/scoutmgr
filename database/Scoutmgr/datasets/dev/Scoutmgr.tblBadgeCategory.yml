@@ -1,25 +1,25 @@
 1:
   ID: 1
   Name: 'Pioneer'
-  ScoutLevel: 'SCOUT'
+  ScoutLevelCode: 'Scout'
   Rank: 1
 2:
   ID: 2
   Name: 'Explorer'
-  ScoutLevel: 'SCOUT'
+  ScoutLevelCode: 'Scout'
   Rank: 2
 3:
   ID: 3
   Name: 'Adventurer'
-  ScoutLevel: 'SCOUT'
+  ScoutLevelCode: 'Scout'
   Rank: 3
 4:
   ID: 4
   Name: 'Proficiency'
-  ScoutLevel: 'SCOUT'
+  ScoutLevelCode: 'Scout'
   Rank: 4
 5:
   ID: 5
   Name: 'Brown Wolf'
-  ScoutLevel: 'CUB'
+  ScoutLevelCode: 'Cub Scout'
   Rank: 1
