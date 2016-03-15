@@ -21,6 +21,7 @@ import com.google.inject.Inject;
 import com.gwtplatform.mvp.client.ViewWithUiHandlers;
 import java.util.Collection;
 import java.util.Comparator;
+import scoutmgr.client.entity.Person;
 import scoutmgr.client.resource.ScoutmgrResourceBundle;
 import scoutmgr.client.view.RDateUtil;
 import scoutmgr.client.view.cell.ActionCell;
@@ -222,12 +223,14 @@ public class MembersView
   @Override
   public void onEdit( final ScoutViewModel viewModel )
   {
-    getUiHandlers().editScout( viewModel.asModelObject() );
+    // IMPORTANT: DO NOT REMOVE THE FOLLOWING CAST, OR GWT WILL NOT COMPILE
+    getUiHandlers().editScout( (Person) viewModel.asModelObject() );
   }
 
   @Override
   public void onDelete( final ScoutViewModel viewModel )
   {
-    getUiHandlers().requestDeleteScout( viewModel.asModelObject() );
+    // IMPORTANT: DO NOT REMOVE THE FOLLOWING CAST, OR GWT WILL NOT COMPILE
+    getUiHandlers().requestDeleteScout( (Person) viewModel.asModelObject() );
   }
 }
