@@ -96,8 +96,7 @@ public class MembersView
           return viewModel.getLastName();
         }
       };
-    final Column<ScoutViewModel, String> scoutLevelColumn = null;
-      /*
+    final Column<ScoutViewModel, String> scoutLevelColumn =
       new Column<ScoutViewModel, String>( new TextCell() )
       {
         @Override
@@ -106,7 +105,6 @@ public class MembersView
           return viewModel.getScoutLevel().getCode();
         }
       };
-      */
     final Column<ScoutViewModel, String> dobColumn =
       new Column<ScoutViewModel, String>( new TextCell() )
       {
@@ -139,9 +137,9 @@ public class MembersView
 
     createColumnSorters( givenNameColumn, familyNameColumn, scoutLevelColumn );
 
+    _memberTable.addColumn( scoutLevelColumn, SafeHtmlUtils.fromString( "Section" ) );
     _memberTable.addColumn( givenNameColumn, SafeHtmlUtils.fromString( "Given Name" ) );
     _memberTable.addColumn( familyNameColumn, SafeHtmlUtils.fromString( "Family Name" ) );
-//    _memberTable.addColumn( scoutLevelColumn, SafeHtmlUtils.fromString( "Level" ) );
     _memberTable.addColumn( dobColumn, SafeHtmlUtils.fromString( "Birthday" ) );
     _memberTable.addColumn( regNumColumn, SafeHtmlUtils.fromString( "Reg. Num" ) );
     _memberTable.addColumn( actionsColumn );
@@ -190,7 +188,6 @@ public class MembersView
       }
     } );
 
-    /*
     scoutLevelColumn.setSortable( true );
     sortHandler.setComparator( scoutLevelColumn, new Comparator<ScoutViewModel>()
     {
@@ -200,7 +197,6 @@ public class MembersView
         return Integer.compare( o1.getScoutLevel().getRank(), o2.getScoutLevel().getRank() );
       }
     } );
-    */
   }
 
   @Override
