@@ -22,7 +22,7 @@ public class MemberFormPresenter
   extends Presenter<MemberFormPresenter.View, MemberFormPresenter.Proxy>
   implements MemberFormUiHandlers
 {
-  private int _idForEdit;
+  private Integer _idForEdit;
 
   @ProxyStandard
   @NameToken( { NameTokens.ADMIN_SCOUT, NameTokens.ADMIN_NEW_SCOUT } )
@@ -67,17 +67,17 @@ public class MemberFormPresenter
     final String idStr = request.getParameter( "id", null );
     if ( null != idStr )
     {
-      _idForEdit = Integer.parseInt( idStr );
+      _idForEdit = Integer.valueOf( idStr );
       setMemberForEdit( _idForEdit );
     }
     else
     {
-      _idForEdit = -1;
+      _idForEdit = null;
       getView().reset();
     }
   }
 
-  private void setMemberForEdit( final int id )
+  private void setMemberForEdit( final Integer id )
   {
     final Person person = _entityRepository.findByID( Person.class, id );
     if ( null != person )
@@ -93,13 +93,13 @@ public class MemberFormPresenter
                           final String familyName,
                           final RDate dob )
   {
-    if ( -1 == _idForEdit )
+    if ( null == _idForEdit )
     {
       _personnelService.addScout( scoutLevel, givenName, familyName, dob, regNumber );
     }
     else
     {
-      _personnelService.updateScout( _idForEdit, scoutLevel, givenName, familyName, dob, regNumber );
+      _personnelService.updateScout( _idForEdit.intValue(), scoutLevel, givenName, familyName, dob, regNumber );
     }
     final PlaceRequest newRequest = new PlaceRequest.Builder().nameToken( NameTokens.ADMIN_SCOUTS ).build();
     _placeManager.revealPlace( newRequest );
