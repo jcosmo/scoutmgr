@@ -1,12 +1,16 @@
 1:
+  ID: 1
   Code: 'Joey'
   Rank: 1
 2:
+  ID: 2
   Code: 'Cub Scout'
   Rank: 2
 3:
+  ID: 3
   Code: 'Scout'
   Rank: 3
 4:
+  ID: 4
   Code: 'Venturer'
   Rank: 4

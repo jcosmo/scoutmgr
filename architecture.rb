@@ -19,8 +19,12 @@ Domgen.repository(:Scoutmgr) do |repository|
   repository.data_module(:Scoutmgr) do |data_module|
 
     data_module.entity(:ScoutLevel) do |t|
-      t.string(:Code, 255, :primary_key => true)
+      t.integer(:ID, :primary_key => true)
+      t.string(:Code, 255)
       t.integer(:Rank)
+      t.imit.replicate(:Metadata, :type)
+      t.query(:FindByCode)
+      t.query(:GetByCode)
     end
 
     data_module.entity(:Person) do |t|
