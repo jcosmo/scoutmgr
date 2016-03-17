@@ -12,8 +12,11 @@ import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.user.datepicker.client.DateBox;
 import com.google.inject.Inject;
 import com.gwtplatform.mvp.client.ViewWithUiHandlers;
+import java.util.ArrayList;
+import java.util.Arrays;
 import org.realityforge.gwt.datatypes.client.date.RDate;
 import org.realityforge.replicant.client.EntityRepository;
+import scoutmgr.client.entity.ScoutLevel;
 import scoutmgr.client.view.model.ScoutViewModel;
 
 @SuppressWarnings( "Convert2Lambda" )
@@ -55,24 +58,29 @@ public class MemberFormView
   @Override
   public void reset()
   {
-    //final ArrayList<ScoutLevel> scoutLevels = _entityRepository.findAll( ScoutLevel.class );
-    //Arrays.sort( scoutLevels, ScoutLevelComparator.BY_RANK );
-    _scoutLevel.clear();
-    /*
-    for ( ScoutLevel scoutLevel : scoutLevels )
-    {
-      _scoutLevel.addItem( scoutLevel.getCode() );
-    }
-    */
+    setupScoutLevels();
     _givenName.setValue( "" );
     _familyName.setValue( "" );
     _regNum.setValue( "" );
     _dob.setValue( RDate.toDate( new RDate( 2000, 1, 1 ) ) );
   }
 
+  private void setupScoutLevels()
+  {
+    final ArrayList<ScoutLevel> scoutLevels = _entityRepository.findAll( ScoutLevel.class );
+
+    //Arrays.sort( scoutLevels, ScoutLevelComparator.BY_RANK );
+    _scoutLevel.clear();
+    for ( ScoutLevel scoutLevel : scoutLevels )
+    {
+      _scoutLevel.addItem( scoutLevel.getCode() );
+    }
+  }
+
   @Override
   public void setMember( final ScoutViewModel member )
   {
+    setupScoutLevels();
     _scoutLevel.setSelectedIndex( member.getScoutLevel().getRank() - 1 );
     _regNum.setValue( member.getRegistrationNumber() );
     _givenName.setValue( member.getFirstName() );
