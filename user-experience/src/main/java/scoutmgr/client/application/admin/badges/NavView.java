@@ -28,9 +28,6 @@ public class NavView
   @UiField
   ScoutmgrResourceBundle _bundle;
 
-  @Inject
-  EntityRepository _entityRepository;
-
   private final SingleSelectionModel<ScoutLevel> _selectionModel;
 
   interface Binder
@@ -42,8 +39,6 @@ public class NavView
   NavView( final Binder uiBinder )
   {
     _provider = new ArrayList<>(  );
-    final ArrayList<ScoutLevel> scoutLevels = _entityRepository.findAll( ScoutLevel.class );
-    _provider.addAll( scoutLevels );
 
     ScoutLevelCell scoutLevelCell = new ScoutLevelCell(  );
     _categoryList = new CellList<>( scoutLevelCell );
@@ -66,9 +61,21 @@ public class NavView
     initWidget( uiBinder.createAndBindUi( this ) );
   }
 
+  private static final java.util.logging.Logger LOG = java.util.logging.Logger.getLogger( NavView.class.getName() );
+
+  public void setBadgeLevels(final ArrayList<ScoutLevel> levels)
+  {
+    _provider.clear();
+    LOG.severe( "Setting levels to " + levels.size() );
+    _provider.addAll( levels );
+    _categoryList.redraw();
+  }
+
   @Override
   public void setBadgeLevelActive( final ScoutLevel level )
   {
+    LOG.severe( "Selecting levels to " + level.getCode() );
+
     _selectionModel.clear();
     if ( null != level )
     {

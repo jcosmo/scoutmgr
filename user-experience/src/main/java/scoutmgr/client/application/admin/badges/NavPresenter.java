@@ -8,6 +8,7 @@ import com.gwtplatform.mvp.client.proxy.NavigationEvent;
 import com.gwtplatform.mvp.client.proxy.NavigationHandler;
 import com.gwtplatform.mvp.client.proxy.PlaceManager;
 import com.gwtplatform.mvp.shared.proxy.PlaceRequest;
+import java.util.ArrayList;
 import org.realityforge.replicant.client.EntityRepository;
 import scoutmgr.client.entity.ScoutLevel;
 import scoutmgr.client.place.NameTokens;
@@ -19,6 +20,7 @@ public class NavPresenter
   interface View
     extends com.gwtplatform.mvp.client.View, HasUiHandlers<NavUiHandlers>
   {
+    void setBadgeLevels( ArrayList<ScoutLevel> levels );
     void setBadgeLevelActive( ScoutLevel level );
   }
 
@@ -53,6 +55,7 @@ public class NavPresenter
     final String nameToken = request.getNameToken();
     if ( NameTokens.ADMIN_BADGES_LEVEL.equals( nameToken ) )
     {
+      getView().setBadgeLevels( _entityRepository.findAll( ScoutLevel.class ) );
       final String level = request.getParameter( "level", null );
       final ScoutLevel scoutLevel = _entityRepository.findByID( ScoutLevel.class, level );
       if ( null != scoutLevel )
@@ -63,6 +66,7 @@ public class NavPresenter
     }
     else if ( NameTokens.ADMIN_BADGES.equals( nameToken ) )
     {
+      getView().setBadgeLevels( _entityRepository.findAll( ScoutLevel.class ) );
       changeScoutLevel( _lastBadgeLevel );
     }
   }
