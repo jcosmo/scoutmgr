@@ -16,6 +16,7 @@ import com.gwtplatform.mvp.client.proxy.RevealContentHandler;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Logger;
 import javax.annotation.Nonnull;
 import org.realityforge.replicant.client.EntityRepository;
 import scoutmgr.client.application.ApplicationPresenter;
@@ -100,13 +101,6 @@ public class BadgesPresenter
     {
       setInSlot( SLOT_BADGES_CONTENT, _badgeLevelPresenter );
     }
-  }
-
-  @Override
-  protected void onReveal()
-  {
-    super.onReveal();
-    setBadgesToUI();
   }
 
   private void setBadgesToUI()
