@@ -29,6 +29,7 @@ public class NavView
   ScoutmgrResourceBundle _bundle;
 
   private final SingleSelectionModel<ScoutLevel> _selectionModel;
+  private ScoutLevel _selectedLevel;
 
   interface Binder
     extends UiBinder<Widget, NavView>
@@ -38,6 +39,7 @@ public class NavView
   @Inject
   NavView( final Binder uiBinder )
   {
+    _selectedLevel = null;
     _provider = new ArrayList<>(  );
 
     ScoutLevelCell scoutLevelCell = new ScoutLevelCell(  );
@@ -61,25 +63,27 @@ public class NavView
     initWidget( uiBinder.createAndBindUi( this ) );
   }
 
-  private static final java.util.logging.Logger LOG = java.util.logging.Logger.getLogger( NavView.class.getName() );
-
   public void setBadgeLevels(final ArrayList<ScoutLevel> levels)
   {
+    _selectionModel.clear();
     _provider.clear();
-    LOG.severe( "Setting levels to " + levels.size() );
     _provider.addAll( levels );
-    _categoryList.redraw();
+    _categoryList.setRowCount( _provider.size(), true );
+    _categoryList.setRowData( 0, _provider );
+    if ( null != _selectedLevel )
+    {
+      _selectionModel.setSelected( _selectedLevel, true );
+    }
   }
 
   @Override
   public void setBadgeLevelActive( final ScoutLevel level )
   {
-    LOG.severe( "Selecting levels to " + level.getCode() );
-
     _selectionModel.clear();
     if ( null != level )
     {
       _selectionModel.setSelected( level, true );
     }
+    _selectedLevel = level;
   }
 }
