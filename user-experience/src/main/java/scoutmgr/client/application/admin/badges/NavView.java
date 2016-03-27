@@ -11,7 +11,6 @@ import com.google.inject.Inject;
 import com.gwtplatform.mvp.client.ViewWithUiHandlers;
 import java.util.ArrayList;
 import java.util.List;
-import org.realityforge.replicant.client.EntityRepository;
 import scoutmgr.client.entity.ScoutLevel;
 import scoutmgr.client.resource.ScoutmgrResourceBundle;
 import scoutmgr.client.view.cell.ScoutLevelCell;
@@ -40,12 +39,12 @@ public class NavView
   NavView( final Binder uiBinder )
   {
     _selectedLevel = null;
-    _provider = new ArrayList<>(  );
+    _provider = new ArrayList<>();
 
-    ScoutLevelCell scoutLevelCell = new ScoutLevelCell(  );
+    ScoutLevelCell scoutLevelCell = new ScoutLevelCell();
     _categoryList = new CellList<>( scoutLevelCell );
     _categoryList.setKeyboardSelectionPolicy( HasKeyboardSelectionPolicy.KeyboardSelectionPolicy.DISABLED );
-    _selectionModel = new SingleSelectionModel<>(  );
+    _selectionModel = new SingleSelectionModel<>();
     _categoryList.setSelectionModel( _selectionModel );
     _selectionModel.addSelectionChangeHandler( new SelectionChangeEvent.Handler()
     {
@@ -63,7 +62,7 @@ public class NavView
     initWidget( uiBinder.createAndBindUi( this ) );
   }
 
-  public void setBadgeLevels(final ArrayList<ScoutLevel> levels)
+  public void setBadgeLevels( final ArrayList<ScoutLevel> levels )
   {
     _selectionModel.clear();
     _provider.clear();
