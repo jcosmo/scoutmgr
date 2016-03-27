@@ -4,12 +4,12 @@
              xmlns:g="urn:import:com.google.gwt.user.client.ui">
   <ui:with field='_bundle' type='scoutmgr.client.resource.ScoutmgrResourceBundle'/>
 
-  <g:LayoutPanel ui:field="_membersPanel" addStyleNames="{_bundle.scoutmgr.content}">
-    <g:layer left="0" width="100px" top="0" height="100%">
+  <g:LayoutPanel ui:field="_badgesPanel" addStyleNames="{_bundle.scoutmgr.content}">
+    <g:layer left="0" width="100px" top="0" bottom="0">
       <g:SimplePanel ui:field="_leftNav"/>
     </g:layer>
-    <g:layer left="101px" right="0" top="0" bottom="100%">
-      <g:SimplePanel ui:field="_content"/>
+    <g:layer left="101px" right="0" top="10px" bottom="0">
+      <g:LayoutPanel ui:field="_content"/>
     </g:layer>
   </g:LayoutPanel>
 </ui:UiBinder>
