@@ -56,10 +56,11 @@ public class BadgeLevelView
     @Source( "BadgesDataGrid.gss" )
     DataGridStyle dataGridStyle();
   }
+
   @Inject
   BadgeLevelView( final Binder uiBinder )
   {
-    _grid = new DataGrid( 20,  GWT.<DataGridResources>create( DataGridResources.class ) );
+    _grid = new DataGrid<>( 20, GWT.<DataGridResources>create( DataGridResources.class ) );
     _grid.setWidth( "100%" );
     _grid.setHeight( "620px" );
     _grid.setAutoHeaderRefreshDisabled( false );
@@ -104,7 +105,7 @@ public class BadgeLevelView
       {
         if ( badgeLevel == category.getScoutLevel() )
         {
-          _provider.getList().add( buildViewModel( category) );
+          _provider.getList().add( buildViewModel( category ) );
         }
       }
     }
@@ -113,7 +114,7 @@ public class BadgeLevelView
 
   private BadgeCategoryViewModel buildViewModel( final BadgeCategory category )
   {
-    final BadgeCategoryViewModel viewModel = new BadgeCategoryViewModel( category.getName(), category);
+    final BadgeCategoryViewModel viewModel = new BadgeCategoryViewModel( category.getName(), category );
     viewModel.setLevel( category.getScoutLevel() );
     viewModel.setRank( category.getRank() );
     viewModel.setName( category.getName() );
