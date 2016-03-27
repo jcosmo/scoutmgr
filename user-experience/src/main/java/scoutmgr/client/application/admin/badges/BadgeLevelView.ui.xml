@@ -1,13 +1,7 @@
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
-             xmlns:g="urn:import:com.google.gwt.user.client.ui"
              xmlns:c='urn:import:com.google.gwt.user.cellview.client'>
-  <ui:with field='_bundle' type='scoutmgr.client.resource.ScoutmgrResourceBundle'/>
 
-  <g:DockLayoutPanel>
-    <g:center>
-      <c:DataGrid ui:field="_grid"/>
-    </g:center>
-  </g:DockLayoutPanel>
+  <c:DataGrid ui:field="_grid"/>
 
 </ui:UiBinder>
