@@ -29,7 +29,7 @@ import scoutmgr.client.view.model.comparator.ViewModelComparator;
 
 public class BadgesPresenter
   extends Presenter<BadgesPresenter.View, BadgesPresenter.Proxy>
-  implements NavigationHandler, BadgesUiHandlers
+  implements BadgesUiHandlers
 {
   private final ViewModelComparator<BadgeCategoryViewModel> _badgeCategoryComparator;
   private List<BadgeCategoryViewModel> _badgeCategoryViewModels;
@@ -73,7 +73,7 @@ public class BadgesPresenter
 
     getView().setUiHandlers( this );
 
-    _badgeCategoryViewModels = new ArrayList<>(  );
+    _badgeCategoryViewModels = new ArrayList<>();
 
     _badgeCategoryComparator = new ViewModelComparator<>( new BadgeCategoryComparator() );
 
@@ -91,16 +91,7 @@ public class BadgesPresenter
   {
     super.onBind();
     setInSlot( SLOT_LEFT_NAV, _navPresenter );
-    addRegisteredHandler( NavigationEvent.getType(), this );
-  }
-
-  @Override
-  public void onNavigation( final NavigationEvent navigationEvent )
-  {
-    if ( NameTokens.ADMIN_BADGES_LEVEL.equals( navigationEvent.getRequest().getNameToken()))
-    {
-      setInSlot( SLOT_BADGES_CONTENT, _badgeLevelPresenter );
-    }
+    setInSlot( SLOT_BADGES_CONTENT, _badgeLevelPresenter );
   }
 
   private void setBadgesToUI()
