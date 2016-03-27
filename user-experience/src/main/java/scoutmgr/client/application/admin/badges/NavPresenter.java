@@ -67,6 +67,7 @@ public class NavPresenter
   {
     super.onBind();
     addRegisteredHandler( NavigationEvent.getType(), this );
+    getView().setBadgeLevels( _entityRepository.findAll( ScoutLevel.class ) );
   }
 
   @Override
