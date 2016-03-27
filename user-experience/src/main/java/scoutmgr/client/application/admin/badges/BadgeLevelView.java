@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import org.realityforge.replicant.client.EntityRepository;
 import scoutmgr.client.entity.BadgeCategory;
 import scoutmgr.client.entity.ScoutLevel;
-import scoutmgr.client.resource.ScoutmgrResourceBundle;
 import scoutmgr.client.view.model.BadgeCategoryViewModel;
 
 public class BadgeLevelView
@@ -25,8 +24,6 @@ public class BadgeLevelView
   implements BadgeLevelPresenter.View
 {
   private final ListDataProvider<BadgeCategoryViewModel> _provider;
-  @UiField
-  ScoutmgrResourceBundle _bundle;
 
   @UiField( provided = true )
   DataGrid<BadgeCategoryViewModel> _grid;
