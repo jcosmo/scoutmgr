@@ -61,7 +61,7 @@ public class BadgeLevelView
     _grid.setWidth( "100%" );
     _grid.setHeight( "620px" );
     _grid.setAutoHeaderRefreshDisabled( false );
-    _grid.setEmptyTableWidget( new Label( "No Badge Categories" ) );
+    _grid.setEmptyTableWidget( new Label( "Select a Scout Section from the left" ) );
 
     _provider = new ListDataProvider<>();
 
