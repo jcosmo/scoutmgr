@@ -5,6 +5,8 @@ public class NameTokens
   public static final String CRASH = "/error";
   public static final String EVENTS = "/events";
 
+  public static final String SCOUT = "/scout/{id}";
+
   public static final String ADMIN_SCOUTS = "/admin/scouts";
   public static final String ADMIN_SCOUT = "/admin/scout/{id}";
   public static final String ADMIN_NEW_SCOUT = "/admin/scout";
@@ -42,5 +44,10 @@ public class NameTokens
   public static String getAdminBadgesLevel()
   {
     return ADMIN_BADGES_LEVEL;
+  }
+
+  public static String getScout()
+  {
+    return SCOUT;
   }
 }
