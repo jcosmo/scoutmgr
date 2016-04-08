@@ -57,12 +57,10 @@ Domgen.repository(:Scoutmgr) do |repository|
 
     data_module.entity(:Badge) do |t|
       t.integer(:ID, :primary_key => true)
-      t.reference(:ScoutLevel)
       t.string(:Name, 255)
       t.integer(:Rank)
 
-      t.reference(:BadgeCategory, :nullable => true)
-      t.unique_constraint([:ScoutLevel, :Name])
+      t.reference(:BadgeCategory)
 
       t.imit.replicate(:Metadata, :type)
     end
