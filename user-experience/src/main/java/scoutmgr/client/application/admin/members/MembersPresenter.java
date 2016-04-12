@@ -114,6 +114,15 @@ public class MembersPresenter
   }
 
   @Override
+  public void viewScout( final Person person )
+  {
+    final PlaceRequest request = _placeManager.getCurrentPlaceRequest();
+    final PlaceRequest newPlace = new PlaceRequest.Builder( request ).nameToken( NameTokens.getScout() )
+      .with( "id", person.getID().toString() ).build();
+    _placeManager.revealPlace( newPlace );
+  }
+
+  @Override
   public void editScout( final Person person )
   {
     final PlaceRequest request = _placeManager.getCurrentPlaceRequest();

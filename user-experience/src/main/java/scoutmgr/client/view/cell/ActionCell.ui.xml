@@ -4,7 +4,7 @@
   <ui:with field="css" type="java.lang.String"/>
   <ui:with field="iconCss" type="java.lang.String"/>
   <ui:style field="actionStyles" type="scoutmgr.client.view.cell.ActionCell.ActionStyle">
-    .action{
+    .action {
       text-transform: none;
       font-size: 12px;
       -webkit-box-shadow: none;
@@ -17,11 +17,15 @@
       margin-left: 0px;
     }
 
-    .edit{
+    .view {
+      color: #3a7b4d;
+    }
+
+    .edit {
       color: #1a4f7b;
     }
 
-    .delete{
+    .delete {
       color: #d9534f
     }
   </ui:style>

@@ -15,6 +15,7 @@ import scoutmgr.client.view.model.AbstractViewModel;
 public class ActionCell<T extends AbstractViewModel>
   extends AbstractCell<T>
 {
+  private final boolean _view;
   private UiActionHandler<T> _uiHandler;
   private scoutmgr.client.resource.ScoutmgrResourceBundle _bundle;
   private boolean _text;
@@ -23,6 +24,8 @@ public class ActionCell<T extends AbstractViewModel>
 
   public interface UiActionHandler<T>
   {
+    void onView( T viewModel );
+
     void onEdit( T viewModel );
 
     void onDelete( T viewModel );
@@ -34,6 +37,8 @@ public class ActionCell<T extends AbstractViewModel>
     String edit();
 
     String delete();
+
+    String view();
   }
 
   interface Renderer
@@ -47,12 +52,14 @@ public class ActionCell<T extends AbstractViewModel>
   private static final Renderer RENDERER = GWT.create( Renderer.class );
 
   public ActionCell( final UiActionHandler<T> uiHandler,
+                     final boolean canView,
                      final boolean canEdit,
                      final boolean canDelete,
                      final boolean showText )
   {
     super( BrowserEvents.CLICK );
     _uiHandler = uiHandler;
+    _view = canView;
     _delete = canDelete;
     _edit = canEdit;
     _text = showText;
@@ -66,6 +73,11 @@ public class ActionCell<T extends AbstractViewModel>
   @Override
   public void render( final Context context, final T viewModel, final SafeHtmlBuilder sb )
   {
+    if ( _view )
+    {
+      RENDERER.render( sb, _text ? "View" : "", "btn btn-link " + RENDERER.getActionStyles().view(),
+                       _bundle.bootstrap().glyphicon() + " " + _bundle.bootstrap().glyphiconEyeOpen() );
+    }
     if ( _edit )
     {
       RENDERER.render( sb, _text ? "Edit" : "", "btn btn-link " + RENDERER.getActionStyles().edit(),
@@ -89,6 +101,10 @@ public class ActionCell<T extends AbstractViewModel>
     event.stopPropagation();
     event.preventDefault();
     final Element element = Element.as( event.getEventTarget() );
+    if ( element.hasClassName( RENDERER.getActionStyles().view() ) )
+    {
+      _uiHandler.onView( value );
+    }
     if ( element.hasClassName( RENDERER.getActionStyles().edit() ) )
     {
       _uiHandler.onEdit( value );

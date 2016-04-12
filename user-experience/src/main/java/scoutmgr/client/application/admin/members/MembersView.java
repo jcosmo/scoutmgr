@@ -124,7 +124,7 @@ public class MembersView
         }
       };
 
-    final ActionCell<ScoutViewModel> actionCell = new ActionCell<>( this, true, true, false );
+    final ActionCell<ScoutViewModel> actionCell = new ActionCell<>( this, true, true, true, false );
     final Column<ScoutViewModel, ScoutViewModel> actionsColumn =
       new Column<ScoutViewModel, ScoutViewModel>( actionCell )
       {
@@ -143,7 +143,7 @@ public class MembersView
     _memberTable.addColumn( dobColumn, SafeHtmlUtils.fromString( "Birthday" ) );
     _memberTable.addColumn( regNumColumn, SafeHtmlUtils.fromString( "Reg. Num" ) );
     _memberTable.addColumn( actionsColumn );
-    _memberTable.setColumnWidth( actionsColumn, 60, Style.Unit.PX );
+    _memberTable.setColumnWidth( actionsColumn, 80, Style.Unit.PX );
 
     setupPager();
     _provider.addDataDisplay( _memberTable );
@@ -214,6 +214,13 @@ public class MembersView
   public void addScoutClicked( final ClickEvent e )
   {
     getUiHandlers().addScout();
+  }
+
+  @Override
+  public void onView( final ScoutViewModel viewModel )
+  {
+    // IMPORTANT: DO NOT REMOVE THE FOLLOWING CAST, OR GWT WILL NOT COMPILE
+    getUiHandlers().viewScout( (Person) viewModel.asModelObject() );
   }
 
   @Override
