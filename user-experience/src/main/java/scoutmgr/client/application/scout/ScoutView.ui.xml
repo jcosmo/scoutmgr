@@ -1,7 +1,14 @@
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
              xmlns:g="urn:import:com.google.gwt.user.client.ui">
-  <g:HTMLPanel>
-    here we have a view of a scout!
-  </g:HTMLPanel>
+  <ui:with field='_bundle' type='scoutmgr.client.resource.ScoutmgrResourceBundle'/>
+
+  <g:LayoutPanel addStyleNames="{_bundle.scoutmgr.content}">
+    <g:layer left="0" top="0" height="100px" right="0">
+      <g:SimplePanel ui:field="_scoutDetailsPanel"/>
+    </g:layer>
+    <g:layer left="0" top="100px" bottom="0" right="0">
+      <g:SimplePanel ui:field="_otherStuff"/>
+    </g:layer>
+  </g:LayoutPanel>
 </ui:UiBinder>

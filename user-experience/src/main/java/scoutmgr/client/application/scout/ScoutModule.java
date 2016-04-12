@@ -6,8 +6,6 @@ import java.util.logging.Logger;
 public class ScoutModule
   extends AbstractPresenterModule
 {
-  private static final Logger LOG = Logger.getLogger( ScoutModule.class.getName() );
-
   @Override
   protected void configure()
   {

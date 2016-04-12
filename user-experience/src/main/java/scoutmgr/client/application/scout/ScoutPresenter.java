@@ -30,8 +30,6 @@ public class ScoutPresenter
   {
   }
 
-  private static final Logger LOG = Logger.getLogger( ScoutPresenter.class.getName() );
-
   @Inject
   ScoutPresenter(  final EventBus eventBus,
                    final View view,
