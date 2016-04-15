@@ -9,6 +9,11 @@ import com.gwtplatform.mvp.client.annotations.ProxyStandard;
 import com.gwtplatform.mvp.client.proxy.PlaceManager;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 import com.gwtplatform.mvp.shared.proxy.PlaceRequest;
+import javax.annotation.Nonnull;
+import org.realityforge.replicant.client.EntityChangeBroker;
+import org.realityforge.replicant.client.EntityChangeEvent;
+import org.realityforge.replicant.client.EntityChangeListener;
+import org.realityforge.replicant.client.EntityChangeListenerAdapter;
 import org.realityforge.replicant.client.EntityRepository;
 import scoutmgr.client.application.ApplicationPresenter;
 import scoutmgr.client.entity.Person;
@@ -25,7 +30,6 @@ public class ScoutPresenter
 
   @Inject
   private PlaceManager _placeManager;
-
 
   @Inject
   private ScoutmgrDataLoaderService _dataloader;
@@ -54,11 +58,28 @@ public class ScoutPresenter
   @Inject
   ScoutPresenter(  final EventBus eventBus,
                    final View view,
-                   final Proxy proxy )
+                   final Proxy proxy,
+                   final ScoutmgrDataLoaderService dataLoader )
   {
     super( eventBus, view, proxy, ApplicationPresenter.SLOT_MAIN_CONTENT );
 
+    _dataloader = dataLoader;
+
     getView().setUiHandlers( this );
+  }
+
+  @Override
+  protected void onReveal()
+  {
+    getView().showLoadingMessage();
+    super.onReveal();
+  }
+
+  @Override
+  protected void onHide()
+  {
+    super.onHide();
+   unsubscribeFromScout();
   }
 
   @Override
@@ -68,12 +89,30 @@ public class ScoutPresenter
     final String idStr = request.getParameter( "id", null );
     if ( null != idStr )
     {
+      unsubscribeFromScout();
       _scoutID = Integer.valueOf( idStr );
-      configureForScout( _scoutID );
+      getView().showLoadingMessage();
+      _dataloader.getSession().subscribeToPerson( _scoutID, new Runnable()
+      {
+        @Override
+        public void run()
+        {
+          configureForScout( _scoutID );
+        }
+      } );
     }
     else
     {
       _placeManager.revealErrorPlace( "Invalid URL" );
+    }
+  }
+
+  private void unsubscribeFromScout()
+  {
+    if ( null != _scoutID )
+    {
+      _dataloader.getSession().unsubscribeFromPerson( _scoutID, null );
+      _scoutID = null;
     }
   }
 
