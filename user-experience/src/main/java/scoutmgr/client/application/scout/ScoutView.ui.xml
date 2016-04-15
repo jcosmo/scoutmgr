@@ -8,7 +8,20 @@
       <g:SimplePanel ui:field="_scoutDetailsPanel"/>
     </g:layer>
     <g:layer left="0" top="100px" bottom="0" right="0">
-      <g:SimplePanel ui:field="_otherStuff"/>
+      <g:TabLayoutPanel barUnit='EM' barHeight='3' ui:field="_tabPanel">
+        <g:tab>
+          <g:header size='7'>Badgework</g:header>
+          <g:Label>working on this!</g:Label>
+        </g:tab>
+        <g:tab>
+          <g:header size='7'>Events</g:header>
+          <g:Label>Event attendance is not yet implemented</g:Label>
+        </g:tab>
+        <g:tab>
+          <g:header size='7'>Notes</g:header>
+          <g:Label>Notes are not yet implemented</g:Label>
+        </g:tab>
+      </g:TabLayoutPanel>
     </g:layer>
   </g:LayoutPanel>
 </ui:UiBinder>
