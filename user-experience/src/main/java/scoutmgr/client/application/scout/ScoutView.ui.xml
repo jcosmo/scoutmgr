@@ -6,9 +6,12 @@
   <g:LayoutPanel addStyleNames="{_bundle.scoutmgr.content}">
     <g:layer left="0" top="0" height="100px" right="0">
       <g:SimplePanel ui:field="_scoutDetailsPanel"/>
+      <!--  Chappie Name                               Scout (X years)
+            XXXXX Patrol                            Joined AA/BB/CCCC
+                                            chappie@foo.something ... -->
     </g:layer>
     <g:layer left="0" top="100px" bottom="0" right="0">
-      <g:TabLayoutPanel barUnit='EM' barHeight='3' ui:field="_tabPanel">
+      <g:TabLayoutPanel barUnit='EM' barHeight='3' ui:field="_tabPanel" addStyleNames="{_bundle.scoutmgr.scoutDetailsTabPanel}">
         <g:tab>
           <g:header size='7'>Badgework</g:header>
           <g:Label>working on this!</g:Label>

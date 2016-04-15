@@ -1,3 +1,7 @@
+@def FOOTER_BACKGROUND #f5f5f5;
+@def TAB_HEADER_BACKGROUND FOOTER_BACKGROUND;
+@def SELECTED_TAB_HEADER_BACKGROUND spin(FOOTER_BACKGROUND, 180);
+
 /* Footer support */
 html {
   position: relative;;
@@ -14,7 +18,7 @@ body {
   width: 100%;
   /* Set the fixed height of the footer here */
   height: 60px;
-  background-color: #f5f5f5;
+  background-color: FOOTER_BACKGROUND;
 }
 
 .footerContainer {
@@ -45,32 +49,33 @@ body {
   margin-bottom: 20px;
 }
 
-.gwt-TabLayoutPanel .gwt-TabLayoutPanelContent {
+@external gwt-TabLayoutPanelContent;
+@external gwt-TabLayoutPanelTab;
+@external gwt-TabLayoutPanelTab-selected;
+
+.scoutDetailsTabPanel .gwt-TabLayoutPanelContent {
   border-color: #e6e7e8;
   border-style: solid;
-  border-width: 3px 2px 2px;
+  border-width: 1px;
   overflow: hidden;
   padding: 6px;
-  background: #FFFFFF;
 }
 
-.gwt-TabLayoutPanel .gwt-TabLayoutPanelTab {
-  margin-left: 6px;
+.scoutDetailsTabPanel .gwt-TabLayoutPanelTab {
+  margin-right: 6px;
   padding: 3px 8px 3px 8px;
   cursor: pointer;
   cursor: hand;
   color: black;
-  font-size: 1.2em;
-  
   text-align: center;
-  background: #458818;
+  background: TAB_HEADER_BACKGROUND;
 }
 
-.gwt-TabLayoutPanel .gwt-TabLayoutPanelTab-selected {
+.scoutDetailsTabPanel .gwt-TabLayoutPanelTab-selected {
   cursor: default;
-  background: #8bc53d;
-  font-size: 1.2em;
-  color: #FFFFFF;
+  background: SELECTED_TAB_HEADER_BACKGROUND;
+  color: red;
 }
+
 
 
