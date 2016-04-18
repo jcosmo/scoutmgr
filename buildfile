@@ -29,35 +29,6 @@ define 'scoutmgr' do
 
   project.version = ENV['PRODUCT_VERSION'] if ENV['PRODUCT_VERSION']
 
-  desc 'SOAP Client API'
-  define 'soap-client' do
-    Domgen::Build.define_generate_task([:jws_client])
-
-    compile.using :javac
-    test.using :testng
-
-    package :jar
-    package :sources
-  end
-
-  desc 'Fake SOAP Server for tests'
-  define 'soap-qa-support' do
-    Domgen::Build.define_generate_task([:ee_data_types, :ee_exceptions, :jws_fake_server])
-
-    compile.using :javac
-    compile.with JACKSON_DEPS
-
-    compile.with project('soap-client').package(:jar),
-                 COMMON_PROVIDED_DEPS,
-                 :glassfish_embedded,
-                 :mockito
-
-    test.using :testng
-
-    package :jar
-    package :sources
-  end
-
   define 'shared' do
     compile.using :javac
 
@@ -202,8 +173,7 @@ define 'scoutmgr' do
 
   define 'integration-tests' do
     test.enhance([artifact(:glassfish_embedded), project('server').package(:war)])
-    test.with project('soap-client').package(:jar),
-              project('integration-qa-support').package(:jar),
+    test.with project('integration-qa-support').package(:jar),
               project('integration-qa-support').compile.dependencies,
               :postgresql
     test.using :testng
@@ -242,46 +212,4 @@ define 'scoutmgr' do
                             :launch_page => 'http://127.0.0.1:8080/scoutmgr')
 
   ipr.add_default_testng_configuration(:jvm_args => "-ea -Xmx2024M -XX:MaxPermSize=364m -Dtest.db.url=#{Dbt.jdbc_url_with_credentials(:default, 'test')} -Dwar.dir=#{File.dirname(project('server').package(:war).to_s)} -Dembedded.glassfish.artifacts=#{[artifact(:glassfish_embedded).to_spec, artifact(:postgresql).to_spec].join(',')}")
-
-  checkstyle.config_directory = _('etc/checkstyle')
-  checkstyle.configuration_artifact = :checkstyle_rules
-  checkstyle.source_paths << project('shared')._(:source, :main, :java)
-  checkstyle.source_paths << project('model')._(:source, :main, :java)
-  checkstyle.source_paths << project('model')._(:source, :test, :java)
-  checkstyle.source_paths << project('model-qa-support')._(:source, :main, :java)
-  checkstyle.source_paths << project('model-qa-support')._(:source, :test, :java)
-  checkstyle.source_paths << project('server')._(:source, :main, :java)
-  checkstyle.source_paths << project('server')._(:source, :test, :java)
-  checkstyle.source_paths << project('integration-qa-support')._(:source, :main, :java)
-  checkstyle.source_paths << project('integration-tests')._(:source, :test, :java)
-
-  jdepend.enabled = true
-  jdepend.target_paths << project('shared').compile.target.to_s
-  jdepend.target_paths << project('model').compile.target.to_s
-  jdepend.target_paths << project('model-qa-support').compile.target.to_s
-  jdepend.target_paths << project('server').compile.target.to_s
-  jdepend.target_paths << project('integration-qa-support').compile.target.to_s
-
-  findbugs.enabled = true
-  findbugs.analyze_paths << project('shared').compile.target
-  findbugs.extra_dependencies << project('shared').compile.dependencies
-  findbugs.analyze_paths << project('model').compile.target
-  findbugs.extra_dependencies << project('model').compile.dependencies
-  findbugs.analyze_paths << project('server').compile.target
-  findbugs.extra_dependencies << project('server').compile.dependencies
-  findbugs.analyze_paths << project('model-qa-support').compile.target
-  findbugs.extra_dependencies << project('model-qa-support').compile.dependencies
-  findbugs.analyze_paths << project('soap-client').compile.target
-  findbugs.extra_dependencies << project('soap-client').compile.dependencies
-  findbugs.analyze_paths << project('soap-qa-support').compile.target
-  findbugs.extra_dependencies << project('soap-qa-support').compile.dependencies
-
-  pmd.enabled = true
-  pmd.rule_set_artifacts << :pmd_rules
-  pmd.source_paths << project('shared')._(:source, :main, :java)
-  pmd.source_paths << project('server')._(:source, :main, :java)
-  pmd.source_paths << project('server')._(:source, :test, :java)
-  pmd.source_paths << project('model-qa-support')._(:source, :main, :java)
-  pmd.source_paths << project('integration-qa-support')._(:source, :main, :java)
-  pmd.source_paths << project('integration-tests')._(:source, :test, :java)
 end
