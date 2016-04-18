@@ -22,7 +22,7 @@ artifacts:
   aopalliance: aopalliance:aopalliance:jar:1.0 # Required for guice
   #
   # Used to inject EE annotated classes in Guice
-  guiceyloops: org.realityforge.guiceyloops:guiceyloops:jar:0.58
+  guiceyloops: org.realityforge.guiceyloops:guiceyloops:jar:0.65
 
   testng: org.testng:testng:jar:6.8
   mockito: org.mockito:mockito-all:jar:1.9.5
@@ -61,13 +61,13 @@ artifacts:
 
   # Supporting GWT libraries
   gwt_lognice: org.realityforge.gwt.lognice:gwt-lognice:jar:0.2
-  gwt_datatypes: org.realityforge.gwt.datatypes:gwt-datatypes:jar:0.4
+  gwt_datatypes: org.realityforge.gwt.datatypes:gwt-datatypes:jar:0.8
   gwt_webpoller: org.realityforge.gwt.webpoller:gwt-webpoller:jar:0.8
   gwt_property_source: org.realityforge.gwt.property-source:gwt-property-source:jar:0.2
   gwt_cache_filter: org.realityforge.gwt.cache-filter:gwt-cache-filter:jar:0.6
 
-  gwt_appcache_client: org.realityforge.gwt.appcache:gwt-appcache-client:jar:1.0.7
-  gwt_appcache_linker: org.realityforge.gwt.appcache:gwt-appcache-linker:jar:1.0.7
-  gwt_appcache_server: org.realityforge.gwt.appcache:gwt-appcache-server:jar:1.0.7
+  gwt_appcache_client: org.realityforge.gwt.appcache:gwt-appcache-client:jar:1.0.8
+  gwt_appcache_linker: org.realityforge.gwt.appcache:gwt-appcache-linker:jar:1.0.8
+  gwt_appcache_server: org.realityforge.gwt.appcache:gwt-appcache-server:jar:1.0.8
 
   gwt_material_design: com.github.gwtmaterialdesign:gwt-material:jar:1.3
