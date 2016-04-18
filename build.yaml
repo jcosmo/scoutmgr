@@ -35,10 +35,10 @@ artifacts:
   jackson_mapper: org.codehaus.jackson:jackson-mapper-asl:jar:1.9.13
 
   # GWT Dependencies
-  gwt_user: com.google.gwt:gwt-user:jar:2.7.0
+  gwt_user: com.google.gwt:gwt-user:jar:2.8.0-beta1
   javax_inject: javax.inject:javax.inject:jar:1
-  gwt_servlet: com.google.gwt:gwt-servlet:jar:2.7.0
-  gwt_dev: com.google.gwt:gwt-dev:jar:2.7.0
+  gwt_servlet: com.google.gwt:gwt-servlet:jar:2.8.0-beta1
+  gwt_dev: com.google.gwt:gwt-dev:jar:2.8.0-beta1
   gwtp_mvp: com.gwtplatform:gwtp-mvp-client:jar:1.4
   gwtp_clients_common: com.gwtplatform:gwtp-clients-common:jar:1.4
   gwtp_mvp_shared: com.gwtplatform:gwtp-mvp-shared:jar:1.4

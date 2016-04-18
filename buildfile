@@ -150,7 +150,10 @@ define 'scoutmgr' do
     compile.with project('gwt').package(:jar),
                  project('gwt').compile.dependencies
 
-    gwt(['scoutmgr.ScoutmgrProd'], :java_args => %w(-Xms512M -Xmx1024M -XX:PermSize=128M -XX:MaxPermSize=256M), :target_project => 'server')
+    gwt(['scoutmgr.ScoutmgrProd'],
+        :java_args => %w(-Xms512M -Xmx1024M),
+        :target_project => 'server',
+        :style => 'DETAILED')  # Detailed vs Obfuscated, as Obfuscated is broken in 2.8.0-beta1
 
     test.with project('gwt-qa-support'),
               :mockito,
