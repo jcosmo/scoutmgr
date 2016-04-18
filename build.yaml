@@ -34,9 +34,6 @@ artifacts:
   jackson_core: org.codehaus.jackson:jackson-core-asl:jar:1.9.13
   jackson_mapper: org.codehaus.jackson:jackson-mapper-asl:jar:1.9.13
 
-  # Supporting GWT libraries
-  gwt_datatypes: org.realityforge.gwt.datatypes:gwt-datatypes:jar:0.4
-
   # GWT Dependencies
   gwt_user: com.google.gwt:gwt-user:jar:2.7.0
   javax_inject: javax.inject:javax.inject:jar:1
