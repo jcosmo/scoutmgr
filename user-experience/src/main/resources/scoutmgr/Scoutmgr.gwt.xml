@@ -5,6 +5,9 @@
   <inherits name="org.realityforge.gwt.lognice.Lognice"/>
   <inherits name="com.google.gwt.logging.LoggingDisabled"/>
   <inherits name="com.gwtplatform.mvp.MvpWithEntryPoint"/>
+  <!--<inherits name='com.google.gwt.user.theme.standard.Standard'/>-->
+  <inherits name="com.google.gwt.user.theme.chrome.Chrome"/>
+  <!--<inherits name="com.google.gwt.user.theme.dark.Dark"/>-->
 
   <set-configuration-property name="CssResource.enableGss" value="true" />
   <set-configuration-property name="CssResource.legacy" value="true" />

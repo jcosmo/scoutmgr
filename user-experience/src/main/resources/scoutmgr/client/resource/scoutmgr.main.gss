@@ -49,33 +49,5 @@ body {
   margin-bottom: 20px;
 }
 
-@external gwt-TabLayoutPanelContent;
-@external gwt-TabLayoutPanelTab;
-@external gwt-TabLayoutPanelTab-selected;
-
-.scoutDetailsTabPanel .gwt-TabLayoutPanelContent {
-  border-color: #e6e7e8;
-  border-style: solid;
-  border-width: 1px;
-  overflow: hidden;
-  padding: 6px;
-}
-
-.scoutDetailsTabPanel .gwt-TabLayoutPanelTab {
-  margin-right: 6px;
-  padding: 3px 8px 3px 8px;
-  cursor: pointer;
-  cursor: hand;
-  color: black;
-  text-align: center;
-  background: TAB_HEADER_BACKGROUND;
-}
-
-.scoutDetailsTabPanel .gwt-TabLayoutPanelTab-selected {
-  cursor: default;
-  background: SELECTED_TAB_HEADER_BACKGROUND;
-  color: red;
-}
-
 
 
