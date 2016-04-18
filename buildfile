@@ -164,28 +164,6 @@ define 'scoutmgr' do
                       :gwt_dev_artifact => :gwt_dev)
   end
 
-  define 'integration-qa-support' do
-    compile.with project('model-qa-support').package(:jar),
-                 project('model-qa-support').compile.dependencies,
-                 :glassfish_embedded
-    package(:jar)
-  end
-
-  define 'integration-tests' do
-    test.enhance([artifact(:glassfish_embedded), project('server').package(:war)])
-    test.with project('integration-qa-support').package(:jar),
-              project('integration-qa-support').compile.dependencies,
-              :postgresql
-    test.using :testng
-    test.using :java_args => %w(-Xms512M -Xmx1024M -XX:PermSize=500M -XX:MaxPermSize=500M),
-               :properties =>
-                 {
-                   'embedded.glassfish.artifacts' => [artifact(:glassfish_embedded).to_spec, artifact(:postgresql).to_spec].join(','),
-                   'war.filename' => project('server').package(:war).to_s,
-                 }
-    test.options[:properties].merge!('test.db.url' => Dbt.configuration_for_key(:default).build_jdbc_url(:credentials_inline => true))
-  end
-
   desc 'DB Archive'
   define 'db' do
     project.no_iml
