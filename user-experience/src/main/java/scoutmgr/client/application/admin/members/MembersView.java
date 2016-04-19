@@ -71,8 +71,6 @@ public class MembersView
   MembersView( final Binder uiBinder )
   {
     _memberTable = new DataGrid<>( 20, GWT.<MembersDataGridResources>create( MembersDataGridResources.class ) );
-    _memberTable.setWidth( "100%" );
-    _memberTable.setHeight( "620px" );
     _memberTable.setAutoHeaderRefreshDisabled( false );
     _memberTable.setEmptyTableWidget( new Label( "No resources" ) );
 
