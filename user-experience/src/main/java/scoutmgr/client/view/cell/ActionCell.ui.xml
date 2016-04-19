@@ -1,20 +1,13 @@
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
-<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder" xmlns:g="urn:import:com.google.gwt.user.client.ui">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+             xmlns:g="urn:import:com.google.gwt.user.client.ui"
+             xmlns:m="urn:import:gwt.material.design.client.ui">
   <ui:with field="text" type="java.lang.String"/>
   <ui:with field="css" type="java.lang.String"/>
   <ui:with field="iconCss" type="java.lang.String"/>
   <ui:style field="actionStyles" type="scoutmgr.client.view.cell.ActionCell.ActionStyle">
     .action {
-      text-transform: none;
       font-size: 12px;
-      -webkit-box-shadow: none;
-      -moz-box-shadow: none;
-      box-shadow: none;
-      border: 0;
-      padding: 2px;
-      font-weight: 400;
-      background: 0 0;
-      margin-left: 0px;
     }
 
     .view {
@@ -31,10 +24,8 @@
   </ui:style>
   <g:HTMLPanel>
     <span>
-      <a href="#" class="{actionStyles.action} {css}">
-        <i class="{iconCss} {css}"/>
-        <ui:text from="{text}"/>
-      </a>
+      <m:MaterialButton text="hello!" color="blue" icon="mdi-action-account-circle" iconPosition="left" />
+      {text}
     </span>
   </g:HTMLPanel>
 </ui:UiBinder>

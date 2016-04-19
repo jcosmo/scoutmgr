@@ -1,18 +1,26 @@
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
              xmlns:g="urn:import:com.google.gwt.user.client.ui"
-             xmlns:c='urn:import:com.google.gwt.user.cellview.client'>
+             xmlns:c='urn:import:com.google.gwt.user.cellview.client'
+             xmlns:m="urn:import:gwt.material.design.client.ui">
   <ui:with field='_bundle' type='scoutmgr.client.resource.ScoutmgrResourceBundle'/>
 
-  <g:LayoutPanel ui:field="_membersPanel" addStyleNames="{_bundle.scoutmgr.content}">
-    <g:layer top="0" height="30px" left="0" width="50%">
-      <g:Button ui:field="_addScoutButton">Add Scout</g:Button>
+  <g:LayoutPanel ui:field="_membersPanel">
+    <g:layer top="0" left="0" bottom="0" right="0">
+      <m:MaterialCollection>
+        <m:header>
+          <m:MaterialLabel text="GWT Material"/>
+        </m:header>
+        <m:item>
+          <c:SimplePager ui:field='_pager'/>
+        </m:item>
+      </m:MaterialCollection>
     </g:layer>
-    <g:layer top="0" height="30px" right="0" width="50%">
-      <c:SimplePager ui:field='_pager'/>
+    <g:layer top="50" left="0" bottom="0" right="0">
+      <c:DataGrid ui:field="_memberTable" addStyleNames="striped"/>
     </g:layer>
-    <g:layer top="30px" bottom="0">
-      <c:DataGrid ui:field="_memberTable"/>
+    <g:layer bottom="0" width="80px" right="0" height="70px">
+      <m:MaterialButton ui:field="_addScoutButton" type="floating" text="Add Scout" color="blue" icon="mdi-content-add" size="large"/>
     </g:layer>
   </g:LayoutPanel>
 </ui:UiBinder>

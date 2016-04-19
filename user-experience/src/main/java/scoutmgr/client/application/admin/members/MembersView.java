@@ -12,13 +12,13 @@ import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.ColumnSortEvent;
 import com.google.gwt.user.cellview.client.DataGrid;
 import com.google.gwt.user.cellview.client.SimplePager;
-import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.LayoutPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.ListDataProvider;
 import com.google.inject.Inject;
 import com.gwtplatform.mvp.client.ViewWithUiHandlers;
+import gwt.material.design.client.ui.MaterialButton;
 import java.util.Collection;
 import java.util.Comparator;
 import scoutmgr.client.entity.Person;
@@ -42,7 +42,7 @@ public class MembersView
   @UiField( provided = true )
   DataGrid<ScoutViewModel> _memberTable;
   @UiField
-  Button _addScoutButton;
+  MaterialButton _addScoutButton;
   @UiField
   ScoutmgrResourceBundle _bundle;
 
@@ -70,7 +70,7 @@ public class MembersView
   @Inject
   MembersView( final Binder uiBinder )
   {
-    _memberTable = new DataGrid<>( 20, GWT.<MembersDataGridResources>create( MembersDataGridResources.class ) );
+    _memberTable = new DataGrid<>( 20 );
     _memberTable.setWidth( "100%" );
     _memberTable.setHeight( "620px" );
     _memberTable.setAutoHeaderRefreshDisabled( false );
@@ -143,7 +143,7 @@ public class MembersView
     _memberTable.addColumn( dobColumn, SafeHtmlUtils.fromString( "Birthday" ) );
     _memberTable.addColumn( regNumColumn, SafeHtmlUtils.fromString( "Reg. Num" ) );
     _memberTable.addColumn( actionsColumn );
-    _memberTable.setColumnWidth( actionsColumn, 80, Style.Unit.PX );
+    _memberTable.setColumnWidth( actionsColumn, 200, Style.Unit.PX );
 
     setupPager();
     _provider.addDataDisplay( _memberTable );
