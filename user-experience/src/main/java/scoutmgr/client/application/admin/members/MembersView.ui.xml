@@ -7,20 +7,15 @@
 
   <g:LayoutPanel ui:field="_membersPanel">
     <g:layer top="0" left="0" bottom="0" right="0">
-      <m:MaterialCollection>
-        <m:header>
-          <m:MaterialLabel text="GWT Material"/>
-        </m:header>
-        <m:item>
-          <c:SimplePager ui:field='_pager'/>
-        </m:item>
-      </m:MaterialCollection>
+      <g:HTML>
+        Registered Members
+      </g:HTML>
     </g:layer>
     <g:layer top="50" left="0" bottom="0" right="0">
       <c:DataGrid ui:field="_memberTable" addStyleNames="striped"/>
     </g:layer>
     <g:layer bottom="0" width="80px" right="0" height="70px">
-      <m:MaterialButton ui:field="_addScoutButton" type="floating" text="Add Scout" color="blue" icon="mdi-content-add" size="large"/>
+      <m:MaterialButton ui:field="_addScoutButton" type="FLOATING" text="Add Scout" backgroundColor="blue" iconType="ADD" size="LARGE"/>
     </g:layer>
   </g:LayoutPanel>
 </ui:UiBinder>

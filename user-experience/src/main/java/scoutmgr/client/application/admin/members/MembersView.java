@@ -37,7 +37,6 @@ public class MembersView
   @UiField
   LayoutPanel _membersPanel;
 
-  @UiField( provided = true )
   SimplePager _pager;
   @UiField( provided = true )
   DataGrid<ScoutViewModel> _memberTable;
@@ -71,8 +70,6 @@ public class MembersView
   MembersView( final Binder uiBinder )
   {
     _memberTable = new DataGrid<>( 20 );
-    _memberTable.setWidth( "100%" );
-    _memberTable.setHeight( "620px" );
     _memberTable.setAutoHeaderRefreshDisabled( false );
     _memberTable.setEmptyTableWidget( new Label( "No resources" ) );
 

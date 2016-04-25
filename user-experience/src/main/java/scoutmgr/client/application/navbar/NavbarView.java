@@ -4,8 +4,6 @@ import com.google.gwt.dom.client.DivElement;
 import com.google.gwt.dom.client.LIElement;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
-import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
@@ -17,24 +15,18 @@ public class NavbarView
   extends ViewImpl
   implements NavbarPresenter.View
 {
-  @UiField
   LIElement _eventsLinkContainer;
 
-  @UiField
   LIElement _membersLinkContainer;
 
-  @UiField
   LIElement _badgesLinkContainer;
 
   LIElement _currentLink;
 
-  @UiField
   HTML _navToggle;
 
-  @UiField
   DivElement _navCollapse;
 
-  @UiField
   ScoutmgrResourceBundle _bundle;
 
   interface Binder
@@ -92,7 +84,6 @@ public class NavbarView
   }
 
   @SuppressWarnings( "UnusedParameters" )
-  @UiHandler( "_navToggle" )
   public void handleClick( final ClickEvent event )
   {
     if ( _navCollapse.hasClassName( _bundle.bootstrap().collapse() ) )

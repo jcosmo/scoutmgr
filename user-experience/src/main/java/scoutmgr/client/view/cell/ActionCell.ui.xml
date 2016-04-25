@@ -24,7 +24,7 @@
   </ui:style>
   <g:HTMLPanel>
     <span>
-      <m:MaterialButton text="hello!" color="blue" icon="mdi-action-account-circle" iconPosition="left" />
+      <m:MaterialButton text="hello!" backgroundColor="blue" iconType="ACCOUNT_CIRCLE" iconPosition="LEFT" />
       {text}
     </span>
   </g:HTMLPanel>
