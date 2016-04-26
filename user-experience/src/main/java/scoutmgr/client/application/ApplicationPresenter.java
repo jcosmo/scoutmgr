@@ -9,12 +9,16 @@ import com.gwtplatform.mvp.client.annotations.ProxyEvent;
 import com.gwtplatform.mvp.client.annotations.ProxyStandard;
 import com.gwtplatform.mvp.client.proxy.LockInteractionEvent;
 import com.gwtplatform.mvp.client.proxy.RevealContentHandler;
+import scoutmgr.client.application.appbar.AppbarPresenter;
 import scoutmgr.client.application.footer.FooterPresenter;
 import scoutmgr.client.application.navbar.NavbarPresenter;
 
 public class ApplicationPresenter
   extends Presenter<ApplicationPresenter.View, ApplicationPresenter.Proxy>
 {
+  @Inject
+  private AppbarPresenter _appbarPresenter;
+
   @Inject
   private NavbarPresenter _navbarPresenter;
 
@@ -40,6 +44,8 @@ public class ApplicationPresenter
     super( eventBus, view, proxy, RevealType.RootLayout );
   }
 
+  @ContentSlot
+  public static final Type<RevealContentHandler<?>> SLOT_MAIN_APPBAR = new Type<>();
   @ContentSlot
   public static final Type<RevealContentHandler<?>> SLOT_MAIN_CONTENT = new Type<>();
   @ContentSlot

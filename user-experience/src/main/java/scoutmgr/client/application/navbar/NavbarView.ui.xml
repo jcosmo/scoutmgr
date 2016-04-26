@@ -4,22 +4,21 @@
              xmlns:g="urn:import:com.google.gwt.user.client.ui">
   <ui:with type="scoutmgr.client.place.NameTokens" field="_nameTokens"></ui:with>
   <g:HTMLPanel>
-    <m:MaterialNavBar ui:field="navBar" backgroundColor="blue" type="SHRINK">
+  <header>
+    <m:MaterialNavBar backgroundColor="white" type="FIXED" depth="0">
       <m:MaterialNavBrand float="LEFT" text="Scout Manager"/>
       <m:MaterialNavSection float="RIGHT">
         <m:MaterialTooltip text="Account Settings" position="BOTTOM">
           <m:MaterialLink iconType="ACCOUNT_CIRCLE" iconPosition="NONE"/>
         </m:MaterialTooltip>
-        <m:MaterialTooltip text="Apps" position="BOTTOM">
-          <m:MaterialLink iconType="VIEW_MODULE" iconPosition="NONE"/>
-        </m:MaterialTooltip>
-        <m:MaterialTooltip text="Notifications" position="BOTTOM">
-          <m:MaterialLink activates="sideNav" iconType="NOTIFICATIONS" iconPosition="NONE"/>
-        </m:MaterialTooltip>
-        <m:MaterialTooltip text="Search" position="BOTTOM">
-          <m:MaterialLink ui:field="btnSearch" iconType="SEARCH" iconPosition="NONE"/>
+        <m:MaterialTooltip text="Logout" position="BOTTOM">
+          <m:MaterialLink iconType="CANCEL" iconPosition="NONE"/>
         </m:MaterialTooltip>
       </m:MaterialNavSection>
     </m:MaterialNavBar>
+  </header>    <m:MaterialRow grid="s12" hideOn="HIDE_ON_MED_DOWN" backgroundColor="white" depth="-1">
+    <g:HTMLPanel>this is the menu bar!</g:HTMLPanel>
+  </m:MaterialRow>
+
   </g:HTMLPanel>
 </ui:UiBinder>
