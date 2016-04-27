@@ -50,11 +50,11 @@ body {
 }
 
 .navbar {
-  border-bottom: solid #EEEEEE 1px;
+  border-bottom: solid #90caf9 1px;
 }
 
 .menubar {
-  border-bottom: solid #DDDDDD 1px;
+  border-bottom: solid #90caf9 1px;
 }
 
 

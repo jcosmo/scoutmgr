@@ -7,8 +7,8 @@
   <ui:with type="scoutmgr.client.place.NameTokens" field="_nameTokens"></ui:with>
   <g:HTMLPanel>
     <header>
-      <m:MaterialNavBar backgroundColor="grey lighten-4" textColor="black" type="FIXED" addStyleNames="z-depth-0 {_bundle.scoutmgr.navbar}">
-        <m:MaterialNavBrand float="LEFT" text="Titlebar" textColor="black"/>
+      <m:MaterialNavBar backgroundColor="blue lighten-3" textColor="black" type="FIXED" addStyleNames="z-depth-0 {_bundle.scoutmgr.navbar}">
+        <m:MaterialNavBrand float="LEFT" text="Scout Manager" textColor="black"/>
         <m:MaterialNavSection float="RIGHT">
           <m:MaterialTooltip text="Account Settings" position="BOTTOM">
             <m:MaterialLink iconType="ACCOUNT_CIRCLE" iconColor="black" iconPosition="NONE"/>
@@ -18,7 +18,7 @@
           </m:MaterialTooltip>
         </m:MaterialNavSection>
       </m:MaterialNavBar>
-      <m:MaterialRow grid="s12" hideOn="HIDE_ON_MED_DOWN" backgroundColor="grey lighten-4" addStyleNames="{_bundle.scoutmgr.menubar}">
+      <m:MaterialRow grid="s12" hideOn="HIDE_ON_MED_DOWN" backgroundColor="blue lighten-4" addStyleNames="{_bundle.scoutmgr.menubar}">
         <ma:menubar.MaterialMenuBar>
           <m:MaterialLink href="#{_nameTokens.getAdminScouts}" padding="12" waves="DEFAULT" text="Scout Management" textColor="black"/>
           <m:MaterialLink href="#{_nameTokens.getAdminBadges}" padding="12" waves="DEFAULT" text="Badge Management" textColor="black"/>
