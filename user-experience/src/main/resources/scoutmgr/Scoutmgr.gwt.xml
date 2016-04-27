@@ -11,7 +11,7 @@
   <inherits name="gwt.material.design.GwtMaterialWithJQueryDebug"/>
   <!--<inherits name="gwt.material.design.GwtMaterialWithJQueryDebug"/>-->
   <!--<inherits name="gwt.material.design.themes.GwtMaterialThemeBlue"/>-->
-  <!--<inherits name="gwt.material.design.addins.GWTMaterialAddins"/>-->
+  <inherits name="gwt.material.design.addins.GWTMaterialAddins"/>
 
   <set-configuration-property name="CssResource.enableGss" value="true" />
   <set-configuration-property name="gin.ginjector.modules" value="scoutmgr.client.ioc.ScoutmgrModule" />

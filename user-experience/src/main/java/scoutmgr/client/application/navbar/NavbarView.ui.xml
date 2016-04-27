@@ -1,24 +1,30 @@
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
              xmlns:m="urn:import:gwt.material.design.client.ui"
+             xmlns:ma='urn:import:gwt.material.design.addins.client'
              xmlns:g="urn:import:com.google.gwt.user.client.ui">
+  <ui:with field='_bundle' type='scoutmgr.client.resource.ScoutmgrResourceBundle'/>
   <ui:with type="scoutmgr.client.place.NameTokens" field="_nameTokens"></ui:with>
   <g:HTMLPanel>
-  <header>
-    <m:MaterialNavBar backgroundColor="white" type="FIXED" depth="0">
-      <m:MaterialNavBrand float="LEFT" text="Scout Manager"/>
-      <m:MaterialNavSection float="RIGHT">
-        <m:MaterialTooltip text="Account Settings" position="BOTTOM">
-          <m:MaterialLink iconType="ACCOUNT_CIRCLE" iconPosition="NONE"/>
-        </m:MaterialTooltip>
-        <m:MaterialTooltip text="Logout" position="BOTTOM">
-          <m:MaterialLink iconType="CANCEL" iconPosition="NONE"/>
-        </m:MaterialTooltip>
-      </m:MaterialNavSection>
-    </m:MaterialNavBar>
-  </header>    <m:MaterialRow grid="s12" hideOn="HIDE_ON_MED_DOWN" backgroundColor="white" depth="-1">
-    <g:HTMLPanel>this is the menu bar!</g:HTMLPanel>
-  </m:MaterialRow>
-
+    <header>
+      <m:MaterialNavBar backgroundColor="grey lighten-4" textColor="black" type="FIXED" addStyleNames="z-depth-0 {_bundle.scoutmgr.navbar}">
+        <m:MaterialNavBrand float="LEFT" text="Titlebar" textColor="black"/>
+        <m:MaterialNavSection float="RIGHT">
+          <m:MaterialTooltip text="Account Settings" position="BOTTOM">
+            <m:MaterialLink iconType="ACCOUNT_CIRCLE" iconColor="black" iconPosition="NONE"/>
+          </m:MaterialTooltip>
+          <m:MaterialTooltip text="Logout" position="BOTTOM">
+            <m:MaterialLink iconType="CANCEL" iconColor="black" iconPosition="NONE"/>
+          </m:MaterialTooltip>
+        </m:MaterialNavSection>
+      </m:MaterialNavBar>
+      <m:MaterialRow grid="s12" hideOn="HIDE_ON_MED_DOWN" backgroundColor="grey lighten-4" addStyleNames="{_bundle.scoutmgr.menubar}">
+        <ma:menubar.MaterialMenuBar>
+          <m:MaterialLink href="#{_nameTokens.getAdminScouts}" padding="12" waves="DEFAULT" text="Scout Management" textColor="black"/>
+          <m:MaterialLink href="#{_nameTokens.getAdminBadges}" padding="12" waves="DEFAULT" text="Badge Management" textColor="black"/>
+          <m:MaterialLink href="#{_nameTokens.getEvents}" padding="12" waves="DEFAULT" text="Event Management" textColor="black"/>
+        </ma:menubar.MaterialMenuBar>
+      </m:MaterialRow>
+    </header>
   </g:HTMLPanel>
 </ui:UiBinder>

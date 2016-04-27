@@ -4,6 +4,7 @@ import com.google.gwt.dom.client.DivElement;
 import com.google.gwt.dom.client.LIElement;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
@@ -27,6 +28,7 @@ public class NavbarView
 
   DivElement _navCollapse;
 
+  @UiField
   ScoutmgrResourceBundle _bundle;
 
   interface Binder

@@ -2220,6 +2220,10 @@ public interface ScoutmgrResourceBundle
     String modalBackdrop();
 
     String content();
+
+    String navbar();
+
+    String menubar();
   }
 
   @Source( "scoutmgr.main.gss" )

@@ -23,7 +23,7 @@
     <g:layer top="0px" bottom="100px" left="0" right="0">
       <g:SimplePanel ui:field="_navbarPanel"/>
     </g:layer>
-    <g:layer top="100px" bottom="70px" left="0" right="0">
+    <g:layer top="130px" bottom="70px" left="0" right="0">
       <g:LayoutPanel ui:field="_content"/>
     </g:layer>
     <g:layer bottom="0" height="70px" left="0" right="0">

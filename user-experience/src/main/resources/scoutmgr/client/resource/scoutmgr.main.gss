@@ -49,5 +49,12 @@ body {
   margin-bottom: 20px;
 }
 
+.navbar {
+  border-bottom: solid #EEEEEE 1px;
+}
+
+.menubar {
+  border-bottom: solid #DDDDDD 1px;
+}
 
 
