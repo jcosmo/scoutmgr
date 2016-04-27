@@ -66,7 +66,6 @@ public class MembersView
   MembersView( final Binder uiBinder )
   {
     _memberTable = new DataGrid<>( 20 );
-    _memberTable.setSize( "100%", "40vh" );
     _memberTable.setAutoHeaderRefreshDisabled( false );
     _memberTable.setEmptyTableWidget( new Label( "No resources" ) );
 
