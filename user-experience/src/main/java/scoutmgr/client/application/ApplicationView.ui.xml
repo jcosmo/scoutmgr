@@ -17,9 +17,6 @@
       <g:Label addStyleNames="{_style.loader}" ui:field="_loading">Loading ...</g:Label>
     </g:layer>
 
-    <g:layer top="0" bottom="50px" left="0" right="0">
-      <g:SimplePanel ui:field="_appbarPanel"/>
-    </g:layer>
     <g:layer top="0px" bottom="100px" left="0" right="0">
       <g:SimplePanel ui:field="_navbarPanel"/>
     </g:layer>

@@ -20,8 +20,6 @@ public class ApplicationView
   @UiField
   LayoutPanel _content;
   @UiField
-  SimplePanel _appbarPanel;
-  @UiField
   SimplePanel _navbarPanel;
   @UiField
   SimplePanel _footerPanel;
@@ -54,10 +52,6 @@ public class ApplicationView
     else if ( slot == ApplicationPresenter.SLOT_MAIN_FOOTER )
     {
       _footerPanel.setWidget( content );
-    }
-    else if ( slot == ApplicationPresenter.SLOT_MAIN_APPBAR )
-    {
-      _appbarPanel.setWidget( content );
     }
     else
     {
