@@ -1,11 +1,9 @@
 package scoutmgr.client.application;
 
-import com.google.gwt.dom.client.Style;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.LayoutPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
@@ -18,7 +16,7 @@ public class ApplicationView
   @UiField
   Label _loading;
   @UiField
-  LayoutPanel _content;
+  SimplePanel _content;
   @UiField
   SimplePanel _navbarPanel;
   @UiField
@@ -40,10 +38,11 @@ public class ApplicationView
   {
     if ( slot == ApplicationPresenter.SLOT_MAIN_CONTENT )
     {
-      _content.clear();
-      _content.add( content );
-      _content.setWidgetLeftRight( content, 0, Style.Unit.PX, 0, Style.Unit.PX );
-      _content.setWidgetTopBottom( content, 0, Style.Unit.PX, 0, Style.Unit.PX );
+      _content.setWidget( content );
+      //_content.clear();
+      //_content.add( content );
+      //_content.setWidgetLeftRight( content, 0, Style.Unit.PX, 0, Style.Unit.PX );
+      //_content.setWidgetTopBottom( content, 0, Style.Unit.PX, 0, Style.Unit.PX );
     }
     else if ( slot == ApplicationPresenter.SLOT_MAIN_NAVBAR )
     {

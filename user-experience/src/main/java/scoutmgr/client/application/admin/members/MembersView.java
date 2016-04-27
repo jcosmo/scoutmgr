@@ -13,7 +13,6 @@ import com.google.gwt.user.cellview.client.ColumnSortEvent;
 import com.google.gwt.user.cellview.client.DataGrid;
 import com.google.gwt.user.cellview.client.SimplePager;
 import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.LayoutPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.ListDataProvider;
 import com.google.inject.Inject;
@@ -33,9 +32,6 @@ public class MembersView
   implements MembersPresenter.View, ActionCell.UiActionHandler<ScoutViewModel>
 {
   private final ListDataProvider<ScoutViewModel> _provider;
-
-  @UiField
-  LayoutPanel _membersPanel;
 
   SimplePager _pager;
   @UiField( provided = true )
@@ -70,6 +66,7 @@ public class MembersView
   MembersView( final Binder uiBinder )
   {
     _memberTable = new DataGrid<>( 20 );
+    _memberTable.setSize( "100%", "40vh" );
     _memberTable.setAutoHeaderRefreshDisabled( false );
     _memberTable.setEmptyTableWidget( new Label( "No resources" ) );
 

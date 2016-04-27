@@ -5,17 +5,12 @@
              xmlns:m="urn:import:gwt.material.design.client.ui">
   <ui:with field='_bundle' type='scoutmgr.client.resource.ScoutmgrResourceBundle'/>
 
-  <g:LayoutPanel ui:field="_membersPanel">
-    <g:layer top="0" left="0" bottom="0" right="0">
-      <g:HTML>
-        Registered Members
-      </g:HTML>
-    </g:layer>
-    <g:layer top="50" left="0" bottom="0" right="0">
-      <c:DataGrid ui:field="_memberTable" addStyleNames="striped"/>
-    </g:layer>
-    <g:layer bottom="0" width="80px" right="0" height="70px">
+  <g:HTMLPanel>
+    <m:MaterialTitle title="Registered Members">
+    </m:MaterialTitle>
+    <m:MaterialRow>
+      <c:DataGrid ui:field="_memberTable"/>
       <m:MaterialButton ui:field="_addScoutButton" type="FLOATING" text="Add Scout" backgroundColor="blue" iconType="ADD" size="LARGE"/>
-    </g:layer>
-  </g:LayoutPanel>
+    </m:MaterialRow>
+  </g:HTMLPanel>
 </ui:UiBinder>
