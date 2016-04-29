@@ -9,7 +9,7 @@ html {
 }
 
 body {
-  margin-bottom: 70px;
+  margin-bottom: 60px;
 }
 
 .footer {
@@ -46,7 +46,7 @@ body {
 
 .content {
   margin: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .navbar {
