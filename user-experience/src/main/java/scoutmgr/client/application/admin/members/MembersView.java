@@ -17,6 +17,7 @@ import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.ListDataProvider;
 import com.google.inject.Inject;
 import com.gwtplatform.mvp.client.ViewWithUiHandlers;
+import gwt.material.design.client.ui.MaterialAnchorButton;
 import gwt.material.design.client.ui.MaterialButton;
 import java.util.Collection;
 import java.util.Comparator;
@@ -37,7 +38,7 @@ public class MembersView
   @UiField( provided = true )
   DataGrid<ScoutViewModel> _memberTable;
   @UiField
-  MaterialButton _addScoutButton;
+  MaterialAnchorButton _addScoutButton;
   @UiField
   ScoutmgrResourceBundle _bundle;
 

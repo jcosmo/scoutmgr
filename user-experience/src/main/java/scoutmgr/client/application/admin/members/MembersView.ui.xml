@@ -6,14 +6,13 @@
   <ui:with field='_bundle' type='scoutmgr.client.resource.ScoutmgrResourceBundle'/>
 
   <g:LayoutPanel ui:field="_membersPanel" addStyleNames="{_bundle.scoutmgr.content}">
-    <g:layer top="0" bottom="50px" left="0" right="0">
-      <m:MaterialTitle title="Registered Members"/>
+    <g:layer top="0" bottom="0" left="0" right="0">
+      <c:DataGrid ui:field="_memberTable"/>
     </g:layer>
-    <g:layer top="50px" bottom="0" left="0" right="0">
-      <c:DataGrid ui:field="_memberTable" addStyleNames="striped"/>
-    </g:layer>
-    <g:layer bottom="0" width="80px" right="0" height="70px">
-      <m:MaterialButton ui:field="_addScoutButton" type="FLOATING" text="Add Scout" backgroundColor="blue" iconType="ADD" size="LARGE"/>
+    <g:layer bottom="0" height="80px" right="0" width="80px">
+      <m:MaterialFAB>
+        <m:MaterialAnchorButton ui:field="_addScoutButton" type="FLOATING" text="Add Scout" backgroundColor="blue" iconType="ADD" size="LARGE"/>
+      </m:MaterialFAB>
     </g:layer>
   </g:LayoutPanel>
 </ui:UiBinder>
