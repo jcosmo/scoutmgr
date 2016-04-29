@@ -19,16 +19,13 @@
       <g:Label addStyleNames="{_style.loader}" ui:field="_loading">Loading ...</g:Label>
     </g:layer>
 
-    <g:layer top="0" bottom="50px" left="0" right="0">
-      <g:SimplePanel ui:field="_appbarPanel"/>
-    </g:layer>
-    <g:layer top="0px" bottom="110px" left="0" right="0">
+    <g:layer top="0px" height="110px" left="0" right="0">
       <g:SimplePanel ui:field="_navbarPanel"/>
     </g:layer>
-    <g:layer top="110px" bottom="70px" left="0" right="0">
+    <g:layer top="110px" bottom="50px" left="0" right="0">
       <g:LayoutPanel ui:field="_content"/>
     </g:layer>
-    <g:layer bottom="0" height="70px" left="0" right="0">
+    <g:layer bottom="0" height="50px" left="0" right="0">
       <g:SimplePanel ui:field="_footerPanel"/>
     </g:layer>
   </g:LayoutPanel>
