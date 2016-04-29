@@ -4,7 +4,7 @@
              xmlns:m="urn:import:gwt.material.design.client.ui">
   <ui:with field="text" type="java.lang.String"/>
   <ui:with field="css" type="java.lang.String"/>
-  <ui:with field="iconCss" type="java.lang.String"/>
+  <ui:with field="iconType" type="gwt.material.design.client.constants.IconType"/>
   <ui:style field="actionStyles" type="scoutmgr.client.view.cell.ActionCell.ActionStyle">
     .action {
       font-size: 12px;
@@ -23,9 +23,7 @@
     }
   </ui:style>
   <g:HTMLPanel>
-    <span>
-      <m:MaterialButton text="hello!" backgroundColor="blue" iconType="ACCOUNT_CIRCLE" iconPosition="LEFT" />
-      {text}
-    </span>
+    <ui:text from="{text}"/>
+    <m:MaterialButton text="foo" backgroundColor="white" textColor="red" waves="DEFAULT" />
   </g:HTMLPanel>
 </ui:UiBinder>

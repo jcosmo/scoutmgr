@@ -9,6 +9,13 @@ import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.resources.client.CssResource;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.uibinder.client.UiRenderer;
+import com.google.gwt.user.client.DOM;
+import gwt.material.design.client.base.MaterialButtonCell;
+import gwt.material.design.client.constants.ButtonType;
+import gwt.material.design.client.constants.IconPosition;
+import gwt.material.design.client.constants.IconType;
+import gwt.material.design.client.constants.WavesType;
+import gwt.material.design.client.ui.MaterialButton;
 import scoutmgr.client.resource.ScoutmgrResourceBundle;
 import scoutmgr.client.view.model.AbstractViewModel;
 
@@ -44,7 +51,7 @@ public class ActionCell<T extends AbstractViewModel>
   interface Renderer
     extends UiRenderer
   {
-    void render( SafeHtmlBuilder sb, String text, String css, String iconCss );
+    void render( SafeHtmlBuilder sb, String text, String css, gwt.material.design.client.constants.IconType iconType );
 
     ActionStyle getActionStyles();
   }
@@ -62,7 +69,7 @@ public class ActionCell<T extends AbstractViewModel>
     _view = canView;
     _delete = canDelete;
     _edit = canEdit;
-    _text = showText;
+    _text = true || showText;
   }
 
   public void setBundle( final ScoutmgrResourceBundle bundle )
@@ -73,21 +80,32 @@ public class ActionCell<T extends AbstractViewModel>
   @Override
   public void render( final Context context, final T viewModel, final SafeHtmlBuilder sb )
   {
+    MaterialButton mb = new MaterialButton( ButtonType.RAISED);
+    mb.setText("Show log");
+    mb.setBackgroundColor("blue");
+    mb.setWaves( WavesType.LIGHT);
+    mb.setIconType(IconType.POLYMER);
+    mb.setIconPosition( IconPosition.LEFT);
+
+    sb.appendHtmlConstant( DOM.toString( mb.getElement() ));
+
+/*
     if ( _view )
     {
       RENDERER.render( sb, _text ? "View" : "", "btn btn-link " + RENDERER.getActionStyles().view(),
-                       _bundle.bootstrap().glyphicon() + " " + _bundle.bootstrap().glyphiconEyeOpen() );
+                       IconType.FOLDER );
     }
     if ( _edit )
     {
       RENDERER.render( sb, _text ? "Edit" : "", "btn btn-link " + RENDERER.getActionStyles().edit(),
-                       _bundle.bootstrap().glyphicon() + " " + _bundle.bootstrap().glyphiconPencil() );
+                       IconType.EDIT );
     }
     if ( _delete )
     {
       RENDERER.render( sb, _text ? "Delete" : "", "btn btn-link " + RENDERER.getActionStyles().delete(),
-                       _bundle.bootstrap().glyphicon() + " " + _bundle.bootstrap().glyphiconTrash() );
+                       IconType.DELETE );
     }
+*/
   }
 
   @Override
