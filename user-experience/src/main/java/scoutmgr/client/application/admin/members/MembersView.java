@@ -11,10 +11,12 @@ import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.ColumnSortEvent;
 import com.google.gwt.user.cellview.client.DataGrid;
+import com.google.gwt.user.cellview.client.HasKeyboardSelectionPolicy;
 import com.google.gwt.user.cellview.client.SimplePager;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.ListDataProvider;
+import com.google.gwt.view.client.NoSelectionModel;
 import com.google.inject.Inject;
 import com.gwtplatform.mvp.client.ViewWithUiHandlers;
 import gwt.material.design.client.ui.MaterialAnchorButton;
@@ -137,7 +139,11 @@ public class MembersView
     _memberTable.addColumn( dobColumn, SafeHtmlUtils.fromString( "Birthday" ) );
     _memberTable.addColumn( regNumColumn, SafeHtmlUtils.fromString( "Reg. Num" ) );
     _memberTable.addColumn( actionsColumn );
-    _memberTable.setColumnWidth( actionsColumn, 200, Style.Unit.PX );
+    _memberTable.setColumnWidth( actionsColumn, 120, Style.Unit.PX );
+    final NoSelectionModel<ScoutViewModel> selectionModel = new NoSelectionModel<>();
+    _memberTable.setSelectionModel(selectionModel);
+    _memberTable.setKeyboardSelectionPolicy( HasKeyboardSelectionPolicy.KeyboardSelectionPolicy.DISABLED);
+
 
     setupPager();
     _provider.addDataDisplay( _memberTable );
