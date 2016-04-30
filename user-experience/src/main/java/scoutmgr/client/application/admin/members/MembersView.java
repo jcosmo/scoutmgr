@@ -149,8 +149,6 @@ public class MembersView
     _provider.addDataDisplay( _memberTable );
 
     initWidget( uiBinder.createAndBindUi( this ) );
-
-    actionCell.setBundle( _bundle );
   }
 
   private void setupPager()

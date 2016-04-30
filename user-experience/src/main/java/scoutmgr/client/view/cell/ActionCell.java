@@ -2,29 +2,26 @@ package scoutmgr.client.view.cell;
 
 import com.google.gwt.cell.client.AbstractCell;
 import com.google.gwt.cell.client.ValueUpdater;
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.BrowserEvents;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.NativeEvent;
-import com.google.gwt.resources.client.CssResource;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
-import com.google.gwt.uibinder.client.UiRenderer;
 import com.google.gwt.user.client.DOM;
-import gwt.material.design.client.base.MaterialButtonCell;
-import gwt.material.design.client.constants.ButtonType;
-import gwt.material.design.client.constants.IconPosition;
+import gwt.material.design.client.constants.IconSize;
 import gwt.material.design.client.constants.IconType;
 import gwt.material.design.client.constants.WavesType;
-import gwt.material.design.client.ui.MaterialButton;
-import scoutmgr.client.resource.ScoutmgrResourceBundle;
+import gwt.material.design.client.ui.MaterialIcon;
 import scoutmgr.client.view.model.AbstractViewModel;
 
 public class ActionCell<T extends AbstractViewModel>
   extends AbstractCell<T>
 {
-  private final boolean _view;
+  public static final IconType DELETE_ACTION = IconType.CLEAR;
+  public static final IconType EDIT_ACTION = IconType.EDIT;
+  public static final IconType VIEW_ACTION = IconType.VISIBILITY;
   private UiActionHandler<T> _uiHandler;
-  private scoutmgr.client.resource.ScoutmgrResourceBundle _bundle;
+
+  private final boolean _view;
   private boolean _text;
   private boolean _edit;
   private boolean _delete;
@@ -38,26 +35,6 @@ public class ActionCell<T extends AbstractViewModel>
     void onDelete( T viewModel );
   }
 
-  public interface ActionStyle
-    extends CssResource
-  {
-    String edit();
-
-    String delete();
-
-    String view();
-  }
-
-  interface Renderer
-    extends UiRenderer
-  {
-    void render( SafeHtmlBuilder sb, String text, String css, gwt.material.design.client.constants.IconType iconType );
-
-    ActionStyle getActionStyles();
-  }
-
-  private static final Renderer RENDERER = GWT.create( Renderer.class );
-
   public ActionCell( final UiActionHandler<T> uiHandler,
                      final boolean canView,
                      final boolean canEdit,
@@ -69,43 +46,56 @@ public class ActionCell<T extends AbstractViewModel>
     _view = canView;
     _delete = canDelete;
     _edit = canEdit;
-    _text = true || showText;
-  }
-
-  public void setBundle( final ScoutmgrResourceBundle bundle )
-  {
-    _bundle = bundle;
+    _text = showText;
   }
 
   @Override
   public void render( final Context context, final T viewModel, final SafeHtmlBuilder sb )
   {
-    MaterialButton mb = new MaterialButton( ButtonType.RAISED);
-    mb.setText("Show log");
-    mb.setBackgroundColor("blue");
-    mb.setWaves( WavesType.LIGHT);
-    mb.setIconType(IconType.POLYMER);
-    mb.setIconPosition( IconPosition.LEFT);
+    if ( null == viewModel )
+    {
+      return;
+    }
 
-    sb.appendHtmlConstant( DOM.toString( mb.getElement() ));
 
-/*
     if ( _view )
     {
-      RENDERER.render( sb, _text ? "View" : "", "btn btn-link " + RENDERER.getActionStyles().view(),
-                       IconType.FOLDER );
+      sb.appendHtmlConstant( DOM.toString( makeButton( _text ? "View" : null, VIEW_ACTION, "blue darken-2",
+                                                       !_edit && !_delete ).getElement() ) );
     }
     if ( _edit )
     {
-      RENDERER.render( sb, _text ? "Edit" : "", "btn btn-link " + RENDERER.getActionStyles().edit(),
-                       IconType.EDIT );
+      sb.appendHtmlConstant( DOM.toString( makeButton( _text ? "Edit" : null, EDIT_ACTION, "green darken-2",
+                                                       !_delete ).getElement() ) );
     }
     if ( _delete )
     {
-      RENDERER.render( sb, _text ? "Delete" : "", "btn btn-link " + RENDERER.getActionStyles().delete(),
-                       IconType.DELETE );
+      sb.appendHtmlConstant(
+        DOM.toString( makeButton( _text ? "Delete" : null, DELETE_ACTION, "red darken-4", true ).getElement() ) );
     }
-*/
+  }
+
+  private MaterialIcon makeButton( final String text,
+                                   final IconType iconType,
+                                   final String iconColor, final boolean lastButton )
+  {
+    MaterialIcon mb = new MaterialIcon();
+    if ( null != text )
+    {
+      mb.setText( text );
+    }
+
+    mb.setIconColor( iconColor );
+    mb.setIconSize( IconSize.SMALL );
+    mb.setIconType( iconType );
+    mb.setCircle( true );
+    mb.setWaves( WavesType.DEFAULT );
+    mb.addStyleName( "action-" + iconType );
+    if ( !lastButton )
+    {
+      mb.setPaddingRight( 5 );
+    }
+    return mb;
   }
 
   @Override
@@ -119,15 +109,15 @@ public class ActionCell<T extends AbstractViewModel>
     event.stopPropagation();
     event.preventDefault();
     final Element element = Element.as( event.getEventTarget() );
-    if ( element.hasClassName( RENDERER.getActionStyles().view() ) )
+    if ( element.hasClassName( "action-" + VIEW_ACTION ) )
     {
       _uiHandler.onView( value );
     }
-    if ( element.hasClassName( RENDERER.getActionStyles().edit() ) )
+    if ( element.hasClassName( "action-" + EDIT_ACTION ) )
     {
       _uiHandler.onEdit( value );
     }
-    else if ( element.hasClassName( RENDERER.getActionStyles().delete() ) )
+    else if ( element.hasClassName( "action-" + DELETE_ACTION ) )
     {
       _uiHandler.onDelete( value );
     }
