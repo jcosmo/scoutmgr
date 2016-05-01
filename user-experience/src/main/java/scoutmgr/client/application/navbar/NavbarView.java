@@ -9,6 +9,8 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.gwtplatform.mvp.client.ViewImpl;
+import gwt.material.design.addins.client.menubar.MaterialMenuBar;
+import gwt.material.design.client.ui.MaterialLink;
 import scoutmgr.client.place.NameTokens;
 import scoutmgr.client.resource.ScoutmgrResourceBundle;
 
@@ -16,20 +18,16 @@ public class NavbarView
   extends ViewImpl
   implements NavbarPresenter.View
 {
-  LIElement _eventsLinkContainer;
-
-  LIElement _membersLinkContainer;
-
-  LIElement _badgesLinkContainer;
-
-  LIElement _currentLink;
-
-  HTML _navToggle;
-
-  DivElement _navCollapse;
-
   @UiField
   ScoutmgrResourceBundle _bundle;
+  @UiField
+  MaterialLink _adminScoutsLink;
+  @UiField
+  MaterialLink _adminBadgesLink;
+  @UiField
+  MaterialLink _adminEventsLink;
+
+  private MaterialLink _currentLink;
 
   interface Binder
     extends UiBinder<Widget, NavbarView>
@@ -45,24 +43,24 @@ public class NavbarView
   @Override
   public void setMenuItemActive( final String nameToken )
   {
-    final LIElement newLink;
+    final MaterialLink newLink;
     switch ( nameToken )
     {
       case NameTokens.EVENTS:
-        newLink = _eventsLinkContainer;
+        newLink = _adminEventsLink;
         break;
 
       case NameTokens.ADMIN_SCOUTS:
       case NameTokens.ADMIN_SCOUT:
       case NameTokens.ADMIN_NEW_SCOUT:
-        newLink = _membersLinkContainer;
+        newLink = _adminScoutsLink;
         break;
 
       case NameTokens.ADMIN_BADGES_LEVEL:
       case NameTokens.ADMIN_BADGE:
       case NameTokens.ADMIN_BADGES:
       case NameTokens.ADMIN_NEW_BADGE:
-        newLink = _badgesLinkContainer;
+        newLink = _adminBadgesLink;
         break;
 
       default:
@@ -73,28 +71,15 @@ public class NavbarView
     {
       if ( null != _currentLink )
       {
-        _currentLink.removeClassName( _bundle.bootstrap().active() );
+        _currentLink.removeStyleName( _bundle.scoutmgr().activeNav() );
       }
 
       if ( null != newLink )
       {
-        newLink.addClassName( _bundle.bootstrap().active() );
+        newLink.addStyleName( _bundle.scoutmgr().activeNav() );
       }
 
       _currentLink = newLink;
-    }
-  }
-
-  @SuppressWarnings( "UnusedParameters" )
-  public void handleClick( final ClickEvent event )
-  {
-    if ( _navCollapse.hasClassName( _bundle.bootstrap().collapse() ) )
-    {
-      _navCollapse.removeClassName( _bundle.bootstrap().collapse() );
-    }
-    else
-    {
-      _navCollapse.addClassName( _bundle.bootstrap().collapse() );
     }
   }
 }

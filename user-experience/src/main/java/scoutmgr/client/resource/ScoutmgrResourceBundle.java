@@ -2224,6 +2224,8 @@ public interface ScoutmgrResourceBundle
     String navbar();
 
     String menubar();
+
+    String activeNav();
   }
 
   @Source( "scoutmgr.main.gss" )
