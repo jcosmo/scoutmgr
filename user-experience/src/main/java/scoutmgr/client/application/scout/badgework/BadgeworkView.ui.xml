@@ -6,7 +6,8 @@
 
   <g:HTMLPanel >
     <m:MaterialRow>
-      <g:HTML>This is the content of the badgework display </g:HTML>
+      <m:MaterialCollapsible type="EXPANDABLE" ui:field="_expandable">
+      </m:MaterialCollapsible>
     </m:MaterialRow>
   </g:HTMLPanel>
 </ui:UiBinder>

@@ -61,10 +61,10 @@ public class ScoutPresenter
   }
 
   @Inject
-  ScoutPresenter(  final EventBus eventBus,
-                   final View view,
-                   final Proxy proxy,
-                   final ScoutmgrDataLoaderService dataLoader )
+  ScoutPresenter( final EventBus eventBus,
+                  final View view,
+                  final Proxy proxy,
+                  final ScoutmgrDataLoaderService dataLoader )
   {
     super( eventBus, view, proxy, ApplicationPresenter.SLOT_MAIN_CONTENT );
 
@@ -90,7 +90,7 @@ public class ScoutPresenter
   protected void onHide()
   {
     super.onHide();
-   unsubscribeFromScout();
+    unsubscribeFromScout();
   }
 
   @Override
@@ -123,6 +123,7 @@ public class ScoutPresenter
     if ( null != _scoutID )
     {
       _dataloader.getSession().unsubscribeFromPerson( _scoutID, null );
+      _badgeworkPresenter.configureForScout( null );
       _scoutID = null;
     }
   }
@@ -134,9 +135,11 @@ public class ScoutPresenter
     {
       final ScoutViewModel viewModel = new ScoutViewModel( person );
       getView().setScout( viewModel );
+      _badgeworkPresenter.configureForScout( person );
     }
     else
     {
+      _badgeworkPresenter.configureForScout( null );
       getView().showLoadingMessage();
     }
   }
