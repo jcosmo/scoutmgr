@@ -53,6 +53,7 @@ public class NavbarView
       case NameTokens.ADMIN_SCOUTS:
       case NameTokens.ADMIN_SCOUT:
       case NameTokens.ADMIN_NEW_SCOUT:
+      case NameTokens.SCOUT:
         newLink = _adminScoutsLink;
         break;
 
