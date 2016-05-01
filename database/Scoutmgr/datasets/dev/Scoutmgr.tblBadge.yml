@@ -1,7 +1,7 @@
 1:
   ID: 1
   Name: 'Scout Craft'
-  BadgeCategoryID: 1
+  BadgeCategoryID: 6
   Rank: 1
 2:
   ID: 2
@@ -13,13 +13,43 @@
   Name: 'Citizenship'
   BadgeCategoryID: 1
   Rank: 2
-4:
-  ID: 4
+6:
+  ID: 6
+  Name: 'Construction'
+  BadgeCategoryID: 1
+  Rank: 3
+7:
+  ID: 7
+  Name: 'Emergencies'
+  BadgeCategoryID: 1
+  Rank: 4
+8:
+  ID: 8
+  Name: 'Environment'
+  BadgeCategoryID: 1
+  Rank: 5
+9:
+  ID: 9
+  Name: 'Air Activities'
+  BadgeCategoryID: 1
+  Rank: 6
+10:
+  ID: 10
+  Name: 'Water Safety'
+  BadgeCategoryID: 1
+  Rank: 7
+11:
+  ID: 11
+  Name: 'Water Activities'
+  BadgeCategoryID: 1
+  Rank: 8
+12:
+  ID: 12
   Name: 'Animal Keeper'
   BadgeCategoryID: 4
   Rank: 1
-5:
-  ID: 5
+13:
+  ID: 13
   Name: 'Something'
   BadgeCategoryID: 5
   Rank: 1
