@@ -14,13 +14,13 @@ import com.google.gwt.user.cellview.client.DataGrid;
 import com.google.gwt.user.cellview.client.HasKeyboardSelectionPolicy;
 import com.google.gwt.user.cellview.client.SimplePager;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.ListDataProvider;
 import com.google.gwt.view.client.NoSelectionModel;
 import com.google.inject.Inject;
 import com.gwtplatform.mvp.client.ViewWithUiHandlers;
 import gwt.material.design.client.ui.MaterialAnchorButton;
-import gwt.material.design.client.ui.MaterialButton;
 import java.util.Collection;
 import java.util.Comparator;
 import scoutmgr.client.entity.Person;
@@ -36,13 +36,14 @@ public class MembersView
 {
   private final ListDataProvider<ScoutViewModel> _provider;
 
-  SimplePager _pager;
   @UiField( provided = true )
   DataGrid<ScoutViewModel> _memberTable;
   @UiField
   MaterialAnchorButton _addScoutButton;
   @UiField
   ScoutmgrResourceBundle _bundle;
+  @UiField
+  SimplePanel _pagerPanel;
 
   interface Binder
     extends UiBinder<Widget, MembersView>
@@ -141,21 +142,23 @@ public class MembersView
     _memberTable.addColumn( actionsColumn );
     _memberTable.setColumnWidth( actionsColumn, 120, Style.Unit.PX );
     final NoSelectionModel<ScoutViewModel> selectionModel = new NoSelectionModel<>();
-    _memberTable.setSelectionModel(selectionModel);
-    _memberTable.setKeyboardSelectionPolicy( HasKeyboardSelectionPolicy.KeyboardSelectionPolicy.DISABLED);
+    _memberTable.setSelectionModel( selectionModel );
+    _memberTable.setKeyboardSelectionPolicy( HasKeyboardSelectionPolicy.KeyboardSelectionPolicy.DISABLED );
 
 
-    setupPager();
     _provider.addDataDisplay( _memberTable );
 
     initWidget( uiBinder.createAndBindUi( this ) );
+
+    setupPager();
   }
 
   private void setupPager()
   {
     final SimplePager.Resources pagerResources = GWT.create( SimplePager.Resources.class );
-    _pager = new SimplePager( SimplePager.TextLocation.CENTER, pagerResources, false, 0, true );
-    _pager.setDisplay( _memberTable );
+    final SimplePager pager = new SimplePager( SimplePager.TextLocation.CENTER, pagerResources, false, 0, true );
+    pager.setDisplay( _memberTable );
+    _pagerPanel.setWidget( pager );
   }
 
   private void createColumnSorters( final Column<ScoutViewModel, String> givenNameColumn,

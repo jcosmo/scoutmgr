@@ -4,10 +4,20 @@
              xmlns:c='urn:import:com.google.gwt.user.cellview.client'
              xmlns:m="urn:import:gwt.material.design.client.ui">
   <ui:with field='_bundle' type='scoutmgr.client.resource.ScoutmgrResourceBundle'/>
-
+  <ui:style>
+    .panelPager{
+      display: inline-block;
+      padding-right: 20px;
+    }
+  </ui:style>
   <g:LayoutPanel ui:field="_membersPanel" addStyleNames="{_bundle.scoutmgr.content}">
-    <g:layer top="0" bottom="0" left="0" right="0">
+    <g:layer top="0px" bottom="105px" left="0" right="0">
       <c:DataGrid ui:field="_memberTable"/>
+    </g:layer>
+    <g:layer height="30px" bottom="70px" left="0" right="0">
+      <m:MaterialRow>
+        <g:SimplePanel ui:field="_pagerPanel" addStyleNames="{style.panelPager} right"/>
+      </m:MaterialRow>
     </g:layer>
     <g:layer bottom="0" height="80px" right="0" width="80px">
       <m:MaterialFAB>
