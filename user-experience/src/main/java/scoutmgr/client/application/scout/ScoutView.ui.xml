@@ -3,7 +3,11 @@
              xmlns:g="urn:import:com.google.gwt.user.client.ui"
              xmlns:m="urn:import:gwt.material.design.client.ui">
   <ui:with field='_bundle' type='scoutmgr.client.resource.ScoutmgrResourceBundle'/>
-
+  <ui:style>
+    .nocaps {
+      text-transform: capitalize;
+    }
+  </ui:style>
   <g:HTMLPanel addStyleNames="{_bundle.scoutmgr.content}">
     <m:MaterialRow>
       <m:MaterialColumn grid="s12">
@@ -16,14 +20,14 @@
     <m:MaterialRow>
       <m:MaterialColumn grid="s12">
         <m:MaterialTab ui:field="_tabs" backgroundColor="blue lighten-5" indicatorColor="blue darken-2">
-          <m:MaterialTabItem grid="s4">
-            <m:MaterialLink text="Badgework" href="#tab_badgework" textColor="black"/>
+          <m:MaterialTabItem grid="s4" >
+            <m:MaterialLink text="Badgework" href="#tab_badgework" textColor="black" addStyleNames="{style.nocaps}"/>
           </m:MaterialTabItem>
           <m:MaterialTabItem grid="s4">
-            <m:MaterialLink text="Events" href="#tab_events" textColor="black"/>
+            <m:MaterialLink text="Events" href="#tab_events" textColor="black" addStyleNames="{style.nocaps}"/>
           </m:MaterialTabItem>
           <m:MaterialTabItem grid="s4">
-            <m:MaterialLink text="Notes" href="#tab_notes" textColor="black"/>
+            <m:MaterialLink text="Notes" href="#tab_notes" textColor="black" addStyleNames="{style.nocaps}"/>
           </m:MaterialTabItem>
         </m:MaterialTab>
       </m:MaterialColumn>
