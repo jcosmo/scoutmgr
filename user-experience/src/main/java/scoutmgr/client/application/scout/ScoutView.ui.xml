@@ -15,7 +15,7 @@
     </m:MaterialRow>
     <m:MaterialRow>
       <m:MaterialColumn grid="s12">
-        <m:MaterialTab ui:field="_tabs" backgroundColor="blue lighten-4" indicatorColor="blue darken-2">
+        <m:MaterialTab ui:field="_tabs" backgroundColor="blue lighten-5" indicatorColor="blue darken-2">
           <m:MaterialTabItem grid="s4">
             <m:MaterialLink text="Badgework" href="#tab_badgework" textColor="black"/>
           </m:MaterialTabItem>
@@ -28,7 +28,7 @@
         </m:MaterialTab>
       </m:MaterialColumn>
       <m:MaterialColumn m:id="tab_badgework" grid="s12">
-        <m:MaterialButton ui:field="_button"/>
+        <g:SimplePanel ui:field="_scoutBadgesPanel"/>
       </m:MaterialColumn>
       <m:MaterialColumn m:id="tab_events" grid="s12">
         <m:MaterialTitle title="Events"/>

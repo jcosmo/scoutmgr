@@ -6,6 +6,7 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.HTMLPanel;
+import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.TabLayoutPanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -28,7 +29,7 @@ public class ScoutView
   MaterialTab _tabs;
 
   @UiField
-  MaterialButton _button;
+  SimplePanel _scoutBadgesPanel;
 
   interface Binder
     extends UiBinder<Widget, ScoutView>
@@ -56,5 +57,15 @@ public class ScoutView
   {
     _scoutDetailsPanel.clear();
     _scoutDetailsPanel.add( new HTMLPanel("Loading....") );
+  }
+
+  @Override
+  public void setInSlot( final Object slot, final IsWidget content )
+  {
+    if ( ScoutPresenter.SLOT_BADGEWORK.equals( slot ) )
+    {
+      _scoutBadgesPanel.setWidget( content );
+    }
+    super.setInSlot( slot, content );
   }
 }
