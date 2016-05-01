@@ -60,7 +60,7 @@ Domgen.repository(:Scoutmgr) do |repository|
       t.string(:Name, 255)
       t.integer(:Rank)
 
-      t.reference(:BadgeCategory)
+      t.reference(:BadgeCategory, 'inverse.traversable' => true)
 
       t.imit.replicate(:Metadata, :type)
     end
