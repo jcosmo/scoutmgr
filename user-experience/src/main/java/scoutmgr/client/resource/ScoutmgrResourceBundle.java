@@ -2226,6 +2226,8 @@ public interface ScoutmgrResourceBundle
     String menubar();
 
     String activeNav();
+
+    String badgeCardDescription();
   }
 
   @Source( "scoutmgr.main.gss" )

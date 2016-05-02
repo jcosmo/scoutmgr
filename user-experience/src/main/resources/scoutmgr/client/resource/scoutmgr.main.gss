@@ -64,3 +64,9 @@ body {
 .activeNav:hover {
   text-decoration: underline !important;
 }
+
+.badgeCardDescription {
+  font-size: 1.25rem;
+  height: 3.5rem;
+  overflow: hidden;
+}

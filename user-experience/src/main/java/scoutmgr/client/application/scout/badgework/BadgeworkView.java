@@ -8,9 +8,11 @@ import com.google.inject.Inject;
 import com.gwtplatform.mvp.client.ViewWithUiHandlers;
 import gwt.material.design.client.constants.IconPosition;
 import gwt.material.design.client.constants.IconType;
+import gwt.material.design.client.constants.TextAlign;
 import gwt.material.design.client.ui.MaterialCard;
 import gwt.material.design.client.ui.MaterialCardAction;
 import gwt.material.design.client.ui.MaterialCardContent;
+import gwt.material.design.client.ui.MaterialCardReveal;
 import gwt.material.design.client.ui.MaterialCardTitle;
 import gwt.material.design.client.ui.MaterialCollapsible;
 import gwt.material.design.client.ui.MaterialCollapsibleBody;
@@ -23,11 +25,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import scoutmgr.client.entity.Badge;
 import scoutmgr.client.entity.BadgeCategory;
+import scoutmgr.client.resource.ScoutmgrResourceBundle;
 
 public class BadgeworkView
   extends ViewWithUiHandlers<BadgeworkUiHandlers>
   implements BadgeworkPresenter.View
 {
+  @UiField
+  ScoutmgrResourceBundle _bundle;
   @UiField
   MaterialCollapsible _expandable;
 
@@ -74,18 +79,35 @@ public class BadgeworkView
       final MaterialColumn column = new MaterialColumn();
       column.setGrid( "s12 m4 l3" );
       final MaterialCard card = new MaterialCard();
-      final MaterialCardContent cardContent = new MaterialCardContent();
+
+      final MaterialCardContent summaryCardContent = new MaterialCardContent();
+      final MaterialCardTitle summaryTitle = new MaterialCardTitle();
+      summaryTitle.setText( badge.getName() );
+      summaryTitle.setIconType( IconType.MORE_VERT );
+      summaryTitle.setIconPosition( IconPosition.RIGHT );
+      summaryCardContent.add( summaryTitle );
+      final HTML summaryDescription = new HTML( badge.getDescription().replaceAll( "\\n", "<br />" ) );
+      summaryDescription.addStyleName( _bundle.scoutmgr().badgeCardDescription() );
+      summaryCardContent.add( summaryDescription );
+      card.add( summaryCardContent );
+      final HTML summaryProgress = new HTML( "<progress max='100' value='80'/>" );
+      summaryProgress.addStyleName( TextAlign.CENTER.getCssName() );
+      summaryCardContent.add( summaryProgress );
+
+      final MaterialCardReveal reveal = new MaterialCardReveal();
       final MaterialCardTitle cardTitle = new MaterialCardTitle();
       cardTitle.setText( badge.getName() );
-      cardTitle.setIconType( IconType.POLYMER );
+      cardTitle.setIconType( IconType.CLOSE );
       cardTitle.setIconPosition( IconPosition.RIGHT );
-      cardContent.add( cardTitle );
-      cardContent.add( new HTML("Blurb about this badge!"));
+      reveal.add( cardTitle );
+      final HTML description = new HTML( badge.getDescription().replaceAll( "\\n", "<br />" ) );
+      reveal.add( description );
+      card.add( reveal );
+
       final MaterialCardAction actions = new MaterialCardAction();
       final MaterialLink progressLink = new MaterialLink( "Record Progress" );
       actions.add( progressLink );
-      cardContent.add( actions );
-      card.add( cardContent );
+      card.add( actions );
       column.add(card);
       row.add( column );
     }
