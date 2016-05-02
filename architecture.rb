@@ -84,6 +84,15 @@ Domgen.repository(:Scoutmgr) do |repository|
       t.imit.replicate(:Metadata, :type)
     end
 
+    data_module.entity(:TaskCompletion) do |t|
+      t.integer(:ID, :primary_key => true)
+      t.reference(:Person)
+      t.reference(:BadgeTask)
+
+      t.unique_constraint([:Person, :BadgeTask])
+      t.imit.replicate(:Person, :instance)
+    end
+
     data_module.struct(:PersonDTO) do |s|
       s.integer(:ID)
       s.text(:ScoutLevel)
