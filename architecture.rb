@@ -58,6 +58,7 @@ Domgen.repository(:Scoutmgr) do |repository|
     data_module.entity(:Badge) do |t|
       t.integer(:ID, :primary_key => true)
       t.string(:Name, 255)
+      t.string(:Description, 1024)
       t.integer(:Rank)
 
       t.reference(:BadgeCategory, 'inverse.traversable' => true)
