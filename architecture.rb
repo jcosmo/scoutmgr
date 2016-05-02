@@ -66,6 +66,24 @@ Domgen.repository(:Scoutmgr) do |repository|
       t.imit.replicate(:Metadata, :type)
     end
 
+    data_module.entity(:BadgeTaskGroup) do |t|
+      t.integer(:ID, :primary_key => true)
+      t.reference(:Badge, 'inverse.traversable' => true)
+      t.string(:Description, 255)
+      t.integer(:Rank)
+
+      t.imit.replicate(:Metadata, :type)
+    end
+
+    data_module.entity(:BadgeTask) do |t|
+      t.integer(:ID, :primary_key => true)
+      t.reference(:BadgeTaskGroup, 'inverse.traversable' => true)
+      t.string(:Description, 255)
+      t.integer(:Rank)
+
+      t.imit.replicate(:Metadata, :type)
+    end
+
     data_module.struct(:PersonDTO) do |s|
       s.integer(:ID)
       s.text(:ScoutLevel)
