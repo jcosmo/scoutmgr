@@ -34,12 +34,17 @@ import scoutmgr.client.entity.Badge;
 import scoutmgr.client.entity.BadgeCategory;
 import scoutmgr.client.entity.BadgeTask;
 import scoutmgr.client.entity.BadgeTaskGroup;
+import scoutmgr.client.entity.Person;
+import scoutmgr.client.entity.TaskCompletion;
+import scoutmgr.client.entity.TaskGroupCompletion;
 import scoutmgr.client.resource.ScoutmgrResourceBundle;
 
 public class BadgeworkView
   extends ViewWithUiHandlers<BadgeworkUiHandlers>
   implements BadgeworkPresenter.View
 {
+  public static final String INCOMPLETE_ICON_COLOUR = "grey lighten-3";
+  public static final String COMPLETE_ICON_COLOUR = "green";
   @UiField
   ScoutmgrResourceBundle _bundle;
   @UiField
@@ -57,16 +62,16 @@ public class BadgeworkView
   }
 
   @Override
-  public void setBadgeworkProgress( final ArrayList<BadgeCategory> badgeCategories )
+  public void setBadgeworkProgress( final ArrayList<BadgeCategory> badgeCategories, final Person scout )
   {
     Collections.sort( badgeCategories, ( o1, o2 ) -> o1.getRank() - o2.getRank() );
     for ( final BadgeCategory badgeCategory : badgeCategories )
     {
-      _expandable.add( createBadgeCategoryView( badgeCategory ) );
+      _expandable.add( createBadgeCategoryView( badgeCategory, scout ) );
     }
   }
 
-  private MaterialCollapsibleItem createBadgeCategoryView( final BadgeCategory badgeCategory )
+  private MaterialCollapsibleItem createBadgeCategoryView( final BadgeCategory badgeCategory, final Person scout )
   {
     final MaterialCollapsibleItem item = new MaterialCollapsibleItem();
     final MaterialCollapsibleHeader header = new MaterialCollapsibleHeader();
@@ -75,12 +80,12 @@ public class BadgeworkView
     header.add( link );
     item.add( header );
     final MaterialCollapsibleBody body = new MaterialCollapsibleBody();
-    body.add( createBadgesView( badgeCategory ) );
+    body.add( createBadgesView( badgeCategory, scout ) );
     item.add( body );
     return item;
   }
 
-  private Widget createBadgesView( final BadgeCategory badgeCategory )
+  private Widget createBadgesView( final BadgeCategory badgeCategory, final Person scout )
   {
     final MaterialRow row = new MaterialRow();
     for ( final Badge badge : badgeCategory.getBadges() )
@@ -132,7 +137,14 @@ public class BadgeworkView
           final MaterialCollectionSecondary secondary = new MaterialCollectionSecondary();
           final MaterialIcon icon = new MaterialIcon( IconType.VERIFIED_USER );
           icon.setIconSize( IconSize.SMALL );
-          icon.setIconColor( "green" );
+          if ( hasCompleted( badgeTaskGroup, scout ))
+          {
+            icon.setIconColor( COMPLETE_ICON_COLOUR );
+          }
+          else
+          {
+            icon.setIconColor( INCOMPLETE_ICON_COLOUR );
+          }
           secondary.add( icon );
           item.add( secondary );
         }
@@ -149,7 +161,14 @@ public class BadgeworkView
             final MaterialCollectionSecondary secondary = new MaterialCollectionSecondary();
             final MaterialIcon icon = new MaterialIcon( IconType.VERIFIED_USER );
             icon.setIconSize( IconSize.SMALL );
-            icon.setIconColor( "grey lighten-3" );
+            if ( hasCompleted( badgeTask, scout ))
+            {
+              icon.setIconColor( COMPLETE_ICON_COLOUR );
+            }
+            else
+            {
+              icon.setIconColor( INCOMPLETE_ICON_COLOUR );
+            }
             secondary.add( icon );
             subItem.add( secondary );
             badgeTaskCollection.add( subItem );
@@ -170,6 +189,30 @@ public class BadgeworkView
       row.add( column );
     }
     return row;
+  }
+
+  private boolean hasCompleted( final BadgeTaskGroup badgeTaskGroup, final Person scout )
+  {
+    for ( final TaskGroupCompletion completion : scout.getTaskGroupCompletions() )
+    {
+      if ( completion.getBadgeTaskGroup().getID().equals( badgeTaskGroup.getID() ))
+      {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  private boolean hasCompleted( final BadgeTask badgeTask, final Person scout )
+  {
+    for ( final TaskCompletion completion : scout.getTaskCompletions() )
+    {
+      if ( completion.getBadgeTask().getID().equals( badgeTask.getID() ))
+      {
+        return true;
+      }
+    }
+    return false;
   }
 
   @Override
