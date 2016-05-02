@@ -2228,6 +2228,14 @@ public interface ScoutmgrResourceBundle
     String activeNav();
 
     String badgeCardDescription();
+
+    String badgeCardSummary();
+
+    String badgeCardDetail();
+
+    String badgeTaskGroup();
+
+    String badgeTask();
   }
 
   @Source( "scoutmgr.main.gss" )

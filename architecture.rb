@@ -90,7 +90,6 @@ Domgen.repository(:Scoutmgr) do |repository|
       t.reference(:BadgeTask)
 
       t.unique_constraint([:Person, :BadgeTask])
-      t.imit.replicate(:Person, :instance)
     end
 
     data_module.struct(:PersonDTO) do |s|
