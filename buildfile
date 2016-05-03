@@ -185,7 +185,7 @@ define 'scoutmgr' do
                                 :ejb_module_names => %w(model server),
                                 :jpa_module_names => %w(model))
 
-  ipr.add_glassfish_configuration(project, :server_name => 'Payara 4.1.1.154', :exploded => [project.name])
+  ipr.add_glassfish_configuration(project, :server_name => 'Payara 4.1.1.161_1', :exploded => [project.name])
 
   ipr.add_gwt_configuration(project('user-experience'),
                             :gwt_module => 'scoutmgr.ScoutmgrDev',
