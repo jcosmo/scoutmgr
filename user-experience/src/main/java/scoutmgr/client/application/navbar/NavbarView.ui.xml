@@ -1,32 +1,27 @@
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+             xmlns:m="urn:import:gwt.material.design.client.ui"
              xmlns:g="urn:import:com.google.gwt.user.client.ui">
-  <ui:with type="scoutmgr.client.place.NameTokens" field="_nameTokens"></ui:with>
   <ui:with field='_bundle' type='scoutmgr.client.resource.ScoutmgrResourceBundle'/>
-  <ui:style gss="true">
-    a {
-      cursor: pointer;
-    }
-  </ui:style>
+  <ui:with type="scoutmgr.client.place.NameTokens" field="_nameTokens"></ui:with>
   <g:HTMLPanel>
-    <nav class="{_bundle.bootstrap.navbar} {_bundle.bootstrap.navbarDefault} {_bundle.bootstrap.navbarFixedTop}">
-      <div class="{_bundle.bootstrap.containerFluid}">
-        <div class="{_bundle.bootstrap.navbarHeader}">
-          <g:HTML addStyleNames="{_bundle.bootstrap.navbarToggle}" ui:field="_navToggle">
-            <span class="{_bundle.bootstrap.iconBar}"></span>
-            <span class="{_bundle.bootstrap.iconBar}"></span>
-            <span class="{_bundle.bootstrap.iconBar}"></span>
-          </g:HTML>
-          <a class="{_bundle.bootstrap.navbarBrand}" href="#">Scout Manager</a>
-        </div>
-        <div ui:field="_navCollapse" class="{_bundle.bootstrap.navbarCollapse} {_bundle.bootstrap.collapse}">
-          <ul class="{_bundle.bootstrap.nav} {_bundle.bootstrap.navbarNav}">
-            <li ui:field="_eventsLinkContainer"><g:Anchor text="Events" href="#{_nameTokens.getEvents}"/></li>
-            <li ui:field="_membersLinkContainer"><g:Anchor text="Scouts" href="#{_nameTokens.getAdminScouts}"/></li>
-            <li ui:field="_badgesLinkContainer"><g:Anchor text="Badge Management" href="#{_nameTokens.getAdminBadges}"/></li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+    <header>
+      <m:MaterialNavBar backgroundColor="blue lighten-3" textColor="black" type="FIXED" addStyleNames="z-depth-0 {_bundle.scoutmgr.navbar}">
+        <m:MaterialNavBrand float="LEFT" text="Scout Manager" textColor="black"/>
+        <m:MaterialNavSection float="RIGHT">
+          <m:MaterialTooltip text="Account Settings" position="BOTTOM">
+            <m:MaterialLink iconType="ACCOUNT_CIRCLE" iconColor="black" iconPosition="NONE"/>
+          </m:MaterialTooltip>
+          <m:MaterialTooltip text="Logout" position="BOTTOM">
+            <m:MaterialLink iconType="CANCEL" iconColor="black" iconPosition="NONE"/>
+          </m:MaterialTooltip>
+        </m:MaterialNavSection>
+      </m:MaterialNavBar>
+      <m:MaterialRow grid="s12" hideOn="HIDE_ON_MED_DOWN" backgroundColor="blue lighten-4" addStyleNames="{_bundle.scoutmgr.menubar}">
+        <m:MaterialLink ui:field="_adminScoutsLink" href="#{_nameTokens.getAdminScouts}" padding="12" waves="DEFAULT" text="Scout Management" textColor="black"/>
+        <m:MaterialLink ui:field="_adminBadgesLink" href="#{_nameTokens.getAdminBadges}" padding="12" waves="DEFAULT" text="Badge Management" textColor="black"/>
+        <m:MaterialLink ui:field="_adminEventsLink" href="#{_nameTokens.getEvents}" padding="12" waves="DEFAULT" text="Event Management" textColor="black"/>
+      </m:MaterialRow>
+    </header>
   </g:HTMLPanel>
 </ui:UiBinder>

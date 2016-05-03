@@ -121,3 +121,8 @@ It should be noted that to run the tests from within the IDE you need to have cr
 If you are running the integration tests it is also necessary to have built the server package from the command line. This can be done via:
 
     $ bundle exec buildr scoutmgr:server:package TEST=no
+    
+    
+To Investigate
+   https://gwtbootstrap.github.io/#base
+   https://github.com/GwtMaterialDesign/gwt-material

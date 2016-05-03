@@ -70,4 +70,6 @@ artifacts:
   gwt_appcache_linker: org.realityforge.gwt.appcache:gwt-appcache-linker:jar:1.0.8
   gwt_appcache_server: org.realityforge.gwt.appcache:gwt-appcache-server:jar:1.0.8
 
-  gwt_material_design: com.github.gwtmaterialdesign:gwt-material:jar:1.3
+  gwt_material_design: com.github.gwtmaterialdesign:gwt-material:jar:1.5.0
+  gwt_material_design_addins: com.github.gwtmaterialdesign:gwt-material-addins:jar:1.5.0
+  gwt_material_design_themes: com.github.gwtmaterialdesign:gwt-material-themes:jar:1.5.0

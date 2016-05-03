@@ -23,6 +23,8 @@ public class ApplicationView
   SimplePanel _navbarPanel;
   @UiField
   SimplePanel _footerPanel;
+  @UiField
+  LayoutPanel _mainLayout;
 
   interface Binder
     extends UiBinder<Widget, ApplicationView>

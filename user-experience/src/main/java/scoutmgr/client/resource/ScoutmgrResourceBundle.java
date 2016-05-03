@@ -2220,6 +2220,22 @@ public interface ScoutmgrResourceBundle
     String modalBackdrop();
 
     String content();
+
+    String navbar();
+
+    String menubar();
+
+    String activeNav();
+
+    String badgeCardDescription();
+
+    String badgeCardSummary();
+
+    String badgeCardDetail();
+
+    String badgeTaskGroup();
+
+    String badgeTask();
   }
 
   @Source( "scoutmgr.main.gss" )

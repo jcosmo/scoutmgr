@@ -1,0 +1,26 @@
+1:
+  ID: 1
+  Description: 'Collect Kindling'
+  BadgeTaskGroupID: 1
+  Rank: 1
+2:
+  ID: 2
+  Description: 'Light the fire'
+  BadgeTaskGroupID: 1
+  Rank: 2
+3:
+  ID: 3
+  Description: "Don't burn down the world"
+  BadgeTaskGroupID: 1
+  Rank: 3
+4:
+  ID: 4
+  Description: 'Collect ingredients and cook!'
+  BadgeTaskGroupID: 2
+  Rank: 3
+5:
+  ID: 5
+  Description: 'Reef Knot'
+  BadgeTaskGroupID: 5
+  Rank: 1
+

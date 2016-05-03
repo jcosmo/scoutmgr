@@ -8,10 +8,12 @@
   <!--<inherits name='com.google.gwt.user.theme.standard.Standard'/>-->
   <inherits name="com.google.gwt.user.theme.chrome.Chrome"/>
   <!--<inherits name="com.google.gwt.user.theme.dark.Dark"/>-->
+  <inherits name="gwt.material.design.GwtMaterialWithJQueryDebug"/>
+  <!--<inherits name="gwt.material.design.GwtMaterialWithJQueryDebug"/>-->
+  <!--<inherits name="gwt.material.design.themes.GwtMaterialThemeBlue"/>-->
+  <inherits name="gwt.material.design.addins.GWTMaterialAddins"/>
 
   <set-configuration-property name="CssResource.enableGss" value="true" />
-  <set-configuration-property name="CssResource.legacy" value="true" />
-  <set-configuration-property name="CssResource.gssDefaultInUiBinder" value="true" />
   <set-configuration-property name="gin.ginjector.modules" value="scoutmgr.client.ioc.ScoutmgrModule" />
   <set-configuration-property name="gin.ginjector.extensions" value="scoutmgr.client.ioc.ScoutmgrGinjector" />
   <set-configuration-property name="gwtp.bootstrapper" value="scoutmgr.client.Bootstrap"/>

@@ -9,7 +9,7 @@ html {
 }
 
 body {
-  margin-bottom: 70px;
+  margin-bottom: 60px;
 }
 
 .footer {
@@ -46,8 +46,77 @@ body {
 
 .content {
   margin: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
+.navbar {
+  border-bottom: solid #90caf9 1px;
+}
 
+.menubar {
+  border-bottom: solid #90caf9 1px;
+}
 
+.activeNav {
+  text-decoration: underline;
+}
+
+.activeNav:hover {
+  text-decoration: underline !important;
+}
+
+.badgeCardSummary .badgeCardDescription {
+  font-size: 1.25rem;
+  height: 3.5rem;
+  overflow: hidden;
+}
+
+.badgeCardDetail .badgeCardDescription {
+  font-size: 1rem;
+}
+
+.badgeCardDetail {
+  font-size: 1.1rem;
+}
+
+.badgeTaskGroup {
+}
+
+.badgeTask {
+}
+
+@external material-label;
+.badgeTaskGroup .material-label{
+  display: inline !important;
+}
+
+.badgeTask .material-label{
+  display: inline !important;
+  padding-left: 2em;
+}
+
+@external secondary-content;
+@external collection;
+@external collection-item;
+@external secondary-content;
+.badgeCardDetail .collection .collection-item {
+  border-bottom: none;
+  line-height: 0.5rem;
+}
+.badgeCardDetail .collection .collection-item.badgeTaskGroup {
+  border-top: solid 1px #f0f0f0;
+}
+.badgeCardDetail .collection .collection-item .secondary-content i {
+  margin-top: -0.8rem;
+}
+
+@external card;
+@external card-content;
+.card .card-content {
+  height: 20rem;
+}
+
+@external card-title;
+.badgeCardDetail > .card-title {
+   font-size: 2rem;
+}

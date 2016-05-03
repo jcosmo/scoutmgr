@@ -11,14 +11,16 @@ import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.ColumnSortEvent;
 import com.google.gwt.user.cellview.client.DataGrid;
+import com.google.gwt.user.cellview.client.HasKeyboardSelectionPolicy;
 import com.google.gwt.user.cellview.client.SimplePager;
-import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.LayoutPanel;
+import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.ListDataProvider;
+import com.google.gwt.view.client.NoSelectionModel;
 import com.google.inject.Inject;
 import com.gwtplatform.mvp.client.ViewWithUiHandlers;
+import gwt.material.design.client.ui.MaterialAnchorButton;
 import java.util.Collection;
 import java.util.Comparator;
 import scoutmgr.client.entity.Person;
@@ -34,17 +36,14 @@ public class MembersView
 {
   private final ListDataProvider<ScoutViewModel> _provider;
 
-  @UiField
-  LayoutPanel _membersPanel;
-
-  @UiField( provided = true )
-  SimplePager _pager;
   @UiField( provided = true )
   DataGrid<ScoutViewModel> _memberTable;
   @UiField
-  Button _addScoutButton;
+  MaterialAnchorButton _addScoutButton;
   @UiField
   ScoutmgrResourceBundle _bundle;
+  @UiField
+  SimplePanel _pagerPanel;
 
   interface Binder
     extends UiBinder<Widget, MembersView>
@@ -70,7 +69,7 @@ public class MembersView
   @Inject
   MembersView( final Binder uiBinder )
   {
-    _memberTable = new DataGrid<>( 20, GWT.<MembersDataGridResources>create( MembersDataGridResources.class ) );
+    _memberTable = new DataGrid<>( 20 );
     _memberTable.setAutoHeaderRefreshDisabled( false );
     _memberTable.setEmptyTableWidget( new Label( "No resources" ) );
 
@@ -141,21 +140,25 @@ public class MembersView
     _memberTable.addColumn( dobColumn, SafeHtmlUtils.fromString( "Birthday" ) );
     _memberTable.addColumn( regNumColumn, SafeHtmlUtils.fromString( "Reg. Num" ) );
     _memberTable.addColumn( actionsColumn );
-    _memberTable.setColumnWidth( actionsColumn, 80, Style.Unit.PX );
+    _memberTable.setColumnWidth( actionsColumn, 120, Style.Unit.PX );
+    final NoSelectionModel<ScoutViewModel> selectionModel = new NoSelectionModel<>();
+    _memberTable.setSelectionModel( selectionModel );
+    _memberTable.setKeyboardSelectionPolicy( HasKeyboardSelectionPolicy.KeyboardSelectionPolicy.DISABLED );
 
-    setupPager();
+
     _provider.addDataDisplay( _memberTable );
 
     initWidget( uiBinder.createAndBindUi( this ) );
 
-    actionCell.setBundle( _bundle );
+    setupPager();
   }
 
   private void setupPager()
   {
     final SimplePager.Resources pagerResources = GWT.create( SimplePager.Resources.class );
-    _pager = new SimplePager( SimplePager.TextLocation.CENTER, pagerResources, false, 0, true );
-    _pager.setDisplay( _memberTable );
+    final SimplePager pager = new SimplePager( SimplePager.TextLocation.CENTER, pagerResources, false, 0, true );
+    pager.setDisplay( _memberTable );
+    _pagerPanel.setWidget( pager );
   }
 
   private void createColumnSorters( final Column<ScoutViewModel, String> givenNameColumn,

@@ -58,11 +58,46 @@ Domgen.repository(:Scoutmgr) do |repository|
     data_module.entity(:Badge) do |t|
       t.integer(:ID, :primary_key => true)
       t.string(:Name, 255)
+      t.string(:Description, 1024)
       t.integer(:Rank)
 
-      t.reference(:BadgeCategory)
+      t.reference(:BadgeCategory, 'inverse.traversable' => true)
 
       t.imit.replicate(:Metadata, :type)
+    end
+
+    data_module.entity(:BadgeTaskGroup) do |t|
+      t.integer(:ID, :primary_key => true)
+      t.reference(:Badge, 'inverse.traversable' => true)
+      t.string(:Description, 255)
+      t.integer(:Rank)
+
+      t.imit.replicate(:Metadata, :type)
+    end
+
+    data_module.entity(:BadgeTask) do |t|
+      t.integer(:ID, :primary_key => true)
+      t.reference(:BadgeTaskGroup, 'inverse.traversable' => true)
+      t.string(:Description, 255)
+      t.integer(:Rank)
+
+      t.imit.replicate(:Metadata, :type)
+    end
+
+    data_module.entity(:TaskGroupCompletion) do |t|
+      t.integer(:ID, :primary_key => true)
+      t.reference(:Person, 'inverse.traversable' => true)
+      t.reference(:BadgeTaskGroup)
+
+      t.unique_constraint([:Person, :BadgeTaskGroup])
+    end
+
+    data_module.entity(:TaskCompletion) do |t|
+      t.integer(:ID, :primary_key => true)
+      t.reference(:Person, 'inverse.traversable' => true)
+      t.reference(:BadgeTask)
+
+      t.unique_constraint([:Person, :BadgeTask])
     end
 
     data_module.struct(:PersonDTO) do |s|
