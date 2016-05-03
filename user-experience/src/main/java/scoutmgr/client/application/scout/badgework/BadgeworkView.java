@@ -1,14 +1,18 @@
 package scoutmgr.client.application.scout.badgework;
 
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.gwtplatform.mvp.client.ViewWithUiHandlers;
 import gwt.material.design.client.constants.IconPosition;
 import gwt.material.design.client.constants.IconSize;
 import gwt.material.design.client.constants.IconType;
+import gwt.material.design.client.constants.ModalType;
 import gwt.material.design.client.constants.TextAlign;
 import gwt.material.design.client.ui.MaterialCard;
 import gwt.material.design.client.ui.MaterialCardAction;
@@ -26,7 +30,10 @@ import gwt.material.design.client.ui.MaterialColumn;
 import gwt.material.design.client.ui.MaterialIcon;
 import gwt.material.design.client.ui.MaterialLabel;
 import gwt.material.design.client.ui.MaterialLink;
+import gwt.material.design.client.ui.MaterialModal;
+import gwt.material.design.client.ui.MaterialModalContent;
 import gwt.material.design.client.ui.MaterialRow;
+import gwt.material.design.client.ui.MaterialTitle;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -41,7 +48,7 @@ import scoutmgr.client.resource.ScoutmgrResourceBundle;
 
 public class BadgeworkView
   extends ViewWithUiHandlers<BadgeworkUiHandlers>
-  implements BadgeworkPresenter.View
+  implements BadgeworkPresenter.View, ClickHandler
 {
   public static final String INCOMPLETE_ICON_COLOUR = "grey lighten-3";
   public static final String COMPLETE_ICON_COLOUR = "green";
@@ -183,6 +190,8 @@ public class BadgeworkView
 
       final MaterialCardAction actions = new MaterialCardAction();
       final MaterialLink progressLink = new MaterialLink( "Record Progress" );
+      progressLink.setDataAttribute( "badge", String.valueOf( badge.getID() ) );
+      progressLink.addClickHandler( this );
       actions.add( progressLink );
       card.add( actions );
       column.add( card );
@@ -219,5 +228,26 @@ public class BadgeworkView
   public void reset()
   {
     _expandable.clear();
+  }
+
+  @Override
+  public void onClick( final ClickEvent event )
+  {
+    final String badgeID = ( (MaterialLink) event.getSource() ).getDataAttribute( "badge" );
+    getUiHandlers().requestRecordProgress( Integer.valueOf( badgeID ) );
+  }
+
+  @Override
+  public void editBadgeworkProgress( final Person scout, final Badge badge )
+  {
+    MaterialModal modal = new MaterialModal();
+    modal.setType( ModalType.FIXED_FOOTER );
+    modal.setDismissable( true ); //TODO - add a close button and remove this!
+    final MaterialModalContent content = new MaterialModalContent();
+    content.add(new MaterialTitle("Badge " + badge.getName()));
+    modal.add( content );
+    modal.addCloseHandler( event -> { modal.removeFromParent(); } );
+    RootPanel.get().add(modal);
+    modal.openModal();
   }
 }

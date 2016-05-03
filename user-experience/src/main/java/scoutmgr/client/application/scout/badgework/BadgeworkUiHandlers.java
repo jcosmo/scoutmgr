@@ -5,4 +5,5 @@ import com.gwtplatform.mvp.client.UiHandlers;
 public interface BadgeworkUiHandlers
   extends UiHandlers
 {
+  void requestRecordProgress( int badgeID );
 }

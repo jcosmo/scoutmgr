@@ -6,6 +6,7 @@ import com.gwtplatform.mvp.client.PresenterWidget;
 import java.util.ArrayList;
 import javax.inject.Inject;
 import org.realityforge.replicant.client.EntityRepository;
+import scoutmgr.client.entity.Badge;
 import scoutmgr.client.entity.BadgeCategory;
 import scoutmgr.client.entity.Person;
 import scoutmgr.client.event.MetadataLoadedEvent;
@@ -26,6 +27,8 @@ public class BadgeworkPresenter
     void setBadgeworkProgress( ArrayList<BadgeCategory> scoutLevel, final Person scout );
 
     void reset();
+
+    void editBadgeworkProgress( Person scout, Badge badge );
   }
 
   @Inject
@@ -49,7 +52,7 @@ public class BadgeworkPresenter
     final ArrayList<BadgeCategory> badgeCategories = new ArrayList<>();
     for ( final BadgeCategory category : allBadgeCategories )
     {
-      if ( category.getScoutLevel().equals(_scout.getScoutLevel() ) )
+      if ( category.getScoutLevel().equals( _scout.getScoutLevel() ) )
       {
         badgeCategories.add( category );
       }
@@ -68,5 +71,12 @@ public class BadgeworkPresenter
     {
       setBadgeworkToUI();
     }
+  }
+
+  @Override
+  public void requestRecordProgress( final int badgeID )
+  {
+    final Badge badge = _entityRepository.findByID( Badge.class, badgeID );
+    getView().editBadgeworkProgress( _scout, badge );
   }
 }
