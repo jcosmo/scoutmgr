@@ -5,6 +5,7 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
@@ -12,7 +13,6 @@ import com.gwtplatform.mvp.client.ViewWithUiHandlers;
 import gwt.material.design.client.constants.IconPosition;
 import gwt.material.design.client.constants.IconSize;
 import gwt.material.design.client.constants.IconType;
-import gwt.material.design.client.constants.ModalType;
 import gwt.material.design.client.constants.TextAlign;
 import gwt.material.design.client.ui.MaterialCard;
 import gwt.material.design.client.ui.MaterialCardAction;
@@ -30,10 +30,7 @@ import gwt.material.design.client.ui.MaterialColumn;
 import gwt.material.design.client.ui.MaterialIcon;
 import gwt.material.design.client.ui.MaterialLabel;
 import gwt.material.design.client.ui.MaterialLink;
-import gwt.material.design.client.ui.MaterialModal;
-import gwt.material.design.client.ui.MaterialModalContent;
 import gwt.material.design.client.ui.MaterialRow;
-import gwt.material.design.client.ui.MaterialTitle;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -144,7 +141,7 @@ public class BadgeworkView
           final MaterialCollectionSecondary secondary = new MaterialCollectionSecondary();
           final MaterialIcon icon = new MaterialIcon( IconType.VERIFIED_USER );
           icon.setIconSize( IconSize.SMALL );
-          if ( hasCompleted( badgeTaskGroup, scout ))
+          if ( hasCompleted( badgeTaskGroup, scout ) )
           {
             icon.setIconColor( COMPLETE_ICON_COLOUR );
           }
@@ -168,7 +165,7 @@ public class BadgeworkView
             final MaterialCollectionSecondary secondary = new MaterialCollectionSecondary();
             final MaterialIcon icon = new MaterialIcon( IconType.VERIFIED_USER );
             icon.setIconSize( IconSize.SMALL );
-            if ( hasCompleted( badgeTask, scout ))
+            if ( hasCompleted( badgeTask, scout ) )
             {
               icon.setIconColor( COMPLETE_ICON_COLOUR );
             }
@@ -204,7 +201,7 @@ public class BadgeworkView
   {
     for ( final TaskGroupCompletion completion : scout.getTaskGroupCompletions() )
     {
-      if ( completion.getBadgeTaskGroup().getID().equals( badgeTaskGroup.getID() ))
+      if ( completion.getBadgeTaskGroup().getID().equals( badgeTaskGroup.getID() ) )
       {
         return true;
       }
@@ -216,7 +213,7 @@ public class BadgeworkView
   {
     for ( final TaskCompletion completion : scout.getTaskCompletions() )
     {
-      if ( completion.getBadgeTask().getID().equals( badgeTask.getID() ))
+      if ( completion.getBadgeTask().getID().equals( badgeTask.getID() ) )
       {
         return true;
       }
@@ -238,16 +235,12 @@ public class BadgeworkView
   }
 
   @Override
-  public void editBadgeworkProgress( final Person scout, final Badge badge )
+  public void setInSlot( final Object slot, final IsWidget content )
   {
-    MaterialModal modal = new MaterialModal();
-    modal.setType( ModalType.FIXED_FOOTER );
-    modal.setDismissable( true ); //TODO - add a close button and remove this!
-    final MaterialModalContent content = new MaterialModalContent();
-    content.add(new MaterialTitle("Badge " + badge.getName()));
-    modal.add( content );
-    modal.addCloseHandler( event -> { modal.removeFromParent(); } );
-    RootPanel.get().add(modal);
-    modal.openModal();
+    super.setInSlot( slot, content );
+    if ( BadgeworkPresenter.POPUP_PROGRESS_PANEL_SLOT.equals( slot ) )
+    {
+      RootPanel.get().add( content );
+    }
   }
 }

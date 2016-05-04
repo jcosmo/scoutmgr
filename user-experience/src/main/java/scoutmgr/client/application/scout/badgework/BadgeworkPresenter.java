@@ -19,7 +19,12 @@ public class BadgeworkPresenter
   @Inject
   private EntityRepository _entityRepository;
 
+  @Inject
+  BadgeworkProgressPresenter _badgeworkProgressPresenter;
+
   private Person _scout;
+
+  static final String POPUP_PROGRESS_PANEL_SLOT = "popupProgressPanel";
 
   interface View
     extends com.gwtplatform.mvp.client.View, HasUiHandlers<BadgeworkUiHandlers>
@@ -27,8 +32,6 @@ public class BadgeworkPresenter
     void setBadgeworkProgress( ArrayList<BadgeCategory> scoutLevel, final Person scout );
 
     void reset();
-
-    void editBadgeworkProgress( Person scout, Badge badge );
   }
 
   @Inject
@@ -77,6 +80,7 @@ public class BadgeworkPresenter
   public void requestRecordProgress( final int badgeID )
   {
     final Badge badge = _entityRepository.findByID( Badge.class, badgeID );
-    getView().editBadgeworkProgress( _scout, badge );
+    _badgeworkProgressPresenter.configure( _scout, badge );
+    setInSlot( POPUP_PROGRESS_PANEL_SLOT, _badgeworkProgressPresenter );
   }
 }
