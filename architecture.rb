@@ -44,7 +44,39 @@ Domgen.repository(:Scoutmgr) do |repository|
       end
     end
 
-    data_module.entity(:BadgeCategory) do |t|
+    data_module.entity(:PersonGroup) do |t|
+      t.integer(:ID, :primary_key => true)
+      t.string(:Name, 255)
+    end
+
+    data_module.entity(:PersonGroupMembership) do |t|
+      t.integer(:ID, :primary_key => true)
+      t.reference(:Person)
+      t.reference(:PersonGroupMembership)
+    end
+
+    data_module.entity(:User) do |t|
+      t.integer(:ID, :primary_key => true)
+      t.string(:UserName, 255)
+      t.string(:Password, 255)
+      t.string(:Salt, 255)
+      t.boolean(:Active)
+    end
+
+#    user
+#    opt link to scout
+#    email
+#    permission
+#      global view
+#      admin members and groups
+#      admin users, assign groups
+#      PL/sixer for group
+#      leader for section
+
+#    audit history/activity stream
+
+
+           data_module.entity(:BadgeCategory) do |t|
       t.integer(:ID, :primary_key => true)
       t.reference(:ScoutLevel)
       t.string(:Name, 255)
