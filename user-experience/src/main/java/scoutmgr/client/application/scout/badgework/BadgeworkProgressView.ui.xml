@@ -23,7 +23,7 @@
     }
   </ui:style>
   <m:MaterialModal type="FIXED_FOOTER" dismissable="false" inDuration="500" outDuration="500" addStyleNames="{style.badgeworkProgressDialog}">
-    <m:MaterialModalContent>
+    <m:MaterialModalContent ui:field="_content">
       <g:HTMLPanel addStyleNames="{style.header}">
         <m:MaterialLabel ui:field="_title" addStyleNames="{style.title}"/>
         <m:MaterialLabel ui:field="_description" addStyleNames="{style.description}"/>
