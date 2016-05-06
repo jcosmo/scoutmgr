@@ -121,3 +121,37 @@ body {
 .badgeCardDetail > .card-title {
    font-size: 2rem;
 }
+
+.badgeworkProgressDialog {
+
+}
+
+@external row;
+@external modal-content;
+.badgeworkProgressDialog .modal-content .row {
+  margin-bottom: 0 !important;
+}
+
+.badgeworkProgressDialog .modal-content .row.badgeTaskRow .titleColumn {
+  padding-left: 2rem;
+}
+
+.badgeworkProgressDialog .modal-content .row.badgeTaskCategoryRow {
+  margin-top: 0.5rem;
+}
+
+.badgeworkProgressDialog .modal-content .row .checkboxDone {
+  height: 1rem;
+}
+
+@external input-field;
+.badgeworkProgressDialog .modal-content .row .whenColumn > .input-field {
+  margin-top: 0;
+}
+
+.badgeworkProgressDialog .modal-content .row .whenColumn > .input-field input {
+  margin-bottom: 0;
+  border-bottom: none;
+  height: 1.4rem;
+  box-shadow: none;
+}

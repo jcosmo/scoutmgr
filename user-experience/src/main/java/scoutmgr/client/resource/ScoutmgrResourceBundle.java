@@ -2236,6 +2236,18 @@ public interface ScoutmgrResourceBundle
     String badgeTaskGroup();
 
     String badgeTask();
+
+    String badgeworkProgressDialog();
+
+    String checkboxDone();
+
+    String titleColumn();
+
+    String badgeTaskCategoryRow();
+
+    String badgeTaskRow();
+
+    String whenColumn();
   }
 
   @Source( "scoutmgr.main.gss" )

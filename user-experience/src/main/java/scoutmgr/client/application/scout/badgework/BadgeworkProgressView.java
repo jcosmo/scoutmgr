@@ -16,11 +16,13 @@ import gwt.material.design.client.ui.MaterialLabel;
 import gwt.material.design.client.ui.MaterialModal;
 import gwt.material.design.client.ui.MaterialModalContent;
 import gwt.material.design.client.ui.MaterialRow;
+import java.util.Date;
 import java.util.List;
 import scoutmgr.client.entity.Badge;
 import scoutmgr.client.entity.BadgeTask;
 import scoutmgr.client.entity.BadgeTaskGroup;
 import scoutmgr.client.entity.Person;
+import scoutmgr.client.resource.ScoutmgrResourceBundle;
 
 public class BadgeworkProgressView
   extends ViewImpl
@@ -28,13 +30,17 @@ public class BadgeworkProgressView
 {
   //private final MaterialModal _modal;
   @UiField
-  MaterialButton _closeButton;
+  MaterialButton _cancelButton;
   @UiField
   MaterialLabel _title;
   @UiField
   MaterialLabel _description;
   @UiField
   MaterialModalContent _content;
+  @UiField
+  ScoutmgrResourceBundle _bundle;
+  @UiField
+  MaterialButton _saveButton;
 
   private Person _scout;
   private Badge _badge;
@@ -62,8 +68,15 @@ public class BadgeworkProgressView
     return (MaterialModal) asWidget();
   }
 
-  @UiHandler( "_closeButton" )
-  public void onClose( final ClickEvent e )
+  @UiHandler( "_cancelButton" )
+  public void onCancel( final ClickEvent e )
+  {
+    materialModal().closeModal();
+    materialModal().removeFromParent();
+  }
+
+  @UiHandler( "_saveButton" )
+  public void onSavel( final ClickEvent e )
   {
     materialModal().closeModal();
     materialModal().removeFromParent();
@@ -90,16 +103,23 @@ public class BadgeworkProgressView
       if ( badgeTaskGroup.getBadgeTasks().isEmpty() )
       {
         final String description = "" + x + ": " + badgeTaskGroup.getDescription();
-        _content.add( createTargetRow( description ) );
+        final MaterialRow row = createTargetRow( description );
+        row.addStyleName( _bundle.scoutmgr().badgeTaskCategoryRow() );
+        _content.add( row );
       }
       else
       {
-        _content.add( createHeaderRow( "" + x + ": " + badgeTaskGroup.getDescription() ) );
+        final MaterialRow row = createHeaderRow( "" + x + ": " + badgeTaskGroup.getDescription() );
+        row.addStyleName( _bundle.scoutmgr().badgeTaskCategoryRow() );
+        _content.add( row );
+
         char y = 'a';
         for ( final BadgeTask badgeTask : badgeTaskGroup.getBadgeTasks() )
         {
           final String description = "" + y + ": " + badgeTask.getDescription();
-          _content.add( createTargetRow( description ) );
+          final MaterialRow badgeTaskRow = createTargetRow( description );
+          badgeTaskRow.addStyleName( _bundle.scoutmgr().badgeTaskRow() );
+          _content.add( badgeTaskRow );
           y++;
         }
       }
@@ -110,35 +130,56 @@ public class BadgeworkProgressView
   private MaterialRow createTargetRow( final String description )
   {
     final MaterialRow row = new MaterialRow();
-    final MaterialColumn titleColumn = new MaterialColumn(  );
-    titleColumn.setGrid( "s7" );
+    final MaterialColumn titleColumn = new MaterialColumn();
+    titleColumn.addStyleName( _bundle.scoutmgr().titleColumn() );
+    titleColumn.setGrid( "s6" );
     titleColumn.add( new MaterialLabel( description ) );
     row.add( titleColumn );
 
-    final MaterialColumn doneColumn = new MaterialColumn(  );
+    final MaterialColumn doneColumn = new MaterialColumn();
     doneColumn.setGrid( "s1" );
-    final MaterialCheckBox checkBox = new MaterialCheckBox(null, CheckBoxType.FILLED);
+    final MaterialCheckBox checkBox = new MaterialCheckBox();
+    checkBox.setType( CheckBoxType.INTERMEDIATE );
+    checkBox.addStyleName( _bundle.scoutmgr().checkboxDone() );
     doneColumn.add( checkBox );
     row.add( doneColumn );
 
-    final MaterialColumn whenColumn = new MaterialColumn(  );
+    final MaterialColumn whenColumn = new MaterialColumn();
+    whenColumn.addStyleName( _bundle.scoutmgr().whenColumn() );
     whenColumn.setGrid( "s2" );
     final MaterialDatePicker when = new MaterialDatePicker();
+    when.setEnabled( false );
     whenColumn.add( when );
     row.add( whenColumn );
 
-    final MaterialColumn whoColumn = new MaterialColumn(  );
-    whoColumn.setGrid( "s2" );
-    final MaterialLabel who = new MaterialLabel( "The Leader" );
+    final MaterialColumn whoColumn = new MaterialColumn();
+    whoColumn.setGrid( "s3" );
+    final MaterialLabel who = new MaterialLabel( );
+    who.setTruncate( true );
     whoColumn.add( who );
     row.add( whoColumn );
+
+    checkBox.addClickHandler( ( e ) -> {
+      when.setEnabled( checkBox.getValue() );
+      if ( checkBox.getValue() )
+      {
+        when.setDate( new Date() );
+        who.setText( "Leader Person" );
+      }
+      else
+      {
+        when.clear();
+        who.setText( null );
+      }
+    } );
+
     return row;
   }
 
   private MaterialRow createHeaderRow( final String description )
   {
     final MaterialRow row = new MaterialRow();
-    final MaterialColumn titleColumn = new MaterialColumn(  );
+    final MaterialColumn titleColumn = new MaterialColumn();
     titleColumn.setGrid( "s12" );
     titleColumn.add( new MaterialLabel( description ) );
     row.add( titleColumn );

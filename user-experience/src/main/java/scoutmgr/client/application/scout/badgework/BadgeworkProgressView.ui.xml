@@ -4,12 +4,10 @@
              xmlns:g="urn:import:com.google.gwt.user.client.ui">
   <ui:with field='_bundle' type='scoutmgr.client.resource.ScoutmgrResourceBundle'/>
   <ui:style>
-    .badgeworkProgressDialog {
-    }
-
     .header {
       font-size: 2rem;
       border-bottom: solid 1px lightgrey;
+      margin-bottom: 1rem;
     }
 
     .title {
@@ -19,19 +17,27 @@
       font-size: 1.25rem;
     }
 
-    .footer {
+    .a {
+      font-weight: bold;
     }
+
   </ui:style>
-  <m:MaterialModal type="FIXED_FOOTER" dismissable="false" inDuration="500" outDuration="500" addStyleNames="{style.badgeworkProgressDialog}">
+  <m:MaterialModal type="FIXED_FOOTER" dismissable="false" inDuration="500" outDuration="500" addStyleNames="{_bundle.scoutmgr.badgeworkProgressDialog}">
     <m:MaterialModalContent ui:field="_content">
       <g:HTMLPanel addStyleNames="{style.header}">
         <m:MaterialLabel ui:field="_title" addStyleNames="{style.title}"/>
         <m:MaterialLabel ui:field="_description" addStyleNames="{style.description}"/>
       </g:HTMLPanel>
-      <m:MaterialTitle title=""/>
+      <m:MaterialRow addStyleNames="{style.a}">
+        <m:MaterialColumn grid="s6"><g:HTML>Target</g:HTML></m:MaterialColumn>
+        <m:MaterialColumn grid="2 s1" textAlign="RIGHT"><g:HTML>Done?</g:HTML></m:MaterialColumn>
+        <m:MaterialColumn grid="s2"><g:HTML>When</g:HTML></m:MaterialColumn>
+        <m:MaterialColumn grid="s3"><g:HTML>Signer</g:HTML></m:MaterialColumn>
+      </m:MaterialRow>
     </m:MaterialModalContent>
-    <m:MaterialModalFooter addStyleNames="{style.footer}">
-      <m:MaterialButton ui:field="_closeButton" text="Close" type="FLAT"/>
+    <m:MaterialModalFooter>
+      <m:MaterialButton ui:field="_cancelButton" text="Cancel" type="FLAT"/>
+      <m:MaterialButton ui:field="_saveButton" text="Save" type="FLAT"/>
     </m:MaterialModalFooter>
   </m:MaterialModal>
 </ui:UiBinder>
