@@ -34,6 +34,7 @@
         <m:MaterialColumn grid="s2"><g:HTML>When</g:HTML></m:MaterialColumn>
         <m:MaterialColumn grid="s3"><g:HTML>Signer</g:HTML></m:MaterialColumn>
       </m:MaterialRow>
+      <g:HTMLPanel ui:field="_extraRows"/>
     </m:MaterialModalContent>
     <m:MaterialModalFooter>
       <m:MaterialButton ui:field="_cancelButton" text="Cancel" type="FLAT"/>

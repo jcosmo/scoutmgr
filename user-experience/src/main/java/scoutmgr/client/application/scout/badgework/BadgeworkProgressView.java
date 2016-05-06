@@ -4,6 +4,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
+import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.gwtplatform.mvp.client.ViewImpl;
@@ -41,6 +42,8 @@ public class BadgeworkProgressView
   ScoutmgrResourceBundle _bundle;
   @UiField
   MaterialButton _saveButton;
+  @UiField
+  HTMLPanel _extraRows;
 
   private Person _scout;
   private Badge _badge;
@@ -94,6 +97,7 @@ public class BadgeworkProgressView
   {
     _title.setText( _badge.getName() );
     _description.setText( _badge.getDescription().replaceAll( "\n", "<br />" ) );
+    _extraRows.clear();
 
     final List<BadgeTaskGroup> badgeTaskGroups = _badge.getBadgeTaskGroups();
     int x = 1;
@@ -105,13 +109,13 @@ public class BadgeworkProgressView
         final String description = "" + x + ": " + badgeTaskGroup.getDescription();
         final MaterialRow row = createTargetRow( description );
         row.addStyleName( _bundle.scoutmgr().badgeTaskCategoryRow() );
-        _content.add( row );
+        _extraRows.add( row );
       }
       else
       {
         final MaterialRow row = createHeaderRow( "" + x + ": " + badgeTaskGroup.getDescription() );
         row.addStyleName( _bundle.scoutmgr().badgeTaskCategoryRow() );
-        _content.add( row );
+        _extraRows.add( row );
 
         char y = 'a';
         for ( final BadgeTask badgeTask : badgeTaskGroup.getBadgeTasks() )
@@ -119,7 +123,7 @@ public class BadgeworkProgressView
           final String description = "" + y + ": " + badgeTask.getDescription();
           final MaterialRow badgeTaskRow = createTargetRow( description );
           badgeTaskRow.addStyleName( _bundle.scoutmgr().badgeTaskRow() );
-          _content.add( badgeTaskRow );
+          _extraRows.add( badgeTaskRow );
           y++;
         }
       }
