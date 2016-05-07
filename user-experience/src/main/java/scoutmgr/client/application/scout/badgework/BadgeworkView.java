@@ -141,7 +141,7 @@ public class BadgeworkView
           final MaterialCollectionSecondary secondary = new MaterialCollectionSecondary();
           final MaterialIcon icon = new MaterialIcon( IconType.VERIFIED_USER );
           icon.setIconSize( IconSize.SMALL );
-          if ( hasCompleted( badgeTaskGroup, scout ) )
+          if ( null != getCompletionRecord( badgeTaskGroup, scout ) )
           {
             icon.setIconColor( COMPLETE_ICON_COLOUR );
           }
@@ -165,7 +165,7 @@ public class BadgeworkView
             final MaterialCollectionSecondary secondary = new MaterialCollectionSecondary();
             final MaterialIcon icon = new MaterialIcon( IconType.VERIFIED_USER );
             icon.setIconSize( IconSize.SMALL );
-            if ( hasCompleted( badgeTask, scout ) )
+            if ( null != getCompletionRecord( badgeTask, scout ) )
             {
               icon.setIconColor( COMPLETE_ICON_COLOUR );
             }
@@ -197,28 +197,28 @@ public class BadgeworkView
     return row;
   }
 
-  private boolean hasCompleted( final BadgeTaskGroup badgeTaskGroup, final Person scout )
+  static TaskGroupCompletion getCompletionRecord( final BadgeTaskGroup badgeTaskGroup, final Person scout )
   {
     for ( final TaskGroupCompletion completion : scout.getTaskGroupCompletions() )
     {
       if ( completion.getBadgeTaskGroup().getID().equals( badgeTaskGroup.getID() ) )
       {
-        return true;
+        return completion;
       }
     }
-    return false;
+    return null;
   }
 
-  private boolean hasCompleted( final BadgeTask badgeTask, final Person scout )
+  static TaskCompletion getCompletionRecord( final BadgeTask badgeTask, final Person scout )
   {
     for ( final TaskCompletion completion : scout.getTaskCompletions() )
     {
       if ( completion.getBadgeTask().getID().equals( badgeTask.getID() ) )
       {
-        return true;
+        return completion;
       }
     }
-    return false;
+    return null;
   }
 
   @Override

@@ -19,17 +19,19 @@ import gwt.material.design.client.ui.MaterialModalContent;
 import gwt.material.design.client.ui.MaterialRow;
 import java.util.Date;
 import java.util.List;
+import org.realityforge.gwt.datatypes.client.date.RDate;
 import scoutmgr.client.entity.Badge;
 import scoutmgr.client.entity.BadgeTask;
 import scoutmgr.client.entity.BadgeTaskGroup;
 import scoutmgr.client.entity.Person;
+import scoutmgr.client.entity.TaskCompletion;
+import scoutmgr.client.entity.TaskGroupCompletion;
 import scoutmgr.client.resource.ScoutmgrResourceBundle;
 
 public class BadgeworkProgressView
   extends ViewImpl
   implements BadgeworkProgressPresenter.View
 {
-  //private final MaterialModal _modal;
   @UiField
   MaterialButton _cancelButton;
   @UiField
@@ -72,6 +74,7 @@ public class BadgeworkProgressView
   }
 
   @UiHandler( "_cancelButton" )
+  @SuppressWarnings( "UnusedParameters" )
   public void onCancel( final ClickEvent e )
   {
     materialModal().closeModal();
@@ -79,7 +82,8 @@ public class BadgeworkProgressView
   }
 
   @UiHandler( "_saveButton" )
-  public void onSavel( final ClickEvent e )
+  @SuppressWarnings( "UnusedParameters" )
+  public void onSave( final ClickEvent e )
   {
     materialModal().closeModal();
     materialModal().removeFromParent();
@@ -103,11 +107,11 @@ public class BadgeworkProgressView
     int x = 1;
     for ( final BadgeTaskGroup badgeTaskGroup : badgeTaskGroups )
     {
-
       if ( badgeTaskGroup.getBadgeTasks().isEmpty() )
       {
         final String description = "" + x + ": " + badgeTaskGroup.getDescription();
-        final MaterialRow row = createTargetRow( description );
+        final MaterialRow row = createTargetRow( description,
+                                                 BadgeworkView.getCompletionRecord( badgeTaskGroup, _scout ) );
         row.addStyleName( _bundle.scoutmgr().badgeTaskCategoryRow() );
         _extraRows.add( row );
       }
@@ -121,7 +125,8 @@ public class BadgeworkProgressView
         for ( final BadgeTask badgeTask : badgeTaskGroup.getBadgeTasks() )
         {
           final String description = "" + y + ": " + badgeTask.getDescription();
-          final MaterialRow badgeTaskRow = createTargetRow( description );
+          final MaterialRow badgeTaskRow = createTargetRow( description,
+                                                            BadgeworkView.getCompletionRecord( badgeTask, _scout ) );
           badgeTaskRow.addStyleName( _bundle.scoutmgr().badgeTaskRow() );
           _extraRows.add( badgeTaskRow );
           y++;
@@ -131,7 +136,26 @@ public class BadgeworkProgressView
     }
   }
 
-  private MaterialRow createTargetRow( final String description )
+  private MaterialRow createTargetRow( final String description,
+                                       final TaskGroupCompletion completionRecord )
+  {
+    final boolean isCompleted = null != completionRecord;
+    final RDate dateCompleted = isCompleted ? completionRecord.getDateCompleted() : null;
+    return createTargetRow( description, isCompleted, dateCompleted, "Leader Person" );
+  }
+
+  private MaterialRow createTargetRow( final String description,
+                                       final TaskCompletion completionRecord )
+  {
+    final boolean isCompleted = null != completionRecord;
+    final RDate dateCompleted = isCompleted ? completionRecord.getDateCompleted() : null;
+    return createTargetRow( description, isCompleted, dateCompleted, "Leader Person" );
+  }
+
+  private MaterialRow createTargetRow( final String description,
+                                       final boolean isCompleted,
+                                       final RDate dateCompleted,
+                                       final String signedBy )
   {
     final MaterialRow row = new MaterialRow();
     final MaterialColumn titleColumn = new MaterialColumn();
@@ -144,6 +168,7 @@ public class BadgeworkProgressView
     doneColumn.setGrid( "s1" );
     final MaterialCheckBox checkBox = new MaterialCheckBox();
     checkBox.setType( CheckBoxType.INTERMEDIATE );
+    checkBox.setValue( isCompleted );
     checkBox.addStyleName( _bundle.scoutmgr().checkboxDone() );
     doneColumn.add( checkBox );
     row.add( doneColumn );
@@ -152,7 +177,11 @@ public class BadgeworkProgressView
     whenColumn.addStyleName( _bundle.scoutmgr().whenColumn() );
     whenColumn.setGrid( "s2" );
     final MaterialDatePicker when = new MaterialDatePicker();
-    when.setEnabled( false );
+    when.setEnabled( isCompleted );
+    if ( isCompleted )
+    {
+      when.setValue( RDate.toDate( dateCompleted ) );
+    }
     whenColumn.add( when );
     row.add( whenColumn );
 
@@ -160,6 +189,10 @@ public class BadgeworkProgressView
     whoColumn.setGrid( "s3" );
     final MaterialLabel who = new MaterialLabel( );
     who.setTruncate( true );
+    if ( isCompleted )
+    {
+      who.setText( signedBy );
+    }
     whoColumn.add( who );
     row.add( whoColumn );
 
@@ -176,7 +209,6 @@ public class BadgeworkProgressView
         who.setText( null );
       }
     } );
-
     return row;
   }
 

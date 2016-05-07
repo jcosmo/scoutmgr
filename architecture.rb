@@ -120,6 +120,7 @@ Domgen.repository(:Scoutmgr) do |repository|
       t.integer(:ID, :primary_key => true)
       t.reference(:Person, 'inverse.traversable' => true)
       t.reference(:BadgeTaskGroup)
+      t.date(:DateCompleted)
 
       t.unique_constraint([:Person, :BadgeTaskGroup])
     end
@@ -128,6 +129,7 @@ Domgen.repository(:Scoutmgr) do |repository|
       t.integer(:ID, :primary_key => true)
       t.reference(:Person, 'inverse.traversable' => true)
       t.reference(:BadgeTask)
+      t.date(:DateCompleted)
 
       t.unique_constraint([:Person, :BadgeTask])
     end
