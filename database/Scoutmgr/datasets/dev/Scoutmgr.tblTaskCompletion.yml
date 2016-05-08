@@ -2,11 +2,14 @@
   ID: 1
   PersonID: -1
   BadgeTaskID: 1
+  DateCompleted: 1 Mar 2016
 2:
   ID: 2
   PersonID: -1
   BadgeTaskID: 4
+  DateCompleted: 1 Feb 2016
 3:
   ID: 3
   PersonID: -1
   BadgeTaskID: 5
+  DateCompleted: 7 Mar 2016
