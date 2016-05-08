@@ -10,6 +10,7 @@ import scoutmgr.client.entity.Badge;
 import scoutmgr.client.entity.BadgeCategory;
 import scoutmgr.client.entity.Person;
 import scoutmgr.client.event.MetadataLoadedEvent;
+import scoutmgr.client.view.model.ScoutViewModel;
 
 @SuppressWarnings( "Convert2streamapi" )
 public class BadgeworkPresenter
@@ -29,7 +30,7 @@ public class BadgeworkPresenter
   interface View
     extends com.gwtplatform.mvp.client.View, HasUiHandlers<BadgeworkUiHandlers>
   {
-    void setBadgeworkProgress( ArrayList<BadgeCategory> scoutLevel, final Person scout );
+    void setBadgeworkProgress( ArrayList<BadgeCategory> scoutLevel, final ScoutViewModel scout );
 
     void reset();
   }
@@ -60,7 +61,7 @@ public class BadgeworkPresenter
         badgeCategories.add( category );
       }
     }
-    getView().setBadgeworkProgress( badgeCategories, _scout );
+    getView().setBadgeworkProgress( badgeCategories, new ScoutViewModel( _scout ) );
   }
 
   public void configureForScout( final Person scout )

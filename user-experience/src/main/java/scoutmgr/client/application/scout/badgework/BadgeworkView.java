@@ -38,10 +38,8 @@ import scoutmgr.client.entity.Badge;
 import scoutmgr.client.entity.BadgeCategory;
 import scoutmgr.client.entity.BadgeTask;
 import scoutmgr.client.entity.BadgeTaskGroup;
-import scoutmgr.client.entity.Person;
-import scoutmgr.client.entity.TaskCompletion;
-import scoutmgr.client.entity.TaskGroupCompletion;
 import scoutmgr.client.resource.ScoutmgrResourceBundle;
+import scoutmgr.client.view.model.ScoutViewModel;
 
 public class BadgeworkView
   extends ViewWithUiHandlers<BadgeworkUiHandlers>
@@ -66,7 +64,7 @@ public class BadgeworkView
   }
 
   @Override
-  public void setBadgeworkProgress( final ArrayList<BadgeCategory> badgeCategories, final Person scout )
+  public void setBadgeworkProgress( final ArrayList<BadgeCategory> badgeCategories, final ScoutViewModel scout )
   {
     Collections.sort( badgeCategories, ( o1, o2 ) -> o1.getRank() - o2.getRank() );
     for ( final BadgeCategory badgeCategory : badgeCategories )
@@ -75,7 +73,8 @@ public class BadgeworkView
     }
   }
 
-  private MaterialCollapsibleItem createBadgeCategoryView( final BadgeCategory badgeCategory, final Person scout )
+  private MaterialCollapsibleItem createBadgeCategoryView( final BadgeCategory badgeCategory,
+                                                           final ScoutViewModel scout )
   {
     final MaterialCollapsibleItem item = new MaterialCollapsibleItem();
     final MaterialCollapsibleHeader header = new MaterialCollapsibleHeader();
@@ -89,7 +88,7 @@ public class BadgeworkView
     return item;
   }
 
-  private Widget createBadgesView( final BadgeCategory badgeCategory, final Person scout )
+  private Widget createBadgesView( final BadgeCategory badgeCategory, final ScoutViewModel scout )
   {
     final MaterialRow row = new MaterialRow();
     for ( final Badge badge : badgeCategory.getBadges() )
@@ -141,7 +140,7 @@ public class BadgeworkView
           final MaterialCollectionSecondary secondary = new MaterialCollectionSecondary();
           final MaterialIcon icon = new MaterialIcon( IconType.VERIFIED_USER );
           icon.setIconSize( IconSize.SMALL );
-          if ( null != getCompletionRecord( badgeTaskGroup, scout ) )
+          if ( null != scout.getCompletionRecord( badgeTaskGroup ) )
           {
             icon.setIconColor( COMPLETE_ICON_COLOUR );
           }
@@ -165,7 +164,7 @@ public class BadgeworkView
             final MaterialCollectionSecondary secondary = new MaterialCollectionSecondary();
             final MaterialIcon icon = new MaterialIcon( IconType.VERIFIED_USER );
             icon.setIconSize( IconSize.SMALL );
-            if ( null != getCompletionRecord( badgeTask, scout ) )
+            if ( null != scout.getCompletionRecord( badgeTask ) )
             {
               icon.setIconColor( COMPLETE_ICON_COLOUR );
             }
@@ -195,30 +194,6 @@ public class BadgeworkView
       row.add( column );
     }
     return row;
-  }
-
-  static TaskGroupCompletion getCompletionRecord( final BadgeTaskGroup badgeTaskGroup, final Person scout )
-  {
-    for ( final TaskGroupCompletion completion : scout.getTaskGroupCompletions() )
-    {
-      if ( completion.getBadgeTaskGroup().getID().equals( badgeTaskGroup.getID() ) )
-      {
-        return completion;
-      }
-    }
-    return null;
-  }
-
-  static TaskCompletion getCompletionRecord( final BadgeTask badgeTask, final Person scout )
-  {
-    for ( final TaskCompletion completion : scout.getTaskCompletions() )
-    {
-      if ( completion.getBadgeTask().getID().equals( badgeTask.getID() ) )
-      {
-        return completion;
-      }
-    }
-    return null;
   }
 
   @Override

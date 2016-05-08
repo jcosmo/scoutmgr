@@ -5,6 +5,7 @@ import com.gwtplatform.mvp.client.PresenterWidget;
 import javax.inject.Inject;
 import scoutmgr.client.entity.Badge;
 import scoutmgr.client.entity.Person;
+import scoutmgr.client.view.model.ScoutViewModel;
 
 public class BadgeworkProgressPresenter
   extends PresenterWidget<BadgeworkProgressPresenter.View>
@@ -12,7 +13,7 @@ public class BadgeworkProgressPresenter
   interface View
     extends com.gwtplatform.mvp.client.View
   {
-    void configure( Person scout, Badge badge );
+    void configure( ScoutViewModel scout, Badge badge );
   }
 
   @Inject
@@ -24,6 +25,6 @@ public class BadgeworkProgressPresenter
 
   public void configure( final Person scout, final Badge badge )
   {
-    getView().configure( scout, badge );
+    getView().configure( new ScoutViewModel( scout ), badge );
   }
 }

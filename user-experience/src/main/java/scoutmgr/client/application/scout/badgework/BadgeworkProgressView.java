@@ -23,10 +23,10 @@ import org.realityforge.gwt.datatypes.client.date.RDate;
 import scoutmgr.client.entity.Badge;
 import scoutmgr.client.entity.BadgeTask;
 import scoutmgr.client.entity.BadgeTaskGroup;
-import scoutmgr.client.entity.Person;
-import scoutmgr.client.entity.TaskCompletion;
-import scoutmgr.client.entity.TaskGroupCompletion;
 import scoutmgr.client.resource.ScoutmgrResourceBundle;
+import scoutmgr.client.view.model.ScoutViewModel;
+import scoutmgr.client.view.model.TaskCompletionViewModel;
+import scoutmgr.client.view.model.TaskGroupCompletionViewModel;
 
 public class BadgeworkProgressView
   extends ViewImpl
@@ -47,7 +47,7 @@ public class BadgeworkProgressView
   @UiField
   HTMLPanel _extraRows;
 
-  private Person _scout;
+  private ScoutViewModel _scout;
   private Badge _badge;
 
   interface Binder
@@ -90,7 +90,7 @@ public class BadgeworkProgressView
   }
 
   @Override
-  public void configure( final Person scout, final Badge badge )
+  public void configure( final ScoutViewModel scout, final Badge badge )
   {
     _scout = scout;
     _badge = badge;
@@ -111,7 +111,7 @@ public class BadgeworkProgressView
       {
         final String description = "" + x + ": " + badgeTaskGroup.getDescription();
         final MaterialRow row = createTargetRow( description,
-                                                 BadgeworkView.getCompletionRecord( badgeTaskGroup, _scout ) );
+                                                 _scout.getCompletionRecord( badgeTaskGroup ) );
         row.addStyleName( _bundle.scoutmgr().badgeTaskCategoryRow() );
         _extraRows.add( row );
       }
@@ -126,7 +126,7 @@ public class BadgeworkProgressView
         {
           final String description = "" + y + ": " + badgeTask.getDescription();
           final MaterialRow badgeTaskRow = createTargetRow( description,
-                                                            BadgeworkView.getCompletionRecord( badgeTask, _scout ) );
+                                                            _scout.getCompletionRecord( badgeTask ) );
           badgeTaskRow.addStyleName( _bundle.scoutmgr().badgeTaskRow() );
           _extraRows.add( badgeTaskRow );
           y++;
@@ -137,7 +137,7 @@ public class BadgeworkProgressView
   }
 
   private MaterialRow createTargetRow( final String description,
-                                       final TaskGroupCompletion completionRecord )
+                                       final TaskCompletionViewModel completionRecord )
   {
     final boolean isCompleted = null != completionRecord;
     final RDate dateCompleted = isCompleted ? completionRecord.getDateCompleted() : null;
@@ -145,7 +145,7 @@ public class BadgeworkProgressView
   }
 
   private MaterialRow createTargetRow( final String description,
-                                       final TaskCompletion completionRecord )
+                                       final TaskGroupCompletionViewModel completionRecord )
   {
     final boolean isCompleted = null != completionRecord;
     final RDate dateCompleted = isCompleted ? completionRecord.getDateCompleted() : null;
@@ -187,7 +187,7 @@ public class BadgeworkProgressView
 
     final MaterialColumn whoColumn = new MaterialColumn();
     whoColumn.setGrid( "s3" );
-    final MaterialLabel who = new MaterialLabel( );
+    final MaterialLabel who = new MaterialLabel();
     who.setTruncate( true );
     if ( isCompleted )
     {
