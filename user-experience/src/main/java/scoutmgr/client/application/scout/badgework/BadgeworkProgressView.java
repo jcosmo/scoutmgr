@@ -110,7 +110,8 @@ public class BadgeworkProgressView
       if ( badgeTaskGroup.getBadgeTasks().isEmpty() )
       {
         final String description = "" + x + ": " + badgeTaskGroup.getDescription();
-        final MaterialRow row = createTargetRow( description,
+        final MaterialRow row = createTargetRow( badgeTaskGroup,
+                                                 description,
                                                  _scout.getCompletionRecord( badgeTaskGroup ) );
         row.addStyleName( _bundle.scoutmgr().badgeTaskCategoryRow() );
         _extraRows.add( row );
@@ -125,7 +126,8 @@ public class BadgeworkProgressView
         for ( final BadgeTask badgeTask : badgeTaskGroup.getBadgeTasks() )
         {
           final String description = "" + y + ": " + badgeTask.getDescription();
-          final MaterialRow badgeTaskRow = createTargetRow( description,
+          final MaterialRow badgeTaskRow = createTargetRow( badgeTask,
+                                                            description,
                                                             _scout.getCompletionRecord( badgeTask ) );
           badgeTaskRow.addStyleName( _bundle.scoutmgr().badgeTaskRow() );
           _extraRows.add( badgeTaskRow );
@@ -136,26 +138,31 @@ public class BadgeworkProgressView
     }
   }
 
-  private MaterialRow createTargetRow( final String description,
+  private MaterialRow createTargetRow( final BadgeTask badgeTask,
+                                       final String description,
                                        final TaskCompletionViewModel completionRecord )
   {
     final boolean isCompleted = null != completionRecord;
     final RDate dateCompleted = isCompleted ? completionRecord.getDateCompleted() : null;
-    return createTargetRow( description, isCompleted, dateCompleted, "Leader Person" );
+    return createTargetRow( description, isCompleted, dateCompleted, "Leader Person",
+                            new BadgeTaskCompleter( badgeTask ) );
   }
 
-  private MaterialRow createTargetRow( final String description,
-                                       final TaskGroupCompletionViewModel completionRecord )
+  private MaterialRow createTargetRow( final BadgeTaskGroup badgeTaskGroup,
+                                       final String description,
+                                       final TaskCompletionViewModel completionRecord )
   {
     final boolean isCompleted = null != completionRecord;
     final RDate dateCompleted = isCompleted ? completionRecord.getDateCompleted() : null;
-    return createTargetRow( description, isCompleted, dateCompleted, "Leader Person" );
+    return createTargetRow( description, isCompleted, dateCompleted, "Leader Person",
+                            new BadgeTaskCompleter( badgeTaskGroup ) );
   }
 
   private MaterialRow createTargetRow( final String description,
                                        final boolean isCompleted,
                                        final RDate dateCompleted,
-                                       final String signedBy )
+                                       final String signedBy,
+                                       final BadgeCompleter completer )
   {
     final MaterialRow row = new MaterialRow();
     final MaterialColumn titleColumn = new MaterialColumn();
@@ -197,6 +204,11 @@ public class BadgeworkProgressView
     row.add( whoColumn );
 
     checkBox.addClickHandler( ( e ) -> {
+      if ( !completer.changeState( checkBox.getValue() ) )
+      {
+        checkBox.setValue( !checkBox.getValue() );
+        return;
+      }
       when.setEnabled( checkBox.getValue() );
       if ( checkBox.getValue() )
       {
@@ -220,5 +232,42 @@ public class BadgeworkProgressView
     titleColumn.add( new MaterialLabel( description ) );
     row.add( titleColumn );
     return row;
+  }
+
+  private interface BadgeCompleter
+  {
+    boolean changeState( boolean toState );
+  }
+
+  private class BadgeTaskCompleter
+    implements BadgeCompleter
+  {
+    final private BadgeTask _badgeTask;
+    final private BadgeTaskGroup _badgeTaskGroup;
+
+    private BadgeTaskCompleter( final BadgeTask badgeTask )
+    {
+      _badgeTask = badgeTask;
+      _badgeTaskGroup = null;
+    }
+    private BadgeTaskCompleter( final BadgeTaskGroup badgeTask )
+    {
+      _badgeTaskGroup = badgeTask;
+      _badgeTask = null;
+    }
+
+    @Override
+    public boolean changeState( final boolean toState )
+    {
+      if ( toState )
+      {
+        _scout.addCompletionRecord( _badgeTask );
+      }
+      else
+      {
+        //_scout.removeCompletionRecord( _badgeTask );
+      }
+      return true;
+    }
   }
 }

@@ -7,26 +7,24 @@ import scoutmgr.client.entity.TaskGroupCompletion;
 public class TaskGroupCompletionViewModel
   extends AbstractViewModel
 {
-  ScoutViewModel _scout;
 
-  public TaskGroupCompletionViewModel( final ScoutViewModel scout, TaskGroupCompletion completion )
+  private final BadgeTaskGroup _badgeTaskGroup;
+  private final RDate _dateCompleted;
+
+  public TaskGroupCompletionViewModel( final TaskGroupCompletion completion )
   {
     super( completion, "Completion " + completion.getID() );
-    _scout = scout;
-  }
-
-  private TaskGroupCompletion tgc()
-  {
-    return (TaskGroupCompletion) asModelObject();
+    _badgeTaskGroup = completion.getBadgeTaskGroup();
+    _dateCompleted = completion.getDateCompleted();
   }
 
   public RDate getDateCompleted()
   {
-    return tgc().getDateCompleted();
+    return _dateCompleted;
   }
 
   public boolean matches( final BadgeTaskGroup badgeTaskGroup )
   {
-    return tgc().getBadgeTaskGroup().equals( badgeTaskGroup );
+    return _badgeTaskGroup.equals( badgeTaskGroup );
   }
 }

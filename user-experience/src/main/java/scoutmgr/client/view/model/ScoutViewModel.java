@@ -13,18 +13,17 @@ public class ScoutViewModel
   extends AbstractViewModel
 {
   private ArrayList<TaskCompletionViewModel> _taskCompletions = new ArrayList<>();
-  private ArrayList<TaskGroupCompletionViewModel> _taskGroupCompletions = new ArrayList<>();
 
   public ScoutViewModel( final Person person )
   {
     super(person, person.getFirstName() + " " + person.getLastName() );
     for ( final TaskCompletion completion : person.getTaskCompletions() )
     {
-      _taskCompletions.add( new TaskCompletionViewModel( this, completion ) );
+      _taskCompletions.add( new TaskCompletionViewModel( completion ) );
     }
     for ( final TaskGroupCompletion completion : person.getTaskGroupCompletions() )
     {
-      _taskGroupCompletions.add( new TaskGroupCompletionViewModel( this, completion ) );
+      _taskCompletions.add( new TaskCompletionViewModel( completion ) );
     }
   }
 
@@ -53,9 +52,9 @@ public class ScoutViewModel
     return ((Person)asModelObject()).getRegistrationNumber();
   }
 
-  public TaskGroupCompletionViewModel getCompletionRecord( final BadgeTaskGroup badgeTaskGroup )
+  public TaskCompletionViewModel getCompletionRecord( final BadgeTaskGroup badgeTaskGroup )
   {
-    for ( final TaskGroupCompletionViewModel completion : _taskGroupCompletions )
+    for ( final TaskCompletionViewModel completion : _taskCompletions )
     {
       if ( completion.matches( badgeTaskGroup ) )
       {
@@ -77,4 +76,15 @@ public class ScoutViewModel
     return null;
   }
 
+  public TaskCompletionViewModel addCompletionRecord( final BadgeTask badgeTask )
+  {
+    final TaskCompletionViewModel existing = getCompletionRecord( badgeTask );
+    if ( null != existing )
+    {
+      return existing;
+    }
+
+    _taskCompletions.add( new TaskCompletionViewModel( badgeTask, RDate.today() ) );
+    return existing;
+  }
 }
