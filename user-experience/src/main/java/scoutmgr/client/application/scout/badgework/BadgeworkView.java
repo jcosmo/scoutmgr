@@ -37,7 +37,6 @@ import java.util.List;
 import scoutmgr.client.entity.Badge;
 import scoutmgr.client.entity.BadgeCategory;
 import scoutmgr.client.entity.BadgeTask;
-import scoutmgr.client.entity.BadgeTaskGroup;
 import scoutmgr.client.resource.ScoutmgrResourceBundle;
 import scoutmgr.client.view.model.ScoutViewModel;
 
@@ -125,22 +124,26 @@ public class BadgeworkView
       reveal.add( description );
 
       final MaterialCollection badgeTaskCollection = new MaterialCollection();
-      final List<BadgeTaskGroup> badgeTaskGroups = badge.getBadgeTaskGroups();
+      final List<BadgeTask> badgeTasks = badge.getBadgeTasks();
       int x = 1;
-      for ( final BadgeTaskGroup badgeTaskGroup : badgeTaskGroups )
+      for ( final BadgeTask badgeTask : badgeTasks )
       {
+        if ( badgeTask.getParent() != null )
+        {
+          continue;
+        }
         final MaterialCollectionItem item = new MaterialCollectionItem();
         item.addStyleName( _bundle.scoutmgr().badgeTaskGroup() );
-        final MaterialLabel taskGroupLabel = new MaterialLabel( "" + x + ":  " + badgeTaskGroup.getDescription() );
+        final MaterialLabel taskGroupLabel = new MaterialLabel( "" + x + ":  " + badgeTask.getDescription() );
         item.add( taskGroupLabel );
         badgeTaskCollection.add( item );
 
-        if ( badgeTaskGroup.getBadgeTasks().isEmpty() )
+        if ( badgeTask.getBadgeTasks().isEmpty() )
         {
           final MaterialCollectionSecondary secondary = new MaterialCollectionSecondary();
           final MaterialIcon icon = new MaterialIcon( IconType.VERIFIED_USER );
           icon.setIconSize( IconSize.SMALL );
-          if ( null != scout.getCompletionRecord( badgeTaskGroup ) )
+          if ( null != scout.getCompletionRecord( badgeTask ) )
           {
             icon.setIconColor( COMPLETE_ICON_COLOUR );
           }
@@ -154,17 +157,17 @@ public class BadgeworkView
         else
         {
           char y = 'a';
-          for ( final BadgeTask badgeTask : badgeTaskGroup.getBadgeTasks() )
+          for ( final BadgeTask childTask : badgeTask.getBadgeTasks() )
           {
             final MaterialCollectionItem subItem = new MaterialCollectionItem();
             subItem.addStyleName( _bundle.scoutmgr().badgeTask() );
-            final MaterialLabel child = new MaterialLabel( y + ":  " + badgeTask.getDescription() );
+            final MaterialLabel child = new MaterialLabel( y + ":  " + childTask.getDescription() );
             subItem.add( child );
 
             final MaterialCollectionSecondary secondary = new MaterialCollectionSecondary();
             final MaterialIcon icon = new MaterialIcon( IconType.VERIFIED_USER );
             icon.setIconSize( IconSize.SMALL );
-            if ( null != scout.getCompletionRecord( badgeTask ) )
+            if ( null != scout.getCompletionRecord( childTask ) )
             {
               icon.setIconColor( COMPLETE_ICON_COLOUR );
             }

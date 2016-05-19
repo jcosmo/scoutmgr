@@ -98,31 +98,14 @@ Domgen.repository(:Scoutmgr) do |repository|
       t.imit.replicate(:Metadata, :type)
     end
 
-    data_module.entity(:BadgeTaskGroup) do |t|
-      t.integer(:ID, :primary_key => true)
-      t.reference(:Badge, 'inverse.traversable' => true)
-      t.string(:Description, 255)
-      t.integer(:Rank)
-
-      t.imit.replicate(:Metadata, :type)
-    end
-
     data_module.entity(:BadgeTask) do |t|
       t.integer(:ID, :primary_key => true)
-      t.reference(:BadgeTaskGroup, 'inverse.traversable' => true)
+      t.reference(:Badge, 'inverse.traversable' => true)
+      t.reference(:BadgeTask, :name => :Parent, 'inverse.traversable' => true, :nullable => true)
       t.string(:Description, 255)
       t.integer(:Rank)
 
       t.imit.replicate(:Metadata, :type)
-    end
-
-    data_module.entity(:TaskGroupCompletion) do |t|
-      t.integer(:ID, :primary_key => true)
-      t.reference(:Person, 'inverse.traversable' => true)
-      t.reference(:BadgeTaskGroup)
-      t.date(:DateCompleted)
-
-      t.unique_constraint([:Person, :BadgeTaskGroup])
     end
 
     data_module.entity(:TaskCompletion) do |t|

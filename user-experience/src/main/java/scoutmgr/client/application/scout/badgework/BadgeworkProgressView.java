@@ -18,15 +18,12 @@ import gwt.material.design.client.ui.MaterialModal;
 import gwt.material.design.client.ui.MaterialModalContent;
 import gwt.material.design.client.ui.MaterialRow;
 import java.util.Date;
-import java.util.List;
 import org.realityforge.gwt.datatypes.client.date.RDate;
 import scoutmgr.client.entity.Badge;
 import scoutmgr.client.entity.BadgeTask;
-import scoutmgr.client.entity.BadgeTaskGroup;
 import scoutmgr.client.resource.ScoutmgrResourceBundle;
 import scoutmgr.client.view.model.ScoutViewModel;
 import scoutmgr.client.view.model.TaskCompletionViewModel;
-import scoutmgr.client.view.model.TaskGroupCompletionViewModel;
 
 public class BadgeworkProgressView
   extends ViewImpl
@@ -103,32 +100,35 @@ public class BadgeworkProgressView
     _description.setText( _badge.getDescription().replaceAll( "\n", "<br />" ) );
     _extraRows.clear();
 
-    final List<BadgeTaskGroup> badgeTaskGroups = _badge.getBadgeTaskGroups();
     int x = 1;
-    for ( final BadgeTaskGroup badgeTaskGroup : badgeTaskGroups )
+    for ( final BadgeTask badgeTask : _badge.getBadgeTasks() )
     {
-      if ( badgeTaskGroup.getBadgeTasks().isEmpty() )
+      if ( badgeTask.getParent() != null )
       {
-        final String description = "" + x + ": " + badgeTaskGroup.getDescription();
-        final MaterialRow row = createTargetRow( badgeTaskGroup,
+        continue;
+      }
+      if ( badgeTask.getBadgeTasks().isEmpty() )
+      {
+        final String description = "" + x + ": " + badgeTask.getDescription();
+        final MaterialRow row = createTargetRow( badgeTask,
                                                  description,
-                                                 _scout.getCompletionRecord( badgeTaskGroup ) );
+                                                 _scout.getCompletionRecord( badgeTask ) );
         row.addStyleName( _bundle.scoutmgr().badgeTaskCategoryRow() );
         _extraRows.add( row );
       }
       else
       {
-        final MaterialRow row = createHeaderRow( "" + x + ": " + badgeTaskGroup.getDescription() );
+        final MaterialRow row = createHeaderRow( "" + x + ": " + badgeTask.getDescription() );
         row.addStyleName( _bundle.scoutmgr().badgeTaskCategoryRow() );
         _extraRows.add( row );
 
         char y = 'a';
-        for ( final BadgeTask badgeTask : badgeTaskGroup.getBadgeTasks() )
+        for ( final BadgeTask childTask : badgeTask.getBadgeTasks() )
         {
-          final String description = "" + y + ": " + badgeTask.getDescription();
-          final MaterialRow badgeTaskRow = createTargetRow( badgeTask,
+          final String description = "" + y + ": " + childTask.getDescription();
+          final MaterialRow badgeTaskRow = createTargetRow( childTask,
                                                             description,
-                                                            _scout.getCompletionRecord( badgeTask ) );
+                                                            _scout.getCompletionRecord( childTask ) );
           badgeTaskRow.addStyleName( _bundle.scoutmgr().badgeTaskRow() );
           _extraRows.add( badgeTaskRow );
           y++;
@@ -146,16 +146,6 @@ public class BadgeworkProgressView
     final RDate dateCompleted = isCompleted ? completionRecord.getDateCompleted() : null;
     return createTargetRow( description, isCompleted, dateCompleted, "Leader Person",
                             new BadgeTaskCompleter( badgeTask ) );
-  }
-
-  private MaterialRow createTargetRow( final BadgeTaskGroup badgeTaskGroup,
-                                       final String description,
-                                       final TaskCompletionViewModel completionRecord )
-  {
-    final boolean isCompleted = null != completionRecord;
-    final RDate dateCompleted = isCompleted ? completionRecord.getDateCompleted() : null;
-    return createTargetRow( description, isCompleted, dateCompleted, "Leader Person",
-                            new BadgeTaskCompleter( badgeTaskGroup ) );
   }
 
   private MaterialRow createTargetRow( final String description,
@@ -243,17 +233,10 @@ public class BadgeworkProgressView
     implements BadgeCompleter
   {
     final private BadgeTask _badgeTask;
-    final private BadgeTaskGroup _badgeTaskGroup;
 
     private BadgeTaskCompleter( final BadgeTask badgeTask )
     {
       _badgeTask = badgeTask;
-      _badgeTaskGroup = null;
-    }
-    private BadgeTaskCompleter( final BadgeTaskGroup badgeTask )
-    {
-      _badgeTaskGroup = badgeTask;
-      _badgeTask = null;
     }
 
     @Override
@@ -263,10 +246,10 @@ public class BadgeworkProgressView
       {
         _scout.addCompletionRecord( _badgeTask );
       }
-      else
-      {
-        //_scout.removeCompletionRecord( _badgeTask );
-      }
+      //else
+      //{
+      //  _scout.removeCompletionRecord( _badgeTask );
+      //}
       return true;
     }
   }

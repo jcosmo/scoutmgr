@@ -3,11 +3,9 @@ package scoutmgr.client.view.model;
 import java.util.ArrayList;
 import org.realityforge.gwt.datatypes.client.date.RDate;
 import scoutmgr.client.entity.BadgeTask;
-import scoutmgr.client.entity.BadgeTaskGroup;
 import scoutmgr.client.entity.Person;
 import scoutmgr.client.entity.ScoutLevel;
 import scoutmgr.client.entity.TaskCompletion;
-import scoutmgr.client.entity.TaskGroupCompletion;
 
 public class ScoutViewModel
   extends AbstractViewModel
@@ -18,10 +16,6 @@ public class ScoutViewModel
   {
     super(person, person.getFirstName() + " " + person.getLastName() );
     for ( final TaskCompletion completion : person.getTaskCompletions() )
-    {
-      _taskCompletions.add( new TaskCompletionViewModel( completion ) );
-    }
-    for ( final TaskGroupCompletion completion : person.getTaskGroupCompletions() )
     {
       _taskCompletions.add( new TaskCompletionViewModel( completion ) );
     }
@@ -52,18 +46,6 @@ public class ScoutViewModel
     return ((Person)asModelObject()).getRegistrationNumber();
   }
 
-  public TaskCompletionViewModel getCompletionRecord( final BadgeTaskGroup badgeTaskGroup )
-  {
-    for ( final TaskCompletionViewModel completion : _taskCompletions )
-    {
-      if ( completion.matches( badgeTaskGroup ) )
-      {
-        return completion;
-      }
-    }
-    return null;
-  }
-
   public TaskCompletionViewModel getCompletionRecord( final BadgeTask badgeTask )
   {
     for ( final TaskCompletionViewModel completion : _taskCompletions )
@@ -84,7 +66,8 @@ public class ScoutViewModel
       return existing;
     }
 
-    _taskCompletions.add( new TaskCompletionViewModel( badgeTask, RDate.today() ) );
-    return existing;
+    final TaskCompletionViewModel newModel = new TaskCompletionViewModel( badgeTask, RDate.today() );
+    _taskCompletions.add( newModel );
+    return newModel;
   }
 }
