@@ -8,6 +8,7 @@ import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.gwtplatform.mvp.client.ViewImpl;
+import com.gwtplatform.mvp.client.ViewWithUiHandlers;
 import gwt.material.design.client.constants.CheckBoxType;
 import gwt.material.design.client.ui.MaterialButton;
 import gwt.material.design.client.ui.MaterialCheckBox;
@@ -26,8 +27,8 @@ import scoutmgr.client.view.model.ScoutViewModel;
 import scoutmgr.client.view.model.TaskCompletionViewModel;
 
 public class BadgeworkProgressView
-  extends ViewImpl
-  implements BadgeworkProgressPresenter.View
+  extends ViewWithUiHandlers<BadgeworkProgressUiHandlers>
+implements BadgeworkProgressPresenter.View
 {
   @UiField
   MaterialButton _cancelButton;
@@ -76,13 +77,18 @@ public class BadgeworkProgressView
   @SuppressWarnings( "UnusedParameters" )
   public void onCancel( final ClickEvent e )
   {
-    materialModal().closeModal();
-    materialModal().removeFromParent();
+    getUiHandlers().onCancel();
   }
 
   @UiHandler( "_saveButton" )
   @SuppressWarnings( "UnusedParameters" )
   public void onSave( final ClickEvent e )
+  {
+    getUiHandlers().onSave( _scout );
+  }
+
+  @Override
+  public void close()
   {
     materialModal().closeModal();
     materialModal().removeFromParent();
