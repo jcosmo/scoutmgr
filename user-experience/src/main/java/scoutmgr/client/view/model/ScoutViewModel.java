@@ -70,4 +70,14 @@ public class ScoutViewModel
     _taskCompletions.add( newModel );
     return newModel;
   }
+
+  public TaskCompletionViewModel removeCompletionRecord( final BadgeTask badgeTask )
+  {
+    final TaskCompletionViewModel existing = getCompletionRecord( badgeTask );
+    if ( null != existing )
+    {
+      _taskCompletions.remove( existing );
+    }
+    return existing;
+  }
 }
