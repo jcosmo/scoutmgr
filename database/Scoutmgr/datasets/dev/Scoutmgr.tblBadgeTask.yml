@@ -53,4 +53,9 @@
   ParentID: 5
   BadgeID: 2
   Rank: 1
+6:
+  ID: 6
+  Description: 'Visit the zoo'
+  BadgeID: 13
+  Rank: 1
 
