@@ -18,7 +18,7 @@ GEM
       main (>= 4.7.3)
       open4 (>= 1.0.1)
     builder (3.2.2)
-    buildr (1.4.23)
+    buildr (1.4.25)
       atoulme-Antwrap (= 0.7.5)
       builder (= 3.2.2)
       bundler
@@ -70,7 +70,7 @@ PLATFORMS
 
 DEPENDENCIES
   braid (= 1.0.0)
-  buildr (= 1.4.23)
+  buildr (= 1.4.25)
   dbt (= 0.10.0.dev)!
   domgen (= 0.19.0.dev)!
   pg (= 0.18.1)

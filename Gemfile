@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'buildr', '= 1.4.23'
+gem 'buildr', '= 1.4.25'
 gem 'braid', '= 1.0.0'
 gem 'pg', '= 0.18.1'
 
