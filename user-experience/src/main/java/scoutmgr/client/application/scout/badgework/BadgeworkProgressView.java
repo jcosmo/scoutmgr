@@ -250,11 +250,13 @@ public class BadgeworkProgressView
     if ( isCompleted )
     {
       rowVm.getWhen().setValue( RDate.toDate( dateCompleted ) );
+      rowVm.getWhen().setEnabled( true );
       rowVm.getWho().setText( signedBy );
     }
     else
     {
       rowVm.getWhen().clear();
+      rowVm.getWhen().setEnabled( false );
       rowVm.getWho().setText( null );
     }
   }
