@@ -76,7 +76,7 @@ Domgen.repository(:Scoutmgr) do |repository|
 #    audit history/activity stream
 
 
-           data_module.entity(:BadgeCategory) do |t|
+    data_module.entity(:BadgeCategory) do |t|
       t.integer(:ID, :primary_key => true)
       t.reference(:ScoutLevel)
       t.string(:Name, 255)
@@ -126,6 +126,11 @@ Domgen.repository(:Scoutmgr) do |repository|
       s.text(:RegistrationNumber)
     end
 
+    data_module.struct(:TaskCompletionDTO) do |s|
+      s.integer(:BadgeTaskID)
+      s.date(:DateCompleted)
+    end
+
     data_module.service(:PersonnelService) do |s|
       s.method(:GetPeople) do |m|
         m.returns(:struct, :referenced_struct => :PersonDTO, :collection_type => :sequence)
@@ -146,6 +151,12 @@ Domgen.repository(:Scoutmgr) do |repository|
         m.string :LastName, 255
         m.date :Dob
         m.string :RegistrationNumber, 20
+      end
+
+      s.method(:UpdateCompletion) do |m|
+        m.integer(:PersonID)
+        m.integer(:BadgeID)
+        m.struct(:TaskCompletionDTO, :TaskCompletionDTO, :collection_type => :sequence)
       end
 
       s.method(:DeleteScout) do |m|
