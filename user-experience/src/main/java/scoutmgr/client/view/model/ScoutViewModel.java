@@ -80,4 +80,9 @@ public class ScoutViewModel
     }
     return existing;
   }
+
+  public ArrayList<TaskCompletionViewModel> getTaskCompletions()
+  {
+    return _taskCompletions;
+  }
 }

@@ -1,6 +1,7 @@
 package scoutmgr.client.application.scout.badgework;
 
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
@@ -18,6 +19,7 @@ import gwt.material.design.client.ui.MaterialLabel;
 import gwt.material.design.client.ui.MaterialModal;
 import gwt.material.design.client.ui.MaterialModalContent;
 import gwt.material.design.client.ui.MaterialRow;
+import java.util.Date;
 import java.util.HashMap;
 import org.realityforge.gwt.datatypes.client.date.RDate;
 import scoutmgr.client.entity.Badge;
@@ -183,6 +185,7 @@ implements BadgeworkProgressPresenter.View
       when.setValue( RDate.toDate( dateCompleted ) );
     }
     whenColumn.add( when );
+    when.addValueChangeHandler( e -> completer.updateWhen( when.getDate()) );
     row.add( whenColumn );
 
     final MaterialColumn whoColumn = new MaterialColumn();
@@ -216,6 +219,8 @@ implements BadgeworkProgressPresenter.View
   private interface BadgeCompleter
   {
     boolean changeState( boolean toState );
+
+    void updateWhen( Date date );
   }
 
   private class BadgeTaskCompleter
@@ -243,6 +248,12 @@ implements BadgeworkProgressPresenter.View
         updateRow( _rowCache.get( _badgeTask ), null );
       }
       return true;
+    }
+
+    @Override
+    public void updateWhen( final Date date )
+    {
+      _scout.getCompletionRecord( _badgeTask ).setDateCompleted( date );
     }
   }
 

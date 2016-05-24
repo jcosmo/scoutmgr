@@ -3,20 +3,36 @@ package scoutmgr.server.service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Logger;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import javax.annotation.Nonnull;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import scoutmgr.server.data_type.PersonDTO;
+import scoutmgr.server.data_type.TaskCompletionDTO;
+import scoutmgr.server.entity.BadgeTask;
 import scoutmgr.server.entity.Person;
+import scoutmgr.server.entity.TaskCompletion;
+import scoutmgr.server.entity.dao.BadgeTaskRepository;
 import scoutmgr.server.entity.dao.PersonRepository;
 import scoutmgr.server.entity.dao.ScoutLevelRepository;
+import scoutmgr.server.entity.dao.TaskCompletionRepository;
 
 @Stateless( name = PersonnelService.NAME )
 public class PersonnelServiceEJB
   implements PersonnelService
 {
+  private static final Logger LOG = Logger.getLogger( PersonnelServiceEJB.class.getName() );
+
   @Inject
   private PersonRepository _personRepository;
+
+  @Inject
+  private BadgeTaskRepository _badgeTaskRepository;
+
+  @Inject
+  private TaskCompletionRepository _taskCompletionRepository;
 
   @Inject
   private ScoutLevelRepository _scoutLevelRepository;
@@ -79,5 +95,63 @@ public class PersonnelServiceEJB
     person.setRegistrationNumber( registrationNumber );
     person.setDob( dob );
     _personRepository.persist( person );
+  }
+
+  @Override
+  public void updateCompletion( final int personID,
+                                final int badgeID,
+                                @Nonnull final List<TaskCompletionDTO> taskCompletionDTOs )
+  {
+    final Person person = _personRepository.getByID( personID );
+    final List<TaskCompletion> existing = person.getTaskCompletions();
+
+    final List<Integer> incomingBadgeTaskIDs =
+      taskCompletionDTOs.stream().map( TaskCompletionDTO::getBadgeTaskID ).collect( Collectors.toList() );
+
+    // Remove deleted
+    final List<TaskCompletion> toRemove = existing.stream().
+      filter( x -> !incomingBadgeTaskIDs.contains( x.getBadgeTask().getID() ) ).
+      collect( Collectors.toList() );
+    toRemove.stream().forEach( _taskCompletionRepository::remove );
+
+    // update existing
+    final Stream<TaskCompletion> toUpdate = existing.stream().
+      filter( x -> incomingBadgeTaskIDs.contains( x.getBadgeTask().getID() ) );
+    toUpdate.
+      forEach( x -> updateCompletion( person, x, findCompletion( taskCompletionDTOs, x.getBadgeTask() ) ) );
+
+    // create new
+    final List<Integer> existingBadgeTaskIDs =
+      existing.stream().map( x -> x.getBadgeTask().getID() ).collect( Collectors.toList() );
+    taskCompletionDTOs.stream().
+      filter( x -> !existingBadgeTaskIDs.contains( x.getBadgeTaskID() ) ).
+      forEach( x -> createCompletion( x, person ) );
+  }
+
+  private void createCompletion( final TaskCompletionDTO x, final Person person )
+  {
+    TaskCompletion taskCompletion = new TaskCompletion();
+    taskCompletion.setBadgeTask( _badgeTaskRepository.findByID( x.getBadgeTaskID() ) );
+    taskCompletion.setDateCompleted(  x.getDateCompleted()  );
+    taskCompletion.setPerson( person );
+    _taskCompletionRepository.persist( taskCompletion );
+  }
+
+  private void updateCompletion( final Person person, final TaskCompletion x, final TaskCompletionDTO completion )
+  {
+    x.setDateCompleted( completion.getDateCompleted() );
+    _taskCompletionRepository.persist( x );
+  }
+
+  private TaskCompletionDTO findCompletion( final List<TaskCompletionDTO> taskCompletionDTOs, final BadgeTask badgeTask )
+  {
+    for ( TaskCompletionDTO taskCompletionDTO : taskCompletionDTOs )
+    {
+      if ( taskCompletionDTO.getBadgeTaskID() == badgeTask.getID())
+      {
+        return taskCompletionDTO;
+      }
+    }
+    return null;
   }
 }

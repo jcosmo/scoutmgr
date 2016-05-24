@@ -37,6 +37,13 @@ public class PersonnelServiceEJBTest
   }
 
   @Override
+  public void updateCompletion()
+    throws Exception
+  {
+
+  }
+
+  @Override
   public void deleteScout()
     throws Exception
   {
