@@ -3,6 +3,7 @@
   <inherits name='scoutmgr.Scoutmgr'/>
   <!-- Provide gzipped version of generated js, so as it will sent compressed by jetty -->
   <inherits name="com.google.gwt.precompress.Precompress"/>
+  <inherits name="com.google.gwt.logging.LoggingDisabled"/>
 
   <inherits name="org.realityforge.gwt.appcache.Appcache"/>
   <inherits name="org.realityforge.gwt.appcache.linker.Linker"/>
