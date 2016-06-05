@@ -33,6 +33,7 @@ import gwt.material.design.client.ui.MaterialLink;
 import gwt.material.design.client.ui.MaterialRow;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import scoutmgr.client.entity.Badge;
 import scoutmgr.client.entity.BadgeCategory;
@@ -51,6 +52,8 @@ public class BadgeworkView
   @UiField
   MaterialCollapsible _expandable;
 
+  final private HashMap<Badge, BadgeHtmlComponents> _viewMap;
+
   interface Binder
     extends UiBinder<Widget, BadgeworkView>
   {
@@ -59,17 +62,28 @@ public class BadgeworkView
   @Inject
   BadgeworkView( final Binder uiBinder )
   {
+    _viewMap = new HashMap<>(  );
     initWidget( uiBinder.createAndBindUi( this ) );
   }
 
   @Override
   public void setBadgeworkProgress( final ArrayList<BadgeCategory> badgeCategories, final ScoutViewModel scout )
   {
+    _viewMap.clear();
     Collections.sort( badgeCategories, ( o1, o2 ) -> o1.getRank() - o2.getRank() );
     for ( final BadgeCategory badgeCategory : badgeCategories )
     {
       _expandable.add( createBadgeCategoryView( badgeCategory, scout ) );
     }
+  }
+
+  @Override
+  public void updateBadgeworkProgress( final BadgeTask task, final ScoutViewModel scout )
+  {
+    // Rebuild the view for the Badge
+    final Badge badge = task.getBadge();
+
+
   }
 
   private MaterialCollapsibleItem createBadgeCategoryView( final BadgeCategory badgeCategory,
@@ -92,58 +106,92 @@ public class BadgeworkView
     final MaterialRow row = new MaterialRow();
     for ( final Badge badge : badgeCategory.getBadges() )
     {
+      final BadgeHtmlComponents badgeHtmlComponents = constructViewForBadge( scout, badge );
+      _viewMap.put( badge, badgeHtmlComponents );
       final MaterialColumn column = new MaterialColumn();
       column.setGrid( "s12 m4 l3" );
-      final MaterialCard card = new MaterialCard();
+      column.add( badgeHtmlComponents.getMaterialCard() );
+      row.add( column );
+    }
+    return row;
+  }
 
-      final MaterialCardContent summaryCardContent = new MaterialCardContent();
-      summaryCardContent.addStyleName( _bundle.scoutmgr().badgeCardSummary() );
-      final MaterialCardTitle summaryTitle = new MaterialCardTitle();
-      summaryTitle.setText( badge.getName() );
-      summaryTitle.setIconType( IconType.MORE_VERT );
-      summaryTitle.setIconPosition( IconPosition.RIGHT );
-      summaryCardContent.add( summaryTitle );
-      final HTML summaryDescription = new HTML( badge.getDescription().replaceAll( "\\n", "<br />" ) );
-      summaryDescription.addStyleName( _bundle.scoutmgr().badgeCardDescription() );
-      summaryCardContent.add( summaryDescription );
-      card.add( summaryCardContent );
-      final HTML summaryProgress = new HTML( "<progress max='100' value='80'/>" );
-      summaryProgress.addStyleName( TextAlign.CENTER.getCssName() );
-      summaryCardContent.add( summaryProgress );
+  private BadgeHtmlComponents constructViewForBadge( final ScoutViewModel scout, final Badge badge )
+  {
+    final MaterialCard card = new MaterialCard();
 
-      final MaterialCardReveal reveal = new MaterialCardReveal();
-      reveal.addStyleName( _bundle.scoutmgr().badgeCardDetail() );
-      final MaterialCardTitle cardTitle = new MaterialCardTitle();
+    final MaterialCardContent summaryCardContent = new MaterialCardContent();
+    summaryCardContent.addStyleName( _bundle.scoutmgr().badgeCardSummary() );
+    final MaterialCardTitle summaryTitle = new MaterialCardTitle();
+    summaryTitle.setText( badge.getName() );
+    summaryTitle.setIconType( IconType.MORE_VERT );
+    summaryTitle.setIconPosition( IconPosition.RIGHT );
+    summaryCardContent.add( summaryTitle );
+    final HTML summaryDescription = new HTML( badge.getDescription().replaceAll( "\\n", "<br />" ) );
+    summaryDescription.addStyleName( _bundle.scoutmgr().badgeCardDescription() );
+    summaryCardContent.add( summaryDescription );
+    card.add( summaryCardContent );
+    final HTML summaryProgress = new HTML( "<progress max='100' value='80'/>" );
+    summaryProgress.addStyleName( TextAlign.CENTER.getCssName() );
+    summaryCardContent.add( summaryProgress );
 
-      cardTitle.setText( badge.getName() );
-      cardTitle.setIconType( IconType.CLOSE );
-      cardTitle.setIconPosition( IconPosition.RIGHT );
-      reveal.add( cardTitle );
-      final HTML description = new HTML( badge.getDescription().replaceAll( "\\n", "<br />" ) );
-      description.addStyleName( _bundle.scoutmgr().badgeCardDescription() );
-      reveal.add( description );
+    final MaterialCardReveal reveal = new MaterialCardReveal();
+    reveal.addStyleName( _bundle.scoutmgr().badgeCardDetail() );
+    final MaterialCardTitle cardTitle = new MaterialCardTitle();
 
-      final MaterialCollection badgeTaskCollection = new MaterialCollection();
-      final List<BadgeTask> badgeTasks = badge.getBadgeTasks();
-      int x = 1;
-      for ( final BadgeTask badgeTask : badgeTasks )
+    cardTitle.setText( badge.getName() );
+    cardTitle.setIconType( IconType.CLOSE );
+    cardTitle.setIconPosition( IconPosition.RIGHT );
+    reveal.add( cardTitle );
+    final HTML description = new HTML( badge.getDescription().replaceAll( "\\n", "<br />" ) );
+    description.addStyleName( _bundle.scoutmgr().badgeCardDescription() );
+    reveal.add( description );
+
+    final MaterialCollection badgeTaskCollection = new MaterialCollection();
+    final List<BadgeTask> badgeTasks = badge.getBadgeTasks();
+    int x = 1;
+    for ( final BadgeTask badgeTask : badgeTasks )
+    {
+      if ( badgeTask.getParent() != null )
       {
-        if ( badgeTask.getParent() != null )
-        {
-          continue;
-        }
-        final MaterialCollectionItem item = new MaterialCollectionItem();
-        item.addStyleName( _bundle.scoutmgr().badgeTaskGroup() );
-        final MaterialLabel taskGroupLabel = new MaterialLabel( "" + x + ":  " + badgeTask.getDescription() );
-        item.add( taskGroupLabel );
-        badgeTaskCollection.add( item );
+        continue;
+      }
+      final MaterialCollectionItem item = new MaterialCollectionItem();
+      item.addStyleName( _bundle.scoutmgr().badgeTaskGroup() );
+      final MaterialLabel taskGroupLabel = new MaterialLabel( "" + x + ":  " + badgeTask.getDescription() );
+      item.add( taskGroupLabel );
+      badgeTaskCollection.add( item );
 
-        if ( badgeTask.getBadgeTasks().isEmpty() )
+      if ( badgeTask.getBadgeTasks().isEmpty() )
+      {
+        final MaterialCollectionSecondary secondary = new MaterialCollectionSecondary();
+        final MaterialIcon icon = new MaterialIcon( IconType.VERIFIED_USER );
+        icon.setIconSize( IconSize.SMALL );
+        if ( null != scout.getCompletionRecord( badgeTask ) )
         {
+          icon.setIconColor( COMPLETE_ICON_COLOUR );
+        }
+        else
+        {
+          icon.setIconColor( INCOMPLETE_ICON_COLOUR );
+        }
+        secondary.add( icon );
+        item.add( secondary );
+      }
+      else
+      {
+        char y = 'a';
+        for ( final BadgeTask childTask : badgeTask.getBadgeTasks() )
+        {
+          final MaterialCollectionItem subItem = new MaterialCollectionItem();
+          subItem.addStyleName( _bundle.scoutmgr().badgeTask() );
+          final MaterialLabel child = new MaterialLabel( y + ":  " + childTask.getDescription() );
+          subItem.add( child );
+
           final MaterialCollectionSecondary secondary = new MaterialCollectionSecondary();
           final MaterialIcon icon = new MaterialIcon( IconType.VERIFIED_USER );
           icon.setIconSize( IconSize.SMALL );
-          if ( null != scout.getCompletionRecord( badgeTask ) )
+          if ( null != scout.getCompletionRecord( childTask ) )
           {
             icon.setIconColor( COMPLETE_ICON_COLOUR );
           }
@@ -152,51 +200,25 @@ public class BadgeworkView
             icon.setIconColor( INCOMPLETE_ICON_COLOUR );
           }
           secondary.add( icon );
-          item.add( secondary );
+          subItem.add( secondary );
+          badgeTaskCollection.add( subItem );
+          y++;
         }
-        else
-        {
-          char y = 'a';
-          for ( final BadgeTask childTask : badgeTask.getBadgeTasks() )
-          {
-            final MaterialCollectionItem subItem = new MaterialCollectionItem();
-            subItem.addStyleName( _bundle.scoutmgr().badgeTask() );
-            final MaterialLabel child = new MaterialLabel( y + ":  " + childTask.getDescription() );
-            subItem.add( child );
-
-            final MaterialCollectionSecondary secondary = new MaterialCollectionSecondary();
-            final MaterialIcon icon = new MaterialIcon( IconType.VERIFIED_USER );
-            icon.setIconSize( IconSize.SMALL );
-            if ( null != scout.getCompletionRecord( childTask ) )
-            {
-              icon.setIconColor( COMPLETE_ICON_COLOUR );
-            }
-            else
-            {
-              icon.setIconColor( INCOMPLETE_ICON_COLOUR );
-            }
-            secondary.add( icon );
-            subItem.add( secondary );
-            badgeTaskCollection.add( subItem );
-            y++;
-          }
-        }
-        x++;
       }
-      reveal.add( badgeTaskCollection );
-
-      card.add( reveal );
-
-      final MaterialCardAction actions = new MaterialCardAction();
-      final MaterialLink progressLink = new MaterialLink( "Record Progress" );
-      progressLink.setDataAttribute( "badge", String.valueOf( badge.getID() ) );
-      progressLink.addClickHandler( this );
-      actions.add( progressLink );
-      card.add( actions );
-      column.add( card );
-      row.add( column );
+      x++;
     }
-    return row;
+    reveal.add( badgeTaskCollection );
+
+    card.add( reveal );
+
+    final MaterialCardAction actions = new MaterialCardAction();
+    final MaterialLink progressLink = new MaterialLink( "Record Progress" );
+    progressLink.setDataAttribute( "badge", String.valueOf( badge.getID() ) );
+    progressLink.addClickHandler( this );
+    actions.add( progressLink );
+    card.add( actions );
+
+    return new BadgeHtmlComponents( card );
   }
 
   @Override
@@ -219,6 +241,21 @@ public class BadgeworkView
     if ( BadgeworkPresenter.POPUP_PROGRESS_PANEL_SLOT.equals( slot ) )
     {
       RootPanel.get().add( content );
+    }
+  }
+
+  private class BadgeHtmlComponents
+  {
+    private final MaterialCard _materialCard;
+
+    private BadgeHtmlComponents( final MaterialCard materialCard )
+    {
+      _materialCard = materialCard;
+    }
+
+    public MaterialCard getMaterialCard()
+    {
+      return _materialCard;
     }
   }
 }
