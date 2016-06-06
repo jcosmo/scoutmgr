@@ -40,6 +40,7 @@ import scoutmgr.client.entity.BadgeCategory;
 import scoutmgr.client.entity.BadgeTask;
 import scoutmgr.client.resource.ScoutmgrResourceBundle;
 import scoutmgr.client.view.model.ScoutViewModel;
+import scoutmgr.client.view.model.TaskCompletionViewModel;
 
 public class BadgeworkView
   extends ViewWithUiHandlers<BadgeworkUiHandlers>
@@ -53,6 +54,7 @@ public class BadgeworkView
   MaterialCollapsible _expandable;
 
   final private HashMap<Badge, BadgeHtmlComponents> _viewMap;
+  final private HashMap<Integer, Badge> _viewCompletionToBadgeMap;
 
   interface Binder
     extends UiBinder<Widget, BadgeworkView>
@@ -62,7 +64,8 @@ public class BadgeworkView
   @Inject
   BadgeworkView( final Binder uiBinder )
   {
-    _viewMap = new HashMap<>(  );
+    _viewMap = new HashMap<>();
+    _viewCompletionToBadgeMap = new HashMap<>(  );
     initWidget( uiBinder.createAndBindUi( this ) );
   }
 
@@ -70,6 +73,7 @@ public class BadgeworkView
   public void setBadgeworkProgress( final ArrayList<BadgeCategory> badgeCategories, final ScoutViewModel scout )
   {
     _viewMap.clear();
+    _viewCompletionToBadgeMap.clear();
     Collections.sort( badgeCategories, ( o1, o2 ) -> o1.getRank() - o2.getRank() );
     for ( final BadgeCategory badgeCategory : badgeCategories )
     {
@@ -82,8 +86,16 @@ public class BadgeworkView
   {
     // Rebuild the view for the Badge
     final Badge badge = task.getBadge();
+    final BadgeHtmlComponents badgeHtmlComponents = _viewMap.get( badge );
+    populateBadgeRevealContent( scout, badge, badgeHtmlComponents.getMaterialCollection() );
+  }
 
-
+  @Override
+  public void removeBadgeworkProgress( final Integer taskCompletionID, final ScoutViewModel scout )
+  {
+    final Badge badge = _viewCompletionToBadgeMap.get( taskCompletionID );
+    final BadgeHtmlComponents badgeHtmlComponents = _viewMap.get( badge );
+    populateBadgeRevealContent( scout, badge, badgeHtmlComponents.getMaterialCollection() );
   }
 
   private MaterialCollapsibleItem createBadgeCategoryView( final BadgeCategory badgeCategory,
@@ -146,8 +158,27 @@ public class BadgeworkView
     final HTML description = new HTML( badge.getDescription().replaceAll( "\\n", "<br />" ) );
     description.addStyleName( _bundle.scoutmgr().badgeCardDescription() );
     reveal.add( description );
-
     final MaterialCollection badgeTaskCollection = new MaterialCollection();
+    populateBadgeRevealContent( scout, badge, badgeTaskCollection );
+    reveal.add( badgeTaskCollection );
+
+    card.add( reveal );
+
+    final MaterialCardAction actions = new MaterialCardAction();
+    final MaterialLink progressLink = new MaterialLink( "Record Progress" );
+    progressLink.setDataAttribute( "badge", String.valueOf( badge.getID() ) );
+    progressLink.addClickHandler( this );
+    actions.add( progressLink );
+    card.add( actions );
+
+    return new BadgeHtmlComponents( card, badgeTaskCollection );
+  }
+
+  private void populateBadgeRevealContent( final ScoutViewModel scout,
+                                           final Badge badge,
+                                           final MaterialCollection badgeTaskCollection )
+  {
+    badgeTaskCollection.clear();
     final List<BadgeTask> badgeTasks = badge.getBadgeTasks();
     int x = 1;
     for ( final BadgeTask badgeTask : badgeTasks )
@@ -167,8 +198,10 @@ public class BadgeworkView
         final MaterialCollectionSecondary secondary = new MaterialCollectionSecondary();
         final MaterialIcon icon = new MaterialIcon( IconType.VERIFIED_USER );
         icon.setIconSize( IconSize.SMALL );
-        if ( null != scout.getCompletionRecord( badgeTask ) )
+        final TaskCompletionViewModel completionRecord = scout.getCompletionRecord( badgeTask );
+        if ( null != completionRecord )
         {
+          _viewCompletionToBadgeMap.put( completionRecord.getId(), badge );
           icon.setIconColor( COMPLETE_ICON_COLOUR );
         }
         else
@@ -191,8 +224,10 @@ public class BadgeworkView
           final MaterialCollectionSecondary secondary = new MaterialCollectionSecondary();
           final MaterialIcon icon = new MaterialIcon( IconType.VERIFIED_USER );
           icon.setIconSize( IconSize.SMALL );
-          if ( null != scout.getCompletionRecord( childTask ) )
+          final TaskCompletionViewModel completionRecord = scout.getCompletionRecord( childTask );
+          if ( null != completionRecord )
           {
+            _viewCompletionToBadgeMap.put( completionRecord.getId(), badge );
             icon.setIconColor( COMPLETE_ICON_COLOUR );
           }
           else
@@ -207,18 +242,6 @@ public class BadgeworkView
       }
       x++;
     }
-    reveal.add( badgeTaskCollection );
-
-    card.add( reveal );
-
-    final MaterialCardAction actions = new MaterialCardAction();
-    final MaterialLink progressLink = new MaterialLink( "Record Progress" );
-    progressLink.setDataAttribute( "badge", String.valueOf( badge.getID() ) );
-    progressLink.addClickHandler( this );
-    actions.add( progressLink );
-    card.add( actions );
-
-    return new BadgeHtmlComponents( card );
   }
 
   @Override
@@ -247,15 +270,22 @@ public class BadgeworkView
   private class BadgeHtmlComponents
   {
     private final MaterialCard _materialCard;
+    private final MaterialCollection _reveal;
 
-    private BadgeHtmlComponents( final MaterialCard materialCard )
+    private BadgeHtmlComponents( final MaterialCard materialCard, final MaterialCollection reveal )
     {
       _materialCard = materialCard;
+      _reveal = reveal;
     }
 
     public MaterialCard getMaterialCard()
     {
       return _materialCard;
+    }
+
+    public MaterialCollection getMaterialCollection()
+    {
+      return _reveal;
     }
   }
 }

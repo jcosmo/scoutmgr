@@ -4,7 +4,6 @@ import com.google.web.bindery.event.shared.EventBus;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.PresenterWidget;
 import java.util.ArrayList;
-import java.util.logging.Logger;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 import org.realityforge.replicant.client.EntityChangeBroker;
@@ -45,6 +44,8 @@ public class BadgeworkPresenter
 
     void updateBadgeworkProgress( final BadgeTask task, final ScoutViewModel scout );
 
+    void removeBadgeworkProgress( final Integer taskCompletionID, ScoutViewModel scoutViewModel );
+
     void reset();
   }
 
@@ -60,20 +61,20 @@ public class BadgeworkPresenter
       @Override
       public void relatedAdded( @Nonnull final EntityChangeEvent event )
       {
-        if ( event.getObject() instanceof TaskCompletion )
+        if ( event.getValue() instanceof TaskCompletion )
         {
-          final TaskCompletion completion = (TaskCompletion) event.getObject();
-          getView().updateBadgeworkProgress( completion.getBadgeTask(), new ScoutViewModel( _scout ) );
+          final TaskCompletion completion = (TaskCompletion) event.getValue();
+          getView().updateBadgeworkProgress( completion.getBadgeTask(), new ScoutViewModel( (Person) event.getObject() ) );
         }
       }
 
       @Override
       public void relatedRemoved( @Nonnull final EntityChangeEvent event )
       {
-        if ( event.getObject() instanceof TaskCompletion )
+        if ( event.getValue() instanceof TaskCompletion )
         {
-          final TaskCompletion completion = (TaskCompletion) event.getObject();
-          getView().updateBadgeworkProgress( completion.getBadgeTask(), new ScoutViewModel( _scout ) );
+          final TaskCompletion completion = (TaskCompletion) event.getValue();
+          getView().removeBadgeworkProgress( completion.getID(), new ScoutViewModel( (Person) event.getObject() ) );
         }
       }
     };

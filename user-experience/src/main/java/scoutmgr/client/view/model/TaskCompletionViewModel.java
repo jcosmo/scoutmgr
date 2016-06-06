@@ -11,10 +11,12 @@ public class TaskCompletionViewModel
 {
   private BadgeTask _badgeTask;
   private RDate _dateCompleted;
+  private Integer _id;
 
   public TaskCompletionViewModel( final TaskCompletion completion )
   {
     this( completion.getBadgeTask(), completion.getDateCompleted() );
+    _id = completion.getID();
   }
 
   public TaskCompletionViewModel( final BadgeTask badgeTask,
@@ -23,7 +25,9 @@ public class TaskCompletionViewModel
     super( null, "BadgeTask Completion " + badgeTask.getID() );
     _badgeTask = badgeTask;
     _dateCompleted = dateCompleted;
+    _id = null;
   }
+
 
   public boolean matches( final BadgeTask task )
   {
@@ -48,5 +52,10 @@ public class TaskCompletionViewModel
   public void setDateCompleted( final Date dateCompleted )
   {
     _dateCompleted = RDate.fromDate( dateCompleted );
+  }
+
+  public Integer getId()
+  {
+    return _id;
   }
 }
