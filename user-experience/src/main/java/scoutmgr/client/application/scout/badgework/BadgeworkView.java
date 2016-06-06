@@ -65,7 +65,7 @@ public class BadgeworkView
   BadgeworkView( final Binder uiBinder )
   {
     _viewMap = new HashMap<>();
-    _viewCompletionToBadgeMap = new HashMap<>(  );
+    _viewCompletionToBadgeMap = new HashMap<>();
     initWidget( uiBinder.createAndBindUi( this ) );
   }
 
@@ -84,10 +84,11 @@ public class BadgeworkView
   @Override
   public void updateBadgeworkProgress( final BadgeTask task, final ScoutViewModel scout )
   {
-    // Rebuild the view for the Badge
     final Badge badge = task.getBadge();
     final BadgeHtmlComponents badgeHtmlComponents = _viewMap.get( badge );
-    populateBadgeRevealContent( scout, badge, badgeHtmlComponents.getMaterialCollection() );
+    final int percentageComplete =
+      populateBadgeRevealContent( scout, badge, badgeHtmlComponents.getMaterialCollection() );
+    badgeHtmlComponents.getSummaryProgress().setHTML( constructProgress( percentageComplete ).getHTML() );
   }
 
   @Override
@@ -95,7 +96,9 @@ public class BadgeworkView
   {
     final Badge badge = _viewCompletionToBadgeMap.get( taskCompletionID );
     final BadgeHtmlComponents badgeHtmlComponents = _viewMap.get( badge );
-    populateBadgeRevealContent( scout, badge, badgeHtmlComponents.getMaterialCollection() );
+    final int percentageComplete =
+      populateBadgeRevealContent( scout, badge, badgeHtmlComponents.getMaterialCollection() );
+    badgeHtmlComponents.getSummaryProgress().setHTML( constructProgress( percentageComplete ).getHTML() );
   }
 
   private MaterialCollapsibleItem createBadgeCategoryView( final BadgeCategory badgeCategory,
@@ -143,9 +146,6 @@ public class BadgeworkView
     summaryDescription.addStyleName( _bundle.scoutmgr().badgeCardDescription() );
     summaryCardContent.add( summaryDescription );
     card.add( summaryCardContent );
-    final HTML summaryProgress = new HTML( "<progress max='100' value='80'/>" );
-    summaryProgress.addStyleName( TextAlign.CENTER.getCssName() );
-    summaryCardContent.add( summaryProgress );
 
     final MaterialCardReveal reveal = new MaterialCardReveal();
     reveal.addStyleName( _bundle.scoutmgr().badgeCardDetail() );
@@ -159,10 +159,14 @@ public class BadgeworkView
     description.addStyleName( _bundle.scoutmgr().badgeCardDescription() );
     reveal.add( description );
     final MaterialCollection badgeTaskCollection = new MaterialCollection();
-    populateBadgeRevealContent( scout, badge, badgeTaskCollection );
+    final int percentageComplete = populateBadgeRevealContent( scout, badge, badgeTaskCollection );
     reveal.add( badgeTaskCollection );
 
     card.add( reveal );
+
+    final HTML summaryProgress = constructProgress( percentageComplete );
+    summaryProgress.addStyleName( TextAlign.CENTER.getCssName() );
+    summaryCardContent.add( summaryProgress );
 
     final MaterialCardAction actions = new MaterialCardAction();
     final MaterialLink progressLink = new MaterialLink( "Record Progress" );
@@ -171,13 +175,22 @@ public class BadgeworkView
     actions.add( progressLink );
     card.add( actions );
 
-    return new BadgeHtmlComponents( card, badgeTaskCollection );
+    return new BadgeHtmlComponents( card, badgeTaskCollection, summaryProgress );
   }
 
-  private void populateBadgeRevealContent( final ScoutViewModel scout,
-                                           final Badge badge,
-                                           final MaterialCollection badgeTaskCollection )
+  private HTML constructProgress( final int percentageComplete )
   {
+    return new HTML( "<progress max='100' value='" + percentageComplete + "'/>" );
+  }
+
+  // Ugly - returns the % complete of the badge
+  private int populateBadgeRevealContent( final ScoutViewModel scout,
+                                          final Badge badge,
+                                          final MaterialCollection badgeTaskCollection )
+  {
+    int taskCount = 0;
+    int tasksComplete = 0;
+
     badgeTaskCollection.clear();
     final List<BadgeTask> badgeTasks = badge.getBadgeTasks();
     int x = 1;
@@ -195,6 +208,7 @@ public class BadgeworkView
 
       if ( badgeTask.getBadgeTasks().isEmpty() )
       {
+        taskCount++;
         final MaterialCollectionSecondary secondary = new MaterialCollectionSecondary();
         final MaterialIcon icon = new MaterialIcon( IconType.VERIFIED_USER );
         icon.setIconSize( IconSize.SMALL );
@@ -203,6 +217,7 @@ public class BadgeworkView
         {
           _viewCompletionToBadgeMap.put( completionRecord.getId(), badge );
           icon.setIconColor( COMPLETE_ICON_COLOUR );
+          tasksComplete++;
         }
         else
         {
@@ -216,6 +231,7 @@ public class BadgeworkView
         char y = 'a';
         for ( final BadgeTask childTask : badgeTask.getBadgeTasks() )
         {
+          taskCount++;
           final MaterialCollectionItem subItem = new MaterialCollectionItem();
           subItem.addStyleName( _bundle.scoutmgr().badgeTask() );
           final MaterialLabel child = new MaterialLabel( y + ":  " + childTask.getDescription() );
@@ -229,6 +245,7 @@ public class BadgeworkView
           {
             _viewCompletionToBadgeMap.put( completionRecord.getId(), badge );
             icon.setIconColor( COMPLETE_ICON_COLOUR );
+            tasksComplete++;
           }
           else
           {
@@ -242,6 +259,7 @@ public class BadgeworkView
       }
       x++;
     }
+    return (int) ( tasksComplete / (float) taskCount * 100.0 );
   }
 
   @Override
@@ -271,11 +289,15 @@ public class BadgeworkView
   {
     private final MaterialCard _materialCard;
     private final MaterialCollection _reveal;
+    private final HTML _summaryProgress;
 
-    private BadgeHtmlComponents( final MaterialCard materialCard, final MaterialCollection reveal )
+    private BadgeHtmlComponents( final MaterialCard materialCard,
+                                 final MaterialCollection reveal,
+                                 final HTML summaryProgress )
     {
       _materialCard = materialCard;
       _reveal = reveal;
+      _summaryProgress = summaryProgress;
     }
 
     public MaterialCard getMaterialCard()
@@ -286,6 +308,11 @@ public class BadgeworkView
     public MaterialCollection getMaterialCollection()
     {
       return _reveal;
+    }
+
+    public HTML getSummaryProgress()
+    {
+      return _summaryProgress;
     }
   }
 }
