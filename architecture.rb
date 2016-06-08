@@ -60,20 +60,28 @@ Domgen.repository(:Scoutmgr) do |repository|
       t.string(:UserName, 255)
       t.string(:Password, 255)
       t.string(:Salt, 255)
+      t.string(:Email, 255, :nullable => true)
       t.boolean(:Active)
+      #    opt link to scout
     end
 
-#    user
-#    opt link to scout
-#    email
-#    permission
-#      global view
-#      admin members and groups
-#      admin users, assign groups
-#      PL/sixer for group
-#      leader for section
+    data_module.entity(:Permission) do |t|
+      t.integer(:ID, :primary_key => true)
+      # Site admin can administer whole site
+      # GlobalView can view all members
+      # GroupAdmin can administer groups
+      # UserAdmin can administer users, assign to members
+      # MemberAdmin can administer members, assign to groups
+      # GroupLeader can view/signoff members of the group
+      # SectionLeader can view/signoff members of the section
+      t.s_enum(:Type, %w(SITE_ADMIN GLOBAL_VIEW GROUP_ADMIN USER_ADMIN MEMBER_ADMIN GROUP_LEADER SECTION_LEADER))
 
-#    audit history/activity stream
+      t.reference(:User)
+      t.reference(:PersonGroup, :nullable => true)
+      t.reference(:ScoutLevel, :nullable => true)
+    end
+
+# TODO   audit history/activity stream
 
 
     data_module.entity(:BadgeCategory) do |t|
