@@ -26,7 +26,7 @@ public class ScoutmgrFactory
 
   public Person createPerson( @Nonnull final String fname, @Nonnull final String lname )
   {
-    return createPerson( fname, lname, now(), randomString(), createScoutLevel( "Scout", 2 ) );
+    return createPerson( fname, lname, now(), randomString(), createScoutSection( "Scout", 2 ) );
   }
 
   public Date now()

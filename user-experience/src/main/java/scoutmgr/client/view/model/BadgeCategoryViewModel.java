@@ -1,13 +1,13 @@
 package scoutmgr.client.view.model;
 
-import scoutmgr.client.entity.ScoutLevel;
+import scoutmgr.client.entity.ScoutSection;
 
 public class BadgeCategoryViewModel
   extends AbstractViewModel
 {
   private String _name;
   private int _rank;
-  private ScoutLevel _level;
+  private ScoutSection _section;
   public BadgeCategoryViewModel( final String name, final Object object )
   {
     super(object, name );
@@ -33,13 +33,13 @@ public class BadgeCategoryViewModel
     _rank = rank;
   }
 
-  public ScoutLevel getLevel()
+  public ScoutSection getSection()
   {
-    return _level;
+    return _section;
   }
 
-  public void setLevel( final ScoutLevel level )
+  public void setSection( final ScoutSection section )
   {
-    _level = level;
+    _section = section;
   }
 }

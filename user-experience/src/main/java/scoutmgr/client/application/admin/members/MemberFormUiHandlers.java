@@ -6,5 +6,5 @@ import org.realityforge.gwt.datatypes.client.date.RDate;
 public interface MemberFormUiHandlers
   extends UiHandlers
 {
-  void saveMember( final String ScoutLevel, final String regNumber, String givenName, String familyName, final RDate dob );
+  void saveMember( final String scoutSection, final String regNumber, String givenName, String familyName, final RDate dob );
 }

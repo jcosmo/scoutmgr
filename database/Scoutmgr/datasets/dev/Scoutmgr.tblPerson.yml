@@ -4,32 +4,32 @@
   LastName: 'Cosmo'
   Dob: '1 Jan 1970'
   RegistrationNumber: '11111111'
-  ScoutLevelID: 3
+  ScoutSectionID: 3
 2:
   ID: -2
   FirstName: 'Mr'
   LastName: 'Smith'
   Dob: '1 Jan 1972'
   RegistrationNumber: '22222222'
-  ScoutLevelID: 3
+  ScoutSectionID: 3
 3:
   ID: -3
   FirstName: 'Mrs'
   LastName: 'Smith'
   Dob: '1 Jan 1973'
   RegistrationNumber: '33333333'
-  ScoutLevelID: 3
+  ScoutSectionID: 3
 4:
   ID: -4
   FirstName: 'Scout'
   LastName: 'One'
   Dob: '1 Jan 2002'
   RegistrationNumber: '12345678'
-  ScoutLevelID: 3
+  ScoutSectionID: 3
 5:
   ID: -5
   FirstName: 'Cub'
   LastName: 'One'
   Dob: '1 Jan 2006'
   RegistrationNumber: '12345678'
-  ScoutLevelID: 2
+  ScoutSectionID: 2

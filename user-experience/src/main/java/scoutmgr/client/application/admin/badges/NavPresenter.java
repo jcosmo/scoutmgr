@@ -11,7 +11,7 @@ import com.gwtplatform.mvp.shared.proxy.PlaceRequest;
 import java.util.ArrayList;
 import javax.annotation.Nonnull;
 import org.realityforge.replicant.client.EntityRepository;
-import scoutmgr.client.entity.ScoutLevel;
+import scoutmgr.client.entity.ScoutSection;
 import scoutmgr.client.event.MetadataLoadedEvent;
 import scoutmgr.client.place.NameTokens;
 
@@ -22,9 +22,9 @@ public class NavPresenter
   interface View
     extends com.gwtplatform.mvp.client.View, HasUiHandlers<NavUiHandlers>
   {
-    void setBadgeLevels( ArrayList<ScoutLevel> levels );
+    void setBadgeSections( ArrayList<ScoutSection> levels );
 
-    void setBadgeLevelActive( ScoutLevel level );
+    void setBadgeSectionActive( ScoutSection level );
   }
 
   @Inject
@@ -34,17 +34,17 @@ public class NavPresenter
   private EntityRepository _entityRepository;
 
   // Utilised if we return to this place without a selected level
-  private ScoutLevel _lastBadgeLevel;
+  private ScoutSection _lastBadgeSection;
   // Utilised to store a desired level before the metadata is loaded
-  private String _startupBadgeLevel;
+  private String _startupBadgeSection;
 
   @Inject
   NavPresenter( final EventBus eventBus,
                 final View view )
   {
     super( eventBus, view );
-    _lastBadgeLevel = null;
-    _startupBadgeLevel = null;
+    _lastBadgeSection = null;
+    _startupBadgeSection = null;
     getView().setUiHandlers( this );
 
     eventBus.addHandler( MetadataLoadedEvent.TYPE, new MetadataLoadedEvent.Handler()
@@ -53,10 +53,10 @@ public class NavPresenter
       public void onMetadataLoaded( @Nonnull final MetadataLoadedEvent event )
       {
         // Push data to UI, and handle any pending navigation request
-        getView().setBadgeLevels( _entityRepository.findAll( ScoutLevel.class ) );
-        if ( null != _startupBadgeLevel )
+        getView().setBadgeSections( _entityRepository.findAll( ScoutSection.class ) );
+        if ( null != _startupBadgeSection )
         {
-          navigateToBadgeLevel( _startupBadgeLevel );
+          navigateToBadgeSection( _startupBadgeSection );
         }
       }
     } );
@@ -67,7 +67,7 @@ public class NavPresenter
   {
     super.onBind();
     addRegisteredHandler( NavigationEvent.getType(), this );
-    getView().setBadgeLevels( _entityRepository.findAll( ScoutLevel.class ) );
+    getView().setBadgeSections( _entityRepository.findAll( ScoutSection.class ) );
   }
 
   @Override
@@ -78,36 +78,36 @@ public class NavPresenter
     if ( NameTokens.ADMIN_BADGES_LEVEL.equals( nameToken ) )
     {
       final String level = request.getParameter( "level", null );
-      _startupBadgeLevel = level;
-      navigateToBadgeLevel( level );
+      _startupBadgeSection = level;
+      navigateToBadgeSection( level );
     }
     else if ( NameTokens.ADMIN_BADGES.equals( nameToken ) )
     {
-      changeScoutLevel( _lastBadgeLevel );
+      changeScoutSection( _lastBadgeSection );
     }
   }
 
-  private void navigateToBadgeLevel( final String level )
+  private void navigateToBadgeSection( final String level )
   {
-    final ArrayList<ScoutLevel> scoutLevels = _entityRepository.findAll( ScoutLevel.class );
-    for ( final ScoutLevel scoutLevel : scoutLevels )
+    final ArrayList<ScoutSection> scoutSections = _entityRepository.findAll( ScoutSection.class );
+    for ( final ScoutSection scoutSection : scoutSections )
     {
-      if ( scoutLevel.getCode().equals( level ) )
+      if ( scoutSection.getCode().equals( level ) )
       {
-        _lastBadgeLevel = scoutLevel;
-        getView().setBadgeLevelActive( _lastBadgeLevel );
-        _startupBadgeLevel = null;
+        _lastBadgeSection = scoutSection;
+        getView().setBadgeSectionActive( _lastBadgeSection );
+        _startupBadgeSection = null;
         break;
       }
     }
   }
 
   @Override
-  public void changeScoutLevel( final ScoutLevel badgeScoutLevel )
+  public void changeScoutSection( final ScoutSection badgeScoutSection )
   {
-    _lastBadgeLevel = badgeScoutLevel;
+    _lastBadgeSection = badgeScoutSection;
     final PlaceRequest currentPlace = _placeManager.getCurrentPlaceRequest();
-    if ( null == badgeScoutLevel )
+    if ( null == badgeScoutSection )
     {
       if ( !currentPlace.getNameToken().equals( NameTokens.ADMIN_BADGES ) )
       {
@@ -117,7 +117,7 @@ public class NavPresenter
     else
     {
       final PlaceRequest newPlace = new PlaceRequest.Builder().nameToken( NameTokens.ADMIN_BADGES_LEVEL )
-        .with( "level", badgeScoutLevel.getCode() ).build();
+        .with( "level", badgeScoutSection.getCode() ).build();
       _placeManager.revealPlace( newPlace );
     }
   }

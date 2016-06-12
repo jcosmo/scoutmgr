@@ -87,7 +87,7 @@ public class MemberFormPresenter
     }
   }
 
-  public void saveMember( final String scoutLevel,
+  public void saveMember( final String scoutSection,
                           final String regNumber,
                           final String givenName,
                           final String familyName,
@@ -95,11 +95,11 @@ public class MemberFormPresenter
   {
     if ( null == _idForEdit )
     {
-      _personnelService.addScout( scoutLevel, givenName, familyName, dob, regNumber );
+      _personnelService.addScout( scoutSection, givenName, familyName, dob, regNumber );
     }
     else
     {
-      _personnelService.updateScout( _idForEdit.intValue(), scoutLevel, givenName, familyName, dob, regNumber );
+      _personnelService.updateScout( _idForEdit.intValue(), scoutSection, givenName, familyName, dob, regNumber );
     }
     final PlaceRequest newRequest = new PlaceRequest.Builder().nameToken( NameTokens.ADMIN_SCOUTS ).build();
     _placeManager.revealPlace( newRequest );

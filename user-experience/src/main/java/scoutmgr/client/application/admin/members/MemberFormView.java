@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import org.realityforge.gwt.datatypes.client.date.RDate;
 import org.realityforge.replicant.client.EntityRepository;
-import scoutmgr.client.entity.ScoutLevel;
+import scoutmgr.client.entity.ScoutSection;
 import scoutmgr.client.view.model.ScoutViewModel;
 
 @SuppressWarnings( "Convert2Lambda" )
@@ -37,7 +37,7 @@ public class MemberFormView
   @UiField
   TextBox _regNum;
   @UiField
-  ListBox _scoutLevel;
+  ListBox _scoutSection;
 
   @Inject
   EntityRepository _entityRepository;
@@ -58,30 +58,30 @@ public class MemberFormView
   @Override
   public void reset()
   {
-    setupScoutLevels();
+    setupScoutSections();
     _givenName.setValue( "" );
     _familyName.setValue( "" );
     _regNum.setValue( "" );
     _dob.setValue( RDate.toDate( new RDate( 2000, 1, 1 ) ) );
   }
 
-  private void setupScoutLevels()
+  private void setupScoutSections()
   {
-    final ArrayList<ScoutLevel> scoutLevels = _entityRepository.findAll( ScoutLevel.class );
+    final ArrayList<ScoutSection> scoutSections = _entityRepository.findAll( ScoutSection.class );
 
-    //Arrays.sort( scoutLevels, ScoutLevelComparator.BY_RANK );
-    _scoutLevel.clear();
-    for ( ScoutLevel scoutLevel : scoutLevels )
+    //Arrays.sort( scoutSections, ScoutSectionComparator.BY_RANK );
+    _scoutSection.clear();
+    for ( ScoutSection scoutSection : scoutSections )
     {
-      _scoutLevel.addItem( scoutLevel.getCode() );
+      _scoutSection.addItem( scoutSection.getCode() );
     }
   }
 
   @Override
   public void setMember( final ScoutViewModel member )
   {
-    setupScoutLevels();
-    _scoutLevel.setSelectedIndex( member.getScoutLevel().getRank() - 1 );
+    setupScoutSections();
+    _scoutSection.setSelectedIndex( member.getScoutSection().getRank() - 1 );
     _regNum.setValue( member.getRegistrationNumber() );
     _givenName.setValue( member.getFirstName() );
     _familyName.setValue( member.getLastName() );
@@ -93,7 +93,7 @@ public class MemberFormView
   {
     event.preventDefault();
     event.stopPropagation();
-    getUiHandlers().saveMember( _scoutLevel.getSelectedValue(), _regNum.getText(), _givenName.getText(),
+    getUiHandlers().saveMember( _scoutSection.getSelectedValue(), _regNum.getText(), _givenName.getText(),
                                 _familyName.getText(), RDate.fromDate( _dob.getValue() ) );
   }
 }

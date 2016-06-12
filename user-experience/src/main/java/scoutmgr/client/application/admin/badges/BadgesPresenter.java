@@ -8,15 +8,12 @@ import com.gwtplatform.mvp.client.Presenter;
 import com.gwtplatform.mvp.client.annotations.ContentSlot;
 import com.gwtplatform.mvp.client.annotations.NameToken;
 import com.gwtplatform.mvp.client.annotations.ProxyStandard;
-import com.gwtplatform.mvp.client.proxy.NavigationEvent;
-import com.gwtplatform.mvp.client.proxy.NavigationHandler;
 import com.gwtplatform.mvp.client.proxy.PlaceManager;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 import com.gwtplatform.mvp.client.proxy.RevealContentHandler;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.logging.Logger;
 import javax.annotation.Nonnull;
 import org.realityforge.replicant.client.EntityRepository;
 import scoutmgr.client.application.ApplicationPresenter;
@@ -62,7 +59,7 @@ public class BadgesPresenter
   private NavPresenter _navPresenter;
 
   @Inject
-  private BadgeLevelPresenter _badgeLevelPresenter;
+  private BadgeSectionPresenter _badgeLevelPresenter;
 
   @Inject
   BadgesPresenter( final EventBus eventBus,
@@ -117,7 +114,7 @@ public class BadgesPresenter
   private void populateBadgeCategoryViewModel( final BadgeCategory category, final BadgeCategoryViewModel viewModel )
   {
     viewModel.setName( category.getName() );
-    viewModel.setLevel( category.getScoutLevel() );
+    viewModel.setSection( category.getScoutSection() );
     viewModel.setRank( category.getRank() );
   }
 }

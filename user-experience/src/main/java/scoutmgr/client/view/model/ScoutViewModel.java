@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import org.realityforge.gwt.datatypes.client.date.RDate;
 import scoutmgr.client.entity.BadgeTask;
 import scoutmgr.client.entity.Person;
-import scoutmgr.client.entity.ScoutLevel;
+import scoutmgr.client.entity.ScoutSection;
 import scoutmgr.client.entity.TaskCompletion;
 
 public class ScoutViewModel
@@ -21,9 +21,9 @@ public class ScoutViewModel
     }
   }
 
-  public ScoutLevel getScoutLevel()
+  public ScoutSection getScoutSection()
   {
-    return ((Person)asModelObject()).getScoutLevel();
+    return ((Person)asModelObject()).getScoutSection();
   }
 
   public String getFirstName()

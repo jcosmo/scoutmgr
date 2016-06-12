@@ -18,7 +18,7 @@ Domgen.repository(:Scoutmgr) do |repository|
 
   repository.data_module(:Scoutmgr) do |data_module|
 
-    data_module.entity(:ScoutLevel) do |t|
+    data_module.entity(:ScoutSection) do |t|
       t.integer(:ID, :primary_key => true)
       t.string(:Code, 255)
       t.integer(:Rank)
@@ -33,7 +33,7 @@ Domgen.repository(:Scoutmgr) do |repository|
       t.string(:LastName, 255)
       t.date(:Dob)
       t.string(:RegistrationNumber, 20)
-      t.reference(:ScoutLevel)
+      t.reference(:ScoutSection)
 
       t.unique_constraint([:FirstName, :LastName, :Dob])
       t.imit.replicate(:Person, :instance)
@@ -78,7 +78,7 @@ Domgen.repository(:Scoutmgr) do |repository|
 
       t.reference(:User)
       t.reference(:PersonGroup, :nullable => true)
-      t.reference(:ScoutLevel, :nullable => true)
+      t.reference(:ScoutSection, :nullable => true)
     end
 
 # TODO   audit history/activity stream
@@ -86,11 +86,11 @@ Domgen.repository(:Scoutmgr) do |repository|
 
     data_module.entity(:BadgeCategory) do |t|
       t.integer(:ID, :primary_key => true)
-      t.reference(:ScoutLevel)
+      t.reference(:ScoutSection)
       t.string(:Name, 255)
       t.integer(:Rank)
 
-      t.unique_constraint([:ScoutLevel, :Name])
+      t.unique_constraint([:ScoutSection, :Name])
 
       t.imit.replicate(:Metadata, :type)
     end
@@ -127,7 +127,7 @@ Domgen.repository(:Scoutmgr) do |repository|
 
     data_module.struct(:PersonDTO) do |s|
       s.integer(:ID)
-      s.text(:ScoutLevel)
+      s.text(:ScoutSection)
       s.text(:FirstName)
       s.text(:LastName)
       s.date(:Dob)
@@ -145,7 +145,7 @@ Domgen.repository(:Scoutmgr) do |repository|
       end
 
       s.method(:AddScout) do |m|
-        m.string :ScoutLevel, 255
+        m.string :ScoutSection, 255
         m.string :FirstName, 255
         m.string :LastName, 255
         m.date :Dob
@@ -154,7 +154,7 @@ Domgen.repository(:Scoutmgr) do |repository|
 
       s.method(:UpdateScout) do |m|
         m.integer(:IdForUpdate)
-        m.string :ScoutLevel, 255
+        m.string :ScoutSection, 255
         m.string :FirstName, 255
         m.string :LastName, 255
         m.date :Dob

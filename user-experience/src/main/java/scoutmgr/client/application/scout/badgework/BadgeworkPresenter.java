@@ -40,7 +40,7 @@ public class BadgeworkPresenter
   interface View
     extends com.gwtplatform.mvp.client.View, HasUiHandlers<BadgeworkUiHandlers>
   {
-    void setBadgeworkProgress( final ArrayList<BadgeCategory> scoutLevel, final ScoutViewModel scout );
+    void setBadgeworkProgress( final ArrayList<BadgeCategory> scoutSection, final ScoutViewModel scout );
 
     void updateBadgeworkProgress( final BadgeTask task, final ScoutViewModel scout );
 
@@ -95,7 +95,7 @@ public class BadgeworkPresenter
     final ArrayList<BadgeCategory> badgeCategories = new ArrayList<>();
     for ( final BadgeCategory category : allBadgeCategories )
     {
-      if ( category.getScoutLevel().equals( _scout.getScoutLevel() ) )
+      if ( category.getScoutSection().equals( _scout.getScoutSection() ) )
       {
         badgeCategories.add( category );
       }
