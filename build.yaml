@@ -1,10 +1,11 @@
 repositories:
   remote:
-   - https://raw.githubusercontent.com/stocksoftware/public-repo/master
+   - https://stocksoftware.artifactoryonline.com/stocksoftware/public
+   - https://stocksoftware.artifactoryonline.com/stocksoftware/oss
    - http://repo1.maven.org/maven2
 
 artifacts:
-  idea_codestyle: au.com.stocksoftware.idea.codestyle:idea-codestyle:xml:1.0
+  idea_codestyle: au.com.stocksoftware.idea.codestyle:idea-codestyle:xml:1.3
   checkstyle_rules: au.com.stocksoftware.checkstyle:checkstyle:xml:1.2
   pmd_rules: au.com.stocksoftware.pmd:pmd:xml:1.2
   javax_javaee: javax:javaee-api:jar:7.0
