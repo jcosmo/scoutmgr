@@ -1,12 +1,12 @@
 package scoutmgr.client.application.events;
 
-import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
 import com.gwtplatform.mvp.client.annotations.NameToken;
 import com.gwtplatform.mvp.client.annotations.ProxyStandard;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
+import javax.inject.Inject;
 import scoutmgr.client.application.ApplicationPresenter;
 import scoutmgr.client.place.NameTokens;
 

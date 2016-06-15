@@ -1,21 +1,14 @@
 package scoutmgr.client.application.scout;
 
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.MouseOverEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.SimplePanel;
-import com.google.gwt.user.client.ui.TabLayoutPanel;
 import com.google.gwt.user.client.ui.Widget;
-import com.google.inject.Inject;
 import com.gwtplatform.mvp.client.ViewWithUiHandlers;
-import gwt.material.design.client.ui.MaterialButton;
 import gwt.material.design.client.ui.MaterialTab;
-import gwt.material.design.client.ui.MaterialToast;
-import java.util.logging.Logger;
+import javax.inject.Inject;
 import scoutmgr.client.view.model.ScoutViewModel;
 
 public class ScoutView

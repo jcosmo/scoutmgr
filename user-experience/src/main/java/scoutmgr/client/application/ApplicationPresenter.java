@@ -1,7 +1,6 @@
 package scoutmgr.client.application;
 
 import com.google.gwt.event.shared.GwtEvent.Type;
-import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gwtplatform.mvp.client.Presenter;
 import com.gwtplatform.mvp.client.annotations.ContentSlot;
@@ -9,6 +8,7 @@ import com.gwtplatform.mvp.client.annotations.ProxyEvent;
 import com.gwtplatform.mvp.client.annotations.ProxyStandard;
 import com.gwtplatform.mvp.client.proxy.LockInteractionEvent;
 import com.gwtplatform.mvp.client.proxy.RevealContentHandler;
+import javax.inject.Inject;
 import scoutmgr.client.application.footer.FooterPresenter;
 import scoutmgr.client.application.navbar.NavbarPresenter;
 

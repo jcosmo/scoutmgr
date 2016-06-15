@@ -2,8 +2,8 @@ package scoutmgr.client.application.footer;
 
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.user.client.ui.Widget;
-import com.google.inject.Inject;
 import com.gwtplatform.mvp.client.ViewImpl;
+import javax.inject.Inject;
 
 public class FooterView
   extends ViewImpl

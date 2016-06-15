@@ -1,14 +1,11 @@
 package scoutmgr.client.application.scout.badgework;
 
 import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Widget;
-import com.google.inject.Inject;
-import com.gwtplatform.mvp.client.ViewImpl;
 import com.gwtplatform.mvp.client.ViewWithUiHandlers;
 import gwt.material.design.client.constants.CheckBoxType;
 import gwt.material.design.client.ui.MaterialButton;
@@ -21,6 +18,7 @@ import gwt.material.design.client.ui.MaterialModalContent;
 import gwt.material.design.client.ui.MaterialRow;
 import java.util.Date;
 import java.util.HashMap;
+import javax.inject.Inject;
 import org.realityforge.gwt.datatypes.client.date.RDate;
 import scoutmgr.client.entity.Badge;
 import scoutmgr.client.entity.BadgeTask;

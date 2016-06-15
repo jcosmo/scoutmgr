@@ -18,12 +18,11 @@ import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.ListDataProvider;
 import com.google.gwt.view.client.NoSelectionModel;
-import com.google.inject.Inject;
 import com.gwtplatform.mvp.client.ViewWithUiHandlers;
 import gwt.material.design.client.ui.MaterialAnchorButton;
 import java.util.Collection;
 import java.util.Comparator;
-import scoutmgr.client.entity.Person;
+import javax.inject.Inject;
 import scoutmgr.client.resource.ScoutmgrResourceBundle;
 import scoutmgr.client.view.RDateUtil;
 import scoutmgr.client.view.cell.ActionCell;
@@ -221,20 +220,20 @@ public class MembersView
   public void onView( final ScoutViewModel viewModel )
   {
     // IMPORTANT: DO NOT REMOVE THE FOLLOWING CAST, OR GWT WILL NOT COMPILE
-    getUiHandlers().viewScout( (Person) viewModel.asModelObject() );
+    getUiHandlers().viewScout( viewModel.asModelObject() );
   }
 
   @Override
   public void onEdit( final ScoutViewModel viewModel )
   {
     // IMPORTANT: DO NOT REMOVE THE FOLLOWING CAST, OR GWT WILL NOT COMPILE
-    getUiHandlers().editScout( (Person) viewModel.asModelObject() );
+    getUiHandlers().editScout( viewModel.asModelObject() );
   }
 
   @Override
   public void onDelete( final ScoutViewModel viewModel )
   {
     // IMPORTANT: DO NOT REMOVE THE FOLLOWING CAST, OR GWT WILL NOT COMPILE
-    getUiHandlers().requestDeleteScout( (Person) viewModel.asModelObject() );
+    getUiHandlers().requestDeleteScout( viewModel.asModelObject() );
   }
 }

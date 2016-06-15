@@ -2,7 +2,6 @@ package scoutmgr.client.application.admin.members;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
@@ -14,6 +13,7 @@ import com.gwtplatform.mvp.shared.proxy.PlaceRequest;
 import java.util.Collection;
 import java.util.HashMap;
 import javax.annotation.Nonnull;
+import javax.inject.Inject;
 import org.realityforge.replicant.client.EntityChangeBroker;
 import org.realityforge.replicant.client.EntityChangeEvent;
 import org.realityforge.replicant.client.EntityChangeListener;

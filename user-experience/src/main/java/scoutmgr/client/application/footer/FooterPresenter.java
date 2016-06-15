@@ -1,8 +1,8 @@
 package scoutmgr.client.application.footer;
 
-import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gwtplatform.mvp.client.PresenterWidget;
+import javax.inject.Inject;
 
 public class FooterPresenter
   extends PresenterWidget<FooterPresenter.View>

@@ -1,6 +1,5 @@
 package scoutmgr.client.application.admin.badges;
 
-import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.PresenterWidget;
@@ -8,6 +7,7 @@ import com.gwtplatform.mvp.client.proxy.NavigationEvent;
 import com.gwtplatform.mvp.client.proxy.NavigationHandler;
 import com.gwtplatform.mvp.client.proxy.PlaceManager;
 import java.util.ArrayList;
+import javax.inject.Inject;
 import org.realityforge.replicant.client.EntityRepository;
 import scoutmgr.client.entity.ScoutSection;
 import scoutmgr.client.place.NameTokens;
