@@ -55,32 +55,6 @@ Domgen.repository(:Scoutmgr) do |repository|
       t.reference(:PersonGroupMembership)
     end
 
-    data_module.entity(:User) do |t|
-      t.integer(:ID, :primary_key => true)
-      t.string(:UserName, 255)
-      t.string(:Password, 255)
-      t.string(:Salt, 255)
-      t.string(:Email, 255, :nullable => true)
-      t.boolean(:Active)
-      #    opt link to scout
-    end
-
-    data_module.entity(:Permission) do |t|
-      t.integer(:ID, :primary_key => true)
-      # Site admin can administer whole site
-      # GlobalView can view all members
-      # GroupAdmin can administer groups
-      # UserAdmin can administer users, assign to members
-      # MemberAdmin can administer members, assign to groups
-      # GroupLeader can view/signoff members of the group
-      # SectionLeader can view/signoff members of the section
-      t.s_enum(:Type, %w(SITE_ADMIN GLOBAL_VIEW GROUP_ADMIN USER_ADMIN MEMBER_ADMIN GROUP_LEADER SECTION_LEADER))
-
-      t.reference(:User)
-      t.reference(:PersonGroup, :nullable => true)
-      t.reference(:ScoutSection, :nullable => true)
-    end
-
 # TODO   audit history/activity stream
 
 
@@ -173,5 +147,67 @@ Domgen.repository(:Scoutmgr) do |repository|
     end
 
     data_module.message(:MetadataLoaded)
+  end
+
+  repository.data_module(:Security) do |data_module|
+    data_module.entity(:User) do |t|
+      t.integer(:ID, :primary_key => true)
+      t.string(:UserName, 255)
+      t.string(:Password, 255)
+      t.string(:Salt, 255)
+      t.string(:Email, 255, :nullable => true)
+      t.boolean(:Active)
+      #    opt link to scout
+    end
+
+    data_module.entity(:Permission) do |t|
+      t.integer(:ID, :primary_key => true)
+      # Site admin can administer whole site
+      # GlobalView can view all members
+      # GroupAdmin can administer groups
+      # UserAdmin can administer users, assign to members
+      # MemberAdmin can administer members, assign to groups
+      # GroupLeader can view/signoff members of the group
+      # SectionLeader can view/signoff members of the section
+      t.s_enum(:Type, %w(SITE_ADMIN GLOBAL_VIEW GROUP_ADMIN USER_ADMIN MEMBER_ADMIN GROUP_LEADER SECTION_LEADER))
+
+      t.reference(:User)
+      t.reference('Scoutmgr.PersonGroup', :nullable => true)
+      t.reference('Scoutmgr.ScoutSection', :nullable => true)
+    end
+
+    data_module.struct(:TokenDTO) do |s|
+      s.integer(:UserID)
+      s.text(:Token)
+    end
+
+    data_module.service(:AuthenticationService) do |s|
+      # NOTE: Any methods added to this class are not protected by security mechanisms
+      # Thus you should disable the gwt facet if you do not want them available across
+      # the web
+      s.method(:Logout) do |m|
+        m.text(:Token)
+      end
+
+      s.method(:ReAuthenticate) do |m|
+        m.text(:Token)
+        m.returns(:integer, :nullable => true) do |a|
+          a.description('Return the ID of resource authenticated')
+        end
+      end
+
+      s.method(:Authenticate) do |m|
+        m.parameter(:Servlet, 'javax.servlet.http.HttpServletRequest', 'gwt_rpc.environment_key' => 'request')
+        m.text(:Username)
+        m.text(:Password)
+        m.returns(:struct, :referenced_struct => :TokenDTO, :nullable => true)
+      end
+    end
+  end
+
+  repository.data_modules.each do |data_module|
+    data_module.services.each do |service|
+      service.disable_facet(:jaxrs) if service.jaxrs?
+    end
   end
 end

@@ -115,7 +115,7 @@ define 'scoutmgr' do
   end
 
   define 'server' do
-    Domgen::Build.define_generate_task([:ee_exceptions, :ee_messages, :imit_server_qa, :ejb_service_facades, :ejb_test_qa, :ejb_test_qa_aggregate, :ejb_test_service_test, :jws_server, :ejb_glassfish_config_assets, :gwt_rpc_shared, :gwt_rpc_server, :imit_shared, :imit_server_service, :imit_server_entity_replication, :jpa_dao_test, :jpa_test_qa_aggregate, :jws_wsdl_assets])
+    Domgen::Build.define_generate_task([:ee_exceptions, :ee_messages, :imit_server_qa, :ejb_service_facades, :ejb_test_qa, :ejb_test_qa_aggregate, :ejb_test_service_test, :ejb_glassfish_config_assets, :gwt_rpc_shared, :gwt_rpc_server, :imit_shared, :imit_server_service, :imit_server_entity_replication, :jpa_dao_test, :jpa_test_qa_aggregate])
 
     compile.with project('model').package(:jar),
                  project('model').compile.dependencies,
