@@ -12,10 +12,10 @@ public class PersonRepositoryImplTest
   public void findAllWhereNameLike()
     throws Exception
   {
-    s.createPerson( "Bilbo", "Baggins" );
-    s.createPerson( "Gorgon", "Slater" );
-    s.createPerson( "Albert", "Greg" );
-    s.createPerson();
+    sc.createPerson( "Bilbo", "Baggins" );
+    sc.createPerson( "Gorgon", "Slater" );
+    sc.createPerson( "Albert", "Greg" );
+    sc.createPerson();
 
     final List<Person> persons = dao().findAllWhereNameLike( "G%" );
     assertEquals( persons.size(), 2 );

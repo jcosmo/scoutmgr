@@ -12,7 +12,7 @@ public class PersonnelServiceEJBTest
   @Test
   public void getPeople()
   {
-    final Person person = s.createPerson( "Bob", "Brown" );
+    final Person person = sc.createPerson( "Bob", "Brown" );
     final List<PersonDTO> people = service().getPeople();
     assertEquals( people.size(), 1 );
     final PersonDTO personDTO = people.get( 0 );

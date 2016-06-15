@@ -25,7 +25,7 @@ public class ScoutmgrJpaEncoderTest
   {
     getInjector().injectMembers( this );
 
-    final Person bilbo = s.createPerson( "bilbo", "baggins" );
+    final Person bilbo = sc.createPerson( "bilbo", "baggins" );
     final Map<String, Serializable> simpleEncodeResult = ScoutmgrJpaEncoder.encodePerson( bilbo );
     assertEquals( simpleEncodeResult.get( "FirstName" ), "bilbo" );
     assertEquals( simpleEncodeResult.get( "LastName" ), "baggins" );
