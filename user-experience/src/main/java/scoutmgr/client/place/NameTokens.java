@@ -2,6 +2,7 @@ package scoutmgr.client.place;
 
 public class NameTokens
 {
+  public static final String LOGIN = "/login";
   public static final String CRASH = "/error";
   public static final String EVENTS = "/events";
 

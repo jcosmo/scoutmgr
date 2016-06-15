@@ -18,6 +18,7 @@ import scoutmgr.client.application.crash.CrashModule;
 import scoutmgr.client.application.dialog.DialogModule;
 import scoutmgr.client.application.events.EventsModule;
 import scoutmgr.client.application.footer.FooterModule;
+import scoutmgr.client.application.login.LoginModule;
 import scoutmgr.client.application.navbar.NavbarModule;
 import scoutmgr.client.application.scout.ScoutModule;
 import scoutmgr.client.place.NameTokens;
@@ -48,11 +49,12 @@ public class ScoutmgrModule
     install( new DialogModule() );
     install( new CrashModule() );
     install( new AdminModule() );
+    install( new LoginModule() );
     install( new ScoutModule() );
 
     bindConstant().annotatedWith( DefaultPlace.class ).to( NameTokens.ADMIN_SCOUTS );
     bindConstant().annotatedWith( ErrorPlace.class ).to( NameTokens.CRASH );
-    bindConstant().annotatedWith( UnauthorizedPlace.class ).to( NameTokens.CRASH );
+    bindConstant().annotatedWith( UnauthorizedPlace.class ).to( NameTokens.LOGIN );
 
     bind( ResourceLoader.class ).asEagerSingleton();
   }

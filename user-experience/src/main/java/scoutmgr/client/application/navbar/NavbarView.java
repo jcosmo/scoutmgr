@@ -1,11 +1,14 @@
 package scoutmgr.client.application.navbar;
 
+import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Widget;
 import com.gwtplatform.mvp.client.ViewImpl;
 import gwt.material.design.client.ui.MaterialLink;
 import javax.inject.Inject;
+import scoutmgr.client.ioc.FrontendContext;
 import scoutmgr.client.place.NameTokens;
 import scoutmgr.client.resource.ScoutmgrResourceBundle;
 
@@ -21,6 +24,11 @@ public class NavbarView
   MaterialLink _adminBadgesLink;
   @UiField
   MaterialLink _adminEventsLink;
+  @UiField
+  MaterialLink _logoutLink;
+
+  @Inject
+  FrontendContext _frontendContext;
 
   private MaterialLink _currentLink;
 
@@ -77,5 +85,11 @@ public class NavbarView
 
       _currentLink = newLink;
     }
+  }
+
+  @UiHandler ("_logoutLink")
+  public void onLogout( final ClickEvent e )
+  {
+    _frontendContext.logout();
   }
 }

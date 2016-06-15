@@ -13,7 +13,7 @@
             <m:MaterialLink iconType="ACCOUNT_CIRCLE" iconColor="black" iconPosition="NONE"/>
           </m:MaterialTooltip>
           <m:MaterialTooltip text="Logout" position="BOTTOM">
-            <m:MaterialLink iconType="CANCEL" iconColor="black" iconPosition="NONE"/>
+            <m:MaterialLink  ui:field="_logoutLink" iconType="CANCEL" iconColor="black" iconPosition="NONE"/>
           </m:MaterialTooltip>
         </m:MaterialNavSection>
       </m:MaterialNavBar>
