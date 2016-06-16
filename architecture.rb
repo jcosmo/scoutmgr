@@ -150,11 +150,22 @@ Domgen.repository(:Scoutmgr) do |repository|
     data_module.entity(:User) do |t|
       t.integer(:ID, :primary_key => true)
       t.string(:UserName, 255)
-      t.string(:Password, 255)
-      t.string(:Salt, 255)
       t.string(:Email, 255, :nullable => true)
       t.boolean(:Active)
-      #    opt link to scout
+
+      t.query(:FindByUserName)
+    end
+
+    data_module.entity(:Credential) do |t|
+      t.integer(:ID, :primary_key => true)
+      t.string(:UserName, 50)
+      t.reference(:User,
+                  :immutable => true,
+                  'inverse.traversable' => true,
+                  'inverse.multiplicity' => :zero_or_one,
+                  'inverse.imit.exclude_edges' => [:User])
+      t.string(:Password, 128)
+      t.string(:Salt, 128)
     end
 
     data_module.entity(:Permission) do |t|
@@ -171,6 +182,22 @@ Domgen.repository(:Scoutmgr) do |repository|
       t.reference(:User)
       t.reference('Scoutmgr.PersonGroup', :nullable => true)
       t.reference('Scoutmgr.ScoutSection', :nullable => true)
+    end
+
+    data_module.entity(:Session) do |t|
+      t.integer(:ID, :primary_key => true)
+      t.reference(:User, :immutable => true)
+      t.datetime(:CreatedAt, :immutable => true)
+      t.datetime(:UpdatedAt)
+      t.string(:Token, 50, :immutable => true)
+
+      t.query(:FindByUser)
+      t.query(:FindByUserName)
+      t.query(:FindByToken)
+
+      t.query(:DeleteIdleSessions, 'jpa.jpql' => 'O.updatedAt < :UpdatedAt')
+
+      t.sql.index([:UpdatedAt])
     end
 
     data_module.struct(:TokenDTO) do |s|
