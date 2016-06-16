@@ -1,7 +1,6 @@
 Domgen.repository(:Scoutmgr) do |repository|
   repository.enable_facet(:jpa)
   repository.enable_facet(:ejb)
-  repository.enable_facet(:jws)
   repository.enable_facet(:pgsql)
   repository.enable_facet(:imit)
 
@@ -9,8 +8,6 @@ Domgen.repository(:Scoutmgr) do |repository|
 
   repository.jpa.base_entity_test_name = repository.jpa.abstract_entity_test_name
   repository.ejb.base_service_test_name = repository.ejb.abstract_service_test_name
-
-  repository.xml.base_namespace = 'http://tharsis-gate.org'
 
   repository.imit.graph(:Metadata)
   repository.imit.graph(:Person)
