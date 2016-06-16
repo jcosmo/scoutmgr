@@ -8,11 +8,9 @@ import scoutmgr.client.event.MetadataLoadedEvent;
 import scoutmgr.client.net.ScoutmgrDataLoaderService;
 
 public class FrontendContextImpl
-  implements  FrontendContext
+  implements FrontendContext
 {
   final static Logger LOG = Logger.getLogger( FrontendContextImpl.class.getName() );
-
-  boolean _loggedIn;
 
   @Inject
   EventBus _eventBus;
@@ -22,6 +20,9 @@ public class FrontendContextImpl
 
   @Inject
   ScoutmgrDataLoaderService _dataloader;
+
+  @Inject
+  LoginManager _loginManager;
 
   @Override
   public void initialArrival()
@@ -46,22 +47,39 @@ public class FrontendContextImpl
   }
 
   @Override
-  public void login()
+  public void login( final String username, final String password )
   {
-    _loggedIn = true;
-    _placeManager.revealCurrentPlace();
+    _loginManager.login( username,
+                         password,
+                         new Runnable()
+                         {
+                           @Override
+                           public void run()
+                           {
+                             _placeManager.revealCurrentPlace();
+                           }
+                         },
+                         null,
+                         null );
   }
 
   @Override
   public void logout()
   {
-    _loggedIn = false;
-    _placeManager.revealCurrentPlace();
+    _loginManager.completeLogout( new Runnable()
+    {
+      @Override
+      public void run()
+      {
+        _placeManager.revealCurrentPlace();
+      }
+    }
+    );
   }
 
   public boolean isLoggedIn()
   {
-    return _loggedIn;
+    return _loginManager.isLoggedOn();
   }
 }
 

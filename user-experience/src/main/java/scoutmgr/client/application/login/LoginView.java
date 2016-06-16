@@ -5,20 +5,24 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.PasswordTextBox;
+import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
-import com.gwtplatform.mvp.client.proxy.PlaceManager;
-import java.util.logging.Logger;
+import gwt.material.design.client.ui.MaterialButton;
+import gwt.material.design.client.ui.MaterialTextBox;
 import javax.inject.Inject;
 import com.gwtplatform.mvp.client.ViewWithUiHandlers;
-import scoutmgr.client.application.events.EventsUiHandlers;
-import scoutmgr.client.ioc.FrontendContext;
 
 public class LoginView
   extends ViewWithUiHandlers<LoginUiHandlers>
   implements LoginPresenter.View
 {
   @UiField
-  Button _login;
+  MaterialButton _signInButton;
+  @UiField
+  MaterialTextBox _password;
+  @UiField
+  MaterialTextBox _username;
 
   interface Binder
     extends UiBinder<Widget, LoginView>
@@ -31,9 +35,9 @@ public class LoginView
     initWidget( uiBinder.createAndBindUi( this ) );
   }
 
-  @UiHandler( "_login" )
+  @UiHandler( "_signInButton" )
   public void onLogin( final ClickEvent e )
   {
-    getUiHandlers().onLogin();
+    getUiHandlers().onLogin( _username.getValue(), _password.getValue() );
   }
 }

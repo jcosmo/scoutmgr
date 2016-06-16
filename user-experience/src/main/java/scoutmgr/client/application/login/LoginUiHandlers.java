@@ -7,5 +7,5 @@ public interface LoginUiHandlers
   extends UiHandlers
 
 {
-  void onLogin();
+  void onLogin( final String username, final String password );
 }
