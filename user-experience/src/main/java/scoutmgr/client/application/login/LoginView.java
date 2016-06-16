@@ -14,14 +14,11 @@ import scoutmgr.client.application.events.EventsUiHandlers;
 import scoutmgr.client.ioc.FrontendContext;
 
 public class LoginView
-  extends ViewWithUiHandlers<EventsUiHandlers>
+  extends ViewWithUiHandlers<LoginUiHandlers>
   implements LoginPresenter.View
 {
   @UiField
   Button _login;
-
-  @Inject
-  FrontendContext _frontendContext;
 
   interface Binder
     extends UiBinder<Widget, LoginView>
@@ -34,11 +31,9 @@ public class LoginView
     initWidget( uiBinder.createAndBindUi( this ) );
   }
 
-  private static final Logger LOG = Logger.getLogger( LoginView.class.getName() );
-
   @UiHandler( "_login" )
   public void onLogin( final ClickEvent e )
   {
-    _frontendContext.login();
+    getUiHandlers().onLogin();
   }
 }
