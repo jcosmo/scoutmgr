@@ -30,6 +30,9 @@ public class LoginPresenter
   interface View
     extends com.gwtplatform.mvp.client.View, HasUiHandlers<LoginUiHandlers>
   {
+    void onFailedLogin();
+
+    void onSuccessfulLogin();
   }
 
   @Inject
@@ -43,6 +46,8 @@ public class LoginPresenter
 
   public void onLogin( final String username, final String password )
   {
-    _frontendContext.login( username, password );
+    _frontendContext.login( username, password,
+                            () -> getView().onSuccessfulLogin(),
+                            () -> getView().onFailedLogin() );
   }
 }

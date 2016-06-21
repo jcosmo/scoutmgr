@@ -4,14 +4,13 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
-import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.PasswordTextBox;
-import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
-import gwt.material.design.client.ui.MaterialButton;
-import gwt.material.design.client.ui.MaterialTextBox;
-import javax.inject.Inject;
 import com.gwtplatform.mvp.client.ViewWithUiHandlers;
+import gwt.material.design.client.ui.MaterialButton;
+import gwt.material.design.client.ui.MaterialLoader;
+import gwt.material.design.client.ui.MaterialTextBox;
+import gwt.material.design.client.ui.MaterialToast;
+import javax.inject.Inject;
 
 public class LoginView
   extends ViewWithUiHandlers<LoginUiHandlers>
@@ -38,6 +37,20 @@ public class LoginView
   @UiHandler( "_signInButton" )
   public void onLogin( final ClickEvent e )
   {
+    MaterialLoader.showLoading( true );
     getUiHandlers().onLogin( _username.getValue(), _password.getValue() );
+  }
+
+  @Override
+  public void onFailedLogin()
+  {
+    MaterialLoader.showLoading( false );
+    MaterialToast.fireToast( "Login failed, please try again" );
+  }
+
+  @Override
+  public void onSuccessfulLogin()
+  {
+    MaterialLoader.showLoading( false );
   }
 }

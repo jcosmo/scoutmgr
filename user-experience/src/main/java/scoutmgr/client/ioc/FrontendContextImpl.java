@@ -47,7 +47,10 @@ public class FrontendContextImpl
   }
 
   @Override
-  public void login( final String username, final String password )
+  public void login( final String username,
+                     final String password,
+                     final Runnable successfulLoginAction,
+                     final Runnable unsuccessfulLoginAction )
   {
     _loginManager.login( username,
                          password,
@@ -56,10 +59,14 @@ public class FrontendContextImpl
                            @Override
                            public void run()
                            {
+                             if ( null != successfulLoginAction)
+                             {
+                               successfulLoginAction.run();
+                             }
                              _placeManager.revealCurrentPlace();
                            }
                          },
-                         null,
+                         unsuccessfulLoginAction,
                          null );
   }
 
@@ -67,13 +74,13 @@ public class FrontendContextImpl
   public void logout()
   {
     _loginManager.completeLogout( new Runnable()
-    {
-      @Override
-      public void run()
-      {
-        _placeManager.revealCurrentPlace();
-      }
-    }
+                                  {
+                                    @Override
+                                    public void run()
+                                    {
+                                      _placeManager.revealCurrentPlace();
+                                    }
+                                  }
     );
   }
 
