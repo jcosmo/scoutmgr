@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 import javax.inject.Inject;
 import scoutmgr.client.event.MetadataLoadedEvent;
 import scoutmgr.client.net.ScoutmgrDataLoaderService;
+import scoutmgr.client.service.ScoutmgrAsyncErrorCallback;
 
 public class FrontendContextImpl
   implements FrontendContext
@@ -27,13 +28,8 @@ public class FrontendContextImpl
   @Override
   public void initialArrival()
   {
-    _dataloader.connect( () -> {
-      LOG.info( "Connected to data loader" );
-      _dataloader.getSession().subscribeToMetadata( () -> {
-        LOG.info( "Subscribed to Metadata" );
-        _eventBus.fireEvent( new MetadataLoadedEvent() );
-      } );
-    } );
+    _loginManager.initialArrival( this::onLogin, this::onAutoLoginFail,
+                                  (error) -> _placeManager.revealErrorPlace("Error on startup: " + error) );
   }
 
   @Override
@@ -45,14 +41,46 @@ public class FrontendContextImpl
     _loginManager.login( username,
                          password,
                          () -> {
-                           if ( null != successfulLoginAction )
-                           {
-                             successfulLoginAction.run();
-                           }
-                           _placeManager.revealCurrentPlace();
+                           onLogin();
+                           runIfPresent( successfulLoginAction );
                          },
                          unsuccessfulLoginAction,
                          null );
+  }
+
+  private void onLogin()
+  {
+    connectAndLoadMetadata( this::postLogin );
+  }
+
+  private void onAutoLoginFail()
+  {
+    connectAndLoadMetadata( _placeManager::revealCurrentPlace );
+  }
+
+  private void connectAndLoadMetadata( final Runnable postLoad )
+  {
+    _dataloader.connect( () -> {
+      LOG.info( "Connected to data loader" );
+      _dataloader.getSession().subscribeToMetadata( () -> {
+        LOG.info( "Subscribed to Metadata" );
+        _eventBus.fireEvent( new MetadataLoadedEvent() );
+        runIfPresent( postLoad );
+      } );
+    } );
+  }
+
+  protected void postLogin()
+  {
+    _placeManager.revealCurrentPlace();
+  }
+
+  private void runIfPresent( final Runnable successfulLoginAction )
+  {
+    if ( null != successfulLoginAction )
+    {
+      successfulLoginAction.run();
+    }
   }
 
   @Override

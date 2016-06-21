@@ -35,8 +35,6 @@ public final class Bootstrap
       }
 
       _frontendContext.initialArrival();
-
-      _placeManager.revealCurrentPlace();
     }
     catch ( final Exception e )
     {
