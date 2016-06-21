@@ -27,22 +27,12 @@ public class FrontendContextImpl
   @Override
   public void initialArrival()
   {
-    _dataloader.connect( new Runnable()
-    {
-      @Override
-      public void run()
-      {
-        LOG.info( "Connected to data loader" );
-        _dataloader.getSession().subscribeToMetadata( new Runnable()
-        {
-          @Override
-          public void run()
-          {
-            LOG.info( "Subscribed to Metadata" );
-            _eventBus.fireEvent( new MetadataLoadedEvent() );
-          }
-        } );
-      }
+    _dataloader.connect( () -> {
+      LOG.info( "Connected to data loader" );
+      _dataloader.getSession().subscribeToMetadata( () -> {
+        LOG.info( "Subscribed to Metadata" );
+        _eventBus.fireEvent( new MetadataLoadedEvent() );
+      } );
     } );
   }
 
@@ -54,17 +44,12 @@ public class FrontendContextImpl
   {
     _loginManager.login( username,
                          password,
-                         new Runnable()
-                         {
-                           @Override
-                           public void run()
+                         () -> {
+                           if ( null != successfulLoginAction )
                            {
-                             if ( null != successfulLoginAction)
-                             {
-                               successfulLoginAction.run();
-                             }
-                             _placeManager.revealCurrentPlace();
+                             successfulLoginAction.run();
                            }
+                           _placeManager.revealCurrentPlace();
                          },
                          unsuccessfulLoginAction,
                          null );
@@ -73,15 +58,7 @@ public class FrontendContextImpl
   @Override
   public void logout()
   {
-    _loginManager.completeLogout( new Runnable()
-                                  {
-                                    @Override
-                                    public void run()
-                                    {
-                                      _placeManager.revealCurrentPlace();
-                                    }
-                                  }
-    );
+    _loginManager.completeLogout( _placeManager::revealCurrentPlace );
   }
 
   public boolean isLoggedIn()

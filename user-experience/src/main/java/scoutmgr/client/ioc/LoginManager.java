@@ -5,8 +5,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 import scoutmgr.Constants;
-import scoutmgr.client.data_type.security.TokenDTO;
-import scoutmgr.client.service.ScoutmgrAsyncCallback;
 import scoutmgr.client.service.ScoutmgrAsyncErrorCallback;
 import scoutmgr.client.service.security.AuthenticationService;
 
@@ -34,20 +32,15 @@ public class LoginManager
   {
     _authenticationService.authenticate( username,
                                          password,
-                                         new ScoutmgrAsyncCallback<TokenDTO>()
-                                         {
-                                           @Override
-                                           public void onSuccess( final TokenDTO token )
+                                         token -> {
+                                           if ( null != token )
                                            {
-                                             if ( null != token )
-                                             {
-                                               completeLogin( token.getUserID(), token.getToken() );
-                                               runIfPresent( onLoginAction );
-                                             }
-                                             else
-                                             {
-                                               runIfPresent( onUnsuccessfulLoginAction );
-                                             }
+                                             completeLogin( token.getUserID(), token.getToken() );
+                                             runIfPresent( onLoginAction );
+                                           }
+                                           else
+                                           {
+                                             runIfPresent( onUnsuccessfulLoginAction );
                                            }
                                          },
                                          onError );
@@ -100,17 +93,10 @@ public class LoginManager
     else
     {
       _authenticationService.reAuthenticate( token,
-                                             new ScoutmgrAsyncCallback<Integer>()
-                                             {
-                                               @Override
-                                               public void onSuccess( final Integer userID )
-                                               {
-                                                 onReAuthenticateResponse( userID,
-                                                                           token,
-                                                                           onAuthenticatedAction,
-                                                                           onUnauthenticatedAction );
-                                               }
-                                             },
+                                             userID -> onReAuthenticateResponse( userID,
+                                                                                 token,
+                                                                                 onAuthenticatedAction,
+                                                                                 onUnauthenticatedAction ),
                                              onErrorAction );
     }
   }
