@@ -205,6 +205,12 @@ Domgen.repository(:Scoutmgr) do |repository|
       s.text(:Token)
     end
 
+    data_module.message(:UserLoaded) do |m|
+      m.reference(:User)
+    end
+
+    data_module.message(:UserLoggedOut)
+
     data_module.service(:AuthenticationService) do |s|
       # NOTE: Any methods added to this class are not protected by security mechanisms
       # Thus you should disable the gwt facet if you do not want them available across
@@ -225,6 +231,25 @@ Domgen.repository(:Scoutmgr) do |repository|
         m.text(:Username)
         m.text(:Password)
         m.returns(:struct, :referenced_struct => :TokenDTO, :nullable => true)
+      end
+    end
+
+    data_module.service(:UserService) do |s|
+      s.method(:Create) do |m|
+        m.text(:UserName)
+        m.text(:Password)
+        m.returns(:reference, :referenced_entity => :User)
+        m.exception(:DuplicateUserName)
+      end
+
+      s.method(:Update) do |m|
+        m.reference(:User)
+        m.text(:Password, :nullable => true)
+        m.exception(:DuplicateUserName)
+      end
+
+      s.method(:Delete) do |m|
+        m.reference(:User)
       end
     end
   end

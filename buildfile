@@ -19,7 +19,7 @@ COMMON_PROVIDED_DEPS = ANNOTATION_DEPS + [:javax_javaee]
 JACKSON_DEPS = [:jackson_core, :jackson_mapper]
 GUICE_TEST_JARS = GUICE_DEPS + [:guiceyloops]
 TEST_DEPS = [:glassfish_embedded, :postgresql, :mockito] + GUICE_TEST_JARS
-PACKAGED_DEPS = [:gwt_datatypes, :replicant, :gwt_servlet, :simple_session_filter, :field_filter, :gwt_appcache_server, :gwt_cache_filter] + JACKSON_DEPS
+PACKAGED_DEPS = [:gwt_datatypes, :replicant, :commons_codec, :gwt_servlet, :simple_session_filter, :field_filter, :gwt_appcache_server, :gwt_cache_filter] + JACKSON_DEPS
 
 desc 'Scoutmgr: Website for the management of progress for a scout group'
 define 'scoutmgr' do
