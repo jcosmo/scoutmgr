@@ -13,14 +13,19 @@
             <m:MaterialLink iconType="ACCOUNT_CIRCLE" iconColor="black" iconPosition="NONE"/>
           </m:MaterialTooltip>
           <m:MaterialTooltip text="Logout" position="BOTTOM">
-            <m:MaterialLink  ui:field="_logoutLink" iconType="CANCEL" iconColor="black" iconPosition="NONE"/>
+            <m:MaterialLink ui:field="_logoutLink" iconType="CANCEL" iconColor="black" iconPosition="NONE"/>
           </m:MaterialTooltip>
         </m:MaterialNavSection>
       </m:MaterialNavBar>
-      <m:MaterialRow grid="s12" hideOn="HIDE_ON_MED_DOWN" backgroundColor="blue lighten-4" addStyleNames="{_bundle.scoutmgr.menubar}">
-        <m:MaterialLink ui:field="_adminScoutsLink" href="#{_nameTokens.getAdminScouts}" padding="12" waves="DEFAULT" text="Scout Management" textColor="black"/>
-        <m:MaterialLink ui:field="_adminBadgesLink" href="#{_nameTokens.getAdminBadges}" padding="12" waves="DEFAULT" text="Badge Management" textColor="black"/>
-        <m:MaterialLink ui:field="_adminEventsLink" href="#{_nameTokens.getEvents}" padding="12" waves="DEFAULT" text="Event Management" textColor="black"/>
+      <m:MaterialRow grid="s12" backgroundColor="blue lighten-4" addStyleNames="{_bundle.scoutmgr.menubar}">
+        <m:MaterialColumn grid="s10" >
+          <m:MaterialLink ui:field="_adminLink" activates="menu-admin" padding="12" waves="DEFAULT" text="Adminstration" textColor="black"/>
+          <m:MaterialDropDown activator="menu-admin" belowOrigin="true">
+            <m:MaterialLink ui:field="_adminScoutsLink" href="#{_nameTokens.getAdminScouts}" waves="DEFAULT" text="Scouts" textColor="black"/>
+            <m:MaterialLink ui:field="_adminBadgesLink" href="#{_nameTokens.getAdminBadges}" waves="DEFAULT" text="Badges" textColor="black"/>
+            <m:MaterialLink ui:field="_adminEventsLink" href="#{_nameTokens.getEvents}" waves="DEFAULT" text="Events" textColor="black"/>
+          </m:MaterialDropDown>
+        </m:MaterialColumn>
       </m:MaterialRow>
     </header>
   </g:HTMLPanel>

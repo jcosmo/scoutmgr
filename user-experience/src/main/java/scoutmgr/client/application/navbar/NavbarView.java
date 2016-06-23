@@ -19,11 +19,7 @@ public class NavbarView
   @UiField
   ScoutmgrResourceBundle _bundle;
   @UiField
-  MaterialLink _adminScoutsLink;
-  @UiField
-  MaterialLink _adminBadgesLink;
-  @UiField
-  MaterialLink _adminEventsLink;
+  MaterialLink _adminLink;
   @UiField
   MaterialLink _logoutLink;
 
@@ -50,21 +46,15 @@ public class NavbarView
     switch ( nameToken )
     {
       case NameTokens.EVENTS:
-        newLink = _adminEventsLink;
-        break;
-
+      case NameTokens.ADMIN:
       case NameTokens.ADMIN_SCOUTS:
       case NameTokens.ADMIN_SCOUT:
       case NameTokens.ADMIN_NEW_SCOUT:
-      case NameTokens.SCOUT:
-        newLink = _adminScoutsLink;
-        break;
-
       case NameTokens.ADMIN_BADGES_LEVEL:
       case NameTokens.ADMIN_BADGE:
       case NameTokens.ADMIN_BADGES:
       case NameTokens.ADMIN_NEW_BADGE:
-        newLink = _adminBadgesLink;
+        newLink = _adminLink;
         break;
 
       default:
@@ -87,7 +77,7 @@ public class NavbarView
     }
   }
 
-  @UiHandler ("_logoutLink")
+  @UiHandler( "_logoutLink" )
   public void onLogout( final ClickEvent e )
   {
     _frontendContext.logout();

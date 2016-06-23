@@ -8,6 +8,8 @@ public class NameTokens
 
   public static final String SCOUT = "/scout/{id}";
 
+  public static final String ADMIN = "/admin";
+
   public static final String ADMIN_SCOUTS = "/admin/scouts";
   public static final String ADMIN_SCOUT = "/admin/scout/{id}";
   public static final String ADMIN_NEW_SCOUT = "/admin/scout";
@@ -20,6 +22,11 @@ public class NameTokens
   public static String getEvents()
   {
     return EVENTS;
+  }
+
+  public static String getAdmin()
+  {
+    return ADMIN;
   }
 
   public static String getAdminScouts()
