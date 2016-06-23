@@ -60,6 +60,9 @@ asadmin set-log-levels javax.enterprise.resource.jta=OFF
 # Disable transaction recovery as can stall startup due to a bug in GlassFish 4.1
 asadmin set configs.config.server-config.transaction-service.automatic-recovery=false
 
+asadmin delete-auth-realm scoutmgr_auth
+asadmin create-auth-realm --classname com.sun.enterprise.security.auth.realm.jdbc.JDBCRealm --property jaas-context=jdbcRealm:datasource-jndi=jdbc/Scoutmgr:user-table=\\\"Security\\\".\\\"tblCredential\\\":user-name-column=\\\"UserName\\\":password-column=\\\"Password\\\":group-table=\\\"Security\\\".\\\"tblCredential\\\":group-name-column=\\\"UserName\\\":encoding=HEX:digestrealm-password-enc-algorithm=SHA-256 scoutmgr_auth
+
 if [ "$STOP_DOMAIN" == 'true' ]; then
   asadmin stop-domain scoutmgr
 fi
