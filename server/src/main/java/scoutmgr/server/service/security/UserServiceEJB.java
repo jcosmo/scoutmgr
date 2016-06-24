@@ -16,6 +16,7 @@ import scoutmgr.server.entity.ScoutmgrPersistenceUnit;
 import scoutmgr.server.entity.security.Credential;
 import scoutmgr.server.entity.security.User;
 import scoutmgr.server.entity.security.dao.CredentialRepository;
+import scoutmgr.server.entity.security.dao.SessionRepository;
 import scoutmgr.server.entity.security.dao.UserRepository;
 
 @Stateless( name = UserService.NAME )
@@ -27,14 +28,16 @@ public class UserServiceEJB
   @PersistenceContext( unitName = ScoutmgrPersistenceUnit.NAME )
   private EntityManager _entityManager;
   @Inject
+  private SessionRepository _sessionRepository;
+  @Inject
   private UserRepository _userRepository;
   @Inject
   private CredentialRepository _credentialRepository;
 
   @Override
   @Nonnull
-  public User create( @Nonnull final String userName,
-                      @Nonnull final String password )
+  public User addUser( @Nonnull final String userName,
+                       @Nonnull final String password )
     throws DuplicateUserNameException
   {
     final User existingUser = _userRepository.findByUserName( userName );
@@ -61,12 +64,19 @@ public class UserServiceEJB
   }
 
   @Override
-  public void update( @Nonnull final User user,
-                      @Nullable final String password )
+  public void updateUser( final int userId,
+                          @Nonnull final String userName,
+                          @Nullable final String password )
     throws DuplicateUserNameException
   {
+    final User user = _userRepository.getByID( userId );
     _entityManager.lock( user, LockModeType.PESSIMISTIC_WRITE );
-
+    final User conflictingUser = _userRepository.findByUserName( userName );
+    if ( null != conflictingUser && !conflictingUser.equals( user ) )
+    {
+      throw new DuplicateUserNameException( "User with username " + userName + " already exists" );
+    }
+    user.setUserName( userName );
     if ( null != password )
     {
       final String salt = generateSalt();
@@ -97,8 +107,11 @@ public class UserServiceEJB
   }
 
   @Override
-  public void delete( @Nonnull final User user )
+  public void deleteUser( final int userId )
   {
+    final User user = _userRepository.getByID( userId );
+    _sessionRepository.deleteUserSessions( user );
+    _credentialRepository.deleteUserCredentials( user );
     _userRepository.remove( user );
   }
 

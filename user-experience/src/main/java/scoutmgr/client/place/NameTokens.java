@@ -19,6 +19,11 @@ public class NameTokens
   public static final String ADMIN_BADGE = "/admin/badge/{id}";
   public static final String ADMIN_NEW_BADGE = "/admin/badge";
 
+  public static final String ADMIN_USERS = "/admin/users";
+  public static final String ADMIN_USER = "/admin/user/{id}";
+  public static final String ADMIN_EDIT_USER = "/admin/edituser/{id}";
+  public static final String ADMIN_NEW_USER = "/admin/user";
+
   public static String getEvents()
   {
     return EVENTS;
@@ -57,5 +62,25 @@ public class NameTokens
   public static String getScout()
   {
     return SCOUT;
+  }
+
+  public static String getAdminUsers()
+  {
+    return ADMIN_USERS;
+  }
+
+  public static String getAdminUser()
+  {
+    return ADMIN_USER;
+  }
+
+  public static String getAdminEditUser()
+  {
+    return ADMIN_EDIT_USER;
+  }
+
+  public static String getAdminNewUser()
+  {
+    return ADMIN_NEW_USER;
   }
 }

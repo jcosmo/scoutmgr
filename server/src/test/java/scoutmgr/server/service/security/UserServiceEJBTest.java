@@ -4,21 +4,21 @@ public class UserServiceEJBTest
   extends AbstractUserServiceEJBTest
 {
   @Override
-  public void create()
+  public void addUser()
     throws Exception
   {
 
   }
 
   @Override
-  public void update()
+  public void updateUser()
     throws Exception
   {
 
   }
 
   @Override
-  public void delete()
+  public void deleteUser()
     throws Exception
   {
 

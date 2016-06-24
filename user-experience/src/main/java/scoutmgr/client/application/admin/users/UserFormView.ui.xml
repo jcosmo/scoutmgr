@@ -1,0 +1,43 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+             xmlns:g="urn:import:com.google.gwt.user.client.ui">
+  <ui:with field="_nameTokens" type="scoutmgr.client.place.NameTokens"/>
+  <ui:with field='_bundle' type='scoutmgr.client.resource.ScoutmgrResourceBundle'/>
+  <g:HTMLPanel>
+    <div id="content" class="{_bundle.scoutmgr.content}">
+      <form class="{_bundle.bootstrap.formHorizontal} form-edit form-editable">
+        <div class="{_bundle.bootstrap.formGroup}">
+          <label class="{_bundle.bootstrap.controlLabel} required star-added {_bundle.bootstrap.colSm2}">
+            <span class="star">*</span>
+            Username
+          </label>
+          <div class="{_bundle.bootstrap.inputGroup} nopadding disableable {_bundle.bootstrap.colSm4}">
+            <span class="edit-panel-control-holder">
+              <g:TextBox ui:field="_username" addStyleNames="{_bundle.bootstrap.formControl}"/>
+            </span>
+          </div>
+        </div>
+        <div class="{_bundle.bootstrap.formGroup}">
+          <label class="{_bundle.bootstrap.controlLabel} required star-added {_bundle.bootstrap.colSm2}">
+            Password
+          </label>
+          <div class="{_bundle.bootstrap.inputGroup} nopadding disableable {_bundle.bootstrap.colSm4}">
+            <span class="edit-panel-control-holder">
+              <g:TextBox ui:field="_password" addStyleNames="{_bundle.bootstrap.formControl}"/>
+            </span>
+          </div>
+        </div>
+        <div class="editable-panel-buttons {_bundle.bootstrap.colSmOffset2} {_bundle.bootstrap.colSm4}">
+          <g:Anchor href="#{_nameTokens.getAdminUsers}" ui:field="_cancelButton" addStyleNames="{_bundle.bootstrap.btn} {_bundle.bootstrap.btnDefault} cancel-button">
+            <i class="{_bundle.bootstrap.glyphicon} {_bundle.bootstrap.glyphiconRemove}"/>
+            Cancel
+          </g:Anchor>
+          <g:Anchor href="#" ui:field="_saveButton" addStyleNames="{_bundle.bootstrap.btn} {_bundle.bootstrap.btnPrimary} submit-button">
+            <i class="{_bundle.bootstrap.glyphicon} {_bundle.bootstrap.glyphiconOk}"/>
+            Save
+          </g:Anchor>
+        </div>
+      </form>
+    </div>
+  </g:HTMLPanel>
+</ui:UiBinder>

@@ -12,6 +12,7 @@ Domgen.repository(:Scoutmgr) do |repository|
   repository.imit.graph(:Metadata)
   repository.imit.graph(:Person)
   repository.imit.graph(:People)
+  repository.imit.graph(:Users)
 
   repository.data_module(:Scoutmgr) do |data_module|
 
@@ -153,6 +154,8 @@ Domgen.repository(:Scoutmgr) do |repository|
       t.string(:Email, 255, :nullable => true)
       t.boolean(:Active)
 
+      t.imit.replicate(:Users, :type)
+
       t.query(:FindByUserName)
     end
 
@@ -166,6 +169,8 @@ Domgen.repository(:Scoutmgr) do |repository|
                   'inverse.imit.exclude_edges' => [:User])
       t.string(:Password, 128)
       t.string(:Salt, 128)
+
+      t.query(:DeleteUserCredentials, 'jpa.jpql' => 'O.user = :User')
     end
 
     data_module.entity(:Permission) do |t|
@@ -196,6 +201,7 @@ Domgen.repository(:Scoutmgr) do |repository|
       t.query(:FindByToken)
 
       t.query(:DeleteIdleSessions, 'jpa.jpql' => 'O.updatedAt < :UpdatedAt')
+      t.query(:DeleteUserSessions, 'jpa.jpql' => 'O.user = :User')
 
       t.sql.index([:UpdatedAt])
     end
@@ -235,21 +241,22 @@ Domgen.repository(:Scoutmgr) do |repository|
     end
 
     data_module.service(:UserService) do |s|
-      s.method(:Create) do |m|
+      s.method(:AddUser) do |m|
         m.text(:UserName)
         m.text(:Password)
         m.returns(:reference, :referenced_entity => :User)
         m.exception(:DuplicateUserName)
       end
 
-      s.method(:Update) do |m|
-        m.reference(:User)
+      s.method(:UpdateUser) do |m|
+        m.integer(:IdForUpdate)
+        m.text(:Username)
         m.text(:Password, :nullable => true)
         m.exception(:DuplicateUserName)
       end
 
-      s.method(:Delete) do |m|
-        m.reference(:User)
+      s.method(:DeleteUser) do |m|
+        m.integer(:ID)
       end
     end
   end
