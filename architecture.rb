@@ -243,6 +243,7 @@ Domgen.repository(:Scoutmgr) do |repository|
     data_module.service(:UserService) do |s|
       s.method(:AddUser) do |m|
         m.text(:UserName)
+        m.text(:Email)
         m.text(:Password)
         m.returns(:reference, :referenced_entity => :User)
         m.exception(:DuplicateUserName)
@@ -250,7 +251,7 @@ Domgen.repository(:Scoutmgr) do |repository|
 
       s.method(:UpdateUser) do |m|
         m.integer(:IdForUpdate)
-        m.text(:Username)
+        m.text(:Email)
         m.text(:Password, :nullable => true)
         m.exception(:DuplicateUserName)
       end

@@ -36,17 +36,20 @@ public class UserServiceEJB
 
   @Override
   @Nonnull
-  public User addUser( @Nonnull final String userName,
+  public User addUser( @Nonnull final String rawUserName,
+                       @Nonnull final String rawEmail,
                        @Nonnull final String password )
     throws DuplicateUserNameException
   {
+    final String userName = rawUserName.toLowerCase().trim();
+    final String email = rawEmail.toLowerCase().trim();
     final User existingUser = _userRepository.findByUserName( userName );
     if ( null != existingUser )
     {
       throw new DuplicateUserNameException( "User with username " + userName + " already exists" );
     }
 
-    final User user = createUserEntity( userName );
+    final User user = createUserEntity( userName, email );
 
     final String salt = generateSalt();
     createCredentalEntity( user.getUserName(), user, hashPassword( password, salt ), salt );
@@ -54,10 +57,11 @@ public class UserServiceEJB
     return user;
   }
 
-  private User createUserEntity( final String userName )
+  private User createUserEntity( final String userName, final String email )
   {
     final User $_ = new User();
     $_.setUserName( userName );
+    $_.setEmail( email );
     $_.setActive( true );
     _userRepository.persist( $_ );
     return $_;
@@ -65,18 +69,14 @@ public class UserServiceEJB
 
   @Override
   public void updateUser( final int userId,
-                          @Nonnull final String userName,
+                          @Nonnull final String rawEmail,
                           @Nullable final String password )
     throws DuplicateUserNameException
   {
+    final String email = rawEmail.toLowerCase().trim();
     final User user = _userRepository.getByID( userId );
     _entityManager.lock( user, LockModeType.PESSIMISTIC_WRITE );
-    final User conflictingUser = _userRepository.findByUserName( userName );
-    if ( null != conflictingUser && !conflictingUser.equals( user ) )
-    {
-      throw new DuplicateUserNameException( "User with username " + userName + " already exists" );
-    }
-    user.setUserName( userName );
+    user.setEmail( email );
     if ( null != password )
     {
       final String salt = generateSalt();

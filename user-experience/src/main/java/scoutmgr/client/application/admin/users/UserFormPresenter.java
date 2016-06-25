@@ -86,15 +86,15 @@ public class UserFormPresenter
     }
   }
 
-  public void saveUser( final String userName, final String password )
+  public void saveUser( final String userName, final String email, final String password )
   {
     if ( null == _idForEdit )
     {
-      _userService.addUser( userName, password );
+      _userService.addUser( userName, email, password );
     }
     else
     {
-      _userService.updateUser( _idForEdit, userName, password );
+      _userService.updateUser( _idForEdit, email, password );
     }
     final PlaceRequest newRequest = new PlaceRequest.Builder().nameToken( NameTokens.ADMIN_USERS ).build();
     _placeManager.revealPlace( newRequest );

@@ -82,6 +82,15 @@ public class UsersView
           return viewModel.getUserName();
         }
       };
+    final Column<UserViewModel, String> emailColumn =
+      new Column<UserViewModel, String>( new TextCell() )
+      {
+        @Override
+        public String getValue( final UserViewModel viewModel )
+        {
+          return viewModel.getEmail();
+        }
+      };
 
     final ActionCell<UserViewModel> actionCell = new ActionCell<>( this, true, true, true, false );
     final Column<UserViewModel, UserViewModel> actionsColumn =
@@ -97,6 +106,7 @@ public class UsersView
     createColumnSorters( usernameColumn );
 
     _usersTable.addColumn( usernameColumn, SafeHtmlUtils.fromString( "Username" ) );
+    _usersTable.addColumn( emailColumn, SafeHtmlUtils.fromString( "Email" ) );
     _usersTable.addColumn( actionsColumn );
     _usersTable.setColumnWidth( actionsColumn, 120, Style.Unit.PX );
     final NoSelectionModel<UserViewModel> selectionModel = new NoSelectionModel<>();

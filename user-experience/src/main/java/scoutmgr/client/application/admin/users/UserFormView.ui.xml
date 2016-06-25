@@ -19,11 +19,32 @@
         </div>
         <div class="{_bundle.bootstrap.formGroup}">
           <label class="{_bundle.bootstrap.controlLabel} required star-added {_bundle.bootstrap.colSm2}">
+            <span class="star">*</span>
+            Email
+          </label>
+          <div class="{_bundle.bootstrap.inputGroup} nopadding disableable {_bundle.bootstrap.colSm4}">
+            <span class="edit-panel-control-holder">
+              <g:TextBox ui:field="_email" addStyleNames="{_bundle.bootstrap.formControl}"/>
+            </span>
+          </div>
+        </div>
+        <div class="{_bundle.bootstrap.formGroup}">
+          <label class="{_bundle.bootstrap.controlLabel} required star-added {_bundle.bootstrap.colSm2}">
             Password
           </label>
           <div class="{_bundle.bootstrap.inputGroup} nopadding disableable {_bundle.bootstrap.colSm4}">
             <span class="edit-panel-control-holder">
-              <g:TextBox ui:field="_password" addStyleNames="{_bundle.bootstrap.formControl}"/>
+              <g:PasswordTextBox ui:field="_password" addStyleNames="{_bundle.bootstrap.formControl}"/>
+            </span>
+          </div>
+        </div>
+        <div class="{_bundle.bootstrap.formGroup}">
+          <label class="{_bundle.bootstrap.controlLabel} required star-added {_bundle.bootstrap.colSm2}">
+            Password (again)
+          </label>
+          <div class="{_bundle.bootstrap.inputGroup} nopadding disableable {_bundle.bootstrap.colSm4}">
+            <span class="edit-panel-control-holder">
+              <g:PasswordTextBox ui:field="_repeatPassword" addStyleNames="{_bundle.bootstrap.formControl}"/>
             </span>
           </div>
         </div>
