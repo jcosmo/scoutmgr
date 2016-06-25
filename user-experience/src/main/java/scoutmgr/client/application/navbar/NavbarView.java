@@ -54,6 +54,10 @@ public class NavbarView
       case NameTokens.ADMIN_BADGE:
       case NameTokens.ADMIN_BADGES:
       case NameTokens.ADMIN_NEW_BADGE:
+      case NameTokens.ADMIN_USERS:
+      case NameTokens.ADMIN_USER:
+      case NameTokens.ADMIN_EDIT_USER:
+      case NameTokens.ADMIN_NEW_USER:
         newLink = _adminLink;
         break;
 
