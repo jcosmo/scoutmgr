@@ -60,8 +60,6 @@ public class UsersPresenter
   private final HashMap<User, UserViewModel> _model2ViewModel = new HashMap<>();
   private EntityChangeListener _entityChangeListener;
 
-  private static final Logger LOG = Logger.getLogger( UsersPresenter.class.getName() );
-
   @Inject
   UsersPresenter( final EventBus eventBus,
                   final View view,
@@ -81,7 +79,6 @@ public class UsersPresenter
         final User user = (User) event.getObject();
         final UserViewModel viewModel = new UserViewModel( user );
         _model2ViewModel.put( user, viewModel );
-        LOG.severe( "MVM now contains " + _model2ViewModel.size() );
         getView().setUsers( _model2ViewModel.values() );
       }
 
