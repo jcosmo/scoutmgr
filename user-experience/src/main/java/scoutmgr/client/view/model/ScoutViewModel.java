@@ -85,4 +85,9 @@ public class ScoutViewModel
   {
     return _taskCompletions;
   }
+
+  public Integer getID()
+  {
+    return ( (Person) asModelObject() ).getID();
+  }
 }

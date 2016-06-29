@@ -246,6 +246,7 @@ Domgen.repository(:Scoutmgr) do |repository|
         m.text(:UserName)
         m.text(:Email)
         m.text(:Password)
+        m.integer(:Scout, :nullable => true)
         m.returns(:reference, :referenced_entity => :User)
         m.exception(:DuplicateUserName)
       end
@@ -254,6 +255,7 @@ Domgen.repository(:Scoutmgr) do |repository|
         m.integer(:IdForUpdate)
         m.text(:Email)
         m.text(:Password, :nullable => true)
+        m.integer(:Scout, :nullable => true)
         m.exception(:DuplicateUserName)
       end
 

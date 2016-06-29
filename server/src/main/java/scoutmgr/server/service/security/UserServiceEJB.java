@@ -12,7 +12,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.LockModeType;
 import javax.persistence.PersistenceContext;
 import org.apache.commons.codec.binary.Hex;
+import scoutmgr.server.entity.Person;
 import scoutmgr.server.entity.ScoutmgrPersistenceUnit;
+import scoutmgr.server.entity.dao.PersonRepository;
 import scoutmgr.server.entity.security.Credential;
 import scoutmgr.server.entity.security.User;
 import scoutmgr.server.entity.security.dao.CredentialRepository;
@@ -32,13 +34,16 @@ public class UserServiceEJB
   @Inject
   private UserRepository _userRepository;
   @Inject
+  private PersonRepository _personRepository;
+  @Inject
   private CredentialRepository _credentialRepository;
 
   @Override
   @Nonnull
   public User addUser( @Nonnull final String rawUserName,
                        @Nonnull final String rawEmail,
-                       @Nonnull final String password )
+                       @Nonnull final String password,
+                       @Nullable final Integer scoutID )
     throws DuplicateUserNameException
   {
     final String userName = rawUserName.toLowerCase().trim();
@@ -49,7 +54,7 @@ public class UserServiceEJB
       throw new DuplicateUserNameException( "User with username " + userName + " already exists" );
     }
 
-    final User user = createUserEntity( userName, email );
+    final User user = createUserEntity( userName, email, findScout( scoutID ) );
 
     final String salt = generateSalt();
     createCredentalEntity( user.getUserName(), user, hashPassword( password, salt ), salt );
@@ -57,12 +62,27 @@ public class UserServiceEJB
     return user;
   }
 
-  private User createUserEntity( final String userName, final String email )
+  private Person findScout( final @Nullable Integer scoutID )
+  {
+    final Person scout;
+    if ( null != scoutID )
+    {
+      scout = _personRepository.getByID( scoutID );
+    }
+    else
+    {
+      scout = null;
+    }
+    return scout;
+  }
+
+  private User createUserEntity( final String userName, final String email, final Person scout )
   {
     final User $_ = new User();
     $_.setUserName( userName );
     $_.setEmail( email );
     $_.setActive( true );
+    $_.setPerson( scout );
     _userRepository.persist( $_ );
     return $_;
   }
@@ -70,13 +90,15 @@ public class UserServiceEJB
   @Override
   public void updateUser( final int userId,
                           @Nonnull final String rawEmail,
-                          @Nullable final String password )
+                          @Nullable final String password,
+                          @Nullable final Integer scoutID )
     throws DuplicateUserNameException
   {
     final String email = rawEmail.toLowerCase().trim();
     final User user = _userRepository.getByID( userId );
     _entityManager.lock( user, LockModeType.PESSIMISTIC_WRITE );
     user.setEmail( email );
+    user.setPerson( findScout( scoutID ) );
     if ( null != password )
     {
       final String salt = generateSalt();

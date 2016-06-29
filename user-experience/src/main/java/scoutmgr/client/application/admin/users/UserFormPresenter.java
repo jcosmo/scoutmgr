@@ -8,13 +8,20 @@ import com.gwtplatform.mvp.client.annotations.ProxyStandard;
 import com.gwtplatform.mvp.client.proxy.PlaceManager;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 import com.gwtplatform.mvp.shared.proxy.PlaceRequest;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
 import javax.inject.Inject;
+import org.realityforge.replicant.client.EntityChangeBroker;
+import org.realityforge.replicant.client.EntityChangeListener;
 import org.realityforge.replicant.client.EntityRepository;
 import scoutmgr.client.application.ApplicationPresenter;
+import scoutmgr.client.entity.Person;
 import scoutmgr.client.entity.security.User;
 import scoutmgr.client.net.ScoutmgrDataLoaderService;
 import scoutmgr.client.place.NameTokens;
 import scoutmgr.client.service.security.UserService;
+import scoutmgr.client.view.model.ScoutViewModel;
 import scoutmgr.client.view.model.UserViewModel;
 
 public class UserFormPresenter
@@ -36,6 +43,8 @@ public class UserFormPresenter
     void reset();
 
     void setUser( UserViewModel viewModel );
+
+    void setScouts( Collection<ScoutViewModel> users );
   }
 
   @Inject
@@ -51,12 +60,41 @@ public class UserFormPresenter
   private UserService _userService;
 
   @Inject
+  private EntityChangeBroker _changeBroker;
+
+  private final HashMap<Person, ScoutViewModel> _model2ViewModel = new HashMap<>();
+  private EntityChangeListener _entityChangeListener;
+
+  @Inject
   UserFormPresenter( final EventBus eventBus,
                      final View view,
                      final Proxy proxy )
   {
     super( eventBus, view, proxy, ApplicationPresenter.SLOT_MAIN_CONTENT );
     getView().setUiHandlers( this );
+  }
+
+  @Override
+  protected void onReveal()
+  {
+    getView().setScouts( new ArrayList<>() );
+    _dataloader.getSession().subscribeToPeople(
+      () ->
+      {
+        getView().setScouts( toViewModel( _entityRepository.findAll( Person.class ) ) );
+      } );
+
+    super.onReveal();
+  }
+
+  private Collection<ScoutViewModel> toViewModel( final ArrayList<Person> people )
+  {
+    _model2ViewModel.clear();
+    for ( final Person person : people )
+    {
+      _model2ViewModel.put( person, new ScoutViewModel( person ) );
+    }
+    return _model2ViewModel.values();
   }
 
   @Override
@@ -86,15 +124,15 @@ public class UserFormPresenter
     }
   }
 
-  public void saveUser( final String userName, final String email, final String password )
+  public void saveUser( final String userName, final String email, final String password, final Integer scout )
   {
     if ( null == _idForEdit )
     {
-      _userService.addUser( userName, email, password );
+      _userService.addUser( userName, email, password, scout );
     }
     else
     {
-      _userService.updateUser( _idForEdit, email, password );
+      _userService.updateUser( _idForEdit, email, password, scout );
     }
     final PlaceRequest newRequest = new PlaceRequest.Builder().nameToken( NameTokens.ADMIN_USERS ).build();
     _placeManager.revealPlace( newRequest );

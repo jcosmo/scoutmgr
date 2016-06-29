@@ -7,5 +7,6 @@ public interface UserFormUiHandlers
 {
   void saveUser( final String userName,
                  final String email,
-                 final String password );
+                 final String password,
+                 final Integer scout );
 }

@@ -18,6 +18,11 @@
         </m:MaterialRow>
         <m:MaterialRow>
           <m:MaterialColumn grid="s6" offset="s3">
+            <m:MaterialListBox ui:field="_users" placeholder="Associated Scout"/>
+          </m:MaterialColumn>
+        </m:MaterialRow>
+        <m:MaterialRow>
+          <m:MaterialColumn grid="s6" offset="s3">
             <m:MaterialTextBox ui:field="_password" placeholder="Password"/>
           </m:MaterialColumn>
         </m:MaterialRow>
