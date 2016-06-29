@@ -4,7 +4,6 @@ import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Window;
 import com.gwtplatform.mvp.client.Bootstrapper;
-import com.gwtplatform.mvp.client.proxy.PlaceManager;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.inject.Inject;
@@ -17,9 +16,6 @@ public final class Bootstrap
 
   @Inject
   private FrontendContext _frontendContext;
-
-  @Inject
-  private PlaceManager _placeManager;
 
   @Override
   public void onBootstrap()
