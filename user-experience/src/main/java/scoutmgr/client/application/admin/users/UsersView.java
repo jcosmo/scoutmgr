@@ -25,6 +25,7 @@ import java.util.Comparator;
 import javax.inject.Inject;
 import scoutmgr.client.resource.ScoutmgrResourceBundle;
 import scoutmgr.client.view.cell.ActionCell;
+import scoutmgr.client.view.model.ScoutViewModel;
 import scoutmgr.client.view.model.UserViewModel;
 
 @SuppressWarnings( "Convert2Lambda" )
@@ -91,6 +92,20 @@ public class UsersView
           return viewModel.getEmail();
         }
       };
+    final Column<UserViewModel, String> scoutColumn =
+      new Column<UserViewModel, String>( new TextCell() )
+      {
+        @Override
+        public String getValue( final UserViewModel viewModel )
+        {
+          final ScoutViewModel person = viewModel.getPerson();
+          if ( null == person )
+          {
+            return null;
+          }
+          return person.getDisplayString();
+        }
+      };
 
     final ActionCell<UserViewModel> actionCell = new ActionCell<>( this, true, true, true, false );
     final Column<UserViewModel, UserViewModel> actionsColumn =
@@ -103,10 +118,11 @@ public class UsersView
         }
       };
 
-    createColumnSorters( usernameColumn );
+    createColumnSorters( usernameColumn, scoutColumn );
 
     _usersTable.addColumn( usernameColumn, SafeHtmlUtils.fromString( "Username" ) );
     _usersTable.addColumn( emailColumn, SafeHtmlUtils.fromString( "Email" ) );
+    _usersTable.addColumn( scoutColumn, SafeHtmlUtils.fromString( "Scout Record" ) );
     _usersTable.addColumn( actionsColumn );
     _usersTable.setColumnWidth( actionsColumn, 120, Style.Unit.PX );
     final NoSelectionModel<UserViewModel> selectionModel = new NoSelectionModel<>();
@@ -129,7 +145,8 @@ public class UsersView
     _pagerPanel.setWidget( pager );
   }
 
-  private void createColumnSorters( final Column<UserViewModel, String> usernameColumn )
+  private void createColumnSorters( final Column<UserViewModel, String> usernameColumn,
+                                    final Column<UserViewModel, String> scoutColumn )
   {
     final ColumnSortEvent.ListHandler<UserViewModel> sortHandler =
       new ColumnSortEvent.ListHandler<>( _provider.getList() );
@@ -142,6 +159,33 @@ public class UsersView
       public int compare( UserViewModel o1, UserViewModel o2 )
       {
         return o1.getUserName().compareTo( o2.getUserName() );
+      }
+    } );
+
+    scoutColumn.setSortable( true );
+    sortHandler.setComparator( scoutColumn, new Comparator<UserViewModel>()
+    {
+      @Override
+      public int compare( UserViewModel o1, UserViewModel o2 )
+      {
+        final ScoutViewModel p1 = o1.getPerson();
+        final ScoutViewModel p2 = o2.getPerson();
+        if ( p1 == null )
+        {
+          if ( p2 == null )
+          {
+            return 0;
+          }
+          return -1;
+        }
+        else
+        {
+          if ( p2 == null )
+          {
+            return 1;
+          }
+          return p1.getDisplayString().compareTo( p2.getDisplayString() );
+        }
       }
     } );
   }

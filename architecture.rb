@@ -153,6 +153,7 @@ Domgen.repository(:Scoutmgr) do |repository|
       t.string(:UserName, 255)
       t.string(:Email, 255, :nullable => true)
       t.boolean(:Active)
+      t.reference('Scoutmgr.Person', :nullable => true)
 
       t.imit.replicate(:Users, :type)
 

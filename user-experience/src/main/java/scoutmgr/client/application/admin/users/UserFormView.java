@@ -9,9 +9,14 @@ import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 import com.gwtplatform.mvp.client.ViewWithUiHandlers;
+import com.gwtplatform.mvp.client.proxy.PlaceManager;
+import com.gwtplatform.mvp.shared.proxy.PlaceRequest;
+import gwt.material.design.client.ui.MaterialButton;
+import gwt.material.design.client.ui.MaterialTextBox;
 import gwt.material.design.client.ui.MaterialToast;
 import javax.inject.Inject;
 import org.realityforge.replicant.client.EntityRepository;
+import scoutmgr.client.place.NameTokens;
 import scoutmgr.client.view.model.UserViewModel;
 
 @SuppressWarnings( "Convert2Lambda" )
@@ -20,20 +25,23 @@ public class UserFormView
   implements UserFormPresenter.View
 {
   @UiField
-  TextBox _username;
+  MaterialTextBox _username;
   @UiField
-  PasswordTextBox _password;
+  MaterialTextBox _password;
   @UiField
-  Anchor _saveButton;
+  MaterialButton _saveButton;
   @UiField
-  Anchor _cancelButton;
+  MaterialButton _cancelButton;
   @UiField
-  TextBox _email;
+  MaterialTextBox _email;
   @UiField
-  PasswordTextBox _repeatPassword;
+  MaterialTextBox _repeatPassword;
 
   @Inject
   EntityRepository _entityRepository;
+
+  @Inject
+  PlaceManager _placeManager;
 
   interface Binder
     extends UiBinder<Widget, UserFormView>
@@ -50,6 +58,7 @@ public class UserFormView
   public void reset()
   {
     _username.setValue( "" );
+    _username.setEnabled( true );
     _email.setValue( "" );
     _password.setValue( "" );
     _repeatPassword.setValue( "" );
@@ -59,6 +68,7 @@ public class UserFormView
   public void setUser( final UserViewModel user )
   {
     _username.setValue( user.getUserName() );
+    _username.setEnabled( false );
     _email.setValue( user.getEmail() );
     _password.setValue( "" );
     _repeatPassword.setValue( "" );
@@ -77,6 +87,12 @@ public class UserFormView
       return;
     }
     getUiHandlers().saveUser( _username.getText(), _email.getText(), password );
+  }
+
+  @UiHandler( "_cancelButton" )
+  public void onCancel( final ClickEvent event )
+  {
+    _placeManager.revealPlace( new PlaceRequest.Builder().nameToken( NameTokens.ADMIN_USERS ).build() );
   }
 
   private String trim( final String text )
