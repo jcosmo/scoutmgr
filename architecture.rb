@@ -36,6 +36,7 @@ Domgen.repository(:Scoutmgr) do |repository|
       t.unique_constraint([:FirstName, :LastName, :Dob])
       t.imit.replicate(:Person, :instance)
       t.imit.replicate(:People, :type)
+      t.imit.replicate(:Users, :type)
 
       t.query(:FindAllWhereNameLike, 'jpa.jpql' => 'O.firstName LIKE :Name OR O.lastName LIKE :Name') do |q|
         q.string(:Name, 255)
