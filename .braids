@@ -6,6 +6,13 @@
     "squashed": true,
     "revision": "42c9faff64cc295a08b3bc7db1be9cae558b8156"
   },
+  "vendor/tools/dbt": {
+    "url": "https://github.com/realityforge/dbt.git",
+    "remote": "master/braid/vendor/tools/dbt",
+    "branch": "master",
+    "squashed": true,
+    "revision": "b90aa7f96eba74e1fc89aeb84bf1eb817970d5bb"
+  },
   "vendor/tools/domgen": {
     "url": "https://github.com/realityforge/domgen.git",
     "remote": "master/braid/vendor/tools/domgen",
