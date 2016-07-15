@@ -35,7 +35,6 @@ public class BadgesPresenter
 
   @ProxyStandard
   @NameToken( { NameTokens.ADMIN_BADGES, NameTokens.ADMIN_BADGES_LEVEL } )
-  @UseGatekeeper(LoggedInGatekeeper.class)
   interface Proxy
     extends ProxyPlace<BadgesPresenter>
   {
