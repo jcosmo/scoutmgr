@@ -10,6 +10,7 @@ import com.gwtplatform.mvp.client.annotations.ProxyStandard;
 import com.gwtplatform.mvp.client.proxy.PlaceManager;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 import com.gwtplatform.mvp.shared.proxy.PlaceRequest;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import javax.annotation.Nonnull;
@@ -18,6 +19,7 @@ import org.realityforge.replicant.client.EntityChangeBroker;
 import org.realityforge.replicant.client.EntityChangeEvent;
 import org.realityforge.replicant.client.EntityChangeListener;
 import org.realityforge.replicant.client.EntityChangeListenerAdapter;
+import org.realityforge.replicant.client.EntityRepository;
 import scoutmgr.client.application.ApplicationPresenter;
 import scoutmgr.client.application.dialog.DialogPresenter;
 import scoutmgr.client.entity.Person;
@@ -53,6 +55,9 @@ public class MembersPresenter
 
   @Inject
   private PersonnelService _personnelService;
+
+  @Inject
+  private EntityRepository _entityRepository;
 
   private EntityChangeBroker _changeBroker;
 
@@ -99,10 +104,21 @@ public class MembersPresenter
   {
     _model2ViewModel.clear();
     getView().setMembers( _model2ViewModel.values() );
-    _changeBroker.addChangeListener( Person.class, _entityChangeListener );
-    _dataloader.getSession().subscribeToPeople( null );
+    _dataloader.getSession().subscribeToPeople( this::initialiseViewModel );
 
     super.onReveal();
+  }
+
+  private void initialiseViewModel()
+  {
+    _model2ViewModel.clear();
+    final ArrayList<Person> people = _entityRepository.findAll( Person.class );
+    for ( final Person person : people )
+    {
+      _model2ViewModel.put( person, new ScoutViewModel( person ) );
+    }
+    getView().setMembers( _model2ViewModel.values() );
+    _changeBroker.addChangeListener( Person.class, _entityChangeListener );
   }
 
   @Override
