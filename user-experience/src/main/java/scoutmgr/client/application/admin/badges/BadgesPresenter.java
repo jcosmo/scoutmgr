@@ -76,14 +76,7 @@ public class BadgesPresenter
 
     _badgeCategoryComparator = new ViewModelComparator<>( new BadgeCategoryComparator() );
 
-    eventBus.addHandler( MetadataLoadedEvent.TYPE, new MetadataLoadedEvent.Handler()
-    {
-      @Override
-      public void onMetadataLoaded( @Nonnull final MetadataLoadedEvent event )
-      {
-        setBadgesToUI();
-      }
-    } );
+    eventBus.addHandler( MetadataLoadedEvent.TYPE, event -> setBadgesToUI() );
   }
 
   protected void onBind()
