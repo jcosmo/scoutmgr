@@ -13,6 +13,7 @@ Domgen.repository(:Scoutmgr) do |repository|
   repository.imit.graph(:Person)
   repository.imit.graph(:People)
   repository.imit.graph(:Users)
+  repository.imit.graph(:User)
 
   repository.data_module(:Scoutmgr) do |data_module|
 
@@ -154,9 +155,12 @@ Domgen.repository(:Scoutmgr) do |repository|
       t.string(:UserName, 255)
       t.string(:Email, 255, :nullable => true)
       t.boolean(:Active)
-      t.reference('Scoutmgr.Person', :nullable => true)
+      t.reference('Scoutmgr.Person', :nullable => true) do |a|
+        a.imit.graph_link(:User, :Person)
+      end
 
       t.imit.replicate(:Users, :type)
+      t.imit.replicate(:User, :instance)
 
       t.query(:FindByUserName)
     end

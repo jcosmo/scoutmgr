@@ -9,4 +9,6 @@ public interface FrontendContext
   void logout();
 
   boolean isLoggedIn();
+
+  Integer getLoggedInUserID();
 }
