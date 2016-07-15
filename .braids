@@ -1,2 +1,9 @@
 {
+  "vendor/tools/domgen": {
+    "url": "https://github.com/realityforge/domgen.git",
+    "remote": "master/braid/vendor/tools/domgen",
+    "branch": "master",
+    "squashed": true,
+    "revision": "1dbfa2fb4d5b52a552ebc5d284354a9c9211c22e"
+  }
 }

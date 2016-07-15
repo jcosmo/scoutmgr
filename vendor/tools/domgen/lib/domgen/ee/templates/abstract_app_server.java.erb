@@ -1,0 +1,87 @@
+/* DO NOT EDIT: File is auto-generated */
+package <%= to_package(repository.ee.qualified_abstract_app_server_name) %>;
+
+@javax.annotation.Generated( "Domgen" )
+public abstract class <%= repository.ee.abstract_app_server_name %>
+  extends org.realityforge.guiceyloops.server.glassfish.AbstractAppServer
+{
+  private static final String APP_NAME = "<%= Domgen::Naming.underscore(repository.name) %>";
+
+  @java.lang.Override
+  protected String getContextRoot()
+  {
+    return "/" + APP_NAME;
+  }
+
+<%
+  repository.data_modules.select{|dm|dm.jws?}.each do |data_module|
+    data_module.services.select{|s|s.jws?}.each do |service|
+-%>
+  public final String get<%= service.data_module.name %><%= service.name %>EndpointAddress()
+  {
+    return getSiteURL() + "<%= service.jws.url %>";
+  }
+<%
+    end
+  end
+-%>
+
+  @java.lang.Override
+  protected void configureGlassFish( @javax.annotation.Nonnull final org.realityforge.guiceyloops.server.glassfish.GlassFishContainer glassfish )
+    throws Exception
+  {
+<% if repository.jpa? -%>
+
+    // Database Configuration Start
+<% if repository.jpa.include_default_unit? -%>
+    glassfish.create<%= repository.mssql? ? 'SqlServer' : 'Postgres' -%>JdbcResource( <%= repository.jpa.qualified_unit_descriptor_name %>.RESOURCE_NAME );
+<% end -%>
+<% repository.jpa.standalone_persistence_units.each do |unit| -%>
+    glassfish.create<%= repository.mssql? ? 'SqlServer' : 'Postgres' -%>JdbcResource( <%= repository.jpa.qualified_unit_descriptor_name %>.<%= Domgen::Naming.uppercase_constantize(unit.short_name) %>_RESOURCE_NAME, glassfish.toGlassFishPropertiesString( org.realityforge.guiceyloops.server.DatabaseUtil.getGlassFishDataSourceProperties( "<%= Domgen::Naming.underscore(unit.short_name) %>" ) ) );
+<% end -%>
+    // Database Configuration Ende
+
+<% end -%>
+<% if repository.jms? -%>
+
+    // JMS Configuration Start
+    // iiop required for JMS
+    glassfish.createLocalIiopListener( "<%= Domgen::Naming.underscore(repository.name) %>/iiop_listener" );
+    glassfish.deleteDefaultIiopListeners();
+
+    glassfish.setDefaultJmsHost( "<%= Domgen::Naming.underscore(repository.name) %>/jms/host", getOpenMQContainer() );
+    glassfish.createJmsConnectionFactory( "<%= repository.jms.connection_factory_resource_name %>", getOpenMQContainer() );
+
+<%
+  destinations = {}
+  repository.jms.endpoint_methods.each do |method|
+    destinations[method.jms.destination_resource_name] = {'type' => method.jms.destination_type, 'physical_name' => method.jms.physical_resource_name}
+  end
+  repository.jms.router_methods.each do |method|
+    destinations[method.jms.route_to_destination_resource_name] =
+      {'type' => method.jms.route_to_destination_type, 'physical_name' => method.jms.route_to_physical_resource_name}
+  end
+-%>
+<% destinations.each_pair do |name, config| -%>
+    glassfish.createJms<%= 'javax.jms.Topic' == config['type'] ? 'Topic' : 'Queue' %>( "<%= name %>", "<%= config['physical_name'] %>" );
+<% end -%>
+    // JMS Configuration Ende
+
+<% end -%>
+<% if repository.mail? -%>
+
+    // Mail Configuration Start
+    // TODO: Consider sending mail to greenmail
+    glassfish.createJavamailResource( "<%= repository.mail.resource_name %>", "mail.example.com", "bob", "bob@example.com" );
+    // Mail Configuration Ende
+
+<% end -%>
+  }
+
+  @java.lang.Override
+  protected void performDeploy()
+    throws Exception
+  {
+    getGlassfish().deploy( getContextRoot(), APP_NAME, org.realityforge.guiceyloops.server.glassfish.GlassFishContainerUtil.getWarFile() );
+  }
+}

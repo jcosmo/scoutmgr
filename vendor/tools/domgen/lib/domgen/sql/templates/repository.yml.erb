@@ -1,0 +1,16 @@
+---
+modules: !omap
+<% repository.data_modules.select{|data_module| data_module.sql?}.each do |data_module| -%>
+   - <%= data_module.name %>:
+      schema: <%= data_module.sql.schema %>
+<% tables = data_module.entities.select { |entity| entity.sql? && entity.concrete? } -%>
+      tables:<%= tables.empty? ? ' []' : '' %>
+<% tables.each do |entity| -%>
+         - "<%= entity.sql.qualified_table_name.gsub('"',"\\\"") %>"
+<% end -%>
+<% sequences = data_module.sql.sequences.collect { |sequence| sequence.qualified_sequence_name } -%>
+      sequences:<%= sequences.empty? ? ' []' : '' %>
+<% sequences.each do |sequence| -%>
+         - "<%= sequence.gsub('"',"\\\"") %>"
+<% end -%>
+<% end -%>
