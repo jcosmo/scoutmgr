@@ -1,10 +1,15 @@
 PATH
-  remote: vendor/plugins/dbt
+  remote: vendor/tools/buildr_plus
+  specs:
+    buildr_plus (1.0.0)
+
+PATH
+  remote: vendor/tools/dbt
   specs:
     dbt (0.10.0.dev)
 
 PATH
-  remote: vendor/plugins/domgen
+  remote: vendor/tools/domgen
   specs:
     domgen (0.19.0.dev)
 
@@ -35,16 +40,16 @@ GEM
       xml-simple (= 1.1.2)
     chronic (0.10.2)
     diff-lcs (1.2.4)
-    fattr (2.2.2)
+    fattr (2.3.0)
     hoe (3.7.1)
       rake (>= 0.8, < 11.0)
     json_pure (1.8.0)
-    main (6.1.0)
+    main (6.2.0)
       arrayfields (>= 4.7.4)
       chronic (>= 0.6.2)
       fattr (>= 2.2.0)
-      map (>= 5.1.0)
-    map (6.5.5)
+      map (>= 6.1.0)
+    map (6.6.0)
     minitar (0.5.4)
     net-sftp (2.1.2)
       net-ssh (>= 2.6.5)
@@ -71,6 +76,7 @@ PLATFORMS
 DEPENDENCIES
   braid (= 1.0.0)
   buildr (= 1.4.25)
+  buildr_plus (= 1.0.0)!
   dbt (= 0.10.0.dev)!
   domgen (= 0.19.0.dev)!
   pg (= 0.18.1)
@@ -78,3 +84,6 @@ DEPENDENCIES
   rspec-core (= 2.14.5)
   rspec-expectations (= 2.14.3)
   rspec-mocks (= 2.14.3)
+
+BUNDLED WITH
+   1.12.5
