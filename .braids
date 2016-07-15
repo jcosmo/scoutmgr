@@ -1,4 +1,11 @@
 {
+  "vendor/tools/buildr_plus": {
+    "url": "https://github.com/realityforge/buildr_plus.git",
+    "remote": "master/braid/vendor/tools/buildr_plus",
+    "branch": "master",
+    "squashed": true,
+    "revision": "42c9faff64cc295a08b3bc7db1be9cae558b8156"
+  },
   "vendor/tools/domgen": {
     "url": "https://github.com/realityforge/domgen.git",
     "remote": "master/braid/vendor/tools/domgen",
