@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'buildr', '= 1.4.25'
-gem 'braid', '= 1.0.0'
+gem 'braid', '= 1.0.1'
 gem 'pg', '= 0.18.1'
 
 # Rspec required for buildr
