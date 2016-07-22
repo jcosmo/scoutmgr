@@ -1,8 +1,5 @@
 Domgen.repository(:Scoutmgr) do |repository|
-  repository.enable_facet(:jpa)
-  repository.enable_facet(:ejb)
-  repository.enable_facet(:pgsql)
-  repository.enable_facet(:imit)
+  repository.enable_facets([:jpa, :ejb, :imit, :pgsql, :appcache, :gwt_cache_filter])
 
   repository.jpa.provider = :eclipselink
 
@@ -10,12 +7,14 @@ Domgen.repository(:Scoutmgr) do |repository|
   repository.ejb.base_service_test_name = repository.ejb.abstract_service_test_name
 
   repository.imit.graph(:Metadata)
-  repository.imit.graph(:Person)
-  repository.imit.graph(:People)
-  repository.imit.graph(:Users)
+  repository.imit.graph(:Person, :require_type_graphs => [:Metadata])
+  repository.imit.graph(:People, :require_type_graphs => [:Metadata])
+  repository.imit.graph(:Users, :require_type_graphs => [:Metadata])
   repository.imit.graph(:User)
 
   repository.data_module(:Scoutmgr) do |data_module|
+    data_module.imit.short_test_code = 'sc'
+    data_module.jpa.short_test_code = 'sc'
 
     data_module.entity(:ScoutSection) do |t|
       t.integer(:ID, :primary_key => true)
@@ -150,6 +149,9 @@ Domgen.repository(:Scoutmgr) do |repository|
   end
 
   repository.data_module(:Security) do |data_module|
+    data_module.imit.short_test_code = 'se'
+    data_module.jpa.short_test_code = 'se'
+
     data_module.entity(:User) do |t|
       t.integer(:ID, :primary_key => true)
       t.string(:UserName, 255)

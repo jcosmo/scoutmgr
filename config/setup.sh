@@ -42,6 +42,7 @@ if [ "$R" != 'yes' ]; then
 fi
 
 asadmin delete-jdbc-resource jdbc/Scoutmgr
+asadmin delete-jdbc-resource scoutmgr/jdbc/Scoutmgr
 asadmin delete-jdbc-connection-pool ScoutmgrConnectionPool
 
 asadmin create-jdbc-connection-pool\
@@ -52,7 +53,7 @@ asadmin create-jdbc-connection-pool\
   --ping true\
   --description "Scoutmgr Connection Pool"\
   --property "${DB_PROPS_PREFIX}${USER}_SCOUTMGR_DEV" ScoutmgrConnectionPool
-asadmin create-jdbc-resource --connectionpoolid ScoutmgrConnectionPool jdbc/Scoutmgr
+asadmin create-jdbc-resource --connectionpoolid ScoutmgrConnectionPool scoutmgr/jdbc/Scoutmgr
 
 asadmin set-log-levels javax.enterprise.resource.resourceadapter.com.sun.gjc.spi=WARNING
 asadmin set-log-levels javax.enterprise.resource.jta=OFF
@@ -61,7 +62,7 @@ asadmin set-log-levels javax.enterprise.resource.jta=OFF
 asadmin set configs.config.server-config.transaction-service.automatic-recovery=false
 
 asadmin delete-auth-realm scoutmgr_auth
-asadmin create-auth-realm --classname com.sun.enterprise.security.auth.realm.jdbc.JDBCRealm --property jaas-context=jdbcRealm:datasource-jndi=jdbc/Scoutmgr:user-table=\\\"Security\\\".\\\"tblCredential\\\":user-name-column=\\\"UserName\\\":password-column=\\\"Password\\\":group-table=\\\"Security\\\".\\\"tblCredential\\\":group-name-column=\\\"UserName\\\":encoding=HEX:digestrealm-password-enc-algorithm=SHA-256 scoutmgr_auth
+asadmin create-auth-realm --classname com.sun.enterprise.security.auth.realm.jdbc.JDBCRealm --property jaas-context=jdbcRealm:datasource-jndi=scoutmgr/jdbc/Scoutmgr:user-table=\\\"Security\\\".\\\"tblCredential\\\":user-name-column=\\\"UserName\\\":password-column=\\\"Password\\\":group-table=\\\"Security\\\".\\\"tblCredential\\\":group-name-column=\\\"UserName\\\":encoding=HEX:digestrealm-password-enc-algorithm=SHA-256 scoutmgr_auth
 
 if [ "$STOP_DOMAIN" == 'true' ]; then
   asadmin stop-domain scoutmgr

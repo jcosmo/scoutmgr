@@ -1,27 +1,36 @@
-require 'buildr/pmd'
-require 'buildr/gwt'
-require 'buildr/checkstyle'
-require 'buildr/single_intermediate_layout'
-require 'buildr/findbugs'
-require 'buildr/jdepend'
-require 'buildr/git_auto_version'
-require 'buildr/jacoco'
-require 'buildr/top_level_generate_dir'
+require 'buildr_plus'
+BuildrPlus::FeatureManager.activate_feature(:oss)
+require 'buildr_plus/java_multimodule'
 
-GUICE_DEPS = [:google_guice, :google_guice_assistedinject, :aopalliance]
-GIN_DEPS = GUICE_DEPS + [:gwt_gin, :javax_inject]
-APPCACHE_DEPS = [:gwt_appcache_client, :gwt_appcache_linker, :gwt_appcache_server]
+GWT_MATERIAL_DEPS = [:gwt_material_design, :gwt_material_design_addins,  :gwt_material_design_themes]
 GWTP_DEPS = [:gwtp_mvp, :gwtp_mvp_shared, :gwtp_clients_common, :gwtp_velocity, :gwtp_velocity_deps]
-GWT_MATERIAL_DEPS = [:gwt_material_design,  :gwt_material_design_addins,  :gwt_material_design_themes]
-GWT_DEPS = [:gwt_user, :gwt_property_source, :gwt_datatypes, :gwt_webpoller, :gwt_lognice] + GIN_DEPS + APPCACHE_DEPS + GWTP_DEPS + GWT_MATERIAL_DEPS
-ANNOTATION_DEPS = [:javax_jsr305, :findbugs_annotations]
-COMMON_PROVIDED_DEPS = ANNOTATION_DEPS + [:javax_javaee]
-JACKSON_DEPS = [:jackson_core, :jackson_mapper]
-GUICE_TEST_JARS = GUICE_DEPS + [:guiceyloops]
-TEST_DEPS = [:glassfish_embedded, :postgresql, :mockito] + GUICE_TEST_JARS
-PACKAGED_DEPS = [:gwt_datatypes, :replicant, :commons_codec, :gwt_servlet, :simple_session_filter, :field_filter, :gwt_appcache_server, :gwt_cache_filter] + JACKSON_DEPS
+PACKAGED_DEPS = [:commons_codec]
 
-desc 'Scoutmgr: Website for the management of progress for a scout group'
+BuildrPlus::Roles.project('scoutmgr') do
+  project.comment = 'Scoutmgr: Website for the management of progress for a scout group'
+  project.group = 'scoutmgr'
+  project.compile.options.source = '1.8'
+  project.compile.options.target = '1.8'
+end
+
+BuildrPlus::Roles.project('user-experience') do
+  project.compile.options.source = '1.8'
+  project.compile.options.target = '1.8'
+  project.compile.with GWT_MATERIAL_DEPS, GWTP_DEPS
+end
+
+BuildrPlus::Roles.project('gwt') do
+  project.compile.with GWT_MATERIAL_DEPS, GWTP_DEPS
+end
+
+BuildrPlus::Roles.project('server') do
+  project.compile.options.source = '1.8'
+  project.compile.options.target = '1.8'
+end
+
+require 'buildr_plus/activate'
+
+=begin
 define 'scoutmgr' do
   project.group = 'scoutmgr'
   compile.options.source = '1.8'
@@ -195,3 +204,4 @@ define 'scoutmgr' do
 
   ipr.add_default_testng_configuration(:jvm_args => "-ea -Xmx2024M -XX:MaxPermSize=364m -Dtest.db.url=#{Dbt.jdbc_url_with_credentials(:default, 'test')} -Dwar.dir=#{File.dirname(project('server').package(:war).to_s)} -Dembedded.glassfish.artifacts=#{[artifact(:glassfish_embedded).to_spec, artifact(:postgresql).to_spec].join(',')}")
 end
+=end

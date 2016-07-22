@@ -4,7 +4,7 @@ import com.google.gwt.user.client.Cookies;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
-import scoutmgr.Constants;
+import scoutmgr.shared.Constants;
 import scoutmgr.client.service.ScoutmgrAsyncErrorCallback;
 import scoutmgr.client.service.security.AuthenticationService;
 
