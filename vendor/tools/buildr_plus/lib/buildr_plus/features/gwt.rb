@@ -38,7 +38,9 @@ BuildrPlus::FeatureManager.feature(:gwt) do |f|
       dependencies = project.compile.dependencies + [project.compile.target] + extra_deps
       unless ENV['GWT'] == 'no'
         project.gwt(project.determine_top_level_gwt_modules(suffix),
-                    {:java_args => BuildrPlus::Gwt.gwtc_java_args, :dependencies => dependencies}.merge(options))
+                    {:java_args => BuildrPlus::Gwt.gwtc_java_args,
+                     :dependencies => dependencies,
+                     :style => 'DETAILED'}.merge(options))
       end
     end
 

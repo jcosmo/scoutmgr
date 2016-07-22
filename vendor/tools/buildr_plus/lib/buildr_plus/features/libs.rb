@@ -81,15 +81,15 @@ BuildrPlus::FeatureManager.feature(:libs) do |f|
     end
 
     def gwt_user
-      %w(com.google.gwt:gwt-user:jar:2.7.0)
+      %w(com.google.gwt:gwt-user:jar:2.8.0-beta1)
     end
 
     def gwt_servlet
-      %w(com.google.gwt:gwt-servlet:jar:2.7.0)
+      %w(com.google.gwt:gwt-servlet:jar:2.8.0-beta1)
     end
 
     def gwt_dev
-      'com.google.gwt:gwt-dev:jar:2.7.0'
+      'com.google.gwt:gwt-dev:jar:2.8.0-beta1'
     end
 
     def gwt_gin
