@@ -4,7 +4,7 @@
     "remote": "master/braid/vendor/tools/buildr_plus",
     "branch": "master",
     "squashed": true,
-    "revision": "42c9faff64cc295a08b3bc7db1be9cae558b8156"
+    "revision": "d4a6429cc99f0e92c760316cba85f2d6e8420e82"
   },
   "vendor/tools/dbt": {
     "url": "https://github.com/realityforge/dbt.git",
