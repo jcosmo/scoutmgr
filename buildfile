@@ -1,5 +1,6 @@
 require 'buildr_plus'
 BuildrPlus::FeatureManager.activate_feature(:oss)
+BuildrPlus::Java.version = 8
 require 'buildr_plus/java_multimodule'
 
 GWT_MATERIAL_DEPS = [:gwt_material_design, :gwt_material_design_addins,  :gwt_material_design_themes]
@@ -9,23 +10,14 @@ PACKAGED_DEPS = [:commons_codec]
 BuildrPlus::Roles.project('scoutmgr') do
   project.comment = 'Scoutmgr: Website for the management of progress for a scout group'
   project.group = 'scoutmgr'
-  project.compile.options.source = '1.8'
-  project.compile.options.target = '1.8'
 end
 
 BuildrPlus::Roles.project('user-experience') do
-  project.compile.options.source = '1.8'
-  project.compile.options.target = '1.8'
   project.compile.with GWT_MATERIAL_DEPS, GWTP_DEPS
 end
 
 BuildrPlus::Roles.project('gwt') do
   project.compile.with GWT_MATERIAL_DEPS, GWTP_DEPS
-end
-
-BuildrPlus::Roles.project('server') do
-  project.compile.options.source = '1.8'
-  project.compile.options.target = '1.8'
 end
 
 require 'buildr_plus/activate'
