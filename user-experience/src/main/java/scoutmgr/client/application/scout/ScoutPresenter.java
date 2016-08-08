@@ -103,14 +103,7 @@ public class ScoutPresenter
       unsubscribeFromScout();
       _scoutID = Integer.valueOf( idStr );
       getView().showLoadingMessage();
-      _dataloader.getSession().subscribeToPerson( _scoutID, new Runnable()
-      {
-        @Override
-        public void run()
-        {
-          configureForScout( _scoutID );
-        }
-      } );
+      _dataloader.getSession().subscribeToPerson( _scoutID, () -> configureForScout( _scoutID ) );
     }
     else
     {
