@@ -84,13 +84,6 @@ public class ScoutPresenter
   }
 
   @Override
-  protected void onReveal()
-  {
-    getView().showLoadingMessage();
-    super.onReveal();
-  }
-
-  @Override
   protected void onHide()
   {
     super.onHide();
