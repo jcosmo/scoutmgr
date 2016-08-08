@@ -18,7 +18,10 @@
         </m:MaterialNavSection>
       </m:MaterialNavBar>
       <m:MaterialRow grid="s12" backgroundColor="blue lighten-4" addStyleNames="{_bundle.scoutmgr.menubar}">
-        <m:MaterialColumn grid="s10" >
+        <m:MaterialColumn ui:field="_myRecordMenuContainer">
+          <m:MaterialLink ui:field="_myRecordLink" padding="12" waves="DEFAULT" text="My Record" textColor="black"/>
+        </m:MaterialColumn>
+        <m:MaterialColumn ui:field="_adminMenuContainer">
           <m:MaterialLink ui:field="_adminLink" activates="menu-admin" padding="12" waves="DEFAULT" text="Adminstration" textColor="black"/>
           <m:MaterialDropDown activator="menu-admin" belowOrigin="true">
             <m:MaterialLink href="#{_nameTokens.getAdminScouts}" waves="DEFAULT" text="Scouts" textColor="black"/>

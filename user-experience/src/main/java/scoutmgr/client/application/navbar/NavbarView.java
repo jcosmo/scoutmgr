@@ -6,8 +6,12 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Widget;
 import com.gwtplatform.mvp.client.ViewImpl;
+import com.gwtplatform.mvp.client.proxy.PlaceManager;
+import com.gwtplatform.mvp.shared.proxy.PlaceRequest;
+import gwt.material.design.client.ui.MaterialColumn;
 import gwt.material.design.client.ui.MaterialLink;
 import javax.inject.Inject;
+import scoutmgr.client.entity.Person;
 import scoutmgr.client.ioc.FrontendContext;
 import scoutmgr.client.place.NameTokens;
 import scoutmgr.client.resource.ScoutmgrResourceBundle;
@@ -22,11 +26,20 @@ public class NavbarView
   MaterialLink _adminLink;
   @UiField
   MaterialLink _logoutLink;
+  @UiField
+  MaterialColumn _adminMenuContainer;
+  @UiField
+  MaterialColumn _myRecordMenuContainer;
+  @UiField
+  MaterialLink _myRecordLink;
 
   @Inject
   FrontendContext _frontendContext;
 
   private MaterialLink _currentLink;
+
+  @Inject
+  private PlaceManager _placeManager;
 
   interface Binder
     extends UiBinder<Widget, NavbarView>
@@ -85,5 +98,18 @@ public class NavbarView
   public void onLogout( final ClickEvent e )
   {
     _frontendContext.logout();
+  }
+
+  @UiHandler( "_myRecordLink" )
+  public void onMyRecord( final ClickEvent e )
+  {
+    final Person person = _frontendContext.getPerson();
+    if ( null != person )
+    {
+      final PlaceRequest request = _placeManager.getCurrentPlaceRequest();
+      final PlaceRequest newPlace = new PlaceRequest.Builder( request ).nameToken( NameTokens.getScout() )
+        .with( "id", person.getID().toString() ).build();
+      _placeManager.revealPlace( newPlace );
+    }
   }
 }
