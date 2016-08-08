@@ -90,6 +90,10 @@ public class FrontendContextImpl
             _person = _user.getPerson();
             LOG.info( "Person downloaded for user '" + _user.getUserName() + "'." );
           }
+          else
+          {
+            _person = null;
+          }
           _eventBus.fireEvent( new UserLoadedEvent( _user ) );
         } );
         runIfPresent( postLoad );
@@ -113,7 +117,14 @@ public class FrontendContextImpl
   @Override
   public void logout()
   {
-    _loginManager.completeLogout( _placeManager::revealCurrentPlace );
+    _loginManager.completeLogout( this::postLogout );
+  }
+
+  private void postLogout()
+  {
+    _user = null;
+    _person = null;
+    _placeManager.revealCurrentPlace();
   }
 
   public boolean isLoggedIn()
@@ -129,6 +140,18 @@ public class FrontendContextImpl
       throw new RuntimeException( "Accessing user when not logged in" );
     }
     return _loginManager.getUserID();
+  }
+
+  @Override
+  public User getUser()
+  {
+    return _user;
+  }
+
+  @Override
+  public Person getPerson()
+  {
+    return _person;
   }
 }
 

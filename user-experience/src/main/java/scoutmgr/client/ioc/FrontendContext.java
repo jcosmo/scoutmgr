@@ -1,5 +1,8 @@
 package scoutmgr.client.ioc;
 
+import scoutmgr.client.entity.Person;
+import scoutmgr.client.entity.security.User;
+
 public interface FrontendContext
 {
   void initialArrival();
@@ -11,4 +14,8 @@ public interface FrontendContext
   boolean isLoggedIn();
 
   Integer getLoggedInUserID();
+
+  User getUser();
+
+  Person getPerson();
 }
