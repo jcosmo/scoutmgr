@@ -16,6 +16,7 @@ import org.realityforge.replicant.client.EntityRepository;
 import scoutmgr.client.application.ApplicationPresenter;
 import scoutmgr.client.application.scout.badgework.BadgeworkPresenter;
 import scoutmgr.client.entity.Person;
+import scoutmgr.client.ioc.FrontendContext;
 import scoutmgr.client.net.ScoutmgrDataLoaderService;
 import scoutmgr.client.place.NameTokens;
 import scoutmgr.client.service.PersonnelService;
@@ -41,6 +42,9 @@ public class ScoutPresenter
 
   @Inject
   private PersonnelService _personnelService;
+
+  @Inject
+  private FrontendContext _frontendContext;
 
   @ContentSlot
   public static final GwtEvent.Type<RevealContentHandler<?>> SLOT_BADGEWORK = new GwtEvent.Type<>();
@@ -115,7 +119,10 @@ public class ScoutPresenter
   {
     if ( null != _scoutID )
     {
-      _dataloader.getSession().unsubscribeFromPerson( _scoutID, null );
+      if ( !_scoutID.equals( _frontendContext.getLoggedInUserID() ) )
+      {
+        _dataloader.getSession().unsubscribeFromPerson( _scoutID, null );
+      }
       _badgeworkPresenter.configureForScout( null );
       _scoutID = null;
     }
