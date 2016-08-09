@@ -39,7 +39,6 @@ public class NavbarPresenter
   @Override
   public void onNavigation( final NavigationEvent navigationEvent )
   {
-
     getView().setMenuItemActive( navigationEvent.getRequest() );
   }
 }

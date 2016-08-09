@@ -33,10 +33,10 @@ public class NavbarView
   @UiField
   MaterialLink _myRecordLink;
 
-  @Inject
-  FrontendContext _frontendContext;
-
   private MaterialLink _currentLink;
+
+  @Inject
+  private FrontendContext _frontendContext;
 
   @Inject
   private PlaceManager _placeManager;
