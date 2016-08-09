@@ -53,10 +53,10 @@ public class NavbarView
   }
 
   @Override
-  public void setMenuItemActive( final String nameToken )
+  public void setMenuItemActive( final PlaceRequest placeRequest )
   {
     final MaterialLink newLink;
-    switch ( nameToken )
+    switch ( placeRequest.getNameToken() )
     {
       case NameTokens.EVENTS:
       case NameTokens.ADMIN:
@@ -72,6 +72,18 @@ public class NavbarView
       case NameTokens.ADMIN_EDIT_USER:
       case NameTokens.ADMIN_NEW_USER:
         newLink = _adminLink;
+        break;
+
+      case NameTokens.SCOUT:
+        final String scoutID = placeRequest.getParameter( "id", "" );
+        if ( scoutID.equals( _frontendContext.getLoggedInUserID().toString() ))
+        {
+          newLink = _myRecordLink;
+        }
+        else
+        {
+          newLink = _adminLink;
+        }
         break;
 
       default:

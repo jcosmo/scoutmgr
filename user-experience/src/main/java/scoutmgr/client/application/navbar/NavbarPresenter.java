@@ -5,6 +5,7 @@ import com.gwtplatform.mvp.client.PresenterWidget;
 import com.gwtplatform.mvp.client.proxy.NavigationEvent;
 import com.gwtplatform.mvp.client.proxy.NavigationHandler;
 import com.gwtplatform.mvp.client.proxy.PlaceManager;
+import com.gwtplatform.mvp.shared.proxy.PlaceRequest;
 import javax.inject.Inject;
 
 public class NavbarPresenter
@@ -14,7 +15,7 @@ public class NavbarPresenter
   interface View
     extends com.gwtplatform.mvp.client.View
   {
-    void setMenuItemActive( String nameToken );
+    void setMenuItemActive( PlaceRequest nameToken );
   }
 
   @Inject
@@ -32,12 +33,13 @@ public class NavbarPresenter
   {
     super.onBind();
     addRegisteredHandler( NavigationEvent.getType(), this );
-    getView().setMenuItemActive( _placeManager.getCurrentPlaceRequest().getNameToken() );
+    getView().setMenuItemActive( _placeManager.getCurrentPlaceRequest() );
   }
 
   @Override
   public void onNavigation( final NavigationEvent navigationEvent )
   {
-    getView().setMenuItemActive( navigationEvent.getRequest().getNameToken() );
+
+    getView().setMenuItemActive( navigationEvent.getRequest() );
   }
 }
