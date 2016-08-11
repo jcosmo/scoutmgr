@@ -192,7 +192,10 @@ Domgen.repository(:Scoutmgr) do |repository|
       # SectionLeader can view/signoff members of the section
       t.s_enum(:Type, %w(SITE_ADMIN GLOBAL_VIEW GROUP_ADMIN USER_ADMIN MEMBER_ADMIN GROUP_LEADER SECTION_LEADER))
 
-      t.reference(:User)
+      t.reference(:User,
+                  :immutable => true,
+                  'inverse.traversable' => true,
+                  'inverse.imit.exclude_edges' => [:User])
       t.reference('Scoutmgr.PersonGroup', :nullable => true)
       t.reference('Scoutmgr.ScoutSection', :nullable => true)
     end
