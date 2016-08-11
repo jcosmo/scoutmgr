@@ -112,7 +112,8 @@ public class ScoutPresenter
   {
     if ( null != _scoutID )
     {
-      if ( !_scoutID.equals( _frontendContext.getLoggedInUserID() ) )
+      if ( !_frontendContext.isLoggedIn() ||
+        !_scoutID.equals( _frontendContext.getLoggedInUserID() ) )
       {
         _dataloader.getSession().unsubscribeFromPerson( _scoutID, null );
       }
