@@ -76,7 +76,7 @@ public class NavbarView
 
       case NameTokens.SCOUT:
         final String scoutID = placeRequest.getParameter( "id", "" );
-        if ( scoutID.equals( _frontendContext.getLoggedInUserID().toString() ))
+        if ( _frontendContext.isLoggedIn() && scoutID.equals( _frontendContext.getLoggedInUserID().toString() ) )
         {
           newLink = _myRecordLink;
         }
@@ -104,6 +104,25 @@ public class NavbarView
 
       _currentLink = newLink;
     }
+  }
+
+  @Override
+  public void disableAllAccess()
+  {
+    _adminMenuContainer.setVisible( false );
+    _myRecordMenuContainer.setVisible( false );
+  }
+
+  @Override
+  public void enablePersonalRecordAccess( final boolean b )
+  {
+    _myRecordMenuContainer.setVisible( b );
+  }
+
+  @Override
+  public void enableSiteAdminFunctionality( final boolean b )
+  {
+    _adminMenuContainer.setVisible( b );
   }
 
   @UiHandler( "_logoutLink" )

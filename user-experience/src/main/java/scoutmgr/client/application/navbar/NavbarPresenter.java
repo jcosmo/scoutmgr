@@ -7,6 +7,11 @@ import com.gwtplatform.mvp.client.proxy.NavigationHandler;
 import com.gwtplatform.mvp.client.proxy.PlaceManager;
 import com.gwtplatform.mvp.shared.proxy.PlaceRequest;
 import javax.inject.Inject;
+import scoutmgr.client.entity.security.User;
+import scoutmgr.client.event.security.UserLoadedEvent;
+import scoutmgr.client.event.security.UserLoggedOutEvent;
+import scoutmgr.client.ioc.FrontendContext;
+import scoutmgr.client.security.PermissionUtil;
 
 public class NavbarPresenter
   extends PresenterWidget<NavbarPresenter.View>
@@ -16,16 +21,41 @@ public class NavbarPresenter
     extends com.gwtplatform.mvp.client.View
   {
     void setMenuItemActive( PlaceRequest nameToken );
+
+    void disableAllAccess();
+
+    void enablePersonalRecordAccess( boolean b );
+
+    void enableSiteAdminFunctionality( boolean b );
   }
 
   @Inject
   private PlaceManager _placeManager;
 
   @Inject
+  private FrontendContext _frontendContext;
+
+  @Inject
   NavbarPresenter( final EventBus eventBus,
                    final View view )
   {
     super( eventBus, view );
+    eventBus.addHandler( UserLoadedEvent.TYPE, event -> configureMenus() );
+    eventBus.addHandler( UserLoggedOutEvent.TYPE, event -> configureMenus() );
+  }
+
+  private void configureMenus()
+  {
+    if ( !_frontendContext.isLoggedIn() )
+    {
+      getView().disableAllAccess();
+    }
+    else {
+      final User user = _frontendContext.getUser();
+      getView().enablePersonalRecordAccess( null != user.getPerson() );
+      getView().enableSiteAdminFunctionality( PermissionUtil.isSiteAdmin( user ) );
+    }
+
   }
 
   @Override
