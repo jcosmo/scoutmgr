@@ -194,8 +194,7 @@ Domgen.repository(:Scoutmgr) do |repository|
 
       t.reference(:User,
                   :immutable => true,
-                  'inverse.traversable' => true,
-                  'inverse.imit.exclude_edges' => [:User])
+                  'inverse.traversable' => true)
       t.reference('Scoutmgr.PersonGroup', :nullable => true)
       t.reference('Scoutmgr.ScoutSection', :nullable => true)
     end
