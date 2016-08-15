@@ -9,6 +9,7 @@ import com.gwtplatform.mvp.client.ViewImpl;
 import com.gwtplatform.mvp.client.proxy.PlaceManager;
 import com.gwtplatform.mvp.shared.proxy.PlaceRequest;
 import gwt.material.design.client.ui.MaterialColumn;
+import gwt.material.design.client.ui.MaterialDropDown;
 import gwt.material.design.client.ui.MaterialLink;
 import javax.inject.Inject;
 import scoutmgr.client.entity.Person;
@@ -32,6 +33,16 @@ public class NavbarView
   MaterialColumn _myRecordMenuContainer;
   @UiField
   MaterialLink _myRecordLink;
+  @UiField
+  MaterialLink _adminScoutLink;
+  @UiField
+  MaterialLink _adminBadgesLink;
+  @UiField
+  MaterialLink _adminEventsLink;
+  @UiField
+  MaterialLink _adminUsersLink;
+  @UiField
+  MaterialDropDown _adminDropdown;
 
   private MaterialLink _currentLink;
 
@@ -109,7 +120,7 @@ public class NavbarView
   @Override
   public void disableAllAccess()
   {
-    _adminMenuContainer.setVisible( false );
+    enableSiteAdminFunctionality( false);
     _myRecordMenuContainer.setVisible( false );
   }
 
@@ -123,6 +134,48 @@ public class NavbarView
   public void enableSiteAdminFunctionality( final boolean b )
   {
     _adminMenuContainer.setVisible( b );
+    if ( b )
+    {
+      ensureAdminDropdown();
+      addIfNotPresent( _adminDropdown, _adminScoutLink );
+      addIfNotPresent( _adminDropdown, _adminEventsLink );
+      addIfNotPresent( _adminDropdown, _adminUsersLink );
+      addIfNotPresent( _adminDropdown, _adminBadgesLink );
+    }
+    else if ( _adminDropdown != null )
+    {
+      _adminMenuContainer.remove( _adminDropdown );
+      _adminDropdown = null;
+    }
+  }
+
+  private void ensureAdminDropdown()
+  {
+    if ( null == _adminDropdown)
+    {
+      _adminDropdown = new MaterialDropDown( "menu-admin" );
+      _adminDropdown.setBelowOrigin( true );
+      _adminMenuContainer.add( _adminDropdown );
+    }
+  }
+
+  private void addIfNotPresent( final MaterialDropDown dropdown, final MaterialLink link )
+  {
+    if ( !dropdown.getItems().contains( link ) )
+    {
+      dropdown.add( link );
+    }
+  }
+
+  @Override
+  public void enableUserManagement( final boolean b )
+  {
+    if ( b )
+    {
+      ensureAdminDropdown();
+      addIfNotPresent( _adminDropdown, _adminUsersLink );
+      _adminMenuContainer.setVisible( true );
+    }
   }
 
   @UiHandler( "_logoutLink" )

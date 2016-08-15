@@ -16,6 +16,12 @@ public final class PermissionUtil
     return hasPermission(user, PermissionType.SITE_ADMIN);
   }
 
+  public static boolean isUserAdmin( final User user )
+  {
+    return hasPermission( user, PermissionType.USER_ADMIN )
+           || hasPermission( user, PermissionType.SITE_ADMIN );
+  }
+
   private static boolean hasPermission( final User user, final PermissionType permissionType )
   {
     for ( final Permission permission : user.getPermissions() )

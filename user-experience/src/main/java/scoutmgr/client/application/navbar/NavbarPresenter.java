@@ -27,6 +27,8 @@ public class NavbarPresenter
     void enablePersonalRecordAccess( boolean b );
 
     void enableSiteAdminFunctionality( boolean b );
+
+    void enableUserManagement( boolean b );
   }
 
   @Inject
@@ -52,10 +54,11 @@ public class NavbarPresenter
     }
     else {
       final User user = _frontendContext.getUser();
+      getView().disableAllAccess( );
       getView().enablePersonalRecordAccess( null != user.getPerson() );
       getView().enableSiteAdminFunctionality( PermissionUtil.isSiteAdmin( user ) );
+      getView().enableUserManagement( PermissionUtil.isUserAdmin( user ) );
     }
-
   }
 
   @Override
