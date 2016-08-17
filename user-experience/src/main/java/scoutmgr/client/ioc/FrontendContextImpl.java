@@ -95,8 +95,8 @@ public class FrontendContextImpl
             _person = null;
           }
           _eventBus.fireEvent( new UserLoadedEvent( _user ) );
+          runIfPresent( postLoad );
         } );
-        runIfPresent( postLoad );
       } );
     } );
   }
@@ -129,7 +129,7 @@ public class FrontendContextImpl
 
   public boolean isLoggedIn()
   {
-    return _loginManager.isLoggedOn();
+    return _loginManager.isLoggedOn() && _user != null;
   }
 
   @Override
