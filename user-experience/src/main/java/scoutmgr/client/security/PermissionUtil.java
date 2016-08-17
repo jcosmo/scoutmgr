@@ -13,7 +13,7 @@ public final class PermissionUtil
 
   public static boolean isSiteAdmin( final User user )
   {
-    return hasPermission(user, PermissionType.SITE_ADMIN);
+    return hasPermission( user, PermissionType.SITE_ADMIN );
   }
 
   public static boolean isUserAdmin( final User user )
@@ -26,7 +26,19 @@ public final class PermissionUtil
   {
     for ( final Permission permission : user.getPermissions() )
     {
-      if (permission.getType().equals( permissionType ))
+      if ( permission.getType().equals( permissionType ) )
+      {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  public static boolean hasAnyOf( final User user, final String[] roles )
+  {
+    for ( String role : roles )
+    {
+      if ( hasPermission( user, PermissionType.valueOf( role ) ) )
       {
         return true;
       }

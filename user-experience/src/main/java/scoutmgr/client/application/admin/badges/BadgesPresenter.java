@@ -5,6 +5,7 @@ import com.google.web.bindery.event.shared.EventBus;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
 import com.gwtplatform.mvp.client.annotations.ContentSlot;
+import com.gwtplatform.mvp.client.annotations.GatekeeperParams;
 import com.gwtplatform.mvp.client.annotations.NameToken;
 import com.gwtplatform.mvp.client.annotations.ProxyStandard;
 import com.gwtplatform.mvp.client.annotations.UseGatekeeper;
@@ -22,6 +23,7 @@ import scoutmgr.client.entity.BadgeCategory;
 import scoutmgr.client.entity.comparator.BadgeCategoryComparator;
 import scoutmgr.client.event.MetadataLoadedEvent;
 import scoutmgr.client.place.NameTokens;
+import scoutmgr.client.security.HasRolesGatekeeper;
 import scoutmgr.client.security.LoggedInGatekeeper;
 import scoutmgr.client.view.model.BadgeCategoryViewModel;
 import scoutmgr.client.view.model.comparator.ViewModelComparator;
@@ -35,6 +37,8 @@ public class BadgesPresenter
 
   @ProxyStandard
   @NameToken( { NameTokens.ADMIN_BADGES, NameTokens.ADMIN_BADGES_LEVEL } )
+  @UseGatekeeper( HasRolesGatekeeper.class )
+  @GatekeeperParams( "SITE_ADMIN" )
   interface Proxy
     extends ProxyPlace<BadgesPresenter>
   {
