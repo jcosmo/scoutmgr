@@ -5,7 +5,6 @@ import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.PresenterWidget;
 import com.gwtplatform.mvp.client.proxy.NavigationEvent;
 import com.gwtplatform.mvp.client.proxy.NavigationHandler;
-import com.gwtplatform.mvp.client.proxy.PlaceManager;
 import java.util.ArrayList;
 import javax.inject.Inject;
 import org.realityforge.replicant.client.EntityRepository;
@@ -21,9 +20,6 @@ public class BadgeSectionPresenter
   {
     void setBadgeSection( ScoutSection level );
   }
-
-  @Inject
-  private PlaceManager _placeManager;
 
   @Inject
   private EntityRepository _entityRepository;

@@ -9,13 +9,11 @@ import com.gwtplatform.mvp.client.annotations.GatekeeperParams;
 import com.gwtplatform.mvp.client.annotations.NameToken;
 import com.gwtplatform.mvp.client.annotations.ProxyStandard;
 import com.gwtplatform.mvp.client.annotations.UseGatekeeper;
-import com.gwtplatform.mvp.client.proxy.PlaceManager;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 import com.gwtplatform.mvp.client.proxy.RevealContentHandler;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import javax.annotation.Nonnull;
 import javax.inject.Inject;
 import org.realityforge.replicant.client.EntityRepository;
 import scoutmgr.client.application.ApplicationPresenter;
@@ -24,7 +22,6 @@ import scoutmgr.client.entity.comparator.BadgeCategoryComparator;
 import scoutmgr.client.event.MetadataLoadedEvent;
 import scoutmgr.client.place.NameTokens;
 import scoutmgr.client.security.HasRolesGatekeeper;
-import scoutmgr.client.security.LoggedInGatekeeper;
 import scoutmgr.client.view.model.BadgeCategoryViewModel;
 import scoutmgr.client.view.model.comparator.ViewModelComparator;
 
@@ -54,9 +51,6 @@ public class BadgesPresenter
   public static final GwtEvent.Type<RevealContentHandler<?>> SLOT_LEFT_NAV = new GwtEvent.Type<>();
   @ContentSlot
   public static final GwtEvent.Type<RevealContentHandler<?>> SLOT_BADGES_CONTENT = new GwtEvent.Type<>();
-
-  @Inject
-  private PlaceManager _placeManager;
 
   @javax.inject.Inject
   private EntityRepository _repository;
