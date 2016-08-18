@@ -21,6 +21,7 @@ import scoutmgr.client.application.footer.FooterModule;
 import scoutmgr.client.application.login.LoginModule;
 import scoutmgr.client.application.navbar.NavbarModule;
 import scoutmgr.client.application.scout.ScoutModule;
+import scoutmgr.client.application.unauthorised.UnauthorisedModule;
 import scoutmgr.client.place.NameTokens;
 import scoutmgr.client.util.GlobalAsyncCallback;
 
@@ -50,6 +51,7 @@ public class ScoutmgrModule
     install( new CrashModule() );
     install( new AdminModule() );
     install( new LoginModule() );
+    install( new UnauthorisedModule() );
     install( new ScoutModule() );
 
     bindConstant().annotatedWith( DefaultPlace.class ).to( NameTokens.ADMIN_SCOUTS );

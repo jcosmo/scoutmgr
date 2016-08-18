@@ -6,7 +6,9 @@ import com.gwtplatform.mvp.client.Presenter;
 import com.gwtplatform.mvp.client.annotations.NameToken;
 import com.gwtplatform.mvp.client.annotations.NoGatekeeper;
 import com.gwtplatform.mvp.client.annotations.ProxyStandard;
+import com.gwtplatform.mvp.client.proxy.PlaceManager;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
+import com.gwtplatform.mvp.shared.proxy.PlaceRequest;
 import javax.inject.Inject;
 import scoutmgr.client.application.ApplicationPresenter;
 import scoutmgr.client.ioc.FrontendContext;
@@ -18,6 +20,9 @@ public class LoginPresenter
 {
   @Inject
   FrontendContext _frontendContext;
+
+  @Inject
+  PlaceManager _placeManager;
 
   @ProxyStandard
   @NameToken( NameTokens.LOGIN )
@@ -44,6 +49,18 @@ public class LoginPresenter
     getView().setUiHandlers( this );
   }
 
+  @Override
+  public void prepareFromRequest( final PlaceRequest request )
+  {
+    if ( _frontendContext.isLoggedIn() )
+    {
+      _placeManager.revealPlace( new PlaceRequest.Builder().nameToken( NameTokens.UNAUTHORISED ).build() );
+    }
+    else
+    {
+      super.prepareFromRequest( request );
+    }
+  }
   public void onLogin( final String username, final String password )
   {
     _frontendContext.login( username, password,
