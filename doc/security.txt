@@ -1,0 +1,21 @@
+# Site admin can administer whole site
+# GlobalView can view all members
+# UserAdmin can administer users, assign to members
+# MemberAdmin can administer members, assign to groups
+# GroupLeader can view/signoff members of the group
+# SectionLeader can view/signoff members of the section
+t.s_enum(:Type, %w(SITE_ADMIN GLOBAL_VIEW USER_ADMIN MEMBER_ADMIN GROUP_LEADER SECTION_LEADER))
+
+A Group is a bunch of members grouped into a patrol, six, crew, whatever
+
+Everyone can view their own record, and the records for everyone else in their Section.
+Everyone can record progress, but not sign off, their own record.
+GlobalView can view all records, but not edit
+SectionLeader is head of a Section, can manage groups for that Section, assign members to groups,
+  view, record, and sign off progress of all scouts in that Section
+GroupLeader is someone who is a leader of a group they are a member of, and can enter and
+  can record progress for members of that group.  Query - can they sign stuff off?
+
+MemberAdmin can add new scouts
+UserAdmin can manage logins
+SiteAdmin is super set of all others

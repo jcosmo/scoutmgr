@@ -185,12 +185,11 @@ Domgen.repository(:Scoutmgr) do |repository|
       t.integer(:ID, :primary_key => true)
       # Site admin can administer whole site
       # GlobalView can view all members
-      # GroupAdmin can administer groups
       # UserAdmin can administer users, assign to members
       # MemberAdmin can administer members, assign to groups
       # GroupLeader can view/signoff members of the group
       # SectionLeader can view/signoff members of the section
-      t.s_enum(:Type, %w(SITE_ADMIN GLOBAL_VIEW GROUP_ADMIN USER_ADMIN MEMBER_ADMIN GROUP_LEADER SECTION_LEADER))
+      t.s_enum(:Type, %w(SITE_ADMIN GLOBAL_VIEW USER_ADMIN MEMBER_ADMIN GROUP_LEADER SECTION_LEADER))
 
       t.reference(:User,
                   :immutable => true,
