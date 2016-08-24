@@ -19,3 +19,5 @@ GroupLeader is someone who is a leader of a group they are a member of, and can 
 MemberAdmin can add new scouts
 UserAdmin can manage logins
 SiteAdmin is super set of all others
+
+Currently only SiteAdmin can manage Badges and Events, need to ponder this

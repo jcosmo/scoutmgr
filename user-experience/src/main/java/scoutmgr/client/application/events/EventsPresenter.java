@@ -3,12 +3,15 @@ package scoutmgr.client.application.events;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
+import com.gwtplatform.mvp.client.annotations.GatekeeperParams;
 import com.gwtplatform.mvp.client.annotations.NameToken;
 import com.gwtplatform.mvp.client.annotations.ProxyStandard;
+import com.gwtplatform.mvp.client.annotations.UseGatekeeper;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 import javax.inject.Inject;
 import scoutmgr.client.application.ApplicationPresenter;
 import scoutmgr.client.place.NameTokens;
+import scoutmgr.client.security.HasRolesGatekeeper;
 
 public class EventsPresenter
   extends Presenter<EventsPresenter.View, EventsPresenter.Proxy>
@@ -16,6 +19,8 @@ public class EventsPresenter
 {
   @ProxyStandard
   @NameToken( NameTokens.EVENTS )
+  @UseGatekeeper( HasRolesGatekeeper.class )
+  @GatekeeperParams( "SITE_ADMIN" )
   interface Proxy
     extends ProxyPlace<EventsPresenter>
   {

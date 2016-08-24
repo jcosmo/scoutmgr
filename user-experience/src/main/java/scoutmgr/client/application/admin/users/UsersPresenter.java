@@ -5,15 +5,16 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
+import com.gwtplatform.mvp.client.annotations.GatekeeperParams;
 import com.gwtplatform.mvp.client.annotations.NameToken;
 import com.gwtplatform.mvp.client.annotations.ProxyStandard;
+import com.gwtplatform.mvp.client.annotations.UseGatekeeper;
 import com.gwtplatform.mvp.client.proxy.PlaceManager;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 import com.gwtplatform.mvp.shared.proxy.PlaceRequest;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.logging.Logger;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 import org.realityforge.replicant.client.EntityChangeBroker;
@@ -26,6 +27,7 @@ import scoutmgr.client.application.dialog.DialogPresenter;
 import scoutmgr.client.entity.security.User;
 import scoutmgr.client.net.ScoutmgrDataLoaderService;
 import scoutmgr.client.place.NameTokens;
+import scoutmgr.client.security.HasRolesGatekeeper;
 import scoutmgr.client.service.security.UserService;
 import scoutmgr.client.view.model.UserViewModel;
 
@@ -33,8 +35,11 @@ public class UsersPresenter
   extends Presenter<UsersPresenter.View, UsersPresenter.Proxy>
   implements UsersUiHandlers
 {
+
   @ProxyStandard
   @NameToken( { NameTokens.ADMIN_USERS } )
+  @UseGatekeeper( HasRolesGatekeeper.class )
+  @GatekeeperParams( { "SITE_ADMIN", "USER_ADMIN" } )
   interface Proxy
     extends ProxyPlace<UsersPresenter>
   {

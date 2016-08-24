@@ -5,8 +5,10 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
+import com.gwtplatform.mvp.client.annotations.GatekeeperParams;
 import com.gwtplatform.mvp.client.annotations.NameToken;
 import com.gwtplatform.mvp.client.annotations.ProxyStandard;
+import com.gwtplatform.mvp.client.annotations.UseGatekeeper;
 import com.gwtplatform.mvp.client.proxy.PlaceManager;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 import com.gwtplatform.mvp.shared.proxy.PlaceRequest;
@@ -25,6 +27,7 @@ import scoutmgr.client.application.dialog.DialogPresenter;
 import scoutmgr.client.entity.Person;
 import scoutmgr.client.net.ScoutmgrDataLoaderService;
 import scoutmgr.client.place.NameTokens;
+import scoutmgr.client.security.HasRolesGatekeeper;
 import scoutmgr.client.service.PersonnelService;
 import scoutmgr.client.view.model.ScoutViewModel;
 
@@ -34,6 +37,8 @@ public class MembersPresenter
 {
   @ProxyStandard
   @NameToken( { NameTokens.ADMIN_SCOUTS } )
+  @UseGatekeeper( HasRolesGatekeeper.class )
+  @GatekeeperParams( { "SITE_ADMIN", "MEMBER_ADMIN" } )
   interface Proxy
     extends ProxyPlace<MembersPresenter>
   {
