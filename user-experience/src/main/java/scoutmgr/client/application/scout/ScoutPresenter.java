@@ -7,6 +7,7 @@ import com.gwtplatform.mvp.client.Presenter;
 import com.gwtplatform.mvp.client.annotations.ContentSlot;
 import com.gwtplatform.mvp.client.annotations.NameToken;
 import com.gwtplatform.mvp.client.annotations.ProxyStandard;
+import com.gwtplatform.mvp.client.annotations.UseGatekeeper;
 import com.gwtplatform.mvp.client.proxy.PlaceManager;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 import com.gwtplatform.mvp.client.proxy.RevealContentHandler;
@@ -19,6 +20,7 @@ import scoutmgr.client.entity.Person;
 import scoutmgr.client.ioc.FrontendContext;
 import scoutmgr.client.net.ScoutmgrDataLoaderService;
 import scoutmgr.client.place.NameTokens;
+import scoutmgr.client.security.ScoutViewGatekeeper;
 import scoutmgr.client.service.PersonnelService;
 import scoutmgr.client.view.model.ScoutViewModel;
 
@@ -51,6 +53,7 @@ public class ScoutPresenter
 
   @ProxyStandard
   @NameToken( { NameTokens.SCOUT } )
+  @UseGatekeeper( ScoutViewGatekeeper.class )
   interface Proxy
     extends ProxyPlace<ScoutPresenter>
   {
@@ -113,7 +116,7 @@ public class ScoutPresenter
     if ( null != _scoutID )
     {
       if ( !_frontendContext.isLoggedIn() ||
-        !_scoutID.equals( _frontendContext.getLoggedInUserID() ) )
+           !_scoutID.equals( _frontendContext.getLoggedInUserID() ) )
       {
         _dataloader.getSession().unsubscribeFromPerson( _scoutID, null );
       }
