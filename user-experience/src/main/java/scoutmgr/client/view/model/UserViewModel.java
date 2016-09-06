@@ -1,5 +1,8 @@
 package scoutmgr.client.view.model;
 
+import java.util.ArrayList;
+import java.util.List;
+import scoutmgr.client.entity.security.Permission;
 import scoutmgr.client.entity.security.User;
 
 public class UserViewModel
@@ -8,6 +11,7 @@ public class UserViewModel
   private String _userName;
   private String _email;
   private ScoutViewModel _person;
+  private String _permissions;
 
   public UserViewModel( final User user )
   {
@@ -22,6 +26,18 @@ public class UserViewModel
     {
       _person = null;
     }
+
+    final List<Permission> permissions = user.getPermissions();
+    final StringBuilder permissionStr = new StringBuilder(  );
+    for ( final Permission permission : permissions )
+    {
+      if ( permissionStr.length() > 0 )
+      {
+        permissionStr.append( ", " );
+      }
+      permissionStr.append( permission.getType().toString() );
+    }
+    _permissions = permissionStr.toString();
   }
 
   public String getUserName()
@@ -37,5 +53,10 @@ public class UserViewModel
   public ScoutViewModel getPerson()
   {
     return _person;
+  }
+
+  public String getPermissions()
+  {
+    return _permissions;
   }
 }

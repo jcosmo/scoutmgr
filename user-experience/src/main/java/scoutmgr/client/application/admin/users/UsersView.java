@@ -106,6 +106,15 @@ public class UsersView
           return person.getDisplayString();
         }
       };
+    final Column<UserViewModel, String> rolesColumn =
+      new Column<UserViewModel, String>( new TextCell() )
+      {
+        @Override
+        public String getValue( final UserViewModel viewModel )
+        {
+          return viewModel.getPermissions();
+        }
+      };
 
     final ActionCell<UserViewModel> actionCell = new ActionCell<>( this, true, true, true, false );
     final Column<UserViewModel, UserViewModel> actionsColumn =
@@ -123,6 +132,7 @@ public class UsersView
     _usersTable.addColumn( usernameColumn, SafeHtmlUtils.fromString( "Username" ) );
     _usersTable.addColumn( emailColumn, SafeHtmlUtils.fromString( "Email" ) );
     _usersTable.addColumn( scoutColumn, SafeHtmlUtils.fromString( "Scout Record" ) );
+    _usersTable.addColumn( rolesColumn, SafeHtmlUtils.fromString( "Permissions" ) );
     _usersTable.addColumn( actionsColumn );
     _usersTable.setColumnWidth( actionsColumn, 120, Style.Unit.PX );
     final NoSelectionModel<UserViewModel> selectionModel = new NoSelectionModel<>();
