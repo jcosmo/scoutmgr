@@ -54,7 +54,7 @@ public class LoginPresenter
   {
     if ( _frontendContext.isLoggedIn() )
     {
-      _placeManager.revealPlace( new PlaceRequest.Builder().nameToken( NameTokens.UNAUTHORISED ).build() );
+      _placeManager.revealPlace( new PlaceRequest.Builder().nameToken( NameTokens.UNAUTHORISED ).build(), false );
     }
     else
     {
