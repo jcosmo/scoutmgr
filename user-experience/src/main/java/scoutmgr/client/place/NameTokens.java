@@ -8,6 +8,7 @@ public class NameTokens
   public static final String UNAUTHORISED = "/notfound";
 
   public static final String SCOUT = "/scout/{id}";
+  public static final String SCOUTS = "/scouts";
 
   public static final String ADMIN = "/admin";
 
@@ -63,6 +64,11 @@ public class NameTokens
   public static String getScout()
   {
     return SCOUT;
+  }
+
+  public static String getScouts()
+  {
+    return SCOUTS;
   }
 
   public static String getAdminUsers()

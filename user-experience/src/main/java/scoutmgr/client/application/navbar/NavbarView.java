@@ -42,6 +42,10 @@ public class NavbarView
   @UiField
   MaterialLink _adminUsersLink;
   @UiField
+  MaterialColumn _myTroopMenuContainer;
+  @UiField
+  MaterialLink _myTroopLink;
+  @UiField
   MaterialDropDown _adminDropdownPlaceholder;
   MaterialDropDown _adminDropdown;
 
@@ -87,6 +91,10 @@ public class NavbarView
         newLink = _adminLink;
         break;
 
+      case NameTokens.SCOUTS:
+        newLink = _myTroopLink;
+        break;
+
       case NameTokens.SCOUT:
         final String scoutID = placeRequest.getParameter( "id", "" );
         if ( _frontendContext.isLoggedIn() && scoutID.equals( _frontendContext.getLoggedInUserID().toString() ) )
@@ -124,12 +132,14 @@ public class NavbarView
   {
     enableSiteAdminFunctionality( false);
     _myRecordMenuContainer.setVisible( false );
+    _myTroopMenuContainer.setVisible( false );
   }
 
   @Override
   public void enablePersonalRecordAccess( final boolean b )
   {
     _myRecordMenuContainer.setVisible( b );
+    _myTroopMenuContainer.setVisible( b );
   }
 
   @Override
