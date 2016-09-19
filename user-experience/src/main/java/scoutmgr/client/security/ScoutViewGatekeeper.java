@@ -39,7 +39,7 @@ public class ScoutViewGatekeeper
 
     // ID of scout trying to be viewed
     final PlaceRequest currentPlaceRequest = _placeManager.getCurrentPlaceRequest();
-    final String scoutID = currentPlaceRequest.getParameter( "ID", null );
+    final String scoutID = currentPlaceRequest.getParameter( "id", null );
     if ( null == scoutID )
     {
       return false;
