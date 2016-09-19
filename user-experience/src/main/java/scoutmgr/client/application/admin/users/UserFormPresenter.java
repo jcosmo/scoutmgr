@@ -12,12 +12,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import javax.inject.Inject;
-import org.realityforge.replicant.client.EntityChangeBroker;
-import org.realityforge.replicant.client.EntityChangeListener;
 import org.realityforge.replicant.client.EntityRepository;
 import scoutmgr.client.application.ApplicationPresenter;
+import scoutmgr.client.data_type.PeopleFilterDTOFactory;
 import scoutmgr.client.entity.Person;
 import scoutmgr.client.entity.security.User;
+import scoutmgr.client.ioc.FrontendContextImpl;
 import scoutmgr.client.net.ScoutmgrDataLoaderService;
 import scoutmgr.client.place.NameTokens;
 import scoutmgr.client.service.security.UserService;
@@ -59,11 +59,7 @@ public class UserFormPresenter
   @Inject
   private UserService _userService;
 
-  @Inject
-  private EntityChangeBroker _changeBroker;
-
   private final HashMap<Person, ScoutViewModel> _model2ViewModel = new HashMap<>();
-  private EntityChangeListener _entityChangeListener;
 
   @Inject
   UserFormPresenter( final EventBus eventBus,
@@ -77,14 +73,7 @@ public class UserFormPresenter
   @Override
   protected void onReveal()
   {
-    getView().setScouts( new ArrayList<>() );
-    _dataloader.getSession().subscribeToPeople(
-      () ->
-      {
-        getView().setScouts( toViewModel( _entityRepository.findAll( Person.class ) ) );
-      } );
-
-    super.onReveal();
+    getView().setScouts( toViewModel( _entityRepository.findAll( Person.class ) ) );
   }
 
   private Collection<ScoutViewModel> toViewModel( final ArrayList<Person> people )

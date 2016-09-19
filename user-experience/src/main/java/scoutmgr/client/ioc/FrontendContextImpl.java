@@ -10,6 +10,7 @@ import scoutmgr.client.entity.security.User;
 import scoutmgr.client.event.MetadataLoadedEvent;
 import scoutmgr.client.event.security.UserLoadedEvent;
 import scoutmgr.client.net.ScoutmgrDataLoaderService;
+import scoutmgr.client.service.DataSubscriptionService;
 
 public class FrontendContextImpl
   implements FrontendContext
@@ -31,6 +32,9 @@ public class FrontendContextImpl
   @Inject
   EntityRepository _entityRepository;
 
+  @Inject
+  DataSubscriptionService _dataSubscriptionService;
+
   private User _user;
   private Person _person;
 
@@ -38,7 +42,7 @@ public class FrontendContextImpl
   public void initialArrival()
   {
     _loginManager.initialArrival( this::onLogin, this::onAutoLoginFail,
-                                  (error) -> _placeManager.revealErrorPlace("Error on startup: " + error) );
+                                  ( error ) -> _placeManager.revealErrorPlace( "Error on startup: " + error ) );
   }
 
   @Override
@@ -49,7 +53,8 @@ public class FrontendContextImpl
   {
     _loginManager.login( username,
                          password,
-                         () -> {
+                         () ->
+                         {
                            onLogin();
                            runIfPresent( successfulLoginAction );
                          },
@@ -70,35 +75,40 @@ public class FrontendContextImpl
 
   private void connectAndLoadMetadata( final Runnable postLoad )
   {
-    _dataloader.connect( () -> {
-      final String sessionID = _dataloader.getSession().getSessionID();
-      final Integer userID = _loginManager.getUserID();
-      assert null != userID;
+    _dataloader.connect(
+      () ->
+      {
+        final String sessionID = _dataloader.getSession().getSessionID();
+        final Integer userID = _loginManager.getUserID();
+        assert null != userID;
 
-      LOG.info( "Connected to data loader" );
-      _dataloader.getSession().subscribeToMetadata( () -> {
-        LOG.info( "Subscribed to Metadata" );
-        _eventBus.fireEvent( new MetadataLoadedEvent() );
+        LOG.info( "Connected to data loader" );
 
-        _dataloader.getSession().subscribeToUser( userID, () ->
-        {
-          _user = _entityRepository.getByID( User.class, userID );
-          LOG.info( "User record retrieved for '" + _user.getUserName() + "'." );
-
-          if ( null != _user.getPerson() )
+        _dataSubscriptionService.subscribeForUser(
+          sessionID,
+          userID,
+          ( result ) ->
           {
-            _person = _user.getPerson();
-            LOG.info( "Person downloaded for user '" + _user.getUserName() + "'." );
+            LOG.info( "Subscribed to Metadata" );
+            _eventBus.fireEvent( new MetadataLoadedEvent() );
+            _user = _entityRepository.getByID( User.class, userID );
+            LOG.info( "User record retrieved for '" + _user.getUserName() + "'." );
+
+            if ( null != _user.getPerson() )
+            {
+              _person = _user.getPerson();
+              LOG.info( "Person downloaded for user '" + _user.getUserName() + "'." );
+            }
+            else
+            {
+              LOG.info( "No person associated with user" );
+              _person = null;
+            }
+            _eventBus.fireEvent( new UserLoadedEvent( _user ) );
+            runIfPresent( postLoad );
           }
-          else
-          {
-            _person = null;
-          }
-          _eventBus.fireEvent( new UserLoadedEvent( _user ) );
-          runIfPresent( postLoad );
-        } );
+        );
       } );
-    } );
   }
 
   protected void postLogin()
@@ -122,6 +132,11 @@ public class FrontendContextImpl
 
   private void postLogout()
   {
+    if ( null != _user )
+    {
+      final String sessionID = _dataloader.getSession().getSessionID();
+      _dataSubscriptionService.unsubscribeFromUser( sessionID, _user.getID()  );
+    }
     _user = null;
     _person = null;
     _placeManager.revealCurrentPlace();

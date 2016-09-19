@@ -25,7 +25,6 @@ import org.realityforge.replicant.client.EntityRepository;
 import scoutmgr.client.application.ApplicationPresenter;
 import scoutmgr.client.application.dialog.DialogPresenter;
 import scoutmgr.client.entity.Person;
-import scoutmgr.client.net.ScoutmgrDataLoaderService;
 import scoutmgr.client.place.NameTokens;
 import scoutmgr.client.security.HasRolesGatekeeper;
 import scoutmgr.client.service.PersonnelService;
@@ -56,8 +55,6 @@ public class MembersPresenter
   @Inject
   private DialogPresenter _dialogPresenter;
 
-  private ScoutmgrDataLoaderService _dataloader;
-
   @Inject
   private PersonnelService _personnelService;
 
@@ -73,12 +70,10 @@ public class MembersPresenter
   MembersPresenter( final EventBus eventBus,
                     final View view,
                     final Proxy proxy,
-                    final EntityChangeBroker changeBroker,
-                    final ScoutmgrDataLoaderService dataLoader )
+                    final EntityChangeBroker changeBroker )
   {
     super( eventBus, view, proxy, ApplicationPresenter.SLOT_MAIN_CONTENT );
     _changeBroker = changeBroker;
-    _dataloader = dataLoader;
 
     _entityChangeListener = new EntityChangeListenerAdapter()
     {
@@ -109,7 +104,7 @@ public class MembersPresenter
   {
     _model2ViewModel.clear();
     getView().setMembers( _model2ViewModel.values() );
-    _dataloader.getSession().subscribeToPeople( this::initialiseViewModel );
+    initialiseViewModel();
 
     super.onReveal();
   }
@@ -131,7 +126,7 @@ public class MembersPresenter
   {
     super.onHide();
     _changeBroker.removeChangeListener( Person.class, _entityChangeListener );
-    _dataloader.getSession().unsubscribeFromPeople( null );
+    //_dataloader.getSession().unsubscribeFromPeople( null );
   }
 
   @Override
@@ -157,14 +152,10 @@ public class MembersPresenter
   {
     _dialogPresenter.configureConfirmation( "Are you sure?",
                                             "Delete " + person.getFirstName() + " " + person.getLastName() + "?",
-                                            new ClickHandler()
+                                            event ->
                                             {
-                                              @Override
-                                              public void onClick( final ClickEvent event )
-                                              {
-                                                deleteScout( person );
-                                                removeFromPopupSlot( _dialogPresenter );
-                                              }
+                                              deleteScout( person );
+                                              removeFromPopupSlot( _dialogPresenter );
                                             } );
     addToPopupSlot( _dialogPresenter, true );
   }

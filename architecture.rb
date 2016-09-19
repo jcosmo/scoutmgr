@@ -16,6 +16,11 @@ Domgen.repository(:Scoutmgr) do |repository|
     data_module.imit.short_test_code = 'sc'
     data_module.jpa.short_test_code = 'sc'
 
+    data_module.struct(:PeopleFilterDTO) do |s|
+      s.integer(:UserID)
+      s.imit.filter_for_graph(:People, :immutable => false)
+    end
+
     data_module.entity(:ScoutSection) do |t|
       t.integer(:ID, :primary_key => true)
       t.string(:Code, 255)
@@ -146,6 +151,19 @@ Domgen.repository(:Scoutmgr) do |repository|
     end
 
     data_module.message(:MetadataLoaded)
+
+    data_module.service(:DataSubscriptionService) do |s|
+      s.method(:SubscribeForUser) do |m|
+        m.text(:SessionID)
+        m.integer(:UserID)
+        m.exception(:BadSession)
+      end
+      s.method(:UnsubscribeFromUser) do |m|
+        m.text(:SessionID)
+        m.integer(:UserID)
+        m.exception(:BadSession)
+      end
+    end
   end
 
   repository.data_module(:Security) do |data_module|

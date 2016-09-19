@@ -1,6 +1,8 @@
 package scoutmgr.client.net;
 
+import javax.annotation.Nonnull;
 import javax.inject.Inject;
+import scoutmgr.client.data_type.PeopleFilterDTO;
 
 public class ScoutmgrSessionContextImpl
   implements ScoutmgrSessionContext
@@ -8,5 +10,11 @@ public class ScoutmgrSessionContextImpl
   @Inject
   public ScoutmgrSessionContextImpl()
   {
+  }
+
+  @Override
+  public boolean doesPeopleMatchEntity( @Nonnull final PeopleFilterDTO filter, @Nonnull final Object entity )
+  {
+    return true;
   }
 }
