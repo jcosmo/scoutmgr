@@ -25,8 +25,7 @@ public class ScoutViewGatekeeper
     }
 
     // Roles allowed to view all scouts
-    if ( PermissionUtil.hasAnyOf( _frontendContext.getUser(),
-                                  VIEW_ALL_SCOUT_ROLES ) )
+    if ( PermissionUtil.hasAnyOf( _frontendContext.getUser(), VIEW_ALL_SCOUT_ROLES ) )
     {
       return true;
     }
@@ -51,7 +50,7 @@ public class ScoutViewGatekeeper
       return true;
     }
 
-    // Viewing all scouts in your Section
+    // TODO: Allow Viewing all scouts in your Section
     return false;
   }
 }

@@ -15,6 +15,7 @@ public class ScoutmgrSessionContextImpl
   @Override
   public boolean doesPeopleMatchEntity( @Nonnull final PeopleFilterDTO filter, @Nonnull final Object entity )
   {
+    // TODO: implement filter properly
     return true;
   }
 }

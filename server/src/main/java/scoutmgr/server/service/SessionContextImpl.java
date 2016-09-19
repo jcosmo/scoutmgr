@@ -30,6 +30,7 @@ public class SessionContextImpl
                                          @Nonnull final ScoutmgrSession session,
                                          @Nonnull final PeopleFilterDTO filter )
   {
+    // TODO: implement filter properly
     return true;
   }
 
@@ -45,6 +46,7 @@ public class SessionContextImpl
   public void collectPeople( @Nonnull final EntityMessageSet messages,
                              @Nonnull final PeopleFilterDTO filter )
   {
+    // TODO: implement filter properly
     _encoder.encodeObjects( messages, _personRepository.findAll());
   }
 }
