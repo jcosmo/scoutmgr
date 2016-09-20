@@ -52,9 +52,10 @@ public class NavbarPresenter
     {
       getView().disableAllAccess();
     }
-    else {
+    else
+    {
       final User user = _frontendContext.getUser();
-      getView().disableAllAccess( );
+      getView().disableAllAccess();
       getView().enablePersonalRecordAccess( null != user.getPerson() );
       getView().enableSiteAdminFunctionality( PermissionUtil.isSiteAdmin( user ) );
       getView().enableUserManagement( PermissionUtil.isUserAdmin( user ) );
@@ -66,6 +67,7 @@ public class NavbarPresenter
   {
     super.onBind();
     addRegisteredHandler( NavigationEvent.getType(), this );
+    configureMenus();
     getView().setMenuItemActive( _placeManager.getCurrentPlaceRequest() );
   }
 
