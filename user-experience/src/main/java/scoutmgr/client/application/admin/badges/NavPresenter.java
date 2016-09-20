@@ -8,7 +8,6 @@ import com.gwtplatform.mvp.client.proxy.NavigationHandler;
 import com.gwtplatform.mvp.client.proxy.PlaceManager;
 import com.gwtplatform.mvp.shared.proxy.PlaceRequest;
 import java.util.ArrayList;
-import javax.annotation.Nonnull;
 import javax.inject.Inject;
 import org.realityforge.replicant.client.EntityRepository;
 import scoutmgr.client.entity.ScoutSection;
@@ -47,17 +46,13 @@ public class NavPresenter
     _startupBadgeSection = null;
     getView().setUiHandlers( this );
 
-    eventBus.addHandler( MetadataLoadedEvent.TYPE, new MetadataLoadedEvent.Handler()
+    eventBus.addHandler( MetadataLoadedEvent.TYPE, event ->
     {
-      @Override
-      public void onMetadataLoaded( @Nonnull final MetadataLoadedEvent event )
+      // Push data to UI, and handle any pending navigation request
+      getView().setBadgeSections( _entityRepository.findAll( ScoutSection.class ) );
+      if ( null != _startupBadgeSection )
       {
-        // Push data to UI, and handle any pending navigation request
-        getView().setBadgeSections( _entityRepository.findAll( ScoutSection.class ) );
-        if ( null != _startupBadgeSection )
-        {
-          navigateToBadgeSection( _startupBadgeSection );
-        }
+        navigateToBadgeSection( _startupBadgeSection );
       }
     } );
   }
