@@ -22,7 +22,7 @@
           <m:MaterialLink ui:field="_myRecordLink" padding="12" waves="DEFAULT" text="My Record" textColor="black"/>
         </m:MaterialColumn>
         <m:MaterialColumn ui:field="_myTroopMenuContainer">
-          <m:MaterialLink ui:field="_myTroopLink" href="#{_nameTokens.getScouts}" padding="12" waves="DEFAULT" text="My Troop" textColor="black"/>
+          <m:MaterialLink ui:field="_myTroopLink" href="#{_nameTokens.getTroop}" padding="12" waves="DEFAULT" text="My Troop" textColor="black"/>
         </m:MaterialColumn>
         <m:MaterialColumn ui:field="_adminMenuContainer">
           <m:MaterialLink ui:field="_adminLink" activates="menu-admin" padding="12" waves="DEFAULT" text="Administration" textColor="black"/>

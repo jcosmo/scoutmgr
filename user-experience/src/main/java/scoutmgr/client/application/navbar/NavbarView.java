@@ -89,7 +89,7 @@ public class NavbarView
         newLink = _adminLink;
         break;
 
-      case NameTokens.SCOUTS:
+      case NameTokens.TROOP:
         newLink = _myTroopLink;
         break;
 
