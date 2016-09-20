@@ -17,18 +17,14 @@ import org.realityforge.replicant.client.EntityRepository;
 import scoutmgr.client.application.ApplicationPresenter;
 import scoutmgr.client.application.scout.badgework.BadgeworkPresenter;
 import scoutmgr.client.entity.Person;
-import scoutmgr.client.ioc.FrontendContext;
-import scoutmgr.client.net.ScoutmgrDataLoaderService;
 import scoutmgr.client.place.NameTokens;
 import scoutmgr.client.security.ScoutViewGatekeeper;
-import scoutmgr.client.service.PersonnelService;
 import scoutmgr.client.view.model.ScoutViewModel;
 
 public class ScoutPresenter
   extends Presenter<ScoutPresenter.View, ScoutPresenter.Proxy>
   implements ScoutUiHandlers
 {
-  private Integer _scoutID;
 
   @Inject
   private BadgeworkPresenter _badgeworkPresenter;
@@ -37,16 +33,7 @@ public class ScoutPresenter
   private PlaceManager _placeManager;
 
   @Inject
-  private ScoutmgrDataLoaderService _dataloader;
-
-  @Inject
   private EntityRepository _entityRepository;
-
-  @Inject
-  private PersonnelService _personnelService;
-
-  @Inject
-  private FrontendContext _frontendContext;
 
   @ContentSlot
   public static final GwtEvent.Type<RevealContentHandler<?>> SLOT_BADGEWORK = new GwtEvent.Type<>();
@@ -70,12 +57,9 @@ public class ScoutPresenter
   @Inject
   ScoutPresenter( final EventBus eventBus,
                   final View view,
-                  final Proxy proxy,
-                  final ScoutmgrDataLoaderService dataLoader )
+                  final Proxy proxy )
   {
     super( eventBus, view, proxy, ApplicationPresenter.SLOT_MAIN_CONTENT );
-
-    _dataloader = dataLoader;
 
     getView().setUiHandlers( this );
   }
@@ -87,41 +71,19 @@ public class ScoutPresenter
   }
 
   @Override
-  protected void onHide()
-  {
-    super.onHide();
-    unsubscribeFromScout();
-  }
-
-  @Override
   public void prepareFromRequest( final PlaceRequest request )
   {
     super.prepareFromRequest( request );
     final String idStr = request.getParameter( "id", null );
     if ( null != idStr )
     {
-      unsubscribeFromScout();
-      _scoutID = Integer.valueOf( idStr );
+      final Integer scoutID = Integer.valueOf( idStr );
       getView().showLoadingMessage();
-      _dataloader.getSession().subscribeToPerson( _scoutID, () -> configureForScout( _scoutID ) );
+      configureForScout( scoutID );
     }
     else
     {
       _placeManager.revealErrorPlace( "Invalid URL" );
-    }
-  }
-
-  private void unsubscribeFromScout()
-  {
-    if ( null != _scoutID )
-    {
-      if ( !_frontendContext.isLoggedIn() ||
-           !_scoutID.equals( _frontendContext.getLoggedInUserID() ) )
-      {
-        _dataloader.getSession().unsubscribeFromPerson( _scoutID, null );
-      }
-      _badgeworkPresenter.configureForScout( null );
-      _scoutID = null;
     }
   }
 
