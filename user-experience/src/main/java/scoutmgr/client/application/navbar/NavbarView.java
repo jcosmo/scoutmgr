@@ -46,7 +46,6 @@ public class NavbarView
   @UiField
   MaterialLink _myTroopLink;
   @UiField
-  MaterialDropDown _adminDropdownPlaceholder;
   MaterialDropDown _adminDropdown;
 
   private MaterialLink _currentLink;
@@ -66,7 +65,6 @@ public class NavbarView
   NavbarView( final Binder uiBinder )
   {
     initWidget( uiBinder.createAndBindUi( this ) );
-    _adminMenuContainer.remove( _adminDropdownPlaceholder );
   }
 
   @Override

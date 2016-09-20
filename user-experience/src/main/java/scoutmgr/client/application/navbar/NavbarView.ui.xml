@@ -26,7 +26,7 @@
         </m:MaterialColumn>
         <m:MaterialColumn ui:field="_adminMenuContainer">
           <m:MaterialLink ui:field="_adminLink" activates="menu-admin" padding="12" waves="DEFAULT" text="Administration" textColor="black"/>
-          <m:MaterialDropDown ui:field="_adminDropdownPlaceholder" activator="menu-admin" belowOrigin="true">
+          <m:MaterialDropDown ui:field="_adminDropdown" activator="menu-admin" belowOrigin="true">
             <m:MaterialLink ui:field="_adminScoutLink" href="#{_nameTokens.getAdminScouts}" waves="DEFAULT" text="Scouts" textColor="black"/>
             <m:MaterialLink ui:field="_adminEventsLink" href="#{_nameTokens.getEvents}" waves="DEFAULT" text="Events" textColor="black"/>
             <m:MaterialLink ui:field="_adminBadgesLink" href="#{_nameTokens.getAdminBadges}" waves="DEFAULT" text="Badges" textColor="black"/>
