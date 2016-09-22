@@ -82,13 +82,12 @@ public class BadgeworkPresenter
     };
 
     getView().setUiHandlers( this );
-    eventBus.addHandler( MetadataLoadedEvent.TYPE, event -> setBadgeworkToUI() );
+    eventBus.addHandler( UserLoadedEvent.TYPE, event -> setBadgeworkToUI() );
     eventBus.addHandler( UserLoggedOutEvent.TYPE, event -> resetUI() );
   }
 
   private void resetUI()
   {
-    LOG.severe( "Handling logout" );
     _scout = null;
     setBadgeworkToUI();
   }
