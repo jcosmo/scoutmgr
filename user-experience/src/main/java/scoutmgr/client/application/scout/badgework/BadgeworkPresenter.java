@@ -17,6 +17,8 @@ import scoutmgr.client.entity.BadgeTask;
 import scoutmgr.client.entity.Person;
 import scoutmgr.client.entity.TaskCompletion;
 import scoutmgr.client.event.MetadataLoadedEvent;
+import scoutmgr.client.event.security.UserLoadedEvent;
+import scoutmgr.client.event.security.UserLoggedOutEvent;
 import scoutmgr.client.view.model.ScoutViewModel;
 
 @SuppressWarnings( "Convert2streamapi" )
@@ -81,6 +83,14 @@ public class BadgeworkPresenter
 
     getView().setUiHandlers( this );
     eventBus.addHandler( MetadataLoadedEvent.TYPE, event -> setBadgeworkToUI() );
+    eventBus.addHandler( UserLoggedOutEvent.TYPE, event -> resetUI() );
+  }
+
+  private void resetUI()
+  {
+    LOG.severe( "Handling logout" );
+    _scout = null;
+    setBadgeworkToUI();
   }
 
   private void setBadgeworkToUI()

@@ -9,6 +9,7 @@ import scoutmgr.client.entity.Person;
 import scoutmgr.client.entity.security.User;
 import scoutmgr.client.event.MetadataLoadedEvent;
 import scoutmgr.client.event.security.UserLoadedEvent;
+import scoutmgr.client.event.security.UserLoggedOutEvent;
 import scoutmgr.client.net.ScoutmgrDataLoaderService;
 import scoutmgr.client.service.DataSubscriptionService;
 
@@ -139,6 +140,7 @@ public class FrontendContextImpl
     }
     _user = null;
     _person = null;
+    _eventBus.fireEvent( new UserLoggedOutEvent() );
     _placeManager.revealCurrentPlace();
   }
 
