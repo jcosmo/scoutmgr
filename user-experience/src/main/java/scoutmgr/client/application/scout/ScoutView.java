@@ -19,9 +19,6 @@ public class ScoutView
   SimplePanel _scoutDetailsPanel;
 
   @UiField
-  MaterialTab _tabs;
-
-  @UiField
   SimplePanel _scoutBadgesPanel;
 
   interface Binder
@@ -34,7 +31,6 @@ public class ScoutView
   {
     initWidget( uiBinder.createAndBindUi( this ) );
     _scoutDetailsPanel.add( new HTMLPanel("scout details!") );
-    _tabs.selectTab( "tab_badgework" );
   }
 
   @Override
@@ -42,7 +38,6 @@ public class ScoutView
   {
     _scoutDetailsPanel.clear();
     _scoutDetailsPanel.add( new HTMLPanel( "Scout: " + viewModel.getFirstName() + " " + viewModel.getLastName() ) );
-    _tabs.selectTab( "tab_badgework" );
   }
 
   @Override

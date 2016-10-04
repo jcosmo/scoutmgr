@@ -19,28 +19,7 @@
     </m:MaterialRow>
     <m:MaterialRow>
       <m:MaterialColumn grid="s12">
-        <m:MaterialTab ui:field="_tabs" backgroundColor="blue lighten-5" indicatorColor="blue darken-2">
-          <m:MaterialTabItem grid="s4" >
-            <m:MaterialLink text="Badgework" href="#tab_badgework" textColor="black" addStyleNames="{style.nocaps}"/>
-          </m:MaterialTabItem>
-          <m:MaterialTabItem grid="s4">
-            <m:MaterialLink text="Events" href="#tab_events" textColor="black" addStyleNames="{style.nocaps}"/>
-          </m:MaterialTabItem>
-          <m:MaterialTabItem grid="s4">
-            <m:MaterialLink text="Notes" href="#tab_notes" textColor="black" addStyleNames="{style.nocaps}"/>
-          </m:MaterialTabItem>
-        </m:MaterialTab>
-      </m:MaterialColumn>
-      <m:MaterialColumn m:id="tab_badgework" grid="s12">
         <g:SimplePanel ui:field="_scoutBadgesPanel"/>
-      </m:MaterialColumn>
-      <m:MaterialColumn m:id="tab_events" grid="s12">
-        <m:MaterialTitle title="Events"/>
-        <m:MaterialLabel text="Not implemented yet"/>
-      </m:MaterialColumn>
-      <m:MaterialColumn m:id="tab_notes" grid="s12">
-        <m:MaterialTitle title="Notes"/>
-        <m:MaterialLabel text="Not implemented yet"/>
       </m:MaterialColumn>
     </m:MaterialRow>
   </g:HTMLPanel>
