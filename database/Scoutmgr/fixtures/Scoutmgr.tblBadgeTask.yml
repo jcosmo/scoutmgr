@@ -1,0 +1,99 @@
+011:
+  ID: 011
+  Description: 'Learn and be able to demonstrate the following knots:'
+  BadgeID: 1
+  Rank: 1
+0111:
+  ID: 0111
+  Description: 'Reef knot'
+  BadgeID: 1
+  ParentID: 011
+  Rank: 1
+0112:
+  ID: 0112
+  Description: 'Clove hitch'
+  BadgeID: 1
+  ParentID: 011
+  Rank: 2
+0113:
+  ID: 0113
+  Description: 'Sheet bend'
+  BadgeID: 1
+  ParentID: 011
+  Rank: 3
+0114:
+  ID: 0114
+  Description: 'Rolling hitch'
+  BadgeID: 1
+  ParentID: 011
+  Rank: 4
+012:
+  ID: 012
+  Description: 'Understand the Australian Flag:'
+  BadgeID: 1
+  Rank: 2
+0121:
+  ID: 0121
+  Description: 'Describe the Australian Flag'
+  BadgeID: 1
+  ParentID: 012
+  Rank: 1
+0122:
+  ID: 0122
+  Description: 'Hoist and break the flag'
+  BadgeID: 1
+  ParentID: 012
+  Rank: 2
+0123:
+  ID: 0123
+  Description: 'Explain the correct use of the flag'
+  BadgeID: 1
+  ParentID: 012
+  Rank: 3
+013:
+  ID: 013
+  Description: 'First aid'
+  BadgeID: 1
+  Rank: 3
+0131:
+  ID: 0131
+  Description: 'Know how to report an emergency'
+  BadgeID: 1
+  ParentID: 013
+  Rank: 1
+0132:
+  ID: 0132
+  Description: 'Know the first steps to control bleeding'
+  BadgeID: 1
+  ParentID: 013
+  Rank: 2
+014:
+  ID: 014
+  Description: 'Safety with camping tools'
+  BadgeID: 1
+  Rank: 4
+0141:
+  ID: 0141
+  Description: 'Know the laws of carrying and use knives in your state or territory'
+  BadgeID: 1
+  ParentID: 014
+  Rank: 1
+0142:
+  ID: 0142
+  Description: 'Know and understand the safety rules for the use and storage of knives, bush saws and axes'
+  BadgeID: 1
+  ParentID: 014
+  Rank: 2
+0143:
+  ID: 0143
+  Description: 'Explain the rules that apply to the supply and use of firewood in camping areas in your state and territory'
+  BadgeID: 1
+  ParentID: 014
+  Rank: 3
+0144:
+  ID: 0144
+  Description: 'Demonstrate the use of a pocket knife or multi-tool'
+  BadgeID: 1
+  ParentID: 014
+  Rank: 4
+

@@ -1,0 +1,8 @@
+1:
+  ID: 1
+  Type: SITE_ADMIN
+  UserID: -1
+2:
+  ID: 2
+  Type: USER_ADMIN
+  UserID: -2
