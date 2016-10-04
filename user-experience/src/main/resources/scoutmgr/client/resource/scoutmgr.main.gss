@@ -102,13 +102,15 @@ body {
 @external secondary-content;
 .badgeCardDetail .collection .collection-item {
   border-bottom: none;
-  line-height: 0.5rem;
+  line-height: 1.1rem;
+  padding: 0.4rem 0 0.4rem 0;
 }
 .badgeCardDetail .collection .collection-item.badgeTaskGroup {
   border-top: solid 1px #f0f0f0;
 }
 .badgeCardDetail .collection .collection-item .secondary-content i {
-  margin-top: -0.8rem;
+  font-size: 1.6rem;
+  vertical-align: bottom;
 }
 
 @external card;
