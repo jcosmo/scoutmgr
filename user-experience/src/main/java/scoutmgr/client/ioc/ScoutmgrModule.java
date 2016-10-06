@@ -56,7 +56,7 @@ public class ScoutmgrModule
     install( new ScoutModule() );
     install( new TroopModule() );
 
-    bindConstant().annotatedWith( DefaultPlace.class ).to( NameTokens.ADMIN_SCOUTS );
+    bindConstant().annotatedWith( DefaultPlace.class ).to( NameTokens.TROOP );
     bindConstant().annotatedWith( ErrorPlace.class ).to( NameTokens.CRASH );
     bindConstant().annotatedWith( UnauthorizedPlace.class ).to( NameTokens.LOGIN );
 
