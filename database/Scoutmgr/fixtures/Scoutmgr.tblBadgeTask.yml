@@ -96,4 +96,38 @@
   BadgeID: 1
   ParentID: 014
   Rank: 4
-
+021:
+  ID: 021
+  Description: 'Knots and Lashings'
+  BadgeID: 2
+  Rank: 1
+0211:
+  ID: 0211
+  Description: 'Know the Scoutcraft knots.'
+  BadgeID: 2
+  ParentID: 021
+  Rank: 1
+0212:
+  ID: 0212
+  Description: 'Learn the following lashings'
+  BadgeID: 2
+  ParentID: 021
+  Rank: 2
+02121:
+  ID: 02121
+  Description: 'Square lashing'
+  BadgeID: 2
+  ParentID: 0212
+  Rank: 1
+02122:
+  ID: 02122
+  Description: 'Round lashing'
+  BadgeID: 2
+  ParentID: 0212
+  Rank: 2
+02123:
+  ID: 02123
+  Description: 'Prussick square lashing for synthetic rope'
+  BadgeID: 2
+  ParentID: 0212
+  Rank: 3
