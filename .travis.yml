@@ -12,6 +12,6 @@ install:
   - bundle install
 before_script:
   - cp config/database.yml.travis config/database.yml
-script: buildr clean dbt:create package dbt:drop
+script: DB_SERVER_HOST=localhost buildr clean dbt:create package dbt:drop
 git:
   depth: 10
