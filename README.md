@@ -4,7 +4,8 @@ Scoutmgr - Project description
 What is Scoutmgr
 --------------
 
-Scoutmgr is a template project that demonstrates a typical project setup.
+Scout Manager is a tool for managing a scout group.
+It aims to allow individuals to track and manage their badgework progress, at least in its first incarnation/
 
 Installing Dependencies
 ----------------
@@ -17,12 +18,14 @@ Installation on Ubuntu:
 
 Payara as a JEE application server.
 Installation on Ubuntu:
-    Download 4.1.151 from payara.co.uk
+    Download the appropriate version from payara.co.uk
     Unzip somewhere
     Add payara\bin to path, or edit the local.sh that is set up in the 'How-to Configure' section below.
 
 How-to Configure
 ----------------
+
+Aim to move this to redfish, so this documentation is out of date
 
 Before the application can be developed and run it is important to configure the local environment. The easiest way is to copy the template files and customize them for local development:
 
@@ -84,7 +87,7 @@ The application uses domgen to generate source code from the `architecture.rb` D
 How-to Run
 ----------
 
-Scoutmgr uses SQL Server as the back end data store and runs in the Payara/GlassFish application server. At this stage it assumed that you have installed the correct version of Payara by hand and the SQL Server database server is already setup.
+Scoutmgr uses Postgres as the back end data store and runs in the Payara/GlassFish application server. At this stage it assumed that you have installed the correct version of Payara by hand and the SQL Server database server is already setup.
 
 First you need to setup the database structure. This is done using the buildr command:
 
