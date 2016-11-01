@@ -1,3 +1,9 @@
+development:
+  adapter: postgresql
+  database: travis_ci_test
+  username: postgres
+  host: localhost
+
 test:
   adapter: postgresql
   database: travis_ci_test
