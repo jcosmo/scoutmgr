@@ -12,6 +12,6 @@ install:
   - bundle install
 before_script:
   - cp config/database.yml.travis config/database.yml
-script: DB_SERVER_HOST=localhost DB_SERVER_USERNAME=postgres DB_SERVER_PASSWORD= buildr clean domgen:all dbt:create package dbt:drop
+script: DB_SERVER_HOST=localhost DB_SERVER_USERNAME=postgres DB_SERVER_PASSWORD= buildr clean domgen:all dbt:create package dbt:drop test=no
 git:
   depth: 10
