@@ -14,11 +14,8 @@ import java.util.HashMap;
 import javax.inject.Inject;
 import org.realityforge.replicant.client.EntityRepository;
 import scoutmgr.client.application.ApplicationPresenter;
-import scoutmgr.client.data_type.PeopleFilterDTOFactory;
 import scoutmgr.client.entity.Person;
 import scoutmgr.client.entity.security.User;
-import scoutmgr.client.ioc.FrontendContextImpl;
-import scoutmgr.client.net.ScoutmgrDataLoaderService;
 import scoutmgr.client.place.NameTokens;
 import scoutmgr.client.service.security.UserService;
 import scoutmgr.client.view.model.ScoutViewModel;
@@ -49,9 +46,6 @@ public class UserFormPresenter
 
   @Inject
   private PlaceManager _placeManager;
-
-  @Inject
-  private ScoutmgrDataLoaderService _dataloader;
 
   @Inject
   private EntityRepository _entityRepository;
