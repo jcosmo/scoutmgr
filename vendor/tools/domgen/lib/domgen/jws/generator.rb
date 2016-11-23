@@ -17,13 +17,13 @@ module Domgen
     module JWS
       TEMPLATE_DIRECTORY = "#{File.dirname(__FILE__)}/templates"
       FACETS = [:jws]
-      HELPERS = [Domgen::Java::Helper, Domgen::Xml::Helper, Domgen::JAXB::Helper]
+      HELPERS = [Domgen::Java::Helper, Domgen::Xml::Helper, Domgen::JAXB::Helper, Domgen::Jws::Helper]
     end
   end
 end
 
 Domgen.template_set(:jws_server_boundary) do |template_set|
-  template_set.template(Domgen::Generator::JWS::FACETS,
+  template_set.template(Domgen::Generator::JWS::FACETS + [:ejb],
                         :service,
                         "#{Domgen::Generator::JWS::TEMPLATE_DIRECTORY}/boundary_implementation.java.erb",
                         'main/java/#{service.jws.qualified_boundary_implementation_name.gsub(".","/")}.java',
@@ -38,6 +38,22 @@ Domgen.template_set(:jws_client_service) do |template_set|
                                                '#{service.jws.api_package}',
                                                Domgen::Generator::JWS::HELPERS)
   template_set.register_template(template)
+end
+
+Domgen.template_set(:jws_client_handler) do |template_set|
+  template_set.template(Domgen::Generator::JWS::FACETS,
+                        :repository,
+                        "#{Domgen::Generator::JWS::TEMPLATE_DIRECTORY}/handler_resolver.java.erb",
+                        'main/java/#{repository.jws.qualified_handler_resolver_name.gsub(".","/")}.java',
+                        Domgen::Generator::JWS::HELPERS)
+end
+
+Domgen.template_set(:jws_type_converter) do |template_set|
+  template_set.template(Domgen::Generator::JWS::FACETS,
+                        :service,
+                        "#{Domgen::Generator::JWS::TEMPLATE_DIRECTORY}/type_converter.java.erb",
+                        'main/java/#{service.jws.qualified_type_converter_name.gsub(".","/")}.java',
+                        Domgen::Generator::JWS::HELPERS)
 end
 
 Domgen.template_set(:jws_server_service) do |template_set|
@@ -124,5 +140,5 @@ end
 
 Domgen.template_set(:jws_server => [:jws_server_boundary, :jws_server_service, :jws_wsdl_assets, :xml_xsd_assets])
 Domgen.template_set(:jws_fake_server => [:jws_fakes, :jws_server_service, :jws_wsdl_resources, :xml_xsd_resources])
-Domgen.template_set(:jws_client => [:jws_wsdl_resources, :xml_xsd_resources, :jws_client_service])
+Domgen.template_set(:jws_client => [:jws_wsdl_resources, :xml_xsd_resources, :jws_client_service, :jws_client_handler])
 Domgen.template_set(:jws => [:jws_server, :jws_client])

@@ -56,16 +56,6 @@ module Domgen
         "#{getter_prefix(attribute)}#{name}()"
       end
 
-      def description_javadoc_for(element, depth = '  ')
-        description = element.tags[:Description]
-        return '' unless description
-        return <<JAVADOC
-#{depth}/**
-#{depth} * #{description.gsub(/\n+\Z/,"").gsub("\n\n","\n<br />\n").gsub("\n","\n#{depth} * ")}
-#{depth} */
-JAVADOC
-      end
-
       def modality_default_to_transport(variable_name, characteristic, characteristic_key)
         extension = characteristic.send(characteristic_key)
 
@@ -95,7 +85,7 @@ JAVADOC
 
         transform = variable_name
         if characteristic.characteristic_type_key == :reference
-          transform = "_#{Domgen::Naming.camelize(characteristic.referenced_entity.dao.jpa.dao_service_name)}.getBy#{characteristic.referenced_entity.primary_key.name}( #{variable_name} )"
+          transform = "_#{Domgen::Naming.camelize(characteristic.referenced_entity.dao.jpa.dao_service_name)}.getBy#{characteristic.referenced_entity.primary_key.name}#{characteristic.ejb? && characteristic.referenced_entity.jpa.default_jpql_criterion && characteristic.ejb.ignore_default_criteria? ? 'IgnoringDefaultCriteria' : ''}( #{variable_name} )"
         end
         if characteristic.nullable? && transform != variable_name
           transform = "(null == #{variable_name} ? null : #{transform})"

@@ -34,10 +34,10 @@ public abstract class <%= repository.ee.abstract_app_server_name %>
 
     // Database Configuration Start
 <% if repository.jpa.include_default_unit? -%>
-    glassfish.create<%= repository.mssql? ? 'SqlServer' : 'Postgres' -%>JdbcResource( <%= repository.jpa.qualified_unit_descriptor_name %>.RESOURCE_NAME );
+    glassfish.create<%= repository.mssql? ? 'SqlServer' : 'Postgres' -%>JdbcResource( "<%= repository.jpa.resolved_data_source -%>" );
 <% end -%>
 <% repository.jpa.standalone_persistence_units.each do |unit| -%>
-    glassfish.create<%= repository.mssql? ? 'SqlServer' : 'Postgres' -%>JdbcResource( <%= repository.jpa.qualified_unit_descriptor_name %>.<%= Domgen::Naming.uppercase_constantize(unit.short_name) %>_RESOURCE_NAME, glassfish.toGlassFishPropertiesString( org.realityforge.guiceyloops.server.DatabaseUtil.getGlassFishDataSourceProperties( "<%= Domgen::Naming.underscore(unit.short_name) %>" ) ) );
+    glassfish.create<%= repository.mssql? ? 'SqlServer' : 'Postgres' -%>JdbcResource( "<%= unit.resolved_data_source -%>", glassfish.toGlassFishPropertiesString( org.realityforge.guiceyloops.server.DatabaseUtil.getGlassFishDataSourceProperties( "<%= Domgen::Naming.underscore(unit.short_name) %>" ) ) );
 <% end -%>
     // Database Configuration Ende
 
@@ -74,6 +74,26 @@ public abstract class <%= repository.ee.abstract_app_server_name %>
     // TODO: Consider sending mail to greenmail
     glassfish.createJavamailResource( "<%= repository.mail.resource_name %>", "mail.example.com", "bob", "bob@example.com" );
     // Mail Configuration Ende
+
+<% end -%>
+<% if repository.keycloak? -%>
+
+    // Keycloak Configuration Start
+<% repository.keycloak.clients.each do |client| -%>
+
+    // Client <%= client.key %>
+
+    // Assume integration tests are not against a real keycloak server at this stage
+    glassfish.createCustomResource( "<%= client.jndi_config_base %>/realm", "<%= client.key %>Realm" );
+    glassfish.createCustomResource( "<%= client.jndi_config_base %>/realm-public-key", "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAic34zD00ZQmia/O4peUJyO1g9lnY/p9vi+dxfbFdAilsbsHj2gfFuxiPInk75yIZR7C7DPNS34PWhA6e4EWuero0MhyzyBDM8IS2577EgdlCtPnANbqe4HI/k6Zm/rd3liwl44tVD3Z9Yv7Ax4h7ChvDTYqFojeD5SE1cNK67MjNWCdlQbudSayUKetSK/PDuBUTNdHxoyqvWrUl+r5dO1XH+ItyliSdThFI9rcGuDWZWfNxMCHmLlDFAnPiYUuUWXkS3EpPCNN2RVAao7yb5ZJ52ijZKqftht7Cu4NwaTjgtyhbvvQQ7W6nhRtQJEt4+eD6KLTUAQLtOvHRtNkfrwIDAQAB" );
+    glassfish.createCustomResource( "<%= client.jndi_config_base %>/auth-server-url", "http://id.<%= repository.name %>.example.com/<%= client.key %>" );
+    glassfish.createCustomResource( "<%= client.jndi_config_base %>/resource", "<%= client.name %>" );
+
+    // This disables keycloak filter. Useful during testing. Should be fixed properly at some point.
+    glassfish.createCustomResource( "<%= client.jndi_debug_key %>", true );
+
+<% end -%>
+    // Keycloak Configuration Ende
 
 <% end -%>
   }

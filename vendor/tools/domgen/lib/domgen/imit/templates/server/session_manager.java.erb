@@ -6,15 +6,15 @@ package <%= to_package(repository.imit.qualified_session_manager_name) %>;
 <% if repository.ee.use_cdi? -%>
 @javax.enterprise.context.ApplicationScoped
 @javax.transaction.Transactional( javax.transaction.Transactional.TxType.REQUIRED )
-@javax.enterprise.inject.Typed( { org.realityforge.replicant.server.ee.rest.ReplicantPollSource.class, org.realityforge.replicant.server.EntityMessageEndpoint.class, org.realityforge.ssf.SessionManager.class, <%= repository.service_by_name(repository.imit.subscription_manager).ejb.qualified_service_name %>.class } )
+@javax.enterprise.inject.Typed( { <%= repository.imit.qualified_poll_service_name %>.class, org.realityforge.replicant.server.EntityMessageEndpoint.class, org.realityforge.ssf.SessionManager.class, <%= repository.service_by_name(repository.imit.subscription_manager).ejb.qualified_service_name %>.class } )
 <% else -%>
 @javax.ejb.Singleton( name = <%= repository.service_by_name(repository.imit.subscription_manager).ejb.qualified_service_name %>.NAME )
 @javax.ejb.ConcurrencyManagement( javax.ejb.ConcurrencyManagementType.BEAN )
-@javax.ejb.Local( { org.realityforge.replicant.server.ee.rest.ReplicantPollSource.class, org.realityforge.replicant.server.EntityMessageEndpoint.class, org.realityforge.ssf.SessionManager.class, <%= repository.service_by_name(repository.imit.subscription_manager).ejb.qualified_service_name %>.class } )
+@javax.ejb.Local( { <%= repository.imit.qualified_poll_service_name %>.class, org.realityforge.replicant.server.EntityMessageEndpoint.class, org.realityforge.ssf.SessionManager.class, <%= repository.service_by_name(repository.imit.subscription_manager).ejb.qualified_service_name %>.class } )
 <% end -%>
 public class <%= repository.imit.session_manager_name %>
   extends org.realityforge.replicant.server.transport.Replicant<% if repository.imit.poll_replicate_mode? -%>Json<% end -%>SessionManager<<%= repository.imit.qualified_session_name %>>
-  implements <%= repository.service_by_name(repository.imit.subscription_manager).ejb.qualified_service_name %><% if repository.imit.poll_replicate_mode? %>, org.realityforge.replicant.server.ee.rest.ReplicantPollSource<% end %>
+  implements <%= repository.service_by_name(repository.imit.subscription_manager).ejb.qualified_service_name %><% if repository.imit.poll_replicate_mode? %>, <%= repository.imit.qualified_poll_service_name %><% end %>
 {
   private static final java.util.logging.Logger LOG = java.util.logging.Logger.getLogger( <%= repository.imit.session_manager_name %>.class.getName() );
 <% if repository.imit.graphs.any?{|g| !g.filter_parameter.nil? } -%>
@@ -37,6 +37,15 @@ entities.uniq.each do |entity| -%>
 <% end -%>
   @javax.inject.Inject
   private <%= repository.service_by_name(repository.imit.session_context_service).ejb.qualified_service_name %> _context;
+  @javax.annotation.Resource
+  private javax.transaction.TransactionSynchronizationRegistry _registry;
+
+  @javax.annotation.Nonnull
+  @java.lang.Override
+  protected javax.transaction.TransactionSynchronizationRegistry getRegistry()
+  {
+    return _registry;
+  }
 
   /**
    * Remove idle session changes. This is called by a scheduler.
@@ -298,6 +307,8 @@ if ( <%= repository.imit.qualified_graph_enum_name %>.<%= Domgen::Naming.upperca
     throws <%= repository.exception_by_name(repository.imit.invalid_session_exception).ee.qualified_name %>
   {
     final <%= repository.imit.qualified_session_name %> session = ensureSession( sessionID );
+    //Force the sessionID to the desired session in case call has not come in via gwt-rpc
+    _registry.putResource( org.realityforge.replicant.shared.transport.ReplicantContext.SESSION_ID_KEY, sessionID );
     if ( !session.<%= graph.instance_root? ? "is#{graph.name}Interesting( #{pk_accessor} )" : "isInterestedIn#{graph.name}()" %> )
     {
 <% if graph.instance_root? -%>
@@ -400,6 +411,8 @@ if ( <%= repository.imit.qualified_graph_enum_name %>.<%= Domgen::Naming.upperca
     throws <%= repository.exception_by_name(repository.imit.invalid_session_exception).ee.qualified_name %>
   {
     final <%= repository.imit.qualified_session_name %> session = ensureSession( sessionID );
+    //Force the sessionID to the desired session in case call has not come in via gwt-rpc
+    _registry.putResource( org.realityforge.replicant.shared.transport.ReplicantContext.SESSION_ID_KEY, sessionID );
     <%= nullability_annotation(graph.filter_parameter.nullable?) %> final <%= Domgen::Java.java_type(graph.filter_parameter, :ee, :default) %> original = session.get<%= graph.name %>Parameter(<%= pk_accessor %>);
     session.updateInterestIn<%= graph.name %>( <%= "#{pk_accessor}#{'' == pk_accessor ? '' : ", "}" %>filter );
     final org.realityforge.replicant.server.EntityMessageSet messages = new org.realityforge.replicant.server.EntityMessageSet();
@@ -432,6 +445,8 @@ if ( <%= repository.imit.qualified_graph_enum_name %>.<%= Domgen::Naming.upperca
     throws <%= repository.exception_by_name(repository.imit.invalid_session_exception).ee.qualified_name %>
   {
     final <%= repository.imit.qualified_session_name %> session = ensureSession( sessionID );
+    //Force the sessionID to the desired session in case call has not come in via gwt-rpc
+    _registry.putResource( org.realityforge.replicant.shared.transport.ReplicantContext.SESSION_ID_KEY, sessionID );
     doUnsubscribeFrom<%= graph.name %>( session<%= pk_accessor.size == 0 ? '' : ", #{pk_accessor}" %> );
   }
 

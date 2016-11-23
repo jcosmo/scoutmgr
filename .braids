@@ -18,7 +18,7 @@
     "remote": "master/braid/vendor/tools/domgen",
     "branch": "master",
     "squashed": true,
-    "revision": "1dbfa2fb4d5b52a552ebc5d284354a9c9211c22e"
+    "revision": "db1b6ed33e540081ec7b43bf57a60333f0168650"
   },
   "vendor/tools/redfish": {
     "url": "https://github.com/realityforge/redfish.git",

@@ -34,11 +34,12 @@ module Domgen
 
     def _(filename)
       raise 'No current repository' unless self.current_repository
-      self.current_repository.resolve_file(filename)
+      self.current_repository.resolve_filename(filename)
     end
 
     def read(filename)
-      IO.read(_(filename))
+      raise 'No current repository' unless self.current_repository
+      self.current_repository.read_file(filename)
     end
 
     private
@@ -253,7 +254,7 @@ module Domgen
 
     def dimensions=(dimensions)
       Domgen.error("dimensions can not be specified on #{characteristic.name} as geometry_type is not raw geometry") unless geometry_type == :geometry
-      Domgen.error("dimensions on #{characteristic.name} is invalid as #{dimensions} is not valid") unless [2,3].include?(dimensions)
+      Domgen.error("dimensions on #{characteristic.name} is invalid as #{dimensions} is not valid") unless [2, 3].include?(dimensions)
       @dimensions = dimensions
     end
 
@@ -489,7 +490,7 @@ module Domgen
     end
 
     def self.supported_types
-      (self.supported_basic_types + Domgen::TypeDB.characteristic_types.collect{|ct| ct.name}).sort.uniq
+      (self.supported_basic_types + Domgen::TypeDB.characteristic_types.collect { |ct| ct.name }).sort.uniq
     end
 
     def self.supported_basic_types
@@ -593,7 +594,7 @@ module Domgen
     end
   end
 
-  class DataAccessObject <  self.FacetedElement(:data_module)
+  class DataAccessObject < self.FacetedElement(:data_module)
     attr_reader :name
 
     include GenerateFacet
@@ -957,7 +958,7 @@ module Domgen
     end
 
     def characteristic_kind
-       'attribute'
+      'attribute'
     end
 
     protected
@@ -1070,7 +1071,7 @@ module Domgen
     end
 
     def characteristic_kind
-       "field"
+      "field"
     end
 
     protected
@@ -1141,7 +1142,7 @@ module Domgen
     end
 
     def characteristic_kind
-       "parameter"
+      "parameter"
     end
 
     protected
@@ -1281,7 +1282,7 @@ module Domgen
     end
 
     def name
-      "Return"
+      'Return'
     end
 
     def qualified_name
@@ -1301,7 +1302,7 @@ module Domgen
     end
   end
 
-  class Method <  self.FacetedElement(:service)
+  class Method < self.FacetedElement(:service)
     include CharacteristicContainer
     include GenerateFacet
 
@@ -1317,6 +1318,10 @@ module Domgen
 
     def to_s
       "Method[#{self.qualified_name}]"
+    end
+
+    def any_non_standard_types?
+      characteristics_non_standard_types?
     end
 
     def parameters
@@ -1358,7 +1363,7 @@ module Domgen
     end
 
     def characteristic_kind
-      "parameter"
+      'parameter'
     end
 
     protected
@@ -1368,7 +1373,7 @@ module Domgen
     end
   end
 
-  class Service <  self.FacetedElement(:data_module)
+  class Service < self.FacetedElement(:data_module)
     attr_reader :name
     attr_reader :methods
 
@@ -1411,7 +1416,7 @@ module Domgen
     end
   end
 
-  class DataModule <  self.FacetedElement(:repository)
+  class DataModule < self.FacetedElement(:repository)
     attr_reader :name
 
     include GenerateFacet
@@ -1812,7 +1817,7 @@ module Domgen
     end
   end
 
-  class Repository <  BaseTaggableElement
+  class Repository < BaseTaggableElement
     attr_reader :name
     attr_reader :source_file
 
@@ -1858,9 +1863,23 @@ module Domgen
       "Repository[#{self.name}]"
     end
 
-    def resolve_file(filename)
+    def read_file(filename)
+      IO.read(resolve_file(resolve_filename(filename)))
+    end
+
+    def resolve_filename(filename)
       return filename unless self.source_file
       filename =~ /^\// ? filename : File.expand_path("#{File.dirname(self.source_file)}/#{filename}")
+    end
+
+    def resolve_file(filename)
+      # Hook method that can be replaced to ensure file is present
+      filename
+    end
+
+    def resolve_artifact(artifact_spec)
+      # Hook method that can be replaced to translate artifact into file
+      artifact_spec
     end
 
     def data_module(name, options = {}, &block)

@@ -14,8 +14,8 @@
 
 module Domgen
   class Sync
-    VALID_MASTER_FACETS = [:sql, :mssql, :pgsql, :ee, :ejb, :java, :jpa, :sync, :syncrecord, :appconfig]
-    VALID_SYNC_TEMP_FACETS = [:sql, :mssql, :pgsql, :sync, :syncrecord, :appconfig]
+    VALID_MASTER_FACETS = [:application, :sql, :mssql, :pgsql, :ee, :ejb, :java, :jpa, :sync, :syncrecord, :appconfig]
+    VALID_SYNC_TEMP_FACETS = [:application, :sql, :mssql, :pgsql, :sync, :syncrecord, :appconfig]
   end
 
   FacetManager.facet(:sync => [:syncrecord, :sql]) do |facet|
@@ -585,6 +585,9 @@ module Domgen
 
           if e.concrete?
             e.query(:FindByMappingSourceAndMappingID)
+            e.query(:FindUndeletedByMappingSourceAndMappingID,
+                    'jpa.standard_query' => true,
+                    'jpa.jpql' => 'O.mappingSource = :MappingSource AND O.mappingID = :MappingID and O.deletedAt IS NULL')
             e.query(:GetByMappingSourceAndMappingID)
             e.jpa.test_create_default(e.root_entity.name => 'null', :MasterSynchronized => 'false', :CreatedAt => 'new java.util.Date()', :DeletedAt => 'null')
             e.jpa.test_create_default(e.root_entity.name => 'null', :MasterSynchronized => 'false', :MappingKey => 'mappingID', :CreatedAt => 'new java.util.Date()', :DeletedAt => 'null')
@@ -603,6 +606,7 @@ module Domgen
             e.jpa.test_update_default(delete_defaults, :force_refresh => true, :factory_method_name => "mark#{e.name}AsDeleted")
             e.query(:CountByMappingSource)
             e.query(:CountUnsynchronizedByMappingSource,
+                    'jpa.standard_query' => true,
                     'jpa.jpql' => 'O.mappingSource = :MappingSource AND O.masterSynchronized = false')
 
             if entity.sync.transaction_time?

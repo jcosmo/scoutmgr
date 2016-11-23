@@ -32,6 +32,11 @@ require 'domgen/render_context'
 require 'domgen/generator'
 require 'domgen/filters'
 
+ # Integration utilities
+require 'domgen/util'
+require 'domgen/zip_util'
+require 'domgen/buildr_integration'
+
 # Json
 require 'domgen/json/model'
 
@@ -100,6 +105,7 @@ require 'domgen/ejb/generator'
 # JWS
 require 'domgen/jws/model'
 require 'domgen/jws/wsimport_template'
+require 'domgen/jws/helper'
 require 'domgen/jws/generator'
 
 # JMX
@@ -114,6 +120,10 @@ require 'domgen/jaxrs/generator'
 # EE
 require 'domgen/ee/model'
 require 'domgen/ee/generator'
+
+# CE (Client edition ... stuff shared between gwt and ee client side applications)
+require 'domgen/ce/model'
+require 'domgen/ce/generator'
 
 # GWT
 require 'domgen/gwt/model'
@@ -167,3 +177,8 @@ require 'domgen/syncrecord/generator'
 
 require 'domgen/mail/model'
 require 'domgen/mail/generator'
+
+require 'domgen/application/model'
+
+require 'domgen/robots/model'
+require 'domgen/robots/generator'

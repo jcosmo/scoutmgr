@@ -24,14 +24,6 @@ module Domgen
   end
 end
 
-Domgen.template_set(:imit_integration_qa) do |template_set|
-  template_set.template(Domgen::Generator::Imit::FACETS,
-                        :repository,
-                        "#{Domgen::Generator::Imit::TEMPLATE_DIRECTORY}/server/integration_module.java.erb",
-                        'main/java/#{repository.imit.qualified_integration_module_name.gsub(".","/")}.java',
-                        Domgen::Generator::Imit::HELPERS)
-end
-
 Domgen.template_set(:imit_metadata) do |template_set|
   template_set.template(Domgen::Generator::Imit::FACETS,
                         :repository,
@@ -50,36 +42,6 @@ Domgen.template_set(:imit_client_entity) do |template_set|
                         :data_module,
                         "#{Domgen::Generator::Imit::TEMPLATE_DIRECTORY}/client/mapper.java.erb",
                         'main/java/#{data_module.imit.qualified_mapper_name.gsub(".","/")}.java',
-                        Domgen::Generator::Imit::HELPERS)
-  template_set.template(Domgen::Generator::Imit::FACETS,
-                        :repository,
-                        "#{Domgen::Generator::Imit::TEMPLATE_DIRECTORY}/client/model_module.xml.erb",
-                        'main/resources/#{repository.imit.model_module.gsub(".","/")}.gwt.xml',
-                        Domgen::Generator::Imit::HELPERS)
-  template_set.template(Domgen::Generator::Imit::FACETS,
-                        :repository,
-                        "#{Domgen::Generator::Imit::TEMPLATE_DIRECTORY}/client/data_loader_service.java.erb",
-                        'main/java/#{repository.imit.qualified_data_loader_service_name.gsub(".","/")}.java',
-                        Domgen::Generator::Imit::HELPERS)
-  template_set.template(Domgen::Generator::Imit::FACETS,
-                        :repository,
-                        "#{Domgen::Generator::Imit::TEMPLATE_DIRECTORY}/client/data_loader_service_interface.java.erb",
-                        'main/java/#{repository.imit.qualified_data_loader_service_interface_name.gsub(".","/")}.java',
-                        Domgen::Generator::Imit::HELPERS)
-  template_set.template(Domgen::Generator::Imit::FACETS,
-                        :repository,
-                        "#{Domgen::Generator::Imit::TEMPLATE_DIRECTORY}/client/session_context.java.erb",
-                        'main/java/#{repository.imit.qualified_client_session_context_name.gsub(".","/")}.java',
-                        Domgen::Generator::Imit::HELPERS)
-  template_set.template(Domgen::Generator::Imit::FACETS,
-                        :repository,
-                        "#{Domgen::Generator::Imit::TEMPLATE_DIRECTORY}/client/session_interface.java.erb",
-                        'main/java/#{repository.imit.qualified_client_session_interface_name.gsub(".","/")}.java',
-                        Domgen::Generator::Imit::HELPERS)
-  template_set.template(Domgen::Generator::Imit::FACETS,
-                        :repository,
-                        "#{Domgen::Generator::Imit::TEMPLATE_DIRECTORY}/client/session.java.erb",
-                        'main/java/#{repository.imit.qualified_client_session_name.gsub(".","/")}.java',
                         Domgen::Generator::Imit::HELPERS)
   template_set.template(Domgen::Generator::Imit::FACETS,
                         :repository,
@@ -103,6 +65,70 @@ Domgen.template_set(:imit_client_entity) do |template_set|
                         Domgen::Generator::Imit::HELPERS)
 end
 
+Domgen.template_set(:imit_client_entity_gwt_module) do |template_set|
+  template_set.template(Domgen::Generator::Imit::FACETS,
+                        :repository,
+                        "#{Domgen::Generator::Imit::TEMPLATE_DIRECTORY}/client/replicant_module.xml.erb",
+                        'main/resources/#{repository.imit.qualified_replicant_module_name.gsub(".","/")}.gwt.xml',
+                        Domgen::Generator::Imit::HELPERS)
+end
+
+Domgen.template_set(:imit_client_entity_gwt) do |template_set|
+  template_set.template(Domgen::Generator::Imit::FACETS,
+                        :repository,
+                        "#{Domgen::Generator::Imit::TEMPLATE_DIRECTORY}/client/gwt/gwt_data_loader_service_interface.java.erb",
+                        'main/java/#{repository.imit.qualified_gwt_data_loader_service_interface_name.gsub(".","/")}.java',
+                        Domgen::Generator::Imit::HELPERS)
+  template_set.template(Domgen::Generator::Imit::FACETS,
+                        :repository,
+                        "#{Domgen::Generator::Imit::TEMPLATE_DIRECTORY}/client/gwt/session_interface.java.erb",
+                        'main/java/#{repository.imit.qualified_gwt_client_session_interface_name.gsub(".","/")}.java',
+                        Domgen::Generator::Imit::HELPERS)
+  template_set.template(Domgen::Generator::Imit::FACETS,
+                        :repository,
+                        "#{Domgen::Generator::Imit::TEMPLATE_DIRECTORY}/client/gwt/session.java.erb",
+                        'main/java/#{repository.imit.qualified_gwt_client_session_name.gsub(".","/")}.java',
+                        Domgen::Generator::Imit::HELPERS)
+  template_set.template(Domgen::Generator::Imit::FACETS,
+                        :repository,
+                        "#{Domgen::Generator::Imit::TEMPLATE_DIRECTORY}/client/gwt/session_context.java.erb",
+                        'main/java/#{repository.imit.qualified_gwt_client_session_context_name.gsub(".","/")}.java',
+                        Domgen::Generator::Imit::HELPERS)
+  template_set.template(Domgen::Generator::Imit::FACETS,
+                        :repository,
+                        "#{Domgen::Generator::Imit::TEMPLATE_DIRECTORY}/client/gwt/gwt_data_loader_service.java.erb",
+                        'main/java/#{repository.imit.qualified_gwt_data_loader_service_name.gsub(".","/")}.java',
+                        Domgen::Generator::Imit::HELPERS)
+end
+
+Domgen.template_set(:imit_client_entity_ee) do |template_set|
+  template_set.template(Domgen::Generator::Imit::FACETS,
+                        :repository,
+                        "#{Domgen::Generator::Imit::TEMPLATE_DIRECTORY}/client/ee/session_interface.java.erb",
+                        'main/java/#{repository.imit.qualified_ee_client_session_interface_name.gsub(".","/")}.java',
+                        Domgen::Generator::Imit::HELPERS)
+  template_set.template(Domgen::Generator::Imit::FACETS,
+                        :repository,
+                        "#{Domgen::Generator::Imit::TEMPLATE_DIRECTORY}/client/ee/session.java.erb",
+                        'main/java/#{repository.imit.qualified_ee_client_session_name.gsub(".","/")}.java',
+                        Domgen::Generator::Imit::HELPERS)
+  template_set.template(Domgen::Generator::Imit::FACETS,
+                        :repository,
+                        "#{Domgen::Generator::Imit::TEMPLATE_DIRECTORY}/client/ee/ee_data_loader_service_interface.java.erb",
+                        'main/java/#{repository.imit.qualified_ee_data_loader_service_interface_name.gsub(".","/")}.java',
+                        Domgen::Generator::Imit::HELPERS)
+  template_set.template(Domgen::Generator::Imit::FACETS,
+                        :repository,
+                        "#{Domgen::Generator::Imit::TEMPLATE_DIRECTORY}/client/ee/session_context.java.erb",
+                        'main/java/#{repository.imit.qualified_ee_client_session_context_name.gsub(".","/")}.java',
+                        Domgen::Generator::Imit::HELPERS)
+  template_set.template(Domgen::Generator::Imit::FACETS,
+                        :repository,
+                        "#{Domgen::Generator::Imit::TEMPLATE_DIRECTORY}/client/ee/abstract_ee_data_loader_service.java.erb",
+                        'main/java/#{repository.imit.qualified_abstract_ee_data_loader_service_name.gsub(".","/")}.java',
+                        Domgen::Generator::Imit::HELPERS + [Domgen::Jws::Helper])
+end
+
 Domgen.template_set(:imit_client_service) do |template_set|
   template_set.template(Domgen::Generator::Imit::FACETS,
                         :service,
@@ -116,7 +142,7 @@ Domgen.template_set(:imit_client_service) do |template_set|
                         Domgen::Generator::Imit::HELPERS)
   template_set.template(Domgen::Generator::Imit::FACETS + [:gwt_rpc],
                         :repository,
-                        "#{Domgen::Generator::Imit::TEMPLATE_DIRECTORY}/client/services_module.java.erb",
+                        "#{Domgen::Generator::Imit::TEMPLATE_DIRECTORY}/client/gwt/services_module.java.erb",
                         'main/java/#{repository.imit.qualified_services_module_name.gsub(".","/")}.java',
                         Domgen::Generator::Imit::HELPERS)
   template_set.template(Domgen::Generator::Imit::FACETS,
@@ -127,21 +153,36 @@ Domgen.template_set(:imit_client_service) do |template_set|
 end
 
 %w(main test).each do |type|
+  Domgen.template_set(:"imit_server_#{type}_qa") do |template_set|
+    template_set.template(Domgen::Generator::Imit::FACETS,
+                          :repository,
+                          "#{Domgen::Generator::Imit::TEMPLATE_DIRECTORY}/server/integration_module.java.erb",
+                          'main/java/#{repository.imit.qualified_integration_module_name.gsub(".","/")}.java',
+                          Domgen::Generator::Imit::HELPERS)
+  end
   Domgen.template_set(:"imit_client_#{type}_qa") do |template_set|
-    template_set.template(Domgen::Generator::Imit::FACETS + [:gwt_rpc],
+    template_set.template(Domgen::Generator::Imit::FACETS,
                           :data_module,
                           "#{Domgen::Generator::Imit::TEMPLATE_DIRECTORY}/client/abstract_test_factory.java.erb",
                           type + '/java/#{data_module.imit.qualified_abstract_test_factory_name.gsub(".","/")}.java',
                           Domgen::Generator::Imit::HELPERS)
-    template_set.template(Domgen::Generator::Imit::FACETS + [:gwt_rpc],
+    template_set.template(Domgen::Generator::Imit::FACETS,
                           :repository,
                           "#{Domgen::Generator::Imit::TEMPLATE_DIRECTORY}/client/test_factory_set.java.erb",
                           type + '/java/#{repository.imit.qualified_test_factory_set_name.gsub(".","/")}.java',
                           Domgen::Generator::Imit::HELPERS)
-    template_set.template(Domgen::Generator::Imit::FACETS + [:gwt_rpc],
+    template_set.template(Domgen::Generator::Imit::FACETS,
                           :repository,
                           "#{Domgen::Generator::Imit::TEMPLATE_DIRECTORY}/client/abstract_client_test.java.erb",
                           type + '/java/#{repository.imit.qualified_abstract_client_test_name.gsub(".","/")}.java',
+                          Domgen::Generator::Imit::HELPERS)
+  end
+
+  Domgen.template_set(:"imit_client_#{type}_gwt_qa") do |template_set|
+    template_set.template(Domgen::Generator::Imit::FACETS + [:gwt_rpc],
+                          :repository,
+                          "#{Domgen::Generator::Imit::TEMPLATE_DIRECTORY}/client/gwt/abstract_gwt_client_test.java.erb",
+                          type + '/java/#{repository.imit.qualified_abstract_gwt_client_test_name.gsub(".","/")}.java',
                           Domgen::Generator::Imit::HELPERS)
     template_set.template(Domgen::Generator::Imit::FACETS + [:gwt_rpc],
                           :repository,
@@ -242,6 +283,11 @@ Domgen.template_set(:imit_server_service) do |template_set|
                         Domgen::Generator::Imit::SERVER_HELPERS)
   template_set.template(Domgen::Generator::Imit::SERVER_FACETS,
                         :repository,
+                        "#{Domgen::Generator::Imit::TEMPLATE_DIRECTORY}/server/poll_service.java.erb",
+                        'main/java/#{repository.imit.qualified_poll_service_name.gsub(".","/")}.java',
+                        Domgen::Generator::Imit::SERVER_HELPERS)
+  template_set.template(Domgen::Generator::Imit::SERVER_FACETS,
+                        :repository,
                         "#{Domgen::Generator::Imit::TEMPLATE_DIRECTORY}/server/session_manager.java.erb",
                         'main/java/#{repository.imit.qualified_session_manager_name.gsub(".","/")}.java',
                         Domgen::Generator::Imit::SERVER_HELPERS)
@@ -255,6 +301,11 @@ Domgen.template_set(:imit_server_service) do |template_set|
                         "#{Domgen::Generator::Imit::TEMPLATE_DIRECTORY}/server/session_rest_service.java.erb",
                         'main/java/#{repository.imit.qualified_session_rest_service_name.gsub(".","/")}.java',
                         Domgen::Generator::Imit::SERVER_HELPERS)
+  template_set.template(Domgen::Generator::Imit::SERVER_FACETS,
+                        :repository,
+                        "#{Domgen::Generator::Imit::TEMPLATE_DIRECTORY}/server/poll_rest_service.java.erb",
+                        'main/java/#{repository.imit.qualified_poll_rest_service_name.gsub(".","/")}.java',
+                        Domgen::Generator::Imit::SERVER_HELPERS)
 end
 
 Domgen.template_set(:imit_server_qa) do |template_set|
@@ -267,5 +318,5 @@ end
 
 Domgen.template_set(:imit_shared => [:imit_metadata])
 Domgen.template_set(:imit_server => [:imit_server_service, :imit_server_entity, :imit_server_qa])
-Domgen.template_set(:imit_client => [:imit_client_test_qa, :imit_client_service, :imit_client_entity])
-Domgen.template_set(:imit => [:imit_client, :imit_server, :imit_shared, :imit_integration_qa])
+Domgen.template_set(:imit_client => [:imit_client_test_qa, :imit_client_service, :imit_client_entity, :imit_client_entity_gwt])
+Domgen.template_set(:imit => [:imit_client, :imit_server, :imit_shared, :imit_server_test_qa])
