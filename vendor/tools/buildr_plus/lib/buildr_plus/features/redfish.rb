@@ -12,7 +12,9 @@
 # limitations under the License.
 #
 
-BuildrPlus::FeatureManager.feature(:redfish => [:docker, :config]) do |f|
+BuildrPlus::FeatureManager.feature(:redfish => [:config]) do |f|
+  f.suggested_features << :docker
+
   f.enhance(:Config) do
     attr_writer :local_domain
 
@@ -33,7 +35,7 @@ BuildrPlus::FeatureManager.feature(:redfish => [:docker, :config]) do |f|
     attr_writer :docker_domain
 
     def docker_domain?
-      @docker_domain.nil? ? true : @docker_domain
+      @docker_domain.nil? ? BuildrPlus::FeatureManager.activated?(:docker) : @docker_domain
     end
 
     def customize_docker_domain(&block)
@@ -62,6 +64,7 @@ BuildrPlus::FeatureManager.feature(:redfish => [:docker, :config]) do |f|
         @features = []
         @features << :jms if BuildrPlus::FeatureManager.activated?(:jms)
         @features << :jdbc if BuildrPlus::FeatureManager.activated?(:db)
+        @features << :mail if BuildrPlus::FeatureManager.activated?(:mail)
       end
       @features
     end
@@ -71,7 +74,7 @@ BuildrPlus::FeatureManager.feature(:redfish => [:docker, :config]) do |f|
       properties = build_property_set(domain, environment)
       domain.environment_vars.each_pair do |key, default_value|
         value = properties[key] || default_value
-        raise "Redfish domain with key #{domain.key} requires setting #{key} that is not specified and can not be derived." if value.nil?
+        raise "Redfish domain with key #{domain.key} requires setting #{key} that is not specified and can not be derived." if value.nil? || value == ''
         RedfishPlus.system_property(domain, key, value)
         domain.data['environment_vars'][key] = value
       end
@@ -94,14 +97,22 @@ BuildrPlus::FeatureManager.feature(:redfish => [:docker, :config]) do |f|
     def build_property_set(domain, environment)
       properties = {}
 
+      constant_prefix = BuildrPlus::Naming.uppercase_constantize(domain.name)
+
       if environment.broker?
         properties['OPENMQ_HOST'] = as_ip(environment.broker.host.to_s)
         properties['OPENMQ_PORT'] = environment.broker.port.to_s
         properties['OPENMQ_ADMIN_USERNAME'] = environment.broker.admin_username.to_s
         properties['OPENMQ_ADMIN_PASSWORD'] = environment.broker.admin_password.to_s
+        properties["#{constant_prefix}_BROKER_USERNAME"] = environment.broker.admin_username.to_s
+        properties["#{constant_prefix}_BROKER_PASSWORD"] = environment.broker.admin_password.to_s
       end
 
-      constant_prefix = BuildrPlus::Naming.uppercase_constantize(domain.name)
+      if BuildrPlus::FeatureManager.activated?(:mail)
+        properties["#{constant_prefix}_MAIL_HOST"] = 'localhost'
+        properties["#{constant_prefix}_MAIL_USER"] = domain.name
+        properties["#{constant_prefix}_MAIL_FROM"] = "#{domain.name}@example.com"
+      end
 
       environment.databases.each do |database|
         prefixes = self.database_config_prefix_map[database.key.to_s] || [constant_prefix]
@@ -125,6 +136,7 @@ BuildrPlus::FeatureManager.feature(:redfish => [:docker, :config]) do |f|
 
     def as_ip(name)
       return name if valid_v4?(name)
+      return name if ENV['CONFIG_ALLOW_HOSTNAME'] == 'true'
 
       # First collect all the entries from local resolve.conf
       addresses = Resolv.getaddresses(name).select { |a| valid_v4?(a) }.collect { |a| a == '127.0.0.1' ? host_ip : a }
@@ -219,7 +231,7 @@ BuildrPlus::FeatureManager.feature(:redfish => [:docker, :config]) do |f|
           Redfish::Config.default_domain_key = 'local'
         end
 
-        if BuildrPlus::Redfish.local_domain? && Redfish.domain_by_key?(buildr_project.name) && !Redfish.domain_by_key?('docker')
+        if BuildrPlus::Redfish.docker_domain? && Redfish.domain_by_key?(buildr_project.name) && !Redfish.domain_by_key?('docker')
           Redfish.domain('docker', :extends => buildr_project.name) do |domain|
             RedfishPlus.setup_for_docker(domain, :features => BuildrPlus::Redfish.features)
             RedfishPlus.deploy_application(domain, buildr_project.name, '/', "{{file:#{buildr_project.name}}}")

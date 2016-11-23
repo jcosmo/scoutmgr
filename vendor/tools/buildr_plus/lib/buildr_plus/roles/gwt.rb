@@ -12,30 +12,33 @@
 # limitations under the License.
 #
 
-BuildrPlus::Roles.role(:gwt) do
-  BuildrPlus::FeatureManager.ensure_activated(:gwt)
+BuildrPlus::Roles.role(:gwt, :requires => [:gwt]) do
 
   project.publish = BuildrPlus::Artifacts.gwt?
 
   if BuildrPlus::FeatureManager.activated?(:domgen)
-    generators = [:gwt, :gwt_rpc_shared, :gwt_rpc_client_service, :gwt_client_jso, :auto_bean]
-    generators += [:imit_shared, :imit_client_service, :imit_client_entity] if BuildrPlus::FeatureManager.activated?(:replicant)
+    generators = [:gwt, :gwt_rpc_shared, :gwt_rpc_client_service, :gwt_client_jso, :auto_bean, :gwt_client_module, :gwt_client_gwt_model_module]
+    generators += [:keycloak_gwt_jso] if BuildrPlus::FeatureManager.activated?(:keycloak)
+    generators += [:imit_client_entity_gwt, :imit_client_service] if BuildrPlus::FeatureManager.activated?(:replicant)
     generators += project.additional_domgen_generators
     Domgen::Build.define_generate_task(generators, :buildr_project => project) do |t|
       t.filter = Proc.new do |artifact_type, artifact|
         artifact_type != :message || !artifact.any_non_standard_types?
-      end if BuildrPlus::FeatureManager.activated?(:user_experience)
+      end if BuildrPlus::FeatureManager.activated?(:role_user_experience)
     end
   end
 
   compile.with BuildrPlus::Libs.findbugs_provided, BuildrPlus::Libs.gwt_gin
   compile.with BuildrPlus::Libs.gwt_datatypes
+  compile.with BuildrPlus::Libs.keycloak_gwt if BuildrPlus::FeatureManager.activated?(:keycloak)
 
-  compile.with BuildrPlus::Libs.replicant_client if BuildrPlus::FeatureManager.activated?(:replicant)
+  compile.with BuildrPlus::Libs.replicant_gwt_client if BuildrPlus::FeatureManager.activated?(:replicant)
 
   BuildrPlus::Roles.merge_projects_with_role(project.compile, :shared)
+  BuildrPlus::Roles.merge_projects_with_role(project.compile, :replicant_shared)
 
   test.with BuildrPlus::Libs.mockito
+  test.with BuildrPlus::Libs.replicant_client_qa_support if BuildrPlus::FeatureManager.activated?(:replicant)
 
   package(:jar)
   package(:sources)
@@ -51,9 +54,5 @@ BuildrPlus::Roles.role(:gwt) do
 
   check package(:jar), 'should contain generated source files' do
     it.should contain("#{p.group_as_path}/client/ioc/#{p.name_as_class}GwtRpcServicesModule.class")
-    if BuildrPlus::FeatureManager.activated?(:replicant)
-      it.should contain("#{p.group_as_path}/shared/net/#{p.name_as_class}ReplicationGraph.class")
-      it.should contain("#{p.group_as_path}/shared/net/#{p.name_as_class}ReplicationGraph.java")
-    end
-  end
+  end if BuildrPlus::Domgen.enforce_package_name? && BuildrPlus::FeatureManager.activated?(:domgen)
 end

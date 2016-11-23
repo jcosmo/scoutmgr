@@ -15,15 +15,13 @@
 BuildrPlus::Roles.role(:library_qa_support) do
   if BuildrPlus::FeatureManager.activated?(:domgen)
     generators = []
-    if BuildrPlus::FeatureManager.activated?(:db)
-      generators << [:jpa_test_orm_xml, :jpa_test_persistence_xml] unless BuildrPlus::Artifacts.is_model_standalone?
-    end
-    if BuildrPlus::FeatureManager.activated?(:ejb)
-      generators << [:ejb_test_qa]
-    end
+    generators << [:jpa_test_orm_xml, :jpa_test_persistence_xml] if BuildrPlus::FeatureManager.activated?(:db)
+    generators << [:ejb_test_qa] if BuildrPlus::FeatureManager.activated?(:ejb)
     generators += project.additional_domgen_generators
 
-    Domgen::Build.define_generate_task(generators.flatten, :buildr_project => project)
+    Domgen::Build.define_generate_task(generators.flatten, :buildr_project => project) do |t|
+      t.filter = project.domgen_filter
+    end
   end
 
   project.publish = true

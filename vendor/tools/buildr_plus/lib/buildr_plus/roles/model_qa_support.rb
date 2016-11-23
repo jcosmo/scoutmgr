@@ -17,10 +17,13 @@ BuildrPlus::Roles.role(:model_qa_support) do
     generators = []
     generators << [:jpa_main_qa, :jpa_main_qa_external] if BuildrPlus::FeatureManager.activated?(:db)
     generators << [:ejb_main_qa_external] if BuildrPlus::FeatureManager.activated?(:ejb)
+    generators << [:imit_server_main_qa] if BuildrPlus::FeatureManager.activated?(:replicant)
 
     generators += project.additional_domgen_generators
 
-    Domgen::Build.define_generate_task(generators.flatten, :buildr_project => project)
+    Domgen::Build.define_generate_task(generators.flatten, :buildr_project => project) do |t|
+      t.filter = project.domgen_filter
+    end
   end
 
   project.publish = BuildrPlus::Artifacts.model?
@@ -35,5 +38,5 @@ BuildrPlus::Roles.role(:model_qa_support) do
 
   check package(:jar), 'should contain generated classes' do
     it.should contain("#{project.root_project.group_as_path}/server/test/util/#{project.root_project.name_as_class}RepositoryModule.class")
-  end
+  end if BuildrPlus::Domgen.enforce_package_name? && BuildrPlus::FeatureManager.activated?(:db)
 end

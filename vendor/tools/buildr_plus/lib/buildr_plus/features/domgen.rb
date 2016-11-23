@@ -73,9 +73,17 @@ BuildrPlus::FeatureManager.feature(:domgen) do |f|
     end
 
     attr_writer :enforce_postload_constraints
+
+    def enforce_package_name?
+      enforce_postload_constraints? && (@enforce_package_name.nil? ? true : !!@enforce_package_name)
+    end
+
+    attr_writer :enforce_package_name
   end
 
   f.enhance(:ProjectExtension) do
+
+    attr_accessor :domgen_filter
 
     def additional_domgen_generators
       @additional_domgen_generators ||= []
@@ -119,6 +127,7 @@ BuildrPlus::FeatureManager.feature(:domgen) do |f|
                 :mail => :mail,
                 :soap => :jws,
                 :gwt => :gwt,
+                :sync => :sync,
                 :replicant => :imit,
                 :gwt_cache_filter => :gwt_cache_filter,
                 :appconfig => :appconfig,
@@ -128,10 +137,30 @@ BuildrPlus::FeatureManager.feature(:domgen) do |f|
               }
 
             Domgen.repositorys.each do |r|
-              if r.java?
+              if r.java? && BuildrPlus::Domgen.enforce_package_name?
                 if r.java.base_package != project.group_as_package
                   raise "Buildr projects group '#{project.group_as_package}' expected to match domgens 'java.base_package' setting ('#{r.java.base_package}') but it does not."
                 end
+              end
+
+              if r.application? && r.application.db_deployable? && BuildrPlus::Dbt.library?
+                raise "Domgen declared 'repository.application.db_deployable = true' but buildr configured 'BuildrPlus::Dbt.library = true'."
+              end
+
+              if r.application? && r.application.user_experience? && !BuildrPlus::FeatureManager.activated?(:role_user_experience)
+                raise "Domgen declared 'repository.application.user_experience = true' but buildr has not configured user_experience role."
+              elsif r.application? && !r.application.user_experience? && BuildrPlus::FeatureManager.activated?(:role_user_experience)
+                raise "Domgen declared 'repository.application.user_experience = false' but buildr has configured user_experience role."
+              end
+
+              if r.application? && r.sql? && !r.application.db_deployable? && !BuildrPlus::Dbt.library?
+                raise "Domgen declared 'repository.application.db_deployable = false' but buildr configured 'BuildrPlus::Dbt.library = false'."
+              end
+
+              if r.application? && r.application.service_library? && !BuildrPlus::FeatureManager.activated?(:role_library)
+                raise "Domgen declared 'repository.application.service_library = true' but buildr is not configured as a library."
+              elsif r.application? && !r.application.service_library? && BuildrPlus::FeatureManager.activated?(:role_library)
+                raise "Domgen declared 'repository.application.service_library = false' but buildr is configured as a library."
               end
 
               facet_mapping.each_pair do |buildr_plus_facet, domgen_facet|
@@ -141,6 +170,28 @@ BuildrPlus::FeatureManager.feature(:domgen) do |f|
                 if !BuildrPlus::FeatureManager.activated?(buildr_plus_facet) && r.facet_enabled?(domgen_facet)
                   raise "Domgen facet '#{domgen_facet}' requires that buildrPlus feature '#{buildr_plus_facet}' is enabled but it is not."
                 end
+              end
+              if BuildrPlus::FeatureManager.activated?(:keycloak)
+                domgen_clients = r.keycloak.clients.collect{|client| client.key.to_s}.sort.uniq
+                clients = BuildrPlus::Keycloak.client_types.sort.uniq
+                if clients != domgen_clients
+                  raise "Domgen repository #{r.name} declares keycloak clients #{domgen_clients.inspect} while buildr is aware of #{clients.inspect}"
+                end
+              end
+              if BuildrPlus::FeatureManager.activated?(:appcache) && BuildrPlus::FeatureManager.activated?(:role_library)
+                raise "Can not enable the BuildrPlus 'appcache' feature for libraries"
+              end
+
+              if r.imit? && r.imit.support_ee_client? && !BuildrPlus::Artifacts.replicant_ee_client?
+                raise "Domgen repository #{r.name} declares repository.imit.support_ee_client = true while in BuildrPlus BuildrPlus::Artifacts.replicant_ee_client? is false"
+              elsif !(r.imit? && r.imit.support_ee_client?) && BuildrPlus::Artifacts.replicant_ee_client?
+                raise "Domgen repository #{r.name} declares repository.imit.support_ee_client = false while in BuildrPlus BuildrPlus::Artifacts.replicant_ee_client? is true"
+              end
+
+              if !r.robots? && BuildrPlus::Artifacts.war?
+                raise "Domgen repository #{r.name} should enable robots facet as BuildrPlus BuildrPlus::Artifacts.war? is true"
+              elsif r.robots? && !BuildrPlus::Artifacts.war?
+                raise "Domgen repository #{r.name} should disable robots facet as BuildrPlus BuildrPlus::Artifacts.war? is false"
               end
             end
           end

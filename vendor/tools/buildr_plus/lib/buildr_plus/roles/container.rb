@@ -18,10 +18,13 @@ BuildrPlus::Roles.role(:container) do
     generators = []
 
     generators << [:ee_redfish] if BuildrPlus::FeatureManager.activated?(:redfish)
+    generators << [:keycloak_client_config] if BuildrPlus::FeatureManager.activated?(:keycloak)
 
     generators += project.additional_domgen_generators
 
-    Domgen::Build.define_generate_task(generators.flatten, :buildr_project => project) unless generators.empty?
+    Domgen::Build.define_generate_task(generators.flatten, :buildr_project => project) do |t|
+      t.filter = project.domgen_filter
+    end unless generators.empty?
   end
 
   project.publish = false
@@ -77,6 +80,8 @@ BuildrPlus::Roles.role(:container) do
 
     dependencies = [server_project, model_project, shared_project].compact
     dependencies << Object.const_get(:PACKAGED_DEPS) if Object.const_defined?(:PACKAGED_DEPS)
+    # Findbugs libs added otherwise CDI scanning slows down due to massive number of ClassNotFoundExceptions
+    dependencies << BuildrPlus::Deps.findbugs_provided
     dependencies << BuildrPlus::Deps.model_deps
     dependencies << BuildrPlus::Deps.server_deps
 
@@ -116,19 +121,17 @@ BuildrPlus::Roles.role(:container) do
                                       :packaged => only_packaged_apps)
     end
 
-    if BuildrPlus::FeatureManager.activated?(:user_experience)
-      BuildrPlus::Roles.buildr_projects_with_role(:user_experience).each do |p|
-        gwt_modules = p.determine_top_level_gwt_modules('Dev')
-        gwt_modules.each do |gwt_module|
-          short_name = gwt_module.gsub(/.*\.([^.]+)Dev$/, '\1')
-          path = short_name.gsub(/^#{BuildrPlus::Naming.pascal_case(project.name)}/, '')
-          path = "#{BuildrPlus::Naming.underscore(path)}.html" if path.size > 0
-          ipr.add_gwt_configuration(p,
-                                    :gwt_module => gwt_module,
-                                    :vm_parameters => '-Xmx3G',
-                                    :shell_parameters => "-port 8888 -codeServerPort 8889 -bindAddress 0.0.0.0 -war #{_(:generated, 'gwt-export')}/",
-                                    :launch_page => "http://127.0.0.1:8080/#{p.root_project.name}/#{path}")
-        end
+    BuildrPlus::Roles.buildr_projects_with_role(:user_experience).each do |p|
+      gwt_modules = p.determine_top_level_gwt_modules('Dev')
+      gwt_modules.each do |gwt_module|
+        short_name = gwt_module.gsub(/.*\.([^.]+)Dev$/, '\1')
+        path = short_name.gsub(/^#{BuildrPlus::Naming.pascal_case(project.name)}/, '')
+        path = "#{BuildrPlus::Naming.underscore(path)}.html" if path.size > 0
+        ipr.add_gwt_configuration(p,
+                                  :gwt_module => gwt_module,
+                                  :vm_parameters => '-Xmx3G',
+                                  :shell_parameters => "-port 8888 -codeServerPort 8889 -bindAddress 0.0.0.0 -war #{_(:generated, 'gwt-export')}/",
+                                  :launch_page => "http://127.0.0.1:8080/#{p.root_project.name}/#{path}")
       end
     end
   end

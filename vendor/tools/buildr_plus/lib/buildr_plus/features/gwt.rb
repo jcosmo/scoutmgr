@@ -12,7 +12,7 @@
 # limitations under the License.
 #
 
-BuildrPlus::FeatureManager.feature(:gwt) do |f|
+BuildrPlus::FeatureManager.feature(:gwt => [:jackson]) do |f|
   f.enhance(:Config) do
     def gwtc_java_args
       if 7 == BuildrPlus::Java.version

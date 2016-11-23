@@ -17,10 +17,12 @@ BuildrPlus::Roles.role(:shared) do
     generators = []
     generators << [:appconfig_feature_flag_container] if BuildrPlus::FeatureManager.activated?(:appconfig)
     generators << [:syncrecord_datasources] if BuildrPlus::FeatureManager.activated?(:syncrecord)
-
+    generators << [:keycloak_client_definitions] if BuildrPlus::FeatureManager.activated?(:keycloak)
     generators += project.additional_domgen_generators
 
-    Domgen::Build.define_generate_task(generators.flatten, :buildr_project => project)
+    Domgen::Build.define_generate_task(generators.flatten, :buildr_project => project) do |t|
+      t.filter = project.domgen_filter
+    end
   end
 
   project.publish = BuildrPlus::Artifacts.model? || BuildrPlus::Artifacts.gwt?
