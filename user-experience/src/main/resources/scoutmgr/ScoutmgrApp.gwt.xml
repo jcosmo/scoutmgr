@@ -12,7 +12,7 @@
   <inherits name="gwt.material.design.addins.GWTMaterialAddins"/>
 
   <set-configuration-property name="CssResource.enableGss" value="true" />
-  <set-configuration-property name="gin.ginjector.modules" value="scoutmgr.client.ioc.ScoutmgrModule" />
+  <set-configuration-property name="gin.ginjector.modules" value="scoutmgr.client.ioc.ScoutmgrClientModule" />
   <set-configuration-property name="gin.ginjector.extensions" value="scoutmgr.client.ioc.ScoutmgrGinjector" />
   <set-configuration-property name="gwtp.bootstrapper" value="scoutmgr.client.Bootstrap"/>
   <set-configuration-property name="gwtp.prebootstrapper" value="scoutmgr.client.Prebootstrap"/>
