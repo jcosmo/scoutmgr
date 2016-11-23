@@ -19,5 +19,12 @@
     "branch": "master",
     "squashed": true,
     "revision": "1dbfa2fb4d5b52a552ebc5d284354a9c9211c22e"
+  },
+  "vendor/tools/redfish": {
+    "url": "https://github.com/realityforge/redfish.git",
+    "remote": "master/braid/vendor/tools/redfish",
+    "branch": "master",
+    "squashed": true,
+    "revision": "1c2ad8d0a2b8898e93ab6bee8f8e433745ccdc11"
   }
 }
