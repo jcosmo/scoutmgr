@@ -311,12 +311,12 @@ TXT
 
     def read_repository_xml_from_artifact(artifact)
       raise "Unable to locate database artifact #{artifact}" unless File.exist?(artifact)
-      Zip::ZipFile.open(artifact) do |zip|
+      (Dbt::Util.use_pre_1_zip_gem? ? Zip::ZipFile : Zip::File).open(artifact) do |zip|
         filename = 'data/repository.yml'
-        unless zip.file.exist?(filename)
+        if Dbt::Util.use_pre_1_zip_gem? ? !zip.file.exist?(filename) : zip.find_entry(filename).nil?
           raise "Database artifact #{artifact} does not contain a #{filename} and thus is not in the correct format."
         end
-        return zip.file.read(filename)
+        return (Dbt::Util.use_pre_1_zip_gem? ? zip.file : zip).read(filename)
       end
     end
 
@@ -699,20 +699,20 @@ TXT
     end
 
     def generate_standard_import_sql(table)
-      sql = "INSERT INTO @@TARGET@@.#{table}("
+      sql = "INSERT INTO [@@TARGET@@].#{table}("
       columns = db.column_names_for_table(table)
       sql += columns.join(', ')
       sql += ")\n  SELECT "
       sql += columns.join(', ')
-      sql += " FROM @@SOURCE@@.#{table}\n"
+      sql += " FROM [@@SOURCE@@].#{table}\n"
       sql
     end
 
     def generate_standard_sequence_import_sql(sequence_name)
       sql = "DECLARE @Next VARCHAR(50);\n"
-      sql += "SELECT @Next = CAST(current_value AS BIGINT) + 1 FROM @@SOURCE@@.sys.sequences WHERE object_id = OBJECT_ID('[@@SOURCE@@].#{sequence_name}');\n"
+      sql += "SELECT @Next = CAST(current_value AS BIGINT) + 1 FROM [@@TARGET@@].sys.sequences WHERE object_id = OBJECT_ID('[@@TARGET@@].#{sequence_name}');\n"
       sql += "SET @Next = COALESCE(@Next,'1');"
-      sql += "EXEC('USE @@TARGET@@; ALTER SEQUENCE #{sequence_name} RESTART WITH ' + @Next );"
+      sql += "EXEC('USE [@@TARGET@@]; ALTER SEQUENCE #{sequence_name} RESTART WITH ' + @Next );"
       sql
     end
 
