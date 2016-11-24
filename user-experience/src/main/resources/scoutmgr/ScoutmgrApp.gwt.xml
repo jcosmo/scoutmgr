@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module>
   <inherits name='scoutmgr.Scoutmgr'/>
-  <inherits name="com.google.gwt.inject.Inject"/>
-
-  <inherits name="org.realityforge.gwt.lognice.Lognice"/>
-  <inherits name="com.google.gwt.logging.LoggingDisabled"/>
+  <inherits name='scoutmgr.modules.ScoutmgrAppSupport'/>
 
   <inherits name="com.gwtplatform.mvp.MvpWithEntryPoint"/>
   <!--<inherits name='com.google.gwt.user.theme.standard.Standard'/>-->
@@ -15,7 +12,6 @@
   <!--<inherits name="gwt.material.design.themes.GwtMaterialThemeBlue"/>-->
   <inherits name="gwt.material.design.addins.GWTMaterialAddins"/>
 
-  <set-configuration-property name="CssResource.enableGss" value="true" />
   <set-configuration-property name="gin.ginjector.modules" value="scoutmgr.client.ioc.ScoutmgrClientModule" />
   <set-configuration-property name="gin.ginjector.extensions" value="scoutmgr.client.ioc.ScoutmgrGinjector" />
   <set-configuration-property name="gwtp.bootstrapper" value="scoutmgr.client.Bootstrap"/>
