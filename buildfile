@@ -13,11 +13,13 @@ BuildrPlus::Roles.project('scoutmgr') do
 end
 
 BuildrPlus::Roles.project('user-experience') do
-  project.compile.with GWT_MATERIAL_DEPS, GWTP_DEPS
+  compile.with GWT_MATERIAL_DEPS, GWTP_DEPS,
+                       BuildrPlus::Libs.gwt_lognice
+
 end
 
 BuildrPlus::Roles.project('gwt') do
-  project.compile.with GWT_MATERIAL_DEPS, GWTP_DEPS
+  compile.with GWT_MATERIAL_DEPS, GWTP_DEPS
 end
 
 require 'buildr_plus/activate'
