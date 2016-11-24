@@ -67,4 +67,3 @@ asadmin create-auth-realm --classname com.sun.enterprise.security.auth.realm.jdb
 if [ "$STOP_DOMAIN" == 'true' ]; then
   asadmin stop-domain scoutmgr
 fi
-

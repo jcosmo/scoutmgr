@@ -14,7 +14,7 @@
   <g:PopupPanel ui:field="_dialog" addStyleNames="{_bundle.scoutmgr.modal} {style.dialog}" glassEnabled="true" glassStyleName="{_bundle.scoutmgr.modalBackdrop}">
     <g:HTMLPanel addStyleNames="{_bundle.bootstrap.modalContent}">
       <div class="{_bundle.bootstrap.popoverTitle}">
-        <g:Button ui:field="_closeButton" addStyleNames="{_bundle.bootstrap.close} {style.closeButton}">×</g:Button>
+        <g:Button ui:field="_closeButton" addStyleNames="{_bundle.bootstrap.close} {style.closeButton}"></g:Button>
         <g:HTMLPanel ui:field="_actionsPanel" addStyleNames="{_bundle.bootstrap.pullRight} {style.actionsPanel}"/>
         <h4 class="{_bundle.bootstrap.modalTitle}">
           <span ui:field="_caption">
