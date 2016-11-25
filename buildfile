@@ -1,5 +1,5 @@
 require 'buildr_plus'
-BuildrPlus::FeatureManager.activate_features([:oss, :replicant])
+BuildrPlus::FeatureManager.activate_features([:oss])
 BuildrPlus::Java.version = 8
 require 'buildr_plus/projects/java_multimodule'
 
