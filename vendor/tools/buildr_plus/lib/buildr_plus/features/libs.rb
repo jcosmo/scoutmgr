@@ -61,7 +61,7 @@ BuildrPlus::FeatureManager.feature(:libs) do |f|
     end
 
     def mockito
-      %w(org.mockito:mockito-all:jar:1.9.5)
+      %w(org.mockito:mockito-all:jar:1.10.19)
     end
 
     def jackson_annotations
@@ -92,12 +92,12 @@ BuildrPlus::FeatureManager.feature(:libs) do |f|
       'com.google.gwt:gwt-dev:jar:2.8.0-beta1'
     end
 
-    def gwt_gin
-      %w(com.google.gwt.inject:gin:jar:2.1.2 javax.inject:javax.inject:jar:1) + self.guice + self.gwt_user
+    def javax_inject
+      %w(javax.inject:javax.inject:jar:1)
     end
 
-    def replicant
-      %w(org.realityforge.replicant:replicant:jar:0.5.55)
+    def gwt_gin
+      %w(com.google.gwt.inject:gin:jar:2.1.2) + self.javax_inject + self.guice + self.gwt_user
     end
 
     def gwt_property_source
@@ -105,7 +105,7 @@ BuildrPlus::FeatureManager.feature(:libs) do |f|
     end
 
     def gwt_webpoller
-      %w(org.realityforge.gwt.webpoller:gwt-webpoller:jar:0.8)
+      %w(org.realityforge.gwt.webpoller:gwt-webpoller:jar:0.9.2)
     end
 
     def gwt_datatypes
@@ -125,11 +125,11 @@ BuildrPlus::FeatureManager.feature(:libs) do |f|
     end
 
     def gwt_appcache_client
-      %w(org.realityforge.gwt.appcache:gwt-appcache-client:jar:1.0.8 org.realityforge.gwt.appcache:gwt-appcache-linker:jar:1.0.8)
+      %w(org.realityforge.gwt.appcache:gwt-appcache-client:jar:1.0.9 org.realityforge.gwt.appcache:gwt-appcache-linker:jar:1.0.9)
     end
 
     def gwt_appcache_server
-      %w(org.realityforge.gwt.appcache:gwt-appcache-server:jar:1.0.8)
+      %w(org.realityforge.gwt.appcache:gwt-appcache-server:jar:1.0.9)
     end
 
     # The appcache code required to exist on gwt path during compilation
@@ -165,36 +165,69 @@ BuildrPlus::FeatureManager.feature(:libs) do |f|
       %w(org.bouncycastle:bcprov-jdk15on:jar:1.52 org.bouncycastle:bcpkix-jdk15on:jar:1.52)
     end
 
+    def proxy_servlet
+      self.httpclient + %w(org.realityforge.proxy-servlet:proxy-servlet:jar:0.2.0)
+    end
+
     def httpclient
       %w(org.apache.httpcomponents:httpclient:jar:4.5 org.apache.httpcomponents:httpcore:jar:4.4.1) +
         self.commons_logging + self.commons_codec
     end
 
+    def keycloak_gwt
+      %w(org.realityforge.gwt.keycloak:gwt-keycloak:jar:0.1)
+    end
+
     def keycloak_domgen_support
-      %w(org.realityforge.keycloak.domgen:keycloak-domgen-support:jar:1.0)
+      %w(org.realityforge.keycloak.domgen:keycloak-domgen-support:jar:1.3)
     end
 
     def jboss_logging
       %w(org.jboss.logging:jboss-logging:jar:3.3.0.Final)
     end
 
+    def keycloak_core
+      %w(
+        org.keycloak:keycloak-core:jar:2.0.0.Final
+        org.keycloak:keycloak-common:jar:2.0.0.Final
+      ) + self.bouncycastle
+    end
+
     def keycloak
       %w(
         org.keycloak:keycloak-servlet-filter-adapter:jar:2.0.0.Final
-        org.keycloak:keycloak-core:jar:2.0.0.Final
-        org.keycloak:keycloak-common:jar:2.0.0.Final
         org.keycloak:keycloak-adapter-spi:jar:2.0.0.Final
         org.keycloak:keycloak-adapter-core:jar:2.0.0.Final
         org.realityforge.org.keycloak:keycloak-servlet-adapter-spi:jar:2.0.0.Final
-      ) + self.bouncycastle + self.keycloak_domgen_support + self.httpclient + self.jboss_logging
+      ) + self.keycloak_core + self.keycloak_domgen_support + self.httpclient + self.jboss_logging
     end
 
-    def replicant_client
-      self.replicant + self.gwt_property_source + self.gwt_datatypes + self.gwt_webpoller
+    def replicant_version
+      '0.5.62'
+    end
+
+    def replicant_shared
+      %W(org.realityforge.replicant:replicant-shared:jar:#{replicant_version})
+    end
+
+    def replicant_client_common
+      %W(org.realityforge.replicant:replicant-client-common:jar:#{replicant_version}) + self.replicant_shared + self.gwt_webpoller + self.gwt_datatypes
+    end
+
+    def replicant_client_qa_support
+      %W(org.realityforge.replicant:replicant-client-qa-support:jar:#{replicant_version}) + self.guiceyloops_gwt
+    end
+
+    def replicant_ee_client
+      %W(org.realityforge.replicant:replicant-client-ee:jar:#{replicant_version}) + self.replicant_client_common
+    end
+
+    def replicant_gwt_client
+      %W(org.realityforge.replicant:replicant-client-gwt:jar:#{replicant_version}) + self.replicant_client_common + self.gwt_property_source
     end
 
     def replicant_server
-      self.replicant + self.simple_session_filter + self.gwt_rpc + self.field_filter
+      %W(org.realityforge.replicant:replicant-server:jar:#{replicant_version}) + self.replicant_shared + self.simple_session_filter + self.gwt_rpc + self.field_filter
     end
 
     def gwt_rpc
@@ -218,15 +251,15 @@ BuildrPlus::FeatureManager.feature(:libs) do |f|
     end
 
     def guiceyloops_gwt
-      %w(org.realityforge.guiceyloops:guiceyloops:jar:0.75) + self.mockito + self.guice + self.testng
+      %w(org.realityforge.guiceyloops:guiceyloops:jar:0.80) + self.mockito + self.guice + self.testng
     end
 
     def glassfish_timers_domain
-      %W(org.realityforge.glassfish.timers#{BuildrPlus::Db.pgsql? ? '.pg' : ''}:glassfish-timers-domain:json:0.3)
+      %W(org.realityforge.glassfish.timers#{BuildrPlus::Db.pgsql? ? '.pg' : ''}:glassfish-timers-domain:json:0.4)
     end
 
     def glassfish_timers_db
-      %W(org.realityforge.glassfish.timers#{BuildrPlus::Db.pgsql? ? '.pg' : ''}:glassfish-timers-db:jar:0.3)
+      %W(org.realityforge.glassfish.timers#{BuildrPlus::Db.pgsql? ? '.pg' : ''}:glassfish-timers-db:jar:0.4)
     end
 
     def slf4j

@@ -6,6 +6,8 @@ Domgen.repository(:Scoutmgr) do |repository|
   repository.jpa.base_entity_test_name = repository.jpa.abstract_entity_test_name
   repository.ejb.base_service_test_name = repository.ejb.abstract_service_test_name
 
+  repository.gwt.enable_entrypoints = false
+
   repository.imit.graph(:Metadata)
   repository.imit.graph(:Person, :require_type_graphs => [:Metadata])
   repository.imit.graph(:People, :require_type_graphs => [:Metadata])

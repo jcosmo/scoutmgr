@@ -12,11 +12,11 @@
 # limitations under the License.
 #
 
-BuildrPlus::Roles.role(:user_experience) do
-  BuildrPlus::FeatureManager.ensure_activated(:user_experience)
+BuildrPlus::Roles.role(:user_experience, :requires => [:role_gwt, :gwt]) do
 
   if BuildrPlus::FeatureManager.activated?(:domgen)
-    generators = [:gwt_client_event]
+    generators = [:gwt_client_event, :gwt_client_app, :gwt_client_gwt_modules]
+    generators += [:keycloak_gwt_app] if BuildrPlus::FeatureManager.activated?(:keycloak)
     generators += project.additional_domgen_generators
     Domgen::Build.define_generate_task(generators, :buildr_project => project) do |t|
       t.filter = Proc.new do |artifact_type, artifact|
@@ -31,15 +31,12 @@ BuildrPlus::Roles.role(:user_experience) do
 
   BuildrPlus::Roles.merge_projects_with_role(project.compile, :gwt)
   BuildrPlus::Roles.merge_projects_with_role(project.test, :gwt_qa_support)
+  BuildrPlus::Roles.merge_projects_with_role(project.test, :replicant_qa_support)
 
   package(:jar)
   package(:sources)
 
   BuildrPlus::Gwt.add_source_to_jar(project)
-
-  BuildrPlus::Gwt.define_gwt_task(project,
-                                  'Prod',
-                                  :target_project => BuildrPlus::Roles.buildr_project_with_role('server').name)
 
   BuildrPlus::Gwt.define_gwt_idea_facet(project)
 end

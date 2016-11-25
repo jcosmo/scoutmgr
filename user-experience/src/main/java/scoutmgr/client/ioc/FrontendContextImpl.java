@@ -10,7 +10,7 @@ import scoutmgr.client.entity.security.User;
 import scoutmgr.client.event.MetadataLoadedEvent;
 import scoutmgr.client.event.security.UserLoadedEvent;
 import scoutmgr.client.event.security.UserLoggedOutEvent;
-import scoutmgr.client.net.ScoutmgrDataLoaderService;
+import scoutmgr.client.net.ScoutmgrGwtDataLoaderService;
 import scoutmgr.client.service.DataSubscriptionService;
 
 public class FrontendContextImpl
@@ -25,7 +25,7 @@ public class FrontendContextImpl
   PlaceManager _placeManager;
 
   @Inject
-  ScoutmgrDataLoaderService _dataloader;
+  ScoutmgrGwtDataLoaderService _dataloader;
 
   @Inject
   LoginManager _loginManager;
@@ -171,4 +171,3 @@ public class FrontendContextImpl
     return _person;
   }
 }
-

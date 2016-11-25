@@ -33,16 +33,22 @@ BuildrPlus::FeatureManager.feature(:artifacts) do |f|
       @model.nil? ? library? : !!@model
     end
 
-    attr_writer :is_model_standalone
-
-    def is_model_standalone?
-      @is_model_standalone.nil? ? !BuildrPlus::Dbt.library? : !!@is_model_standalone
-    end
-
     attr_writer :gwt
 
     def gwt?
-      @gwt.nil? ? library? : !!@gwt
+      @gwt.nil? ? library? && BuildrPlus::FeatureManager.activated?(:gwt) : !!@gwt
+    end
+
+    attr_writer :replicant_client
+
+    def replicant_client?
+      @replicant_client.nil? ? library? && BuildrPlus::FeatureManager.activated?(:replicant) : !!@replicant_client
+    end
+
+    attr_writer :replicant_ee_client
+
+    def replicant_ee_client?
+      replicant_client? && @replicant_ee_client.nil? ? replicant_client? : !!@replicant_ee_client
     end
 
     attr_writer :db

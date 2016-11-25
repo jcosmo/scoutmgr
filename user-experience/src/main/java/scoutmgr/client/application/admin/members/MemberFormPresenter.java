@@ -13,7 +13,6 @@ import org.realityforge.gwt.datatypes.client.date.RDate;
 import org.realityforge.replicant.client.EntityRepository;
 import scoutmgr.client.application.ApplicationPresenter;
 import scoutmgr.client.entity.Person;
-import scoutmgr.client.net.ScoutmgrDataLoaderService;
 import scoutmgr.client.place.NameTokens;
 import scoutmgr.client.service.PersonnelService;
 import scoutmgr.client.view.model.ScoutViewModel;
@@ -41,9 +40,6 @@ public class MemberFormPresenter
 
   @Inject
   private PlaceManager _placeManager;
-
-  @Inject
-  private ScoutmgrDataLoaderService _dataloader;
 
   @Inject
   private EntityRepository _entityRepository;

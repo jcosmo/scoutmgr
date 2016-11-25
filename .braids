@@ -4,20 +4,27 @@
     "remote": "master/braid/vendor/tools/buildr_plus",
     "branch": "master",
     "squashed": true,
-    "revision": "d4a6429cc99f0e92c760316cba85f2d6e8420e82"
+    "revision": "2c00fb4046bc3553ecb4f38ca9eb9a9ab7209359"
   },
   "vendor/tools/dbt": {
     "url": "https://github.com/realityforge/dbt.git",
     "remote": "master/braid/vendor/tools/dbt",
     "branch": "master",
     "squashed": true,
-    "revision": "b90aa7f96eba74e1fc89aeb84bf1eb817970d5bb"
+    "revision": "5c3d25c465a922435e8ff1337375bdc0ba4ead49"
   },
   "vendor/tools/domgen": {
     "url": "https://github.com/realityforge/domgen.git",
     "remote": "master/braid/vendor/tools/domgen",
     "branch": "master",
     "squashed": true,
-    "revision": "1dbfa2fb4d5b52a552ebc5d284354a9c9211c22e"
+    "revision": "db1b6ed33e540081ec7b43bf57a60333f0168650"
+  },
+  "vendor/tools/redfish": {
+    "url": "https://github.com/realityforge/redfish.git",
+    "remote": "master/braid/vendor/tools/redfish",
+    "branch": "master",
+    "squashed": true,
+    "revision": "1c2ad8d0a2b8898e93ab6bee8f8e433745ccdc11"
   }
 }

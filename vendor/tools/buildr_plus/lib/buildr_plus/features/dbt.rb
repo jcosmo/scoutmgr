@@ -24,11 +24,24 @@ BuildrPlus::FeatureManager.feature(:dbt => [:db]) do |f|
       self.manual_testing_only_databases.any? { |d| d.to_s == database_key.to_s }
     end
 
+    # Any databases that are not able to be standalone databases should
+    # register module_group to use instead during build process
+    def non_standalone_database_module_groups
+      @non_standalone_database_module_groups ||= {}
+    end
+
     attr_writer :library
 
     # Is the db jar created meant to be a library jar?
     def library?
       @library.nil? ? false : @library
+    end
+
+    def database_import?(database_key)
+      dbt_database = ::Dbt.database_for_key(database_key)
+      return true unless dbt_database.imports.empty?
+      return true if (dbt_database.packaged? && dbt_database.extra_actions.any? { |a| a.to_s =~ /import/ })
+      false
     end
 
     attr_writer :add_dependent_artifacts
@@ -55,13 +68,13 @@ BuildrPlus::FeatureManager.feature(:dbt => [:db]) do |f|
         database.search_dirs = %w(database) if !database.search_dirs? && !BuildrPlus::FeatureManager.activated?(:domgen)
 
         if BuildrPlus::Dbt.add_dependent_artifacts?
-          if BuildrPlus::FeatureManager.activated?(:appconfig)
+          if BuildrPlus::FeatureManager.activated?(:appconfig) && BuildrPlus::Appconfig.include_db_artifact?
             BuildrPlus::Dbt.add_artifact_unless_present(database, BuildrPlus::Appconfig.appconfig_db)
           end
-          if BuildrPlus::FeatureManager.activated?(:syncrecord)
+          if BuildrPlus::FeatureManager.activated?(:syncrecord) && BuildrPlus::Syncrecord.include_db_artifact?
             BuildrPlus::Dbt.add_artifact_unless_present(database, BuildrPlus::Syncrecord.syncrecord_db)
           end
-          if BuildrPlus::FeatureManager.activated?(:mail)
+          if BuildrPlus::FeatureManager.activated?(:mail) && BuildrPlus::Mail.include_db_artifact?
             BuildrPlus::Dbt.add_artifact_unless_present(database, BuildrPlus::Mail.mail_db)
           end
         end

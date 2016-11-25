@@ -13,7 +13,7 @@
 #
 
 module Domgen
-  FacetManager.facet(:ee => [:java]) do |facet|
+  FacetManager.facet(:ee => [:application, :java]) do |facet|
     facet.enhance(Repository) do
       include Domgen::Java::BaseJavaGenerator
       include Domgen::Java::JavaClientServerApplication
@@ -55,8 +55,12 @@ module Domgen
 
       def resolved_web_xml_fragments
         self.web_xml_fragments.collect do |fragment|
-          repository.resolve_file(fragment)
+          repository.read_file(fragment)
         end
+      end
+
+      def cdi_scan_excludes
+        @cdi_scan_excludes ||= []
       end
 
       def beans_xml_content_fragments
@@ -69,7 +73,7 @@ module Domgen
 
       def resolved_beans_xml_fragments
         self.beans_xml_fragments.collect do |fragment|
-          repository.resolve_file(fragment)
+          repository.read_file(fragment)
         end
       end
 

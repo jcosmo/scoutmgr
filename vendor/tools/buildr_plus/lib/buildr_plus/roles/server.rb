@@ -17,15 +17,20 @@ BuildrPlus::Roles.role(:server) do
     generators = [:ee_beans_xml]
     generators << [:ee_web_xml] if BuildrPlus::Artifacts.war?
     if BuildrPlus::FeatureManager.activated?(:db)
-      generators << [:jpa_dao_test]
-
-      generators << [:jpa_test_orm_xml, :jpa_test_persistence_xml] unless BuildrPlus::Artifacts.is_model_standalone?
-
+      generators << [:jpa_dao_test, :jpa_application_orm_xml, :jpa_application_persistence_xml, :jpa_test_orm_xml, :jpa_test_persistence_xml]
       generators << [:imit_server_entity_replication] if BuildrPlus::FeatureManager.activated?(:replicant)
     end
 
+    generators << [:robots] if BuildrPlus::Artifacts.war?
     generators << [:gwt_rpc_shared, :gwt_rpc_server] if BuildrPlus::FeatureManager.activated?(:gwt)
     generators << [:imit_shared, :imit_server_service, :imit_server_qa] if BuildrPlus::FeatureManager.activated?(:replicant)
+
+    if BuildrPlus::FeatureManager.activated?(:keycloak)
+      generators << [:keycloak_config_service, :keycloak_js_service] if BuildrPlus::FeatureManager.activated?(:gwt)
+      if BuildrPlus::Roles.buildr_projects_with_role(:shared).size == 0
+        generators << [:keycloak_client_definitions]
+      end
+    end
 
     if BuildrPlus::FeatureManager.activated?(:sync)
       if BuildrPlus::Sync.standalone?
@@ -49,7 +54,9 @@ BuildrPlus::Roles.role(:server) do
 
     generators += project.additional_domgen_generators
 
-    Domgen::Build.define_generate_task(generators.flatten, :buildr_project => project)
+    Domgen::Build.define_generate_task(generators.flatten, :buildr_project => project) do |t|
+      t.filter = project.domgen_filter
+    end
   end
 
   project.publish = true
@@ -59,7 +66,7 @@ BuildrPlus::Roles.role(:server) do
 
   compile.with artifacts(Object.const_get(:PACKAGED_DEPS)) if Object.const_defined?(:PACKAGED_DEPS)
   compile.with BuildrPlus::Deps.server_deps
-  compile.with BuildrPlus::Libs.ee_provided unless BuildrPlus::FeatureManager.activated?(:model)
+  compile.with BuildrPlus::Libs.ee_provided unless BuildrPlus::FeatureManager.activated?(:role_model)
 
   BuildrPlus::Roles.merge_projects_with_role(project.compile, :model)
   BuildrPlus::Roles.merge_projects_with_role(project.test, :model_qa_support)
@@ -70,6 +77,8 @@ BuildrPlus::Roles.role(:server) do
   package(:war).tap do |war|
     war.libs.clear
     war.libs << artifacts(Object.const_get(:PACKAGED_DEPS)) if Object.const_defined?(:PACKAGED_DEPS)
+    # Findbugs libs added otherwise CDI scanning slows down due to massive number of ClassNotFoundExceptions
+    war.libs << BuildrPlus::Deps.findbugs_provided
     war.libs << BuildrPlus::Deps.model_deps
     war.libs << BuildrPlus::Deps.server_deps
     BuildrPlus::Roles.buildr_projects_with_role(:shared).each do |dep|
@@ -89,10 +98,14 @@ BuildrPlus::Roles.role(:server) do
 
   check package(:war), 'should contain generated gwt artifacts' do
     it.should contain("#{project.root_project.name}/#{project.root_project.name}.nocache.js")
-  end if BuildrPlus::FeatureManager.activated?(:gwt) && BuildrPlus::FeatureManager.activated?(:user_experience)
+  end if BuildrPlus::FeatureManager.activated?(:gwt) && BuildrPlus::FeatureManager.activated?(:role_user_experience)
   check package(:war), 'should contain web.xml' do
     it.should contain('WEB-INF/web.xml')
   end
+  check package(:war), 'should contain orm.xml and persistence.xml' do
+    it.should contain('WEB-INF/classes/META-INF/orm.xml')
+    it.should contain('WEB-INF/classes/META-INF/persistence.xml')
+  end if BuildrPlus::FeatureManager.activated?(:db)
   check package(:war), 'should not contain less files' do
     it.should_not contain('**/*.less')
   end if BuildrPlus::FeatureManager.activated?(:less)
@@ -103,8 +116,17 @@ BuildrPlus::Roles.role(:server) do
   project.iml.add_ejb_facet if BuildrPlus::FeatureManager.activated?(:ejb)
   webroots = {}
   webroots[_(:source, :main, :webapp)] = '/'
-  webroots[_(:source, :main, :webapp_local)] = '/' if BuildrPlus::FeatureManager.activated?(:gwt)
-  webroots[_('..', :generated, 'gwt-export')] = '/' if BuildrPlus::FeatureManager.activated?(:gwt)
+  if BuildrPlus::FeatureManager.activated?(:role_user_experience)
+    webroots[_(:source, :main, :webapp_local)] = '/'
+    BuildrPlus::Roles.buildr_projects_with_role(:user_experience).each do |p|
+      gwt_modules = p.determine_top_level_gwt_modules('Dev')
+      gwt_modules.each do |gwt_module|
+        short_name = gwt_module.gsub(/.*\.([^.]+)Dev$/, '\1').downcase
+        webroots[_('..', :generated, 'gwt-export', short_name)] = "/#{short_name}"
+      end
+      BuildrPlus::Gwt.define_gwt_task(p, 'Prod', :target_project => project.name)
+    end
+  end
 
   project.assets.paths.each do |path|
     next if path.to_s =~ /generated\/gwt\// && BuildrPlus::FeatureManager.activated?(:gwt)

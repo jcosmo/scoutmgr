@@ -1,15 +1,12 @@
-/config/local.sh
-/config/local.bat
-/generated
-/*/generated
-/artifacts
-/target
-/reports
-/tmp
-/*.iws
-/*.ipr
-/*.iml
-/*/*.iml
+# DO NOT EDIT: File is auto-generated
+**/generated
+*.iml
 /*.ids
-/_buildr.rb
+/*.ipr
+/*.iws
+/artifacts
+/config/application.yml
 /config/database.yml
+/reports
+/target
+/tmp

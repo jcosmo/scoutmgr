@@ -58,32 +58,8 @@ module Domgen
       end
 
       def pre_complete
-        if repository.timerstatus?
-          repository.timerstatus.additional_timers << 'Mail.MailQueueService.TransmitQueuedMail'
-        end
-        if repository.jpa?
-          repository.jpa.persistence_file_content_fragments << <<FRAGMENT
-<!-- iris-mail fragment is auto-generated -->
-<persistence-unit name="Mail" transaction-type="JTA">
-  <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-  <jta-data-source>#{repository.jpa.data_source}</jta-data-source>
-
-  <class>iris.mail.server.entity.MailEntry</class>
-  <class>iris.mail.server.entity.Attachment</class>
-
-  <exclude-unlisted-classes>true</exclude-unlisted-classes>
-  <shared-cache-mode>ENABLE_SELECTIVE</shared-cache-mode>
-  <validation-mode>AUTO</validation-mode>
-
-  <properties>
-    <property name="eclipselink.logging.logger" value="JavaLogger"/>
-    <property name="eclipselink.session-name" value="#{repository.name}Mail"/>
-    <property name="eclipselink.temporal.mutable" value="false"/>
-  </properties>
-</persistence-unit>
-<!-- iris-mail fragment end -->
-FRAGMENT
-        end
+        repository.timerstatus.additional_timers << 'Mail.MailQueueService.TransmitQueuedMail' if repository.timerstatus?
+        repository.jpa.application_artifact_fragments << "iris.mail#{repository.pgsql? ? '.pg': ''}:mail-server" if repository.jpa?
       end
     end
   end

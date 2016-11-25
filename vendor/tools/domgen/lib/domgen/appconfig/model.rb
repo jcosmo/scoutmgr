@@ -19,7 +19,7 @@ module Domgen
 
       def initialize(appconfig_repository, key, options = {}, &block)
         @key = key
-        raise "Supplied key for feature flag has non alphanumeric and non underscore characters. key = '#{key}'" unless key.to_s.gsub(/[^0-9A-Za-z_]/,'') == key.to_s
+        raise "Supplied key for feature flag has non alphanumeric and non underscore characters. key = '#{key}'" unless key.to_s.gsub(/[^0-9A-Za-z_]/, '') == key.to_s
         appconfig_repository.send(:register_feature_flag, self)
         super(appconfig_repository, options, &block)
       end
@@ -84,28 +84,7 @@ module Domgen
 
       def pre_complete
         repository.jaxrs.extensions << 'iris.appconfig.server.rest.SystemSettingRestService' if repository.jaxrs?
-
-        if repository.jpa?
-          repository.jpa.persistence_file_content_fragments << <<FRAGMENT
-<!-- appconfig fragment is auto-generated -->
-<persistence-unit name="AppConfig" transaction-type="JTA">
-  <jta-data-source>#{repository.jpa.data_source}</jta-data-source>
-
-  <class>iris.appconfig.server.entity.SystemSetting</class>
-
-  <exclude-unlisted-classes>true</exclude-unlisted-classes>
-  <shared-cache-mode>ENABLE_SELECTIVE</shared-cache-mode>
-  <validation-mode>AUTO</validation-mode>
-
-  <properties>
-    <property name="eclipselink.logging.logger" value="JavaLogger"/>
-    <property name="eclipselink.session-name" value="#{repository.name}AppConfig"/>
-    <property name="eclipselink.temporal.mutable" value="false"/>
-  </properties>
-</persistence-unit>
-<!-- appconfig fragment end -->
-FRAGMENT
-        end
+        repository.jpa.application_artifact_fragments << "iris.appconfig#{repository.pgsql? ? '.pg': ''}:app-config-server" if repository.jpa?
       end
 
       protected

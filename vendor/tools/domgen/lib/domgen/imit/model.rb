@@ -289,8 +289,8 @@ module Domgen
           self.path.to_s.split.each_with_index do |attribute_name_path_element, i|
             other = entity.attribute_by_name(attribute_name_path_element)
             Domgen.error("#{prefix} #{attribute_name_path_element} is nullable") if other.nullable? && i != 0
-            Domgen.error("#{prefix} #{attribute_name_path_element} is not immutable") if !other.immutable?
-            Domgen.error("#{prefix} #{attribute_name_path_element} is not a reference") if !other.reference?
+            Domgen.error("#{prefix} #{attribute_name_path_element} is not immutable") unless other.immutable?
+            Domgen.error("#{prefix} #{attribute_name_path_element} is not a reference") unless other.reference?
             entity = other.referenced_entity
           end
         end
@@ -486,13 +486,13 @@ module Domgen
     end
   end
 
-  FacetManager.facet(:imit => [:gwt_rpc]) do |facet|
+  FacetManager.facet(:imit => [:ce, :gwt_rpc]) do |facet|
     facet.enhance(Repository) do
       include Domgen::Java::BaseJavaGenerator
       include Domgen::Java::JavaClientServerApplication
 
       def client_ioc_package
-        repository.gwt_rpc.client_ioc_package
+        repository.gwt.client_ioc_package
       end
 
       attr_writer :server_comm_package
@@ -507,57 +507,67 @@ module Domgen
         @client_comm_package || "#{client_package}.net"
       end
 
+      attr_writer :client_ee_comm_package
+
+      def client_ee_comm_package
+        @client_ee_comm_package || "#{client_comm_package}.ee"
+      end
+
       def shared_comm_package
         @shared_comm_package || "#{shared_package}.net"
       end
 
       attr_writer :shared_comm_package
 
-      # TODO: Consider moving this to gwt?
-      attr_writer :model_module
-
-      def model_module
-        @model_module || "#{repository.java.base_package}.#{repository.name}Model"
+      def modules_package
+        repository.gwt.modules_package
       end
 
+      java_artifact :replicant_module, :modules, nil, :gwt, '#{repository.name}ReplicantSupport'
       java_artifact :repository_debugger, :comm, :client, :imit, '#{repository.name}RepositoryDebugger'
       java_artifact :change_mapper, :comm, :client, :imit, '#{repository.name}ChangeMapperImpl'
-      java_artifact :data_loader_service, :comm, :client, :imit, '#{repository.name}DataLoaderServiceImpl'
-      java_artifact :client_session_context, :comm, :client, :imit, '#{repository.name}SessionContext'
-      java_artifact :client_session, :comm, :client, :imit, '#{repository.name}ClientSessionImpl'
+      java_artifact :ee_data_loader_service_interface, :comm, :client, :imit, '#{repository.name}EeDataLoaderService', :sub_package => 'ee'
+      java_artifact :ee_data_loader_service, :comm, :client, :imit, '#{ee_data_loader_service_interface_name}Impl', :sub_package => 'ee'
+      java_artifact :abstract_ee_data_loader_service, :comm, :client, :imit, 'Abstract#{ee_data_loader_service_name}', :sub_package => 'ee'
+      java_artifact :ee_client_session_context, :comm, :client, :imit, '#{repository.name}EeSessionContext', :sub_package => 'ee'
+      java_artifact :ee_client_session_interface, :comm, :client, :imit, '#{repository.name}EeClientSession', :sub_package => 'ee'
+      java_artifact :ee_client_session, :comm, :client, :imit, '#{ee_client_session_interface_name}Impl', :sub_package => 'ee'
+      java_artifact :gwt_client_session_context, :comm, :client, :imit, '#{repository.name}GwtSessionContext'
+      java_artifact :gwt_client_session_context_impl, :comm, :client, :imit, '#{gwt_client_session_context_name}Impl'
+      java_artifact :gwt_data_loader_service_interface, :comm, :client, :imit, '#{repository.name}GwtDataLoaderService'
+      java_artifact :gwt_data_loader_service, :comm, :client, :imit, '#{gwt_data_loader_service_interface_name}Impl'
+      java_artifact :gwt_client_session_interface, :comm, :client, :imit, '#{repository.name}GwtClientSession'
+      java_artifact :gwt_client_session, :comm, :client, :imit, '#{gwt_client_session_interface_name}Impl'
       java_artifact :client_router_interface, :comm, :client, :imit, '#{repository.name}ClientRouter'
-      java_artifact :client_router_impl, :comm, :client, :imit, '#{repository.name}ClientRouterImpl'
-      java_artifact :data_loader_service_interface, :comm, :client, :imit, '#{repository.name}DataLoaderService'
-      java_artifact :client_session_interface, :comm, :client, :imit, '#{repository.name}ClientSession'
+      java_artifact :client_router_impl, :comm, :client, :imit, '#{client_router_interface_name}Impl'
       java_artifact :graph_enum, :comm, :shared, :imit, '#{repository.name}ReplicationGraph'
       java_artifact :session, :comm, :server, :imit, '#{repository.name}Session'
       java_artifact :session_manager, :comm, :server, :imit, '#{repository.name}SessionManager#{repository.ejb.implementation_suffix}'
       java_artifact :session_rest_service, :rest, :server, :imit, '#{repository.name}SessionRestService'
+      java_artifact :poll_rest_service, :rest, :server, :imit, '#{repository.name}ReplicantPollRestService'
+      java_artifact :poll_service, :rest, :server, :imit, '#{repository.name}ReplicantPollService'
       java_artifact :session_exception_mapper, :rest, :server, :imit, '#{repository.name}BadSessionExceptionMapper'
       java_artifact :router_interface, :comm, :server, :imit, '#{repository.name}Router'
-      java_artifact :router_impl, :comm, :server, :imit, '#{repository.name}RouterImpl'
+      java_artifact :router_impl, :comm, :server, :imit, '#{router_interface_name}Impl'
       java_artifact :jpa_encoder, :comm, :server, :imit, '#{repository.name}JpaEncoder'
       java_artifact :message_constants, :comm, :server, :imit, '#{repository.name}MessageConstants'
       java_artifact :message_generator_interface, :comm, :server, :imit, '#{repository.name}EntityMessageGenerator'
-      java_artifact :message_generator, :comm, :server, :imit, '#{repository.name}EntityMessageGeneratorImpl'
-      java_artifact :graph_encoder, :comm, :server, :imit, '#{repository.name}GraphEncoder'
+      java_artifact :message_generator, :comm, :server, :imit, '#{message_generator_interface_name}Impl'
       java_artifact :change_recorder, :comm, :server, :imit, '#{repository.name}ChangeRecorder'
-      java_artifact :change_recorder_impl, :comm, :server, :imit, '#{repository.name}ChangeRecorderImpl'
+      java_artifact :change_recorder_impl, :comm, :server, :imit, '#{change_recorder_name}Impl'
       java_artifact :change_listener, :comm, :server, :imit, '#{repository.name}EntityChangeListener'
       java_artifact :replication_interceptor, :comm, :server, :imit, '#{repository.name}ReplicationInterceptor'
-      java_artifact :graph_encoder_impl, :comm, :server, :imit, '#{repository.name}GraphEncoderImpl'
+      java_artifact :graph_encoder, :comm, :server, :imit, '#{repository.name}GraphEncoder'
+      java_artifact :graph_encoder_impl, :comm, :server, :imit, '#{graph_encoder_name}Impl'
       java_artifact :services_module, :ioc, :client, :imit, '#{repository.name}ImitServicesModule'
       java_artifact :mock_services_module, :test, :client, :imit, '#{repository.name}MockImitServicesModule', :sub_package => 'util'
       java_artifact :callback_success_answer, :test, :client, :imit, '#{repository.name}CallbackSuccessAnswer', :sub_package => 'util'
       java_artifact :callback_failure_answer, :test, :client, :imit, '#{repository.name}CallbackFailureAnswer', :sub_package => 'util'
+      java_artifact :abstract_gwt_client_test, :test, :client, :imit, 'Abstract#{repository.name}GwtClientTest', :sub_package => 'util'
       java_artifact :abstract_client_test, :test, :client, :imit, 'Abstract#{repository.name}ClientTest', :sub_package => 'util'
       java_artifact :server_net_module, :test, :server, :imit, '#{repository.name}ImitNetModule', :sub_package => 'util'
       java_artifact :test_factory_set, :test, :client, :imit, '#{repository.name}FactorySet', :sub_package => 'util'
       java_artifact :integration_module, :test, :server, :imit, '#{repository.name}IntegrationModule', :sub_package => 'util'
-
-      def qualified_client_session_context_impl_name
-        "#{qualified_client_session_context_name}Impl"
-      end
 
       def abstract_session_context_impl_name
         qualified_abstract_session_context_impl_name.gsub(/^.*\.([^.]+)$/, '\1')
@@ -624,7 +634,7 @@ module Domgen
       end
 
       def subscription_manager
-        @subscription_manager || "#{self.imit_control_data_module}.SubscriptionService"
+        @subscription_manager || "#{self.imit_control_data_module}.#{repository.name}SubscriptionService"
       end
 
       def invalid_session_exception=(invalid_session_exception)
@@ -633,7 +643,7 @@ module Domgen
       end
 
       def invalid_session_exception
-        @invalid_session_exception || "#{self.imit_control_data_module}.BadSession"
+        @invalid_session_exception || "#{self.imit_control_data_module}.#{repository.name}BadSession"
       end
 
       def session_context_service=(session_context_service)
@@ -642,7 +652,7 @@ module Domgen
       end
 
       def session_context_service
-        @session_context_service || "#{self.imit_control_data_module}.SessionContext"
+        @session_context_service || "#{self.imit_control_data_module}.#{repository.name}SessionContext"
       end
 
       def imit_control_data_module=(imit_control_data_module)
@@ -653,11 +663,76 @@ module Domgen
         @imit_control_data_module || (self.repository.data_module_by_name?(self.repository.name) ? self.repository.name : Domgen.error('imit_control_data_module unspecified and unable to derive default.'))
       end
 
+      attr_writer :support_ee_client
+
+      def support_ee_client?
+        @support_ee_client.nil? ? false : !!@support_ee_client
+      end
+
+      # Facets that can be on serverside components
+      def server_component_facets
+        [:ejb] + (support_ee_client? ? [:jws] : [])
+      end
+
+      # Facets that can be on client/server pairs of generated components
+      def component_facets
+        self.server_component_facets + [:imit]
+      end
+
+      attr_writer :executor_service_jndi
+
+      def executor_service_jndi
+        @executor_service_jndi || "#{Domgen::Naming.underscore(repository.name)}/concurrent/replicant/#{Domgen::Naming.underscore(repository.name)}/ManagedScheduledExecutorService"
+      end
+
+      attr_writer :context_service_jndi
+
+      def context_service_jndi
+        @context_service_jndi || "#{Domgen::Naming.underscore(repository.name)}/concurrent/replicant/#{Domgen::Naming.underscore(repository.name)}/ContextService"
+      end
+
+
       def pre_complete
         if repository.jaxrs?
           repository.jaxrs.extensions << self.qualified_session_rest_service_name
+          repository.jaxrs.extensions << self.qualified_poll_rest_service_name
           repository.jaxrs.extensions << self.qualified_session_exception_mapper_name
-          repository.jaxrs.extensions << 'org.realityforge.replicant.server.ee.rest.ReplicantPollResource'
+        end
+        if repository.ee?
+          repository.ee.cdi_scan_excludes << 'org.realityforge.replicant.**'
+        end
+        toprocess = []
+        self.graphs.each do |graph|
+          if graph.filtered?
+            if graph.filter_parameter.enumeration?
+              graph.filter_parameter.enumeration.part_of_filter = true
+            elsif graph.filter_parameter.struct?
+              struct = graph.filter_parameter.referenced_struct
+              toprocess << struct unless toprocess.include?(struct)
+            end
+          end
+        end
+
+        process_filter_structs([], toprocess)
+      end
+
+      def process_filter_structs(processed, toprocess)
+        until toprocess.empty?
+          struct = toprocess.pop
+          process_filter_struct(processed, toprocess, struct)
+        end
+      end
+
+      def process_filter_struct(processed, toprocess, struct)
+        return if processed.include?(struct)
+        struct.imit.part_of_filter = true
+        struct.fields.select{|field| field.imit?}.each do |field|
+          if field.enumeration?
+            field.enumeration.imit.part_of_filter = true
+          elsif field.struct?
+            struct = field.referenced_struct
+            toprocess << struct unless toprocess.include?(struct)
+          end
         end
       end
 
@@ -671,14 +746,14 @@ module Domgen
         self.repository.exception_by_name(self.invalid_session_exception).tap do |e|
           e.java.exception_category = :runtime
           e.ejb.rollback = false
-          (e.all_enabled_facets - [:java, :ee, :ejb, :gwt, :gwt_rpc, :json, :jackson, :imit]).each do |facet_key|
+          (e.all_enabled_facets - FacetManager.dependent_facet_keys(*self.component_facets)).each do |facet_key|
             e.disable_facet(facet_key) if e.facet_enabled?(facet_key)
           end
         end
 
         self.repository.service(self.session_context_service) unless self.repository.service_by_name?(self.session_context_service)
         self.repository.service_by_name(self.session_context_service).tap do |s|
-          (s.all_enabled_facets - [:java, :ee, :ejb]).each do |facet_key|
+          (s.all_enabled_facets - FacetManager.dependent_facet_keys(:ejb)).each do |facet_key|
             s.disable_facet(facet_key) if s.facet_enabled?(facet_key)
           end
           repository.imit.graphs.each do |graph|
@@ -789,13 +864,15 @@ module Domgen
 
         self.repository.service(self.subscription_manager) unless self.repository.service_by_name?(self.subscription_manager)
         self.repository.service_by_name(self.subscription_manager).tap do |s|
-          (s.all_enabled_facets - [:java, :ee, :ejb, :gwt, :gwt_rpc, :json, :jackson, :imit]).each do |facet_key|
+          (s.all_enabled_facets - FacetManager.dependent_facet_keys(*self.component_facets)).each do |facet_key|
             s.disable_facet(facet_key) if s.facet_enabled?(facet_key)
           end
           s.ejb.bind_in_tests = false
           s.ejb.generate_base_test = false
 
-          s.method(:RemoveIdleSessions, 'ejb.schedule.hour' => '*', 'ejb.schedule.minute' => '*', 'ejb.schedule.second' => '30')
+          s.method(:RemoveIdleSessions, 'ejb.schedule.hour' => '*', 'ejb.schedule.minute' => '*', 'ejb.schedule.second' => '30') do |m|
+            m.disable_facet(:jws) if m.jws?
+          end
 
           repository.imit.graphs.each do |graph|
             s.method(:"SubscribeTo#{graph.name}") do |m|
@@ -860,7 +937,7 @@ module Domgen
           entity_list = [repository.entity_by_name(graph.instance_root)]
           while entity_list.size > 0
             entity = entity_list.pop
-            if !graph.reachable_entities.include?(entity.qualified_name.to_s)
+            unless graph.reachable_entities.include?(entity.qualified_name.to_s)
               graph.reachable_entities << entity.qualified_name.to_s
               entity.referencing_attributes.each do |a|
                 if a.imit? && a.imit.client_side? && a.inverse.imit.traversable? && !a.inverse.imit.exclude_edges.include?(graph.name)
@@ -1154,7 +1231,21 @@ module Domgen
       end
     end
 
+    facet.enhance(EnumerationSet) do
+      def part_of_filter?
+        !!@part_of_filter
+      end
+
+      attr_writer :part_of_filter
+    end
+
     facet.enhance(Struct) do
+      def part_of_filter?
+        !!@part_of_filter
+      end
+
+      attr_writer :part_of_filter
+
       def filter_for_graph(graph_key, options = {})
         struct.data_module.repository.imit.graph_by_name(graph_key).filter(:struct, options.merge(:referenced_struct => struct.qualified_name))
       end

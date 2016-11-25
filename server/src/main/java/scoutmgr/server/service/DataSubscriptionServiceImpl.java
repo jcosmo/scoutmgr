@@ -16,7 +16,7 @@ public class DataSubscriptionServiceImpl
   implements DataSubscriptionService
 {
   @Inject
-  private SubscriptionService _subscriptionService;
+  private ScoutmgrSubscriptionService _subscriptionService;
 
   @Inject
   private UserRepository _userRepository;

@@ -17,6 +17,41 @@ BuildrPlus::FeatureManager.feature(:roles) do |f|
     # The role applied if there is only one project defined and that project has no role
     attr_accessor :default_role
 
+    class RoleDescription < BuildrPlus::BaseElement
+      def initialize(name, options = {}, &block)
+        @name = name
+        super(options, &block)
+      end
+
+      attr_reader :name
+      attr_writer :requires
+
+      def requires
+        @requires || []
+      end
+
+      def actions
+        @actions ||= []
+      end
+
+      def activate_extensions
+        self.requires.each do |feature|
+          BuildrPlus::FeatureManager.activate_feature(feature) unless BuildrPlus::FeatureManager.activated?(feature)
+        end
+        unless @activated
+          @activated = true
+          projects =
+            BuildrPlus::Roles.projects_with_role(name) + BuildrPlus::Roles.projects_with_parent_role(name)
+
+          projects.each do |project|
+            project.roles.each do |role_name|
+              BuildrPlus::Roles.role_by_name(role_name).activate_extensions
+            end
+          end
+        end
+      end
+    end
+
     class ProjectDescription < BuildrPlus::BaseElement
       def initialize(name, options = {}, &block)
         @name = name
@@ -69,24 +104,29 @@ BuildrPlus::FeatureManager.feature(:roles) do |f|
 
     def role(name, options = {}, &block)
       role = role_map[name.to_s]
+      BuildrPlus::FeatureManager.feature(:"role_#{name}") if role.nil?
       if role.nil? || options[:replace]
-        role = []
+        role = RoleDescription.new(name, :requires => options[:requires])
         role_map[name.to_s] = role
       end
       if options[:append]
-        role << block
+        role.actions << block
       else
-        role.unshift(block)
+        role.actions.unshift(block)
       end
       nil
     end
 
     def role_by_name(name)
-      role_map[name.to_s]
+      role_map[name.to_s] || (raise "Unknown role #{name}")
     end
 
     def roles
       role_map.dup
+    end
+
+    def projects_with_parent_role(role)
+      self.projects.select { |p| p.parent.to_s == role.to_s }
     end
 
     def buildr_project_with_role(role)
@@ -99,7 +139,7 @@ BuildrPlus::FeatureManager.feature(:roles) do |f|
       projects = projects_with_role(role).collect { |p| p.name }
       buildr_projects = Buildr.projects(:no_invoke => true).
         select { |project| projects.include?(project.name.gsub(/^[^:]*\:/, '')) }
-      buildr_projects.each{|p|p.invoke unless p == BuildrPlus::Config.get_buildr_project}
+      buildr_projects.each { |p| p.invoke unless p == BuildrPlus::Config.get_buildr_project }
       buildr_projects
     end
 
@@ -112,6 +152,9 @@ BuildrPlus::FeatureManager.feature(:roles) do |f|
 
     def project(name, options = {}, &block)
       project = project_map[name.to_s]
+      (options[:roles] || []).each do |role|
+        BuildrPlus::FeatureManager.activate_features([:"role_#{role}"])
+      end
       unless project
         project = ProjectDescription.new(name, options)
         project_map[name.to_s] = project
@@ -213,7 +256,7 @@ BuildrPlus::FeatureManager.feature(:roles) do |f|
         project.roles.each do |role_name|
           role = BuildrPlus::Roles.role_by_name(role_name)
           raise "Unknown role #{role_name} declared on project #{project.name}" unless role
-          role.each do |r|
+          role.actions.each do |r|
             instance_eval &r
           end
         end

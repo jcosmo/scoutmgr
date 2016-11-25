@@ -12,13 +12,14 @@
 # limitations under the License.
 #
 
-BuildrPlus::Roles.role(:soap_qa_support) do
-  BuildrPlus::FeatureManager.ensure_activated(:soap)
+BuildrPlus::Roles.role(:soap_qa_support, :requires => [:role_soap_client]) do
 
   if BuildrPlus::FeatureManager.activated?(:domgen)
     generators = [:ee_data_types, :ee_exceptions, :jws_fake_server]
     generators += project.additional_domgen_generators
-    Domgen::Build.define_generate_task(generators, :buildr_project => project)
+    Domgen::Build.define_generate_task(generators, :buildr_project => project) do |t|
+      t.filter = project.domgen_filter
+    end
   end
 
   project.publish = true

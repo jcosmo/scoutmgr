@@ -12,21 +12,24 @@
 # limitations under the License.
 #
 
-BuildrPlus::Roles.role(:gwt_qa_support) do
-  BuildrPlus::FeatureManager.ensure_activated(:gwt)
+BuildrPlus::Roles.role(:gwt_qa_support, :requires => [:gwt]) do
 
   project.publish = BuildrPlus::Artifacts.gwt?
 
   if BuildrPlus::FeatureManager.activated?(:domgen)
     generators = [:gwt_rpc_module]
-    generators += [:imit_client_main_qa]  if BuildrPlus::FeatureManager.activated?(:replicant)
+    generators += [:imit_client_main_gwt_qa]  if BuildrPlus::FeatureManager.activated?(:replicant)
     generators += project.additional_domgen_generators
-    Domgen::Build.define_generate_task(generators, :buildr_project => project)
+    Domgen::Build.define_generate_task(generators, :buildr_project => project) do |t|
+      t.filter = project.domgen_filter
+    end
   end
 
   compile.with BuildrPlus::Libs.guiceyloops_gwt
+  compile.with BuildrPlus::Libs.replicant_client_qa_support if BuildrPlus::FeatureManager.activated?(:replicant)
 
   BuildrPlus::Roles.merge_projects_with_role(project.compile, :gwt)
+  BuildrPlus::Roles.merge_projects_with_role(project.compile, :replicant_qa_support)
 
   package(:jar)
   package(:sources)

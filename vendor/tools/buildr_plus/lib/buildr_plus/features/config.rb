@@ -72,7 +72,7 @@ BuildrPlus::FeatureManager.feature(:config) do |f|
 
     def app_scope
       return ENV['APP_SCOPE'] if ENV['APP_SCOPE']
-      return ENV['JOB_NAME'].to_s.gsub(/[\/-]/,'_') if ENV['JOB_NAME']
+      return "#{ENV['JOB_NAME']}_#{ENV['BUILD_NUMBER']}".gsub(/[\/-]/, '_') if ENV['JOB_NAME']
       nil
     end
 
@@ -92,6 +92,10 @@ BuildrPlus::FeatureManager.feature(:config) do |f|
       else
         environment
       end
+    end
+
+    def db_scope
+      "#{user || 'NOBODY'}#{self.app_scope.nil? ? '' : "_#{self.app_scope}"}_"
     end
 
     def load_application_config!
@@ -210,6 +214,7 @@ BuildrPlus::FeatureManager.feature(:config) do |f|
     def populate_environment_configuration(environment, check_only = false)
       populate_database_configuration(environment, check_only)
       populate_broker_configuration(environment, check_only)
+      populate_keycloak_configuration(environment, check_only)
       populate_ssrs_configuration(environment, check_only)
       unless check_only
         populate_volume_configuration(environment)
@@ -220,14 +225,16 @@ BuildrPlus::FeatureManager.feature(:config) do |f|
     def populate_settings(environment)
       buildr_project = get_buildr_project.root_project
       if BuildrPlus::FeatureManager.activated?(:keycloak)
-        constant_prefix = BuildrPlus::Naming.uppercase_constantize(buildr_project.name)
-        environment.setting("#{constant_prefix}_KEYCLOAK_REALM", environment_var('KEYCLOAK_REALM')) if !environment.setting?("#{constant_prefix}_KEYCLOAK_REALM") && environment_var('KEYCLOAK_REALM')
-        environment.setting("#{constant_prefix}_KEYCLOAK_REALM_PUBLIC_KEY", environment_var('KEYCLOAK_REALM_PUBLIC_KEY')) if !environment.setting?("#{constant_prefix}_KEYCLOAK_REALM_PUBLIC_KEY") && environment_var('KEYCLOAK_REALM_PUBLIC_KEY')
-        environment.setting("#{constant_prefix}_KEYCLOAK_AUTH_SERVER_URL", environment_var('KEYCLOAK_AUTH_SERVER_URL')) if !environment.setting?("#{constant_prefix}_KEYCLOAK_AUTH_SERVER_URL") && environment_var('KEYCLOAK_AUTH_SERVER_URL')
+        BuildrPlus::Keycloak.client_types.each do |client_type|
+          name = buildr_project.name
+          constant_prefix = BuildrPlus::Naming.uppercase_constantize(name)
+          prefix = "#{name == client_type ? '' : "#{constant_prefix}_"}#{BuildrPlus::Naming.uppercase_constantize(client_type)}"
 
-        raise "Setting #{constant_prefix}_KEYCLOAK_REALM is missing and can not be derived from environment variable KEYCLOAK_REALM" unless environment.setting?("#{constant_prefix}_KEYCLOAK_REALM")
-        raise "Setting #{constant_prefix}_KEYCLOAK_REALM_PUBLIC_KEY is missing and can not be derived from environment variable KEYCLOAK_REALM_PUBLIC_KEY" unless environment.setting?("#{constant_prefix}_KEYCLOAK_REALM_PUBLIC_KEY")
-        raise "Setting #{constant_prefix}_KEYCLOAK_AUTH_SERVER_URL is missing and can not be derived from environment variable KEYCLOAK_AUTH_SERVER_URL" unless environment.setting?("#{constant_prefix}_KEYCLOAK_AUTH_SERVER_URL")
+          environment.setting("#{prefix}_KEYCLOAK_REALM", environment.keycloak.realm) unless environment.setting?("#{prefix}_KEYCLOAK_REALM")
+          environment.setting("#{prefix}_KEYCLOAK_REALM_PUBLIC_KEY", environment.keycloak.public_key) unless environment.setting?("#{prefix}_KEYCLOAK_REALM_PUBLIC_KEY")
+          environment.setting("#{prefix}_KEYCLOAK_AUTH_SERVER_URL", environment.keycloak.base_url) unless environment.setting?("#{prefix}_KEYCLOAK_AUTH_SERVER_URL")
+          environment.setting("#{prefix}_KEYCLOAK_CLIENT_NAME", BuildrPlus::Keycloak.client_name_for(client_type)) unless environment.setting?("#{prefix}_KEYCLOAK_CLIENT_NAME")
+        end
       end
     end
 
@@ -261,7 +268,6 @@ BuildrPlus::FeatureManager.feature(:config) do |f|
           environment.database(database_key) unless environment.database_by_key?(database_key)
         end unless check_only
 
-        scope = self.app_scope
         buildr_project = get_buildr_project
 
         environment.databases.each do |database|
@@ -279,7 +285,7 @@ BuildrPlus::FeatureManager.feature(:config) do |f|
           end unless dbt_imports
 
           short_name = BuildrPlus::Naming.uppercase_constantize(database.key.to_s == 'default' ? buildr_project.root_project.name : database.key.to_s)
-          database.database = "#{user || 'NOBODY'}#{scope.nil? ? '' : "_#{scope}"}_#{short_name}_#{self.env_code(environment.key)}" unless database.database
+          database.database = "#{BuildrPlus::Config.db_scope}#{short_name}_#{self.env_code(environment.key)}" unless database.database
           database.import_from = "PROD_CLONE_#{short_name}" unless database.import_from || !dbt_imports
           database.host = environment_var('DB_SERVER_HOST') unless database.host
           unless database.port_set?
@@ -290,6 +296,9 @@ BuildrPlus::FeatureManager.feature(:config) do |f|
           database.admin_password = environment_var('DB_SERVER_PASSWORD') unless database.admin_password
 
           if database.is_a?(BuildrPlus::Config::MssqlDatabaseConfig)
+            database.restore_name = short_name unless database.restore_name
+            database.backup_name = short_name unless database.backup_name
+            database.backup_location = environment_var('DB_BACKUPS_LOCATION') unless database.backup_location
             database.delete_backup_history = environment_var('DB_SERVER_DELETE_BACKUP_HISTORY', 'true') unless database.delete_backup_history_set?
             unless database.instance
               instance = environment_var('DB_SERVER_INSTANCE', '')
@@ -353,6 +362,30 @@ BuildrPlus::FeatureManager.feature(:config) do |f|
         password = BuildrPlus::Config.environment_var('OPENMQ_ADMIN_PASSWORD', 'admin')
 
         environment.broker(:host => host, :port => port, :admin_username => username, :admin_password => password)
+      end
+    end
+
+    def populate_keycloak_configuration(environment, check_only)
+      if !BuildrPlus::FeatureManager.activated?(:keycloak) && environment.keycloak?
+        raise "Keycloak defined in application configuration but BuildrPlus facet 'keycloak' not enabled"
+      elsif BuildrPlus::FeatureManager.activated?(:keycloak) && !environment.keycloak? && !check_only
+
+        base_url = BuildrPlus::Config.environment_var('KEYCLOAK_AUTH_SERVER_URL')
+        public_key = BuildrPlus::Config.environment_var('KEYCLOAK_REALM_PUBLIC_KEY')
+        realm = BuildrPlus::Config.environment_var('KEYCLOAK_REALM')
+        username = BuildrPlus::Config.environment_var('KEYCLOAK_ADMIN_USERNAME')
+        password = BuildrPlus::Config.environment_var('KEYCLOAK_ADMIN_PASSWORD')
+
+        environment.keycloak.base_url = base_url if environment.keycloak.base_url.nil?
+        environment.keycloak.public_key = public_key if environment.keycloak.public_key.nil?
+        environment.keycloak.realm = realm if environment.keycloak.realm.nil?
+        environment.keycloak.admin_username = username if environment.keycloak.admin_username.nil?
+        environment.keycloak.admin_password = password if environment.keycloak.admin_password.nil?
+
+        raise 'Configuration for keycloak is missing base_url attribute and can not be derived from environment variable KEYCLOAK_AUTH_SERVER_URL' unless environment.keycloak.base_url
+        raise 'Configuration for keycloak is missing public_key attribute and can not be derived from environment variable KEYCLOAK_REALM_PUBLIC_KEY' unless environment.keycloak.public_key
+        raise 'Configuration for keycloak is missing realm attribute and can not be derived from environment variable KEYCLOAK_REALM' unless environment.keycloak.realm
+        raise 'Configuration for keycloak is missing admin_password attribute and can not be derived from environment variable KEYCLOAK_ADMIN_PASSWORD' unless environment.keycloak.admin_password
       end
     end
   end

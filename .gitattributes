@@ -1,30 +1,48 @@
 * -text
-*.iml text -crlf -binary
-*.axl text -crlf -binary
+*.bat text crlf
+*.bmp binary
 *.c text -crlf -binary
+*.cmd text crlf
 *.css text -crlf -binary
+*.dll binary
+*.doc binary
+*.erb text -crlf -binary
+*.gemspec text -crlf -binary
 *.html text -crlf -binary
+*.ico binary
+*.iml text -crlf -binary
+*.jar binary
 *.java text -crlf -binary
+*.jpeg binary
+*.jpg binary
 *.js text -crlf -binary
 *.json text -crlf -binary
 *.jsp text -crlf -binary
+*.md text -crlf -binary
+*.pdf binary
+*.png binary
 *.properties text -crlf -binary
+*.rake text -crlf -binary
+*.rb text -crlf -binary
+*.rdoc text -crlf -binary
+*.sh text -crlf -binary
+*.so binary
+*.textile text -crlf -binary
 *.txt text -crlf -binary
+*.wsdl text -crlf -binary
+*.xhtml text -crlf -binary
 *.xml text -crlf -binary
 *.xsd text -crlf -binary
 *.xsl text -crlf -binary
-*.rb text -crlf -binary
-*.haml text -crlf -binary
-*.rake text -crlf -binary
-*.sass text -crlf -binary
-*.yml text -crlf -binary
 *.yaml text -crlf -binary
-*.rhtml text -crlf -binary
-*.jar binary
-LICENSE text -crlf -binary
-CHANGELOG text -crlf -binary
-Rakefile text -crlf -binary
-rakefile text -crlf -binary
+*.yml text -crlf -binary
+.gitattributes text -crlf -binary
+.gitignore text -crlf -binary
+.ruby-version text -crlf -binary
 Buildfile text -crlf -binary
+CHANGELOG text -crlf -binary
+Gemfile text -crlf -binary
+LICENSE text -crlf -binary
+Rakefile text -crlf -binary
 buildfile text -crlf -binary
-*.gemspec text -crlf -binary
+rakefile text -crlf -binary

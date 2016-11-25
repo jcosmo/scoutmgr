@@ -171,11 +171,21 @@ module Domgen
       def initialize(jpa_repository, options = {}, &block)
         super(jpa_repository, options, &block)
       end
+      include Domgen::Java::BaseJavaGenerator
+      include Domgen::Java::JavaClientServerApplication
+
+      java_artifact :raw_test_module, :test, :server, :jpa, '#{jpa_repository.repository.name}#{short_name}PersistenceTestModule', :sub_package => 'util'
+
+      TargetManager.register_target('jpa.persistence_unit', :repository, :jpa, :standalone_persistence_units)
 
       attr_writer :unit_name
 
       def unit_name
         @unit_name || jpa_repository.repository.name
+      end
+
+      def name
+        unit_name
       end
 
       attr_writer :short_name
@@ -198,6 +208,28 @@ module Domgen
 
       attr_writer :properties
 
+      def application_scope
+        Domgen::Naming.underscore(jpa_repository.repository.name)
+      end
+
+      def applicationScope
+        jpa_repository.repository.name
+      end
+
+      def resolved_properties
+        results = {}
+        properties.each do |k, v|
+          results[k] = interpolate(v.to_s)
+        end
+        results
+      end
+
+      def interpolate(content)
+        content.gsub(/\{\{([^\}]+)\}\}/) do |m|
+          self.instance_eval($1)
+        end
+      end
+
       def properties
         @properties ||= default_properties
       end
@@ -206,7 +238,7 @@ module Domgen
         if provider.nil? || provider == :eclipselink
           {
             'eclipselink.logging.logger' => 'JavaLogger',
-            'eclipselink.session-name' => self.unit_name,
+            'eclipselink.session-name' => "{{applicationScope}}#{self.unit_name}",
             'eclipselink.temporal.mutable' => 'false'
           }
         else
@@ -235,7 +267,11 @@ module Domgen
       attr_writer :data_source
 
       def data_source
-        @data_source || "#{Domgen::Naming.underscore(jpa_repository.repository.name)}/jdbc/#{self.short_name}"
+        @data_source || "{{application_scope}}/jdbc/#{self.short_name}"
+      end
+
+      def resolved_data_source
+        interpolate(data_source)
       end
 
       attr_writer :exclude_unlisted_classes
@@ -245,14 +281,15 @@ module Domgen
       end
 
       def valid_test_modes
-        [:manual, :mock]
+        [:manual, :raw, :mock]
       end
 
       # The test_mode determines how the framework manages units in test
       # - :manual framework does nothing, user does all
+      # - :raw framework creates a persistence unit that contains no entities but does give access to underlying database
       # - :mock framework creates a mock persistence unit in tests
       def test_mode
-        @test_mode || :manual
+        @test_mode || :raw
       end
 
       def test_mode=(test_mode)
@@ -264,8 +301,12 @@ module Domgen
         self.test_mode == :manual
       end
 
+      def raw_test_mode?
+        self.test_mode == :raw
+      end
+
       def mock_test_mode?
-        self.test_mode == :manual
+        self.test_mode == :mock
       end
     end
   end
@@ -299,6 +340,7 @@ module Domgen
       java_artifact :unit_descriptor, :entity, :server, :jpa, '#{repository.name}PersistenceUnit'
       java_artifact :persistent_test_module, :test, :server, :jpa, '#{repository.name}PersistenceTestModule', :sub_package => 'util'
       java_artifact :abstract_entity_test, :test, :server, :jpa, 'Abstract#{repository.name}EntityTest', :sub_package => 'util'
+      java_artifact :standalone_entity_test, :test, :server, :jpa, 'Standalone#{repository.name}EntityTest', :sub_package => 'util'
       java_artifact :aggregate_entity_test, :test, :server, :jpa, '#{repository.name}AggregateEntityTest', :sub_package => 'util'
       java_artifact :dao_module, :test, :server, :jpa, '#{repository.name}RepositoryModule', :sub_package => 'util'
       java_artifact :test_factory_set, :test, :server, :jpa, '#{repository.name}FactorySet', :sub_package => 'util'
@@ -317,34 +359,115 @@ module Domgen
         @base_entity_test_name || abstract_entity_test_name.gsub(/^Abstract/, '')
       end
 
-      attr_writer :standalone
-
-      def standalone?
-        @standalone.nil? ? true : !!@standalone
-      end
-
-      def persistence_file_content_fragments
-        @persistence_file_content_fragments ||= []
-      end
-
-      def persistence_file_fragments
-        @persistence_file_fragments ||= []
-      end
-
-      def resolved_persistence_file_fragments
-        self.persistence_file_fragments.collect do |fragment|
-          repository.resolve_file(fragment)
+      def interpolate(content)
+        content.gsub(/\{\{([^\}]+)\}\}/) do |m|
+          self.instance_eval($1)
         end
       end
 
-      def orm_file_fragments
-        @orm_file_fragments ||= []
+      def application_scope
+        Domgen::Naming.underscore(repository.name)
       end
 
-      def resolved_orm_file_fragments
-        self.orm_file_fragments.collect do |fragment|
-          repository.resolve_file(fragment)
+      def applicationScope
+        repository.name
+      end
+
+      # There are 3 different variants of the persistence.xml and orm.xml that can be generated from domgen
+      # depending on the context.
+      #
+      # * Template Variant: The template variant includes all the persistence orm fragments required for the
+      #   model. This includes any native queries added to support DAOs, any standalone units added etc. However
+      #   the output files may have values that need to be interpolated for deployment specific configuration
+      #   such as the JNDI name and session name. It is typically in META-INF/domgen/templates directory in the
+      #   model jar and only generated if repository.application.model_library?
+      # * Application Variant: This includes everything from the template variant, with the interpolated values
+      #   replaced with actual values. It may also include other fragments required for the application to run
+      #   such as appconfig and syncrecord fragments. These must be specifically added. It is typically generated
+      #   in the server jar if !repository.application.service_library?
+      # * Test Variant: This is used to add test specific dependencies or if application is a service library.
+      #   If repository.application.service_library? is true it will also include the complete contents the
+      #   application variant. It may also include specifically defined fragments required
+      #   to test the application. It is typically generated in the test directory of server jar.
+      #
+      # The helper methods have no prefix for template variant, 'application_' prefix for application variant and
+      # 'test_' for test variant.
+      #
+
+      ['', 'application_', 'test_'].each do |prefix|
+
+        class_eval <<-RUBY
+          def #{prefix}artifact_fragments
+            @#{prefix}artifact_fragments ||= []
+          end
+
+          def #{prefix}persistence_file_content_fragments
+            @#{prefix}persistence_file_content_fragments ||= []
+          end
+
+          def #{prefix}persistence_file_fragments
+            @#{prefix}persistence_file_fragments ||= []
+          end
+
+          def resolved_#{prefix}persistence_file_fragments(interpolate = true)
+            fragments = self.#{prefix}persistence_file_fragments.collect do |fragment|
+              repository.read_file(fragment)
+            end
+            fragments += #{prefix}persistence_file_content_fragments
+            fragments += resolve_persistence_artifact_fragments(self.#{prefix}artifact_fragments)
+            fragments.collect { |f| interpolate ? self.interpolate(f) : f }
+          end
+
+          def #{prefix}orm_file_content_fragments
+            @#{prefix}orm_file_content_fragments ||= []
+          end
+
+          def #{prefix}orm_file_fragments
+            @#{prefix}orm_file_fragments ||= []
+          end
+
+          def resolved_#{prefix}orm_file_fragments(interpolate = true)
+            fragments = self.#{prefix}orm_file_fragments.collect do |fragment|
+              repository.read_file(fragment)
+            end
+            fragments += #{prefix}orm_file_content_fragments
+            fragments += resolve_orm_artifact_fragments(self.#{prefix}artifact_fragments)
+            fragments.collect { |f| interpolate ? self.interpolate(f) : f }
+          end
+        RUBY
+      end
+
+      def resolve_persistence_artifact_fragments(artifacts)
+        resolve_artifact_fragments(artifacts, 'META-INF/domgen/templates/persistence.xml')
+      end
+
+      def resolve_orm_artifact_fragments(artifacts)
+        resolve_artifact_fragments(artifacts, 'META-INF/domgen/templates/orm.xml')
+      end
+
+      def resolve_artifact_fragments(artifacts, filename)
+        artifacts.collect do |artifact_spec|
+          interpolate(Domgen::Util.extract_template_from_artifact(artifact_spec, filename))
         end
+      end
+
+      # Should domgen generate template xmls for model?
+      def template_xmls?
+        repository.application.model_library?
+      end
+
+      # Should domgen generate application xmls?
+      def application_xmls?
+        !repository.application.service_library?
+      end
+
+      # Should domgen generate test xmls?
+      def test_xmls?
+        repository.application.service_library? ||
+          !test_persistence_file_content_fragments.empty?||
+          !test_persistence_file_fragments.empty? ||
+          !test_artifact_fragments.empty? ||
+          !test_orm_file_fragments.empty?
       end
 
       attr_accessor :default_jpql_criterion
@@ -384,6 +507,10 @@ module Domgen
         self.default_persistence_unit.properties
       end
 
+      def resolved_properties
+        self.default_persistence_unit.resolved_properties
+      end
+
       def default_properties
         self.default_persistence_unit.default_properties
       end
@@ -394,6 +521,10 @@ module Domgen
 
       def data_source
         self.safe_default_persistence_unit.data_source
+      end
+
+      def resolved_data_source
+        interpolate(data_source)
       end
 
       def exclude_unlisted_classes=(exclude_unlisted_classes)
@@ -643,11 +774,16 @@ FRAGMENT
         entity.query(:FindAll, 'jpa.standard_query' => true, 'jpa.jpql' => self.default_jpql_criterion)
         entity.query("FindBy#{entity.primary_key.name}")
         entity.query("GetBy#{entity.primary_key.name}")
+        if self.default_jpql_criterion
+          entity.query(:FindAllIgnoringDefaultCriteria, 'jpa.standard_query' => true)
+          entity.query("FindBy#{entity.primary_key.name}IgnoringDefaultCriteria")
+          entity.query("GetBy#{entity.primary_key.name}IgnoringDefaultCriteria")
+        end
 
         entity.attributes.select { |a| a.jpa? && a.reference? && !a.abstract? }.each do |a|
           if entity.sync? && entity.sync.transaction_time?
             query_name = "Find#{a.inverse.multiplicity == :many ? 'All' : ''}UndeletedBy#{a.name}"
-            entity.query(query_name, 'jpa.jpql' => "O.#{a.jpa.field_name} = :#{a.name} AND O.deletedAt IS NULL") unless entity.query_by_name?(query_name)
+            entity.query(query_name, 'jpa.jpql' => "O.#{a.jpa.field_name} = :#{a.name} AND O.deletedAt IS NULL", 'jpa.standard_query' => true) unless entity.query_by_name?(query_name)
           else
             query_name = "Find#{a.inverse.multiplicity == :many ? 'All' : ''}By#{a.name}"
             entity.query(query_name) unless entity.query_by_name?(query_name)
@@ -655,13 +791,15 @@ FRAGMENT
         end
 
         entity.queries.select { |query| query.jpa? && query.jpa.no_ql? }.each do |query|
+          query.jpa.ignore_default_criteria = (query.name =~ /IgnoringDefaultCriteria$/)
+          tmp_query_name = query.name.chomp('IgnoringDefaultCriteria')
           jpql = ''
           query_text = nil
-          query_text = $1 if query.name =~ /^[fF]indAllBy(.+)$/
-          query_text = $1 if query.name =~ /^[fF]indBy(.+)$/
-          query_text = $1 if query.name =~ /^[gG]etBy(.+)$/
-          query_text = $1 if query.name =~ /^[dD]eleteBy(.+)$/
-          query_text = $1 if query.name =~ /^[cC]ountBy(.+)$/
+          query_text = $1 if tmp_query_name =~ /^[fF]indAllBy(.+)$/
+          query_text = $1 if tmp_query_name =~ /^[fF]indBy(.+)$/
+          query_text = $1 if tmp_query_name =~ /^[gG]etBy(.+)$/
+          query_text = $1 if tmp_query_name =~ /^[dD]eleteBy(.+)$/
+          query_text = $1 if tmp_query_name =~ /^[cC]ountBy(.+)$/
           next unless query_text
 
           entity_prefix = 'O.'
@@ -702,7 +840,9 @@ FRAGMENT
             end
           end
           if jpql
-            jpql = "(#{jpql}) AND (#{self.default_jpql_criterion})" if self.default_jpql_criterion
+            if self.default_jpql_criterion && !query.jpa.ignore_default_criteria?
+              jpql = "(#{jpql}) AND (#{self.default_jpql_criterion})"
+            end
             query.jpa.jpql = jpql
             query.jpa.standard_query = true
           end
@@ -868,6 +1008,12 @@ FRAGMENT
       def query_spec
         @query_spec || :criteria
       end
+
+      def ignore_default_criteria?
+        @ignore_default_criteria.nil? ? false : !!@ignore_default_criteria
+      end
+
+      attr_writer :ignore_default_criteria
 
       def default_hints
         hints = {}

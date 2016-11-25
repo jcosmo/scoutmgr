@@ -37,14 +37,13 @@ module Domgen
       end
 
       java_artifact :rpc_request_builder, :ioc, :client, :gwt_rpc, '#{repository.name}RpcRequestBuilder'
+      java_artifact :keycloak_rpc_request_builder, :ioc, :client, :gwt_rpc, '#{repository.name}KeycloakRpcRequestBuilder'
       java_artifact :rpc_services_module, :ioc, :client, :gwt_rpc, '#{repository.name}GwtRpcServicesModule'
       java_artifact :mock_services_module, :test, :client, :gwt_rpc, '#{repository.name}MockGwtServicesModule', :sub_package => 'util'
       java_artifact :services_module, :ioc, :client, :gwt_rpc, '#{repository.name}GwtServicesModule'
 
-      attr_writer :client_ioc_package
-
       def client_ioc_package
-        @client_ioc_package || "#{client_package}.ioc"
+        repository.gwt.client_ioc_package
       end
 
       attr_writer :server_servlet_package
@@ -54,6 +53,29 @@ module Domgen
       end
 
       attr_writer :services_module_name
+
+      attr_writer :secure_services
+
+      def secure_services?
+        @secure_services.nil? ? repository.keycloak? : !!@secure_services
+      end
+
+      attr_writer :keycloak_client
+
+      def keycloak_client
+        @keycloak_client || (repository.application? && !repository.application.user_experience? ? repository.keycloak.default_client.key : :api)
+      end
+
+      def pre_verify
+        if secure_services? && repository.keycloak?
+          client =
+            repository.keycloak.client_by_key?(self.keycloak_client) ?
+              repository.keycloak.client_by_key(self.keycloak_client) :
+              repository.keycloak.client(self.keycloak_client)
+          client.bearer_only = true
+          client.protected_url_patterns << "/#{base_api_url}/*"
+        end
+      end
 
       protected
 

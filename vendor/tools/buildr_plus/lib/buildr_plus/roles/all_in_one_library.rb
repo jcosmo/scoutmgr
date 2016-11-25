@@ -19,9 +19,8 @@ BuildrPlus::Roles.role(:all_in_one_library) do
     generators = [:ee_data_types, :ee_beans_xml]
     generators << [:ee_web_xml] if BuildrPlus::Artifacts.war?
     if BuildrPlus::FeatureManager.activated?(:db)
-      generators << [:jpa]
+      generators << [:jpa, :jpa_test_orm_xml, :jpa_test_persistence_xml]
       generators << [:jpa_test_qa, :jpa_test_qa_external, :jpa_ejb_dao, :jpa_dao_test] if BuildrPlus::FeatureManager.activated?(:ejb)
-      generators << [:jpa_test_orm_xml, :jpa_test_persistence_xml] unless BuildrPlus::Artifacts.is_model_standalone?
       generators << [:imit_server_entity_listener, :imit_server_entity_replication] if BuildrPlus::FeatureManager.activated?(:replicant)
     end
 
@@ -51,7 +50,9 @@ BuildrPlus::Roles.role(:all_in_one_library) do
 
     generators += project.additional_domgen_generators
 
-    Domgen::Build.define_generate_task(generators.flatten, :buildr_project => project)
+    Domgen::Build.define_generate_task(generators.flatten, :buildr_project => project) do |t|
+      t.filter = project.domgen_filter
+    end
   end
 
   compile.with BuildrPlus::Libs.ee_provided

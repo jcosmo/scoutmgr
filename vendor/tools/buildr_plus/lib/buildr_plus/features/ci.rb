@@ -26,6 +26,12 @@ BuildrPlus::FeatureManager.feature(:ci) do |f|
 
     attr_writer :additional_commit_actions
 
+    def pre_import_actions
+      @pre_import_actions ||= []
+    end
+
+    attr_writer :pre_import_actions
+
     def additional_import_actions
       @additional_import_actions ||= []
     end
@@ -80,7 +86,6 @@ BuildrPlus::FeatureManager.feature(:ci) do |f|
           end
         end
 
-        desc 'Setup test environment for testing import process'
         project.task ':ci:import:setup' => %w(ci:common_setup) do
           Dbt::Config.environment = 'import_test' if BuildrPlus::FeatureManager.activated?(:dbt)
           project.task('ci:test_configure').invoke
@@ -98,6 +103,8 @@ BuildrPlus::FeatureManager.feature(:ci) do |f|
         if BuildrPlus::FeatureManager.activated?(:dbt)
           import_actions = []
           import_actions << 'ci:import:setup'
+
+          import_actions.concat(BuildrPlus::Ci.pre_import_actions)
           import_actions.concat(%w(dbt:create_by_import dbt:verify_constraints))
           import_actions.concat(BuildrPlus::Ci.additional_import_actions)
           import_actions << 'dbt:drop'
@@ -155,10 +162,15 @@ BuildrPlus::FeatureManager.feature(:ci) do |f|
 
             prefix = Dbt::Config.default_database?(database_key) ? '' : ":#{database_key}"
 
-            commit_actions << "dbt#{prefix}:create"
-            pull_request_actions << "dbt#{prefix}:create"
-            package_actions << "dbt#{prefix}:create"
-            database_drops << "dbt#{prefix}:drop"
+            module_group = BuildrPlus::Dbt.non_standalone_database_module_groups[database.key]
+
+            create = "dbt#{prefix}:#{module_group ? "#{database.packaged? ? '' : "#{module_group}:"}up#{!database.packaged? ? '' : ":#{module_group}"}" : 'create'}"
+            drop = "dbt#{prefix}:#{module_group ? "#{database.packaged? ? '' : "#{module_group}:"}down#{!database.packaged? ? '' : ":#{module_group}"}" : 'drop'}"
+
+            commit_actions << create
+            pull_request_actions << create
+            package_actions << create
+            database_drops << drop
           end
         end
 
@@ -213,6 +225,8 @@ BuildrPlus::FeatureManager.feature(:ci) do |f|
           pull_request_actions << 'rptman:ssrs:delete'
         end
 
+        database_drops = database_drops.reverse
+
         commit_actions.concat(database_drops)
         pull_request_actions.concat(database_drops)
         package_actions.concat(database_drops)
@@ -234,12 +248,16 @@ BuildrPlus::FeatureManager.feature(:ci) do |f|
         end
 
         if BuildrPlus::FeatureManager.activated?(:whitespace)
-          commit_actions << 'ws:check'
-          pull_request_actions << 'ws:check'
+          commit_actions << 'whitespace:check'
+          pull_request_actions << 'whitespace:check'
         end
         if BuildrPlus::FeatureManager.activated?(:gitignore)
           commit_actions << 'gitignore:check'
           pull_request_actions << 'gitignore:check'
+        end
+        if BuildrPlus::FeatureManager.activated?(:gitattributes)
+          commit_actions << 'gitattributes:check'
+          pull_request_actions << 'gitattributes:check'
         end
 
         if BuildrPlus::FeatureManager.activated?(:oss)
@@ -251,6 +269,10 @@ BuildrPlus::FeatureManager.feature(:ci) do |f|
           commit_actions << 'travis:check'
           pull_request_actions << 'travis:check'
         end
+
+        # Always run check and make sure file system state matches jenkins feature state
+        commit_actions << 'jenkins:check'
+        pull_request_actions << 'jenkins:check'
 
         desc 'Perform pre-commit checks and source code analysis'
         project.task ':ci:commit' => commit_actions

@@ -25,7 +25,7 @@ import org.realityforge.replicant.client.EntityRepository;
 import scoutmgr.client.application.ApplicationPresenter;
 import scoutmgr.client.application.dialog.DialogPresenter;
 import scoutmgr.client.entity.security.User;
-import scoutmgr.client.net.ScoutmgrDataLoaderService;
+import scoutmgr.client.net.ScoutmgrGwtDataLoaderService;
 import scoutmgr.client.place.NameTokens;
 import scoutmgr.client.security.HasRolesGatekeeper;
 import scoutmgr.client.service.security.UserService;
@@ -57,7 +57,7 @@ public class UsersPresenter
   @Inject
   private DialogPresenter _dialogPresenter;
 
-  private ScoutmgrDataLoaderService _dataloader;
+  private ScoutmgrGwtDataLoaderService _dataloader;
 
   @Inject
   private UserService _userService;
@@ -75,7 +75,7 @@ public class UsersPresenter
                   final View view,
                   final Proxy proxy,
                   final EntityChangeBroker changeBroker,
-                  final ScoutmgrDataLoaderService dataLoader )
+                  final ScoutmgrGwtDataLoaderService dataLoader )
   {
     super( eventBus, view, proxy, ApplicationPresenter.SLOT_MAIN_CONTENT );
     _changeBroker = changeBroker;
@@ -159,14 +159,10 @@ public class UsersPresenter
   {
     _dialogPresenter.configureConfirmation( "Are you sure?",
                                             "Delete " + user.getUserName() + " ?",
-                                            new ClickHandler()
+                                            event ->
                                             {
-                                              @Override
-                                              public void onClick( final ClickEvent event )
-                                              {
-                                                deleteUser( user );
-                                                removeFromPopupSlot( _dialogPresenter );
-                                              }
+                                              deleteUser( user );
+                                              removeFromPopupSlot( _dialogPresenter );
                                             } );
     addToPopupSlot( _dialogPresenter, true );
   }
