@@ -11,3 +11,5 @@ artifacts:
   gwtp_mvp_shared: com.gwtplatform:gwtp-mvp-shared:jar:1.4
   gwtp_velocity: org.apache.velocity:velocity:jar:1.7
   gwtp_velocity_deps: commons-lang:commons-lang:jar:2.4
+
+  timerstatus: iris.timerstatus:timerstatus:jar:39-15273ab

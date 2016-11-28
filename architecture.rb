@@ -1,5 +1,5 @@
 Domgen.repository(:Scoutmgr) do |repository|
-  repository.enable_facets([:jpa, :ejb, :imit, :pgsql, :appcache, :gwt_cache_filter])
+  repository.enable_facets([:jpa, :ejb, :imit, :pgsql, :appcache, :gwt_cache_filter, :timerstatus])
 
   repository.jpa.provider = :eclipselink
 

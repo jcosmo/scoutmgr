@@ -5,6 +5,7 @@ gem 'buildr', '= 1.5.0'
 gem 'buildr_plus', '= 1.0.0', :path => "vendor/tools/buildr_plus"
 gem 'dbt', '= 0.10.0.dev', :path => "vendor/tools/dbt"
 gem 'domgen', '= 0.19.0.dev', :path => "vendor/tools/domgen"
+gem 'redfish', '= 0.2.2.dev', :path => "vendor/tools/redfish"
 gem 'maruku'
 gem 'pg', '= 0.19.0'
 gem 'rspec', '= 2.14.1'

@@ -13,6 +13,11 @@ PATH
   specs:
     domgen (0.19.0.dev)
 
+PATH
+  remote: vendor/tools/redfish
+  specs:
+    redfish (0.2.2.dev)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -82,6 +87,7 @@ DEPENDENCIES
   domgen (= 0.19.0.dev)!
   maruku
   pg (= 0.19.0)
+  redfish (= 0.2.2.dev)!
   rspec (= 2.14.1)
   rspec-core (= 2.14.5)
   rspec-expectations (= 2.14.3)
