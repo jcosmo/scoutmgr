@@ -367,7 +367,7 @@ module Redfish
       File.open("#{dir}/Dockerfile", 'wb') do |f|
         volumes = self.volume_map.keys.collect { |key| "/srv/glassfish/volumes/#{key}" }.join(' ')
         f.write <<SCRIPT
-FROM stocksoftware/redfish:latest
+FROM stocksoftware/redfish:jdk8
 USER root
 COPY ./redfish /opt/redfish
 RUN chmod -R a+r /opt/redfish && find /opt/redfish -type d -exec chmod a+x {} \\; && chmod a+x /opt/redfish/run
