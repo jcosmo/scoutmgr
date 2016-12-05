@@ -41,6 +41,7 @@
 .ruby-version text -crlf -binary
 Buildfile text -crlf -binary
 CHANGELOG text -crlf -binary
+Dockerfile text -crlf -binary
 Gemfile text -crlf -binary
 LICENSE text -crlf -binary
 Rakefile text -crlf -binary
