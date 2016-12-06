@@ -1,7 +1,7 @@
 # DO NOT EDIT: File is auto-generated
 language: ruby
 jdk:
-  - oraclejdk7
+  - oraclejdk8
 sudo: required
 rvm:
   - 2.3.1
