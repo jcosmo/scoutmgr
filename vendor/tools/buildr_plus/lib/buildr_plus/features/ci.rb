@@ -270,6 +270,10 @@ BuildrPlus::FeatureManager.feature(:ci) do |f|
           pull_request_actions << 'travis:check'
         end
 
+        if BuildrPlus::FeatureManager.activated?(:docker) && BuildrPlus::Docker.push_image?
+          pull_request_actions << 'redfish:domain:docker:tag_and_push'
+        end
+
         # Always run check and make sure file system state matches jenkins feature state
         commit_actions << 'jenkins:check'
         pull_request_actions << 'jenkins:check'

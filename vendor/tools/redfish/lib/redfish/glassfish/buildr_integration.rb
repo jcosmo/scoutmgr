@@ -137,6 +137,15 @@ module Redfish
             sh("docker rmi $(docker images -q #{domain.name})")
           end
         end
+
+        if BuildrPlus::Docker.push_image?
+          desc 'Tag current image and push to docker hub'
+          task "#{domain.task_prefix}:tag_and_push" => ["#{domain.task_prefix}:docker:build"] do
+            p "Pushing image for #{BuildrPlus::Docker.organisation}:#{domain.image_name}"
+            sh("docker tag #{Redfish.domain_by_key('docker').image_name} #{BuildrPlus::Docker.organisation}/#{domain.image_name}")
+            sh("docker push #{BuildrPlus::Docker.organisation}/#{domain.image_name}")
+          end
+        end
       end
 
       desc "Export GlassFish configation based on #{domain.name} domain definition"

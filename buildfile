@@ -1,6 +1,7 @@
 require 'buildr_plus'
 BuildrPlus::FeatureManager.activate_features([:oss, :timerstatus, :travis])
 BuildrPlus::Java.version = 8
+BuildrPlus::Docker.organisation = 'fantom'
 require 'buildr_plus/projects/java_multimodule'
 
 GWT_MATERIAL_DEPS = [:gwt_material_design, :gwt_material_design_addins,  :gwt_material_design_themes]
