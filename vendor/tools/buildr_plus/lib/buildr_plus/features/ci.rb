@@ -240,6 +240,9 @@ BuildrPlus::FeatureManager.feature(:ci) do |f|
           Redfish.domains.each do |domain|
             next unless domain.enable_rake_integration?
             next unless domain.dockerize?
+            if BuildrPlus::Docker.push_image?
+              pull_request_actions << "#{domain.task_prefix}:tag_and_push"
+            end
             taskname = "#{domain.task_prefix}:docker:rm"
             pull_request_actions << taskname
             package_actions << taskname
@@ -268,10 +271,6 @@ BuildrPlus::FeatureManager.feature(:ci) do |f|
         if BuildrPlus::FeatureManager.activated?(:travis)
           commit_actions << 'travis:check'
           pull_request_actions << 'travis:check'
-        end
-
-        if BuildrPlus::FeatureManager.activated?(:docker) && BuildrPlus::Docker.push_image?
-          pull_request_actions << 'redfish:domain:docker:tag_and_push'
         end
 
         # Always run check and make sure file system state matches jenkins feature state
