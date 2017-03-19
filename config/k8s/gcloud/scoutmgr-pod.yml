@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: scoutmgr
+  labels:
+    app: scoutmgr
+spec:
+  containers:
+    - name: scoutmgr
+      image: fantom/scoutmgr:1.0-9-g824ac8c
+      env:
+        - name: SCOUTMGR_DB_DATABASE
+          value: scoutmgr
+        - name: SCOUTMGR_DB_HOST
+          value: postgres
+        - name: SCOUTMGR_DB_PORT
+          value: "5432"
+        - name: SCOUTMGR_DB_USERNAME
+          value: postgres
+        - name: SCOUTMGR_DB_PASSWORD
+          value: password
+        - name: TIMERS_DB_DATABASE
+          value: timers
+        - name: TIMERS_DB_HOST
+          value: postgres
+        - name: TIMERS_DB_PORT
+          value: "5432"
+        - name: TIMERS_DB_USERNAME
+          value: postgres
+        - name: TIMERS_DB_PASSWORD
+          value: password
+      ports:
+        - containerPort: 8080
