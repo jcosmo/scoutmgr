@@ -73,7 +73,7 @@ module Redfish
     end
   end
 
-  class Task < Redfish::BaseElement
+  class Task < Reality::BaseElement
     def Task.inherited(mod)
       TaskManager.register_task(mod)
     end
@@ -84,13 +84,13 @@ module Redfish
 
     class << self
       def registered_name
-        Redfish::Naming.underscore(name.split('::').last)
+        Reality::Naming.underscore(name.split('::').last)
       end
 
       def registered_group
         elements = name.split('::')
         return nil if elements.size == 1 || elements[-2] == 'Tasks'
-        Redfish::Naming.underscore(elements[-2])
+        Reality::Naming.underscore(elements[-2])
       end
     end
 

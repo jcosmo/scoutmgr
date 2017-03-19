@@ -13,12 +13,12 @@
 #
 
 module Redfish
-  class DomainDefinition < BaseElement
+  class DomainDefinition < Reality::BaseElement
     def initialize(key, options = {}, &block)
       options = options.dup
       @key = key
       @name = key
-      @data = Redfish::Mash.new
+      @data = Reality::Mash.new
       checkpoint_data!
       @version = nil
       @file_map = {}
@@ -34,6 +34,7 @@ module Redfish
       @rake_integration = true
       @admin_port = 4848
       @admin_username = 'admin'
+      @base_image_name = 'stocksoftware/redfish:latest'
       @admin_password = Redfish::Util.generate_password
       @admin_password_random = true
       @glassfish_home = nil
@@ -207,7 +208,18 @@ module Redfish
       @dockerize.nil? ? false : @dockerize
     end
 
+    def base_image_name=(base_image_name)
+      Redfish.error("base_image_name= invoked on domain #{self.name} which should not be dockerized") unless dockerize?
+      @base_image_name = base_image_name
+    end
+
+    def base_image_name
+      Redfish.error("base_image_name invoked on domain #{self.name} which should not be dockerized") unless dockerize?
+      @base_image_name
+    end
+
     def image_name
+      Redfish.error("image_name invoked on domain #{self.name} which should not be dockerized") unless dockerize?
       "#{self.name}#{self.version.nil? ? '' : ":#{self.version}"}"
     end
 
@@ -263,7 +275,7 @@ module Redfish
     end
 
     def resolved_data(options = {})
-      data = Redfish::Mash.new
+      data = Reality::Mash.new
       data.merge!(Redfish.domain_by_key(self.extends).resolved_data) if self.extends
       self.pre_artifacts.each do |filename|
         data.merge!(JSON.load(File.new(resolve_file(filename))))
@@ -339,7 +351,7 @@ module Redfish
     end
 
     def checkpoint_data!
-      @checkpointed_data = Mash.from(self.data.to_h)
+      @checkpointed_data = Reality::Mash.from(self.data.to_h)
     end
 
     private
@@ -367,7 +379,7 @@ module Redfish
       File.open("#{dir}/Dockerfile", 'wb') do |f|
         volumes = self.volume_map.keys.collect { |key| "/srv/glassfish/volumes/#{key}" }.join(' ')
         f.write <<SCRIPT
-FROM stocksoftware/redfish:jdk8
+FROM #{self.base_image_name}
 USER root
 COPY ./redfish /opt/redfish
 RUN chmod -R a+r /opt/redfish && find /opt/redfish -type d -exec chmod a+x {} \\; && chmod a+x /opt/redfish/run
@@ -399,6 +411,16 @@ SCRIPT
     def setup_docker_redfish_dir(dir)
       FileUtils.mkdir_p "#{dir}/redfish/lib"
       FileUtils.cp_r File.expand_path(File.dirname(__FILE__) + '/../..') + '/.', "#{dir}/redfish/lib"
+
+      spec = Gem::Specification::load(File.expand_path(File.dirname(__FILE__) + '/../../../redfish.gemspec'))
+      spec.dependencies.select{|dependency| dependency.type == :runtime }.each do |dep|
+        dep_spec = Gem.loaded_specs[dep.name]
+        dep_spec.require_paths.each do |path|
+          lib_path = dep_spec.gem_dir + '/' + path + '/.'
+          FileUtils.cp_r lib_path, "#{dir}/redfish/lib"
+        end
+      end
+
       export_to_file("#{dir}/redfish/domain.json")
       write_redfish_script(dir)
       write_run_script(dir)
@@ -444,7 +466,6 @@ SCRIPT
           else
             FileUtils.cp path, docker_cache_path
           end
-          FileUtils.cp_r File.expand_path(File.dirname(__FILE__) + '/..') + '/.', "#{dir}/redfish/lib"
           f.write "  domain.file('#{key}', '/opt/redfish/files/#{key}/#{short_name}')\n"
         end
         self.volume_map.keys.each do |key|
