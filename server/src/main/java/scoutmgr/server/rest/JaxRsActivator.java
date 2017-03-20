@@ -1,21 +1,9 @@
 package scoutmgr.server.rest;
 
-import java.util.HashSet;
-import java.util.Set;
 import javax.ws.rs.ApplicationPath;
-import javax.ws.rs.core.Application;
 
-@ApplicationPath( "/api" )
+@ApplicationPath( AbstractScoutmgrJaxRsApplication.APPLICATION_PATH )
 public class JaxRsActivator
-  extends Application
+  extends AbstractScoutmgrJaxRsApplication
 {
-  @Override
-  public Set<Class<?>> getClasses()
-  {
-    final Set<Class<?>> classes = new HashSet<>();
-    classes.addAll( super.getClasses() );
-    classes.add( ScoutmgrSessionRestService.class );
-    classes.add( ScoutmgrReplicantPollRestService.class );
-    return classes;
-  }
 }
