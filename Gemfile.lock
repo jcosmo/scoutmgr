@@ -2,21 +2,33 @@ PATH
   remote: vendor/tools/buildr_plus
   specs:
     buildr_plus (1.0.0)
+      reality-core (>= 1.6.0)
+      reality-naming (>= 1.8.0)
 
 PATH
   remote: vendor/tools/dbt
   specs:
     dbt (0.10.0.dev)
+      reality-core (>= 1.6.0)
+      reality-orderedhash (>= 1.0.0)
 
 PATH
   remote: vendor/tools/domgen
   specs:
     domgen (0.19.0.dev)
+      reality-core (>= 1.6.0)
+      reality-facets (>= 1.7.0)
+      reality-generators (>= 1.6.0)
+      reality-naming (>= 1.8.0)
+      reality-orderedhash (>= 1.0.0)
 
 PATH
   remote: vendor/tools/redfish
   specs:
     redfish (0.2.2.dev)
+      reality-core (>= 1.6.0)
+      reality-mash (>= 1.0.0)
+      reality-naming (>= 1.8.0)
 
 GEM
   remote: https://rubygems.org/
@@ -64,6 +76,18 @@ GEM
     orderedhash (0.0.6)
     pg (0.19.0)
     rake (0.9.2.2)
+    reality-core (1.7.0)
+    reality-facets (1.7.0)
+      reality-core (>= 1.6.0)
+      reality-naming (>= 1.6.0)
+      reality-orderedhash (>= 1.0.0)
+    reality-generators (1.6.0)
+      reality-core (>= 1.7.0)
+      reality-naming (>= 1.6.0)
+      reality-orderedhash (>= 1.0.0)
+    reality-mash (1.0.0)
+    reality-naming (1.8.0)
+    reality-orderedhash (1.0.0)
     rjb (1.5.4)
     rspec (2.14.1)
       rspec-core (~> 2.14.0)
