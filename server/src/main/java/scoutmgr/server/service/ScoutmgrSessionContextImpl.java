@@ -5,12 +5,14 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Typed;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
+import org.realityforge.replicant.server.ChangeSet;
+import org.realityforge.replicant.server.ChannelDescriptor;
 import org.realityforge.replicant.server.EntityMessage;
 import org.realityforge.replicant.server.EntityMessageSet;
+import org.realityforge.replicant.server.transport.ReplicantSession;
 import scoutmgr.server.data_type.PeopleFilterDTO;
 import scoutmgr.server.entity.dao.PersonRepository;
 import scoutmgr.server.net.ScoutmgrGraphEncoder;
-import scoutmgr.server.net.ScoutmgrSession;
 
 @ApplicationScoped
 @Transactional( Transactional.TxType.REQUIRED )
@@ -27,7 +29,7 @@ public class ScoutmgrSessionContextImpl
 
   @Override
   protected boolean isPeopleInteresting( @Nonnull final EntityMessage message,
-                                         @Nonnull final ScoutmgrSession session,
+                                         @Nonnull final ReplicantSession session,
                                          @Nonnull final PeopleFilterDTO filter )
   {
     // TODO: implement filter properly
@@ -43,10 +45,13 @@ public class ScoutmgrSessionContextImpl
   }
 
   @Override
-  public void collectPeople( @Nonnull final EntityMessageSet messages,
+  public void collectPeople( @Nonnull final ChannelDescriptor descriptor,
+                             @Nonnull final ChangeSet changeSet,
                              @Nonnull final PeopleFilterDTO filter )
   {
     // TODO: implement filter properly
+    final EntityMessageSet messages = new EntityMessageSet();
     _encoder.encodeObjects( messages, _personRepository.findAll());
+    changeSet.merge( descriptor, messages );
   }
 }
