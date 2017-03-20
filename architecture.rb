@@ -146,7 +146,7 @@ Domgen.repository(:Scoutmgr) do |repository|
       s.method(:UpdateCompletion) do |m|
         m.integer(:PersonID)
         m.integer(:BadgeID)
-        m.struct(:TaskCompletionDTO, :TaskCompletionDTO, :collection_type => :sequence)
+        m.struct(:TaskCompletionDTOs, :TaskCompletionDTO, :collection_type => :sequence)
       end
 
       s.method(:DeleteScout) do |m|
