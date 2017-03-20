@@ -9,7 +9,8 @@ Domgen.repository(:Scoutmgr) do |repository|
   repository.imit.graph(:Person, :require_type_graphs => [:Metadata])
   repository.imit.graph(:People, :require_type_graphs => [:Metadata])
   repository.imit.graph(:Users, :require_type_graphs => [:Metadata])
-  repository.imit.graph(:User)
+  repository.imit.graph(:User, :require_type_graphs => [:Metadata])
+  repository.imit.graph(:PersonGroup)
 
   repository.data_module(:Scoutmgr) do |data_module|
     data_module.imit.short_test_code = 'sc'
@@ -51,6 +52,7 @@ Domgen.repository(:Scoutmgr) do |repository|
     data_module.entity(:PersonGroup) do |t|
       t.integer(:ID, :primary_key => true)
       t.string(:Name, 255)
+      t.imit.replicate(:PersonGroup, :instance)
     end
 
     data_module.entity(:PersonGroupMembership) do |t|
@@ -213,7 +215,9 @@ Domgen.repository(:Scoutmgr) do |repository|
       t.reference(:User,
                   :immutable => true,
                   'inverse.traversable' => true)
-      t.reference('Scoutmgr.PersonGroup', :nullable => true)
+      t.reference('Scoutmgr.PersonGroup', :nullable => true)  do |a|
+        a.imit.graph_link(:User, :PersonGroup)
+      end
       t.reference('Scoutmgr.ScoutSection', :nullable => true)
     end
 
