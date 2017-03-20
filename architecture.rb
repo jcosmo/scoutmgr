@@ -14,6 +14,7 @@ Domgen.repository(:Scoutmgr) do |repository|
   repository.data_module(:Scoutmgr) do |data_module|
     data_module.imit.short_test_code = 'sc'
     data_module.jpa.short_test_code = 'sc'
+    data_module.gwt.short_test_code = 'sc'
 
     data_module.struct(:PeopleFilterDTO) do |s|
       s.integer(:UserID)
@@ -168,6 +169,7 @@ Domgen.repository(:Scoutmgr) do |repository|
   repository.data_module(:Security) do |data_module|
     data_module.imit.short_test_code = 'se'
     data_module.jpa.short_test_code = 'se'
+    data_module.gwt.short_test_code = 'se'
 
     data_module.entity(:User) do |t|
       t.integer(:ID, :primary_key => true)
