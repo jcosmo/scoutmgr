@@ -13,10 +13,9 @@ public class ScoutmgrFactory
   private static final int MAX_STRING_LENGTH = 20;
   public static final Random RANDOM = new Random();
 
-  public ScoutmgrFactory( @Nonnull final ScoutmgrFactorySet factorySet,
-                           @Nonnull final Injector injector )
+  public ScoutmgrFactory( @Nonnull final Injector injector )
   {
-    super( factorySet, injector );
+    super( injector );
   }
 
   public Person createPerson()
