@@ -16,7 +16,6 @@ public class JaxRsActivator
     classes.addAll( super.getClasses() );
     classes.add( ScoutmgrSessionRestService.class );
     classes.add( ScoutmgrReplicantPollRestService.class );
-    classes.add( ScoutmgrBadSessionExceptionMapper.class );
     return classes;
   }
 }
