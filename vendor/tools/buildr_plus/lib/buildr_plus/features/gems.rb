@@ -43,7 +43,7 @@ BuildrPlus::FeatureManager.feature(:gems) do |f|
     attr_writer :manage_gemfile
 
     def manage_gemfile?
-      @manage_gemfile.nil? ? !BuildrPlus::FeatureManager.activated?(:rails) : !!@manage_gemfile
+      @manage_gemfile.nil? ? true : !!@manage_gemfile
     end
 
     def gem(gems, name, version = nil, options = nil)
@@ -63,7 +63,7 @@ BuildrPlus::FeatureManager.feature(:gems) do |f|
       gems = {}
 
       gem(gems, 'buildr', '1.5.0')
-      gem(gems, 'braid', '1.0.3')
+      gem(gems, 'braid', '1.0.14')
       # Rspec required for buildr
       gem(gems, 'rspec-expectations', '2.14.3')
       gem(gems, 'rspec-mocks', '2.14.3')
@@ -90,6 +90,9 @@ BuildrPlus::FeatureManager.feature(:gems) do |f|
       end
       if BuildrPlus::FeatureManager.activated?(:db) && BuildrPlus::Db.pg_defined?
         gem(gems, 'pg', '0.19.0')
+      end
+      if BuildrPlus::FeatureManager.activated?(:resgen)
+        gem(gems, 'resgen', '1.0.0', :path => 'vendor/tools/resgen')
       end
 
       gems.merge!(additional_gems)

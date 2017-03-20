@@ -17,28 +17,31 @@ BuildrPlus::Roles.role(:gwt, :requires => [:gwt]) do
   project.publish = BuildrPlus::Artifacts.gwt?
 
   if BuildrPlus::FeatureManager.activated?(:domgen)
-    generators = [:gwt, :gwt_rpc_shared, :gwt_rpc_client_service, :gwt_client_jso, :auto_bean, :gwt_client_module, :gwt_client_gwt_model_module]
-    generators += [:keycloak_gwt_jso] if BuildrPlus::FeatureManager.activated?(:keycloak)
-    generators += [:imit_client_entity_gwt, :imit_client_service] if BuildrPlus::FeatureManager.activated?(:replicant)
-    generators += project.additional_domgen_generators
+    generators = BuildrPlus::Deps.gwt_generators + project.additional_domgen_generators
     Domgen::Build.define_generate_task(generators, :buildr_project => project) do |t|
       t.filter = Proc.new do |artifact_type, artifact|
-        artifact_type != :message || !artifact.any_non_standard_types?
+        # Non message
+        artifact_type != :message ||
+          # Or message has only standard types
+          !artifact.any_non_standard_types? ||
+          # Or message is replication subscription message
+          artifact.imit? && artifact.imit.subscription_message?
       end if BuildrPlus::FeatureManager.activated?(:role_user_experience)
     end
   end
 
-  compile.with BuildrPlus::Libs.findbugs_provided, BuildrPlus::Libs.gwt_gin
-  compile.with BuildrPlus::Libs.gwt_datatypes
-  compile.with BuildrPlus::Libs.keycloak_gwt if BuildrPlus::FeatureManager.activated?(:keycloak)
+  if BuildrPlus::FeatureManager.activated?(:resgen)
+    generators = [:gwt_abstract_uibinder_component, :gwt_client_bundle]
+    generators += project.additional_resgen_generators
+    Resgen::Build.define_generate_task(generators, :buildr_project => project) do |t|
+      t.filter = Resgen::Filters.include_catalog_below(project._(:source, :main))
+    end
+  end
 
-  compile.with BuildrPlus::Libs.replicant_gwt_client if BuildrPlus::FeatureManager.activated?(:replicant)
+  compile.with BuildrPlus::Deps.gwt_deps
 
   BuildrPlus::Roles.merge_projects_with_role(project.compile, :shared)
   BuildrPlus::Roles.merge_projects_with_role(project.compile, :replicant_shared)
-
-  test.with BuildrPlus::Libs.mockito
-  test.with BuildrPlus::Libs.replicant_client_qa_support if BuildrPlus::FeatureManager.activated?(:replicant)
 
   package(:jar)
   package(:sources)

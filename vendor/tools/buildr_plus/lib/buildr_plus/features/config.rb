@@ -41,7 +41,7 @@ BuildrPlus::FeatureManager.feature(:config) do |f|
     end
 
     def domain_environment_var(domain, key, default_value = nil)
-      domain_name = Redfish::Naming.uppercase_constantize(domain.name)
+      domain_name = Reality::Naming.uppercase_constantize(domain.name)
       scope = self.app_scope
       code = self.env_code
 
@@ -117,22 +117,6 @@ BuildrPlus::FeatureManager.feature(:config) do |f|
 
     def output_aux_confgs!(config = application_config)
       emit_database_yml(config)
-
-      buildr_project = get_buildr_project.root_project
-
-      if BuildrPlus::FeatureManager.activated?(:rails) &&
-        BuildrPlus::FeatureManager.activated?(:redfish) &&
-        Redfish.domain_by_key?(buildr_project.name)
-
-        domain = Redfish.domain_by_key(buildr_project.name)
-
-        buildr_project.task(':domgen:all' => ['rails:config:generate']) if BuildrPlus::FeatureManager.activated?(:domgen)
-
-        buildr_project.task(':rails:config:generate' => ["#{domain.task_prefix}:setup_env_vars"]) do
-          # Also need to populate rails configuration
-          emit_rails_configuration(domain)
-        end
-      end
     end
 
     private
@@ -223,19 +207,22 @@ BuildrPlus::FeatureManager.feature(:config) do |f|
     end
 
     def populate_settings(environment)
-      buildr_project = get_buildr_project.root_project
       if BuildrPlus::FeatureManager.activated?(:keycloak)
         BuildrPlus::Keycloak.client_types.each do |client_type|
-          name = buildr_project.name
-          constant_prefix = BuildrPlus::Naming.uppercase_constantize(name)
-          prefix = "#{name == client_type ? '' : "#{constant_prefix}_"}#{BuildrPlus::Naming.uppercase_constantize(client_type)}"
-
-          environment.setting("#{prefix}_KEYCLOAK_REALM", environment.keycloak.realm) unless environment.setting?("#{prefix}_KEYCLOAK_REALM")
-          environment.setting("#{prefix}_KEYCLOAK_REALM_PUBLIC_KEY", environment.keycloak.public_key) unless environment.setting?("#{prefix}_KEYCLOAK_REALM_PUBLIC_KEY")
-          environment.setting("#{prefix}_KEYCLOAK_AUTH_SERVER_URL", environment.keycloak.base_url) unless environment.setting?("#{prefix}_KEYCLOAK_AUTH_SERVER_URL")
-          environment.setting("#{prefix}_KEYCLOAK_CLIENT_NAME", BuildrPlus::Keycloak.client_name_for(client_type)) unless environment.setting?("#{prefix}_KEYCLOAK_CLIENT_NAME")
+          populate_keycloak_client_settings(environment, client_type, false)
+        end
+        BuildrPlus::Keycloak.external_client_types.keys.each do |client_type|
+          populate_keycloak_client_settings(environment, client_type, true)
         end
       end
+    end
+
+    def populate_keycloak_client_settings(environment, client_type, external)
+      prefix = BuildrPlus::Keycloak.keycloak_config_prefix(client_type, external)
+      environment.setting("#{prefix}_KEYCLOAK_REALM", environment.keycloak.realm) unless environment.setting?("#{prefix}_KEYCLOAK_REALM")
+      environment.setting("#{prefix}_KEYCLOAK_REALM_PUBLIC_KEY", environment.keycloak.public_key) unless environment.setting?("#{prefix}_KEYCLOAK_REALM_PUBLIC_KEY")
+      environment.setting("#{prefix}_KEYCLOAK_AUTH_SERVER_URL", environment.keycloak.base_url) unless environment.setting?("#{prefix}_KEYCLOAK_AUTH_SERVER_URL")
+      environment.setting("#{prefix}_KEYCLOAK_CLIENT_NAME", BuildrPlus::Keycloak.client_name_for(client_type, external)) unless environment.setting?("#{prefix}_KEYCLOAK_CLIENT_NAME")
     end
 
     def populate_volume_configuration(environment)
@@ -284,7 +271,7 @@ BuildrPlus::FeatureManager.feature(:config) do |f|
             end
           end unless dbt_imports
 
-          short_name = BuildrPlus::Naming.uppercase_constantize(database.key.to_s == 'default' ? buildr_project.root_project.name : database.key.to_s)
+          short_name = Reality::Naming.uppercase_constantize(database.key.to_s == 'default' ? buildr_project.root_project.name : database.key.to_s)
           database.database = "#{BuildrPlus::Config.db_scope}#{short_name}_#{self.env_code(environment.key)}" unless database.database
           database.import_from = "PROD_CLONE_#{short_name}" unless database.import_from || !dbt_imports
           database.host = environment_var('DB_SERVER_HOST') unless database.host
@@ -299,7 +286,7 @@ BuildrPlus::FeatureManager.feature(:config) do |f|
             database.restore_name = short_name unless database.restore_name
             database.backup_name = short_name unless database.backup_name
             database.backup_location = environment_var('DB_BACKUPS_LOCATION') unless database.backup_location
-            database.delete_backup_history = environment_var('DB_SERVER_DELETE_BACKUP_HISTORY', 'true') unless database.delete_backup_history_set?
+            database.delete_backup_history = (environment_var('DB_SERVER_DELETE_BACKUP_HISTORY', 'true') == 'true') unless database.delete_backup_history_set?
             unless database.instance
               instance = environment_var('DB_SERVER_INSTANCE', '')
               database.instance = instance unless instance == ''
@@ -339,7 +326,7 @@ BuildrPlus::FeatureManager.feature(:config) do |f|
 
       if environment.ssrs.prefix.nil?
         buildr_project = get_buildr_project
-        short_name = BuildrPlus::Naming.uppercase_constantize(buildr_project.root_project.name)
+        short_name = Reality::Naming.uppercase_constantize(buildr_project.root_project.name)
         environment.ssrs.prefix = "/Auto/#{user || 'NOBODY'}#{scope.nil? ? '' : "_#{scope}"}/#{self.env_code}/#{short_name}"
       end
 
@@ -350,12 +337,10 @@ BuildrPlus::FeatureManager.feature(:config) do |f|
     end
 
     def populate_broker_configuration(environment, check_only)
-      if BuildrPlus::FeatureManager.activated?(:jms) && BuildrPlus::FeatureManager.activated?(:redfish)
+      if BuildrPlus::FeatureManager.activated?(:jms) && BuildrPlus::FeatureManager.activated?(:docker)
         BuildrPlus::Jms.link_container_to_configuration(BuildrPlus::Config.get_buildr_project, environment)
       end
-      if !BuildrPlus::FeatureManager.activated?(:jms) && environment.broker?
-        raise "Broker defined in application configuration but BuildrPlus facet 'jms' not enabled"
-      elsif BuildrPlus::FeatureManager.activated?(:jms) && !environment.broker? && !check_only
+      if !environment.broker? && !check_only
         host = BuildrPlus::Config.environment_var('OPENMQ_HOST', 'localhost')
         port = BuildrPlus::Config.environment_var('OPENMQ_PORT', 7676)
         username = BuildrPlus::Config.environment_var('OPENMQ_ADMIN_USERNAME', 'admin')

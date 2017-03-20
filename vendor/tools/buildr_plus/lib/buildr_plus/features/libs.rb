@@ -53,7 +53,7 @@ BuildrPlus::FeatureManager.feature(:libs) do |f|
     end
 
     def glassfish_embedded
-      %w(fish.payara.extras:payara-embedded-all:jar:4.1.1.162)
+      %w(fish.payara.extras:payara-embedded-all:jar:4.1.1.171.0.1)
     end
 
     def eclipselink
@@ -62,6 +62,33 @@ BuildrPlus::FeatureManager.feature(:libs) do |f|
 
     def mockito
       %w(org.mockito:mockito-all:jar:1.10.19)
+    end
+
+    def objenesis
+      %w(org.objenesis:objenesis:jar:2.5.1)
+    end
+
+    def powermock_version
+      '1.6.6'
+    end
+
+    def powermock_javaagent
+      "org.powermock:powermock-module-javaagent:jar:#{powermock_version}"
+    end
+
+    def powermock
+      %W(
+        org.powermock:powermock-core:jar:#{powermock_version}
+        org.powermock:powermock-reflect:jar:#{powermock_version}
+        org.powermock:powermock-module-testng-common:jar:#{powermock_version}
+        org.powermock:powermock-module-testng:jar:#{powermock_version}
+        org.powermock:powermock-api-mockito:jar:#{powermock_version}
+        org.powermock:powermock-api-mockito-common:jar:#{powermock_version}
+        org.powermock:powermock-api-support:jar:#{powermock_version}
+        org.javassist:javassist:jar:3.21.0-GA
+        org.powermock:powermock-module-testng-agent:jar:#{powermock_version}
+        #{powermock_javaagent}
+      ) + self.objenesis
     end
 
     def jackson_annotations
@@ -80,16 +107,20 @@ BuildrPlus::FeatureManager.feature(:libs) do |f|
       self.jackson_core + self.jackson_databind + self.jackson_annotations
     end
 
+    def jsinterop
+      %w(com.google.jsinterop:jsinterop-annotations:jar:1.0.1 com.google.jsinterop:jsinterop-annotations:jar:sources:1.0.1)
+    end
+
     def gwt_user
-      %w(com.google.gwt:gwt-user:jar:2.8.0-beta1)
+      %w(com.google.gwt:gwt-user:jar:2.8.0 org.w3c.css:sac:jar:1.3) + self.jsinterop
     end
 
     def gwt_servlet
-      %w(com.google.gwt:gwt-servlet:jar:2.8.0-beta1)
+      %w(com.google.gwt:gwt-servlet:jar:2.8.0)
     end
 
     def gwt_dev
-      'com.google.gwt:gwt-dev:jar:2.8.0-beta1'
+      'com.google.gwt:gwt-dev:jar:2.8.0'
     end
 
     def javax_inject
@@ -105,7 +136,7 @@ BuildrPlus::FeatureManager.feature(:libs) do |f|
     end
 
     def gwt_webpoller
-      %w(org.realityforge.gwt.webpoller:gwt-webpoller:jar:0.9.2)
+      %w(org.realityforge.gwt.webpoller:gwt-webpoller:jar:0.9.3)
     end
 
     def gwt_datatypes
@@ -121,7 +152,7 @@ BuildrPlus::FeatureManager.feature(:libs) do |f|
     end
 
     def gwt_lognice
-      %w(org.realityforge.gwt.lognice:gwt-lognice:jar:0.2)
+      %w(org.realityforge.gwt.lognice:gwt-lognice:jar:0.4)
     end
 
     def gwt_appcache_client
@@ -138,11 +169,11 @@ BuildrPlus::FeatureManager.feature(:libs) do |f|
     end
 
     def gwt_cache_filter
-      %w(org.realityforge.gwt.cache-filter:gwt-cache-filter:jar:0.6)
+      %w(org.realityforge.gwt.cache-filter:gwt-cache-filter:jar:0.7)
     end
 
     def simple_session_filter
-      %w(org.realityforge.ssf:simple-session-filter:jar:0.6)
+      %w(org.realityforge.ssf:simple-session-filter:jar:0.7)
     end
 
     def field_filter
@@ -150,7 +181,7 @@ BuildrPlus::FeatureManager.feature(:libs) do |f|
     end
 
     def rest_criteria
-      %w(org.realityforge.rest.criteria:rest-criteria:jar:0.9.3 org.antlr:antlr4-runtime:jar:4.3 org.antlr:antlr4-annotations:jar:4.3) + self.field_filter
+      %w(org.realityforge.rest.criteria:rest-criteria:jar:0.9.4 org.antlr:antlr4-runtime:jar:4.3 org.antlr:antlr4-annotations:jar:4.3) + self.field_filter
     end
 
     def commons_logging
@@ -172,6 +203,10 @@ BuildrPlus::FeatureManager.feature(:libs) do |f|
     def httpclient
       %w(org.apache.httpcomponents:httpclient:jar:4.5 org.apache.httpcomponents:httpcore:jar:4.4.1) +
         self.commons_logging + self.commons_codec
+    end
+
+    def failsafe
+      %w(net.jodah:failsafe:jar:1.0.3)
     end
 
     def keycloak_gwt
@@ -203,7 +238,7 @@ BuildrPlus::FeatureManager.feature(:libs) do |f|
     end
 
     def replicant_version
-      '0.5.62'
+      '0.5.78'
     end
 
     def replicant_shared
@@ -238,8 +273,16 @@ BuildrPlus::FeatureManager.feature(:libs) do |f|
       %w(aopalliance:aopalliance:jar:1.0 com.google.inject:guice:jar:3.0 com.google.inject.extensions:guice-assistedinject:jar:3.0)
     end
 
+    def awaitility
+      %w(org.awaitility:awaitility:jar:2.0.0)
+    end
+
+    def testng_version
+      '6.11'
+    end
+
     def testng
-      %w(org.testng:testng:jar:6.8)
+      %W(org.testng:testng:jar:#{testng_version})
     end
 
     def jndikit
@@ -247,11 +290,15 @@ BuildrPlus::FeatureManager.feature(:libs) do |f|
     end
 
     def guiceyloops
-      self.glassfish_embedded + self.guiceyloops_gwt
+      self.guiceyloops_gwt + self.glassfish_embedded
+    end
+
+    def guiceyloops_lib
+      'org.realityforge.guiceyloops:guiceyloops:jar:0.87'
     end
 
     def guiceyloops_gwt
-      %w(org.realityforge.guiceyloops:guiceyloops:jar:0.80) + self.mockito + self.guice + self.testng
+      [guiceyloops_lib] + self.mockito + self.guice + self.testng
     end
 
     def glassfish_timers_domain

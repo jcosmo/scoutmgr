@@ -14,73 +14,36 @@
 
 BuildrPlus::Roles.role(:server) do
   if BuildrPlus::FeatureManager.activated?(:domgen)
-    generators = [:ee_beans_xml]
-    generators << [:ee_web_xml] if BuildrPlus::Artifacts.war?
-    if BuildrPlus::FeatureManager.activated?(:db)
-      generators << [:jpa_dao_test, :jpa_application_orm_xml, :jpa_application_persistence_xml, :jpa_test_orm_xml, :jpa_test_persistence_xml]
-      generators << [:imit_server_entity_replication] if BuildrPlus::FeatureManager.activated?(:replicant)
-    end
-
-    generators << [:robots] if BuildrPlus::Artifacts.war?
-    generators << [:gwt_rpc_shared, :gwt_rpc_server] if BuildrPlus::FeatureManager.activated?(:gwt)
-    generators << [:imit_shared, :imit_server_service, :imit_server_qa] if BuildrPlus::FeatureManager.activated?(:replicant)
-
-    if BuildrPlus::FeatureManager.activated?(:keycloak)
-      generators << [:keycloak_config_service, :keycloak_js_service] if BuildrPlus::FeatureManager.activated?(:gwt)
-      if BuildrPlus::Roles.buildr_projects_with_role(:shared).size == 0
-        generators << [:keycloak_client_definitions]
-      end
-    end
-
-    if BuildrPlus::FeatureManager.activated?(:sync)
-      if BuildrPlus::Sync.standalone?
-        generators << [:sync_ejb]
-      else
-        generators << [:sync_core_ejb]
-      end
-    end
-
-    generators << [:ee_messages, :ee_exceptions, :ejb_service_facades, :ee_filter, :ejb_test_qa, :ejb_test_service_test] if BuildrPlus::FeatureManager.activated?(:ejb)
-
-    generators << [:xml_public_xsd_webapp] if BuildrPlus::FeatureManager.activated?(:xml)
-    generators << [:jws_server, :ejb_glassfish_config_assets] if BuildrPlus::FeatureManager.activated?(:soap)
-    generators << [:jms] if BuildrPlus::FeatureManager.activated?(:jms)
-    generators << [:jaxrs] if BuildrPlus::FeatureManager.activated?(:jaxrs)
-    generators << [:appcache] if BuildrPlus::FeatureManager.activated?(:appcache)
-    generators << [:mail_mail_queue, :mail_test_module] if BuildrPlus::FeatureManager.activated?(:mail)
-    generators << [:syncrecord_abstract_service, :syncrecord_control_rest_service] if BuildrPlus::FeatureManager.activated?(:syncrecord)
-    generators << [:keycloak_filter] if BuildrPlus::FeatureManager.activated?(:keycloak)
-    generators << [:timerstatus_filter] if BuildrPlus::FeatureManager.activated?(:timerstatus)
-
-    generators += project.additional_domgen_generators
-
+    generators = BuildrPlus::Deps.server_generators + project.additional_domgen_generators
     Domgen::Build.define_generate_task(generators.flatten, :buildr_project => project) do |t|
-      t.filter = project.domgen_filter
+      t.filter = Proc.new do |artifact_type, artifact|
+        if artifact_type == :message && (artifact.imit? && artifact.imit.subscription_message?)
+          false
+        elsif project.domgen_filter
+          project.domgen_filter.call(artifact_type, artifact)
+        else
+          true
+        end
+      end
     end
   end
 
   project.publish = true
 
-  # Our soap services use annotation for validation that is metro specific
-  compile.with BuildrPlus::Libs.glassfish_embedded if BuildrPlus::FeatureManager.activated?(:soap)
-
-  compile.with artifacts(Object.const_get(:PACKAGED_DEPS)) if Object.const_defined?(:PACKAGED_DEPS)
   compile.with BuildrPlus::Deps.server_deps
-  compile.with BuildrPlus::Libs.ee_provided unless BuildrPlus::FeatureManager.activated?(:role_model)
+  compile.with artifacts(Object.const_get(:PACKAGED_DEPS)) if Object.const_defined?(:PACKAGED_DEPS)
+  test.with BuildrPlus::Deps.server_test_deps
 
   BuildrPlus::Roles.merge_projects_with_role(project.compile, :model)
   BuildrPlus::Roles.merge_projects_with_role(project.test, :model_qa_support)
-
-  test.with BuildrPlus::Libs.db_drivers
-  test.with artifacts([BuildrPlus::Syncrecord.syncrecord_server_qa]) if BuildrPlus::FeatureManager.activated?(:syncrecord)
 
   package(:war).tap do |war|
     war.libs.clear
     war.libs << artifacts(Object.const_get(:PACKAGED_DEPS)) if Object.const_defined?(:PACKAGED_DEPS)
     # Findbugs libs added otherwise CDI scanning slows down due to massive number of ClassNotFoundExceptions
     war.libs << BuildrPlus::Deps.findbugs_provided
-    war.libs << BuildrPlus::Deps.model_deps
-    war.libs << BuildrPlus::Deps.server_deps
+    war.libs << BuildrPlus::Deps.model_compile_deps
+    war.libs << BuildrPlus::Deps.server_compile_deps
     BuildrPlus::Roles.buildr_projects_with_role(:shared).each do |dep|
       war.libs << dep.package(:jar)
     end

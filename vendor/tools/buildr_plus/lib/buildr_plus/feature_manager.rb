@@ -14,7 +14,7 @@
 
 module BuildrPlus #nodoc
 
-  class Feature < BaseElement
+  class Feature < Reality::BaseElement
     attr_reader :key
     attr_reader :required_features
     attr_reader :suggested_features
@@ -24,7 +24,7 @@ module BuildrPlus #nodoc
       @required_features = required_features
       @suggested_features = []
 
-      module_name = ::BuildrPlus::Naming.pascal_case(key)
+      module_name = ::Reality::Naming.pascal_case(key)
       ::BuildrPlus.class_eval "module #{module_name}\n end"
       module_instance = ::BuildrPlus.const_get(module_name)
 

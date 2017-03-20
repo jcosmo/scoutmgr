@@ -12,22 +12,36 @@
 # limitations under the License.
 #
 
-BuildrPlus::Roles.role(:user_experience, :requires => [:role_gwt, :gwt]) do
+BuildrPlus::Roles.role(:user_experience, :requires => [:gwt]) do
 
   if BuildrPlus::FeatureManager.activated?(:domgen)
-    generators = [:gwt_client_event, :gwt_client_app, :gwt_client_gwt_modules]
-    generators += [:keycloak_gwt_app] if BuildrPlus::FeatureManager.activated?(:keycloak)
-    generators += project.additional_domgen_generators
+    generators = BuildrPlus::Deps.user_experience_generators + project.additional_domgen_generators
     Domgen::Build.define_generate_task(generators, :buildr_project => project) do |t|
       t.filter = Proc.new do |artifact_type, artifact|
-        artifact_type != :message || artifact.any_non_standard_types?
-      end
+        # Non message
+        artifact_type != :message ||
+          # Or message has non standard types
+          (artifact.any_non_standard_types? &&
+          # And message is not replication subscription message
+          !(artifact.imit? && artifact.imit.subscription_message?) )
+
+      end if BuildrPlus::FeatureManager.activated?(:role_gwt)
+    end
+  end
+
+  if BuildrPlus::FeatureManager.activated?(:resgen)
+    generators = [:gwt_abstract_uibinder_component, :gwt_client_bundle]
+    generators += project.additional_resgen_generators
+    Resgen::Build.define_generate_task(generators, :buildr_project => project) do |t|
+      t.filter = Resgen::Filters.include_catalog_below(project._(:source, :main))
     end
   end
 
   project.publish = false
 
+  compile.with BuildrPlus::Deps.gwt_deps unless BuildrPlus::FeatureManager.activated?(:role_gwt)
   compile.with BuildrPlus::Deps.user_experience_deps
+  test.with BuildrPlus::Deps.gwt_qa_support_deps
 
   BuildrPlus::Roles.merge_projects_with_role(project.compile, :gwt)
   BuildrPlus::Roles.merge_projects_with_role(project.test, :gwt_qa_support)

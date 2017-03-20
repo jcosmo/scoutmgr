@@ -122,6 +122,7 @@ BuildrPlus::FeatureManager.feature(:domgen) do |f|
           if BuildrPlus::Domgen.enforce_postload_constraints?
             facet_mapping =
               {
+                :jackson => :jackson,
                 :keycloak => :keycloak,
                 :jms => :jms,
                 :mail => :mail,
@@ -136,10 +137,22 @@ BuildrPlus::FeatureManager.feature(:domgen) do |f|
                 :appcache => :appcache
               }
 
-            Domgen.repositorys.each do |r|
+            Domgen.repositories.each do |r|
               if r.java? && BuildrPlus::Domgen.enforce_package_name?
                 if r.java.base_package != project.group_as_package
                   raise "Buildr projects group '#{project.group_as_package}' expected to match domgens 'java.base_package' setting ('#{r.java.base_package}') but it does not."
+                end
+              end
+
+              unless BuildrPlus::FeatureManager.activated?(:timerstatus) || BuildrPlus::FeatureManager.activated?(:role_library)
+                r.data_modules.select { |data_module| data_module.ejb? }.each do |data_module|
+                  data_module.services.select { |service| service.ejb? }.each do |service|
+                    service.methods.select { |method| method.ejb? }.each do |method|
+                      if method.ejb.schedule?
+                        raise "Buildr project does not define 'timerstatus' feature but domgen defines method '#{method.qualified_name}' that defines a schedule."
+                      end
+                    end
+                  end
                 end
               end
 
@@ -163,6 +176,12 @@ BuildrPlus::FeatureManager.feature(:domgen) do |f|
                 raise "Domgen declared 'repository.application.service_library = false' but buildr is configured as a library."
               end
 
+              if r.application? && r.application.remote_references_included? && !BuildrPlus::FeatureManager.activated?(:remote_references)
+                raise "Domgen declared 'repository.application.remote_references_included = true' but buildr has not activated the 'remote_references' feature."
+              elsif r.application? && !r.application.remote_references_included? && BuildrPlus::FeatureManager.activated?(:remote_references)
+                raise "Domgen declared 'repository.application.remote_references_included = false' but buildr has activated the 'remote_references' feature."
+              end
+
               facet_mapping.each_pair do |buildr_plus_facet, domgen_facet|
                 if BuildrPlus::FeatureManager.activated?(buildr_plus_facet) && !r.facet_enabled?(domgen_facet)
                   raise "BuildrPlus feature '#{buildr_plus_facet}' requires that domgen facet '#{domgen_facet}' is enabled but it is not."
@@ -172,16 +191,18 @@ BuildrPlus::FeatureManager.feature(:domgen) do |f|
                 end
               end
               if BuildrPlus::FeatureManager.activated?(:keycloak)
-                domgen_clients = r.keycloak.clients.collect{|client| client.key.to_s}.sort.uniq
+                domgen_clients = r.keycloak.clients.collect { |client| client.key.to_s }.sort.uniq
                 clients = BuildrPlus::Keycloak.client_types.sort.uniq
                 if clients != domgen_clients
                   raise "Domgen repository #{r.name} declares keycloak clients #{domgen_clients.inspect} while buildr is aware of #{clients.inspect}"
                 end
               end
-              if BuildrPlus::FeatureManager.activated?(:appcache) && BuildrPlus::FeatureManager.activated?(:role_library)
-                raise "Can not enable the BuildrPlus 'appcache' feature for libraries"
-              end
 
+              if r.sync? && r.sync.standalone? && !BuildrPlus::Sync.standalone?
+                raise "Domgen repository #{r.name} declares repository.sync.standalone = true while in BuildrPlus BuildrPlus::Sync.standalone? is false"
+              elsif r.sync? && !r.sync.standalone? && BuildrPlus::Sync.standalone?
+                raise "Domgen repository #{r.name} declares repository.sync.standalone = false while in BuildrPlus BuildrPlus::Sync.standalone? is true"
+              end
               if r.imit? && r.imit.support_ee_client? && !BuildrPlus::Artifacts.replicant_ee_client?
                 raise "Domgen repository #{r.name} declares repository.imit.support_ee_client = true while in BuildrPlus BuildrPlus::Artifacts.replicant_ee_client? is false"
               elsif !(r.imit? && r.imit.support_ee_client?) && BuildrPlus::Artifacts.replicant_ee_client?
@@ -192,6 +213,14 @@ BuildrPlus::FeatureManager.feature(:domgen) do |f|
                 raise "Domgen repository #{r.name} should enable robots facet as BuildrPlus BuildrPlus::Artifacts.war? is true"
               elsif r.robots? && !BuildrPlus::Artifacts.war?
                 raise "Domgen repository #{r.name} should disable robots facet as BuildrPlus BuildrPlus::Artifacts.war? is false"
+              end
+
+              if r.jpa?
+                if r.jpa.include_default_unit? && !Dbt.database_for_key?(:default)
+                  raise "Domgen repository #{r.name} includes a default jpa persistence unit but there is no Dbt database with key :default"
+                elsif !r.jpa.include_default_unit? && Dbt.database_for_key?(:default)
+                  raise "Domgen repository #{r.name} does not include a default jpa persistence unit but there is a Dbt database with key :default"
+                end
               end
             end
           end

@@ -14,7 +14,7 @@
 
 module BuildrPlus #nodoc
   module Config #nodoc
-    class ApplicationConfig < BuildrPlus::BaseElement
+    class ApplicationConfig < Reality::BaseElement
       def initialize(options = {}, &block)
         @environments = {}
 
@@ -59,10 +59,6 @@ module BuildrPlus #nodoc
           environment.databases.each do |database|
             key = database.key.to_s == 'default' ? environment.key.to_s : "#{database.key}_#{environment.key}"
             results[key] = {}
-            if BuildrPlus::FeatureManager.activated?(:rails)
-              results[key]['ignore_elements'] = %w(adapter)
-              results[key]['adapter'] = 'mssql' if BuildrPlus::Db.mssql?
-            end
             results[key]['host'] = database.host
             results[key]['port'] = database.port
             results[key]['database'] = database.database
@@ -80,10 +76,6 @@ module BuildrPlus #nodoc
               import_key = database.key.to_s == 'default' ? 'import' : "#{database.key}_import"
               unless results[import_key]
                 results[import_key] = {}
-                if BuildrPlus::FeatureManager.activated?(:rails)
-                  results[import_key]['ignore_elements'] = %w(adapter)
-                  results[import_key]['adapter'] = 'mssql' if BuildrPlus::Db.mssql?
-                end
                 results[import_key]['host'] = database.host
                 results[import_key]['port'] = database.port
                 results[import_key]['database'] = database.import_from
@@ -101,10 +93,6 @@ module BuildrPlus #nodoc
             if environment.key.to_s == 'test'
               key = database.key.to_s == 'default' ? 'import_test' : "#{database.key}_import_test"
               results[key] = {}
-              if BuildrPlus::FeatureManager.activated?(:rails)
-                results[key]['ignore_elements'] = %w(adapter)
-                results[key]['adapter'] = 'mssql' if BuildrPlus::Db.mssql?
-              end
               results[key]['host'] = database.host
               results[key]['port'] = database.port
               results[key]['database'] = database.key.to_s == 'default' ? database.database : (database.import_from || database.database)
@@ -116,6 +104,9 @@ module BuildrPlus #nodoc
                 results[key]['backup_name'] = database.backup_name if database.backup_name
                 results[key]['restore_name'] = database.restore_name if database.restore_name
                 results[key]['backup_location'] = database.backup_location if database.backup_location
+                results[key]['delete_backup_history'] = database.delete_backup_history? if database.delete_backup_history_set?
+                results[key]['reindex_on_import'] = database.reindex_on_import? if database.reindex_on_import_set?
+                results[key]['shrink_on_import'] = database.shrink_on_import? if database.shrink_on_import_set?
               end
             end
           end

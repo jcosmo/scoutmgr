@@ -62,10 +62,7 @@ BuildrPlus::FeatureManager.feature(:ci) do |f|
           Dbt::Config.environment = 'test' if BuildrPlus::FeatureManager.activated?(:dbt)
           SSRS::Config.environment = 'test' if BuildrPlus::FeatureManager.activated?(:rptman)
           BuildrPlus::Config.environment = 'test' if BuildrPlus::FeatureManager.activated?(:config)
-          ::RAILS_ENV = ENV['RAILS_ENV'] = 'test' if BuildrPlus::FeatureManager.activated?(:rails)
         end
-
-        project.task ':ci:common_setup' => %w(db:driver:download) if BuildrPlus::FeatureManager.activated?(:rails)
 
         project.task ':ci:test_configure' do
           if BuildrPlus::FeatureManager.activated?(:dbt)
@@ -129,7 +126,7 @@ BuildrPlus::FeatureManager.feature(:ci) do |f|
         package_actions = %w(ci:setup)
         package_no_test_actions = %w(ci:no_test_setup)
 
-        if BuildrPlus::FeatureManager.activated?(:redfish)
+        if BuildrPlus::FeatureManager.activated?(:redfish) && BuildrPlus::FeatureManager.activated?(:docker)
           Redfish.domains.each do |domain|
             next unless domain.enable_rake_integration?
             next unless domain.dockerize?
@@ -179,11 +176,6 @@ BuildrPlus::FeatureManager.feature(:ci) do |f|
           pull_request_actions << 'rptman:ssrs:upload'
         end
 
-        if BuildrPlus::FeatureManager.activated?(:rails)
-          package_actions << 'assets:copy_plugin_assets'
-          package_no_test_actions << 'assets:copy_plugin_assets'
-        end
-
         project.task ':ci:source_code_analysis'
 
         commit_actions << 'ci:source_code_analysis'
@@ -201,7 +193,7 @@ BuildrPlus::FeatureManager.feature(:ci) do |f|
 
         pull_request_actions.concat(BuildrPlus::Ci.additional_pull_request_actions)
 
-        if BuildrPlus::FeatureManager.activated?(:redfish)
+        if BuildrPlus::FeatureManager.activated?(:redfish) && BuildrPlus::FeatureManager.activated?(:docker)
           if BuildrPlus::FeatureManager.activated?(:jms)
             package_actions << 'openmq:start'
           end
@@ -236,7 +228,7 @@ BuildrPlus::FeatureManager.feature(:ci) do |f|
           package_no_test_actions << 'ci:upload'
         end
 
-        if BuildrPlus::FeatureManager.activated?(:redfish)
+        if BuildrPlus::FeatureManager.activated?(:redfish) && BuildrPlus::FeatureManager.activated?(:docker)
           Redfish.domains.each do |domain|
             next unless domain.enable_rake_integration?
             next unless domain.dockerize?
@@ -250,27 +242,9 @@ BuildrPlus::FeatureManager.feature(:ci) do |f|
           end
         end
 
-        if BuildrPlus::FeatureManager.activated?(:whitespace)
-          commit_actions << 'whitespace:check'
-          pull_request_actions << 'whitespace:check'
-        end
-        if BuildrPlus::FeatureManager.activated?(:gitignore)
-          commit_actions << 'gitignore:check'
-          pull_request_actions << 'gitignore:check'
-        end
-        if BuildrPlus::FeatureManager.activated?(:gitattributes)
-          commit_actions << 'gitattributes:check'
-          pull_request_actions << 'gitattributes:check'
-        end
-
-        if BuildrPlus::FeatureManager.activated?(:oss)
-          commit_actions << 'oss:check'
-          pull_request_actions << 'oss:check'
-        end
-
-        if BuildrPlus::FeatureManager.activated?(:travis)
-          commit_actions << 'travis:check'
-          pull_request_actions << 'travis:check'
+        if BuildrPlus::FeatureManager.activated?(:checks)
+          commit_actions << 'checks:check'
+          pull_request_actions << 'checks:check'
         end
 
         # Always run check and make sure file system state matches jenkins feature state

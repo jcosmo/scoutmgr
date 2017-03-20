@@ -13,8 +13,6 @@
 #
 
 BuildrPlus::FeatureManager.feature(:redfish => [:config]) do |f|
-  f.suggested_features << :docker
-
   f.enhance(:Config) do
     attr_writer :local_domain
 
@@ -64,7 +62,6 @@ BuildrPlus::FeatureManager.feature(:redfish => [:config]) do |f|
         @features = []
         @features << :jms if BuildrPlus::FeatureManager.activated?(:jms)
         @features << :jdbc if BuildrPlus::FeatureManager.activated?(:db)
-        @features << :mail if BuildrPlus::FeatureManager.activated?(:mail)
       end
       @features
     end
@@ -97,7 +94,7 @@ BuildrPlus::FeatureManager.feature(:redfish => [:config]) do |f|
     def build_property_set(domain, environment)
       properties = {}
 
-      constant_prefix = BuildrPlus::Naming.uppercase_constantize(domain.name)
+      constant_prefix = Reality::Naming.uppercase_constantize(domain.name)
 
       if environment.broker?
         properties['OPENMQ_HOST'] = as_ip(environment.broker.host.to_s)
@@ -119,7 +116,7 @@ BuildrPlus::FeatureManager.feature(:redfish => [:config]) do |f|
         prefixes.each do |prefix|
           components = []
           components << prefix if prefix
-          components << BuildrPlus::Naming.uppercase_constantize(database.key) unless database.key.to_s == 'default'
+          components << Reality::Naming.uppercase_constantize(database.key) unless database.key.to_s == 'default'
           db_prefix = components.join('_')
           properties["#{db_prefix}_DB_HOST"] = as_ip(database.host.to_s)
           properties["#{db_prefix}_DB_PORT"] = database.port.to_s
@@ -213,7 +210,7 @@ BuildrPlus::FeatureManager.feature(:redfish => [:config]) do |f|
             domain.add_pre_artifacts(BuildrPlus::Libs.glassfish_timers_domain)
             BuildrPlus::Redfish.define_database_config_prefixes(:timers, nil)
           end
-          if BuildrPlus::FeatureManager.activated?(:domgen) && !BuildrPlus::FeatureManager.activated?(:rails)
+          if BuildrPlus::FeatureManager.activated?(:domgen)
             file = buildr_project._("generated/domgen/#{buildr_project.name}/main/etc/#{buildr_project.name_as_class}.redfish.fragment.json")
             domain.pre_artifacts << file
             buildr_project.task(":#{domain.task_prefix}:pre_build" => ["#{buildr_project.name}:domgen:#{buildr_project.name}"])
@@ -223,7 +220,10 @@ BuildrPlus::FeatureManager.feature(:redfish => [:config]) do |f|
 
         if BuildrPlus::Redfish.local_domain? && Redfish.domain_by_key?(buildr_project.name) && !Redfish.domain_by_key?('local')
           Redfish.domain('local', :extends => buildr_project.name) do |domain|
-            RedfishPlus.setup_for_local_development(domain, :features => BuildrPlus::Redfish.features)
+            RedfishPlus.setup_for_local_development(domain)
+            if BuildrPlus::FeatureManager.activated?(:mail)
+              RedfishPlus.configure_local_mail_port(domain)
+            end
             BuildrPlus::Redfish.local_domain_customizations.each do |customization|
               customization.call(domain)
             end
@@ -235,6 +235,7 @@ BuildrPlus::FeatureManager.feature(:redfish => [:config]) do |f|
           Redfish.domain('docker', :extends => buildr_project.name) do |domain|
             RedfishPlus.setup_for_docker(domain, :features => BuildrPlus::Redfish.features)
             RedfishPlus.deploy_application(domain, buildr_project.name, '/', "{{file:#{buildr_project.name}}}")
+            domain.base_image_name = "stocksoftware/redfish:java-#{BuildrPlus::Java.version}_payara-4.1.1.164"
             BuildrPlus::Redfish.docker_domain_customizations.each do |customization|
               customization.call(domain)
             end

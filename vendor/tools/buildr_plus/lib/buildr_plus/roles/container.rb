@@ -32,7 +32,6 @@ BuildrPlus::Roles.role(:container) do
   default_testng_args = []
   default_testng_args << '-ea'
   default_testng_args << '-Xmx2024M'
-  default_testng_args << '-XX:MaxPermSize=364M'
 
   if BuildrPlus::Roles.project_with_role?(:integration_tests)
     server_project = project(BuildrPlus::Roles.project_with_role(:server).name)
@@ -41,10 +40,13 @@ BuildrPlus::Roles.role(:container) do
 
     default_testng_args << "-Dembedded.glassfish.artifacts=#{BuildrPlus::Guiceyloops.glassfish_spec_list}"
     default_testng_args << "-Dwar.dir=#{war_dir}"
+    BuildrPlus::Integration.additional_applications_to_deploy.each do |key, artifact|
+      default_testng_args << "-D#{key}.war.filename=#{Buildr.artifact(artifact).to_s}"
+    end
   end
 
   if BuildrPlus::FeatureManager.activated?(:db)
-    default_testng_args << "-javaagent:#{Buildr.artifact(BuildrPlus::Libs.eclipselink).to_s}"
+    default_testng_args << "-javaagent:#{Buildr.artifact(BuildrPlus::Libs.eclipselink).to_s}" unless BuildrPlus::FeatureManager.activated?(:gwt)
 
     if BuildrPlus::FeatureManager.activated?(:dbt)
       BuildrPlus::Config.load_application_config! if BuildrPlus::FeatureManager.activated?(:config)
@@ -82,8 +84,8 @@ BuildrPlus::Roles.role(:container) do
     dependencies << Object.const_get(:PACKAGED_DEPS) if Object.const_defined?(:PACKAGED_DEPS)
     # Findbugs libs added otherwise CDI scanning slows down due to massive number of ClassNotFoundExceptions
     dependencies << BuildrPlus::Deps.findbugs_provided
-    dependencies << BuildrPlus::Deps.model_deps
-    dependencies << BuildrPlus::Deps.server_deps
+    dependencies << BuildrPlus::Deps.model_compile_deps
+    dependencies << BuildrPlus::Deps.server_compile_deps
 
     war_module_names = [server_project.iml.name]
     jpa_module_names = []
@@ -104,19 +106,19 @@ BuildrPlus::Roles.role(:container) do
     local_packaged_apps['greenmail'] = BuildrPlus::Libs.greenmail_server if BuildrPlus::FeatureManager.activated?(:mail)
 
     ipr.add_glassfish_remote_configuration(project,
-                                           :server_name => 'GlassFish 4.1.1.162',
+                                           :server_name => 'GlassFish 4.1.1.171_0_1',
                                            :exploded => [project.name],
                                            :packaged => remote_packaged_apps)
     ipr.add_glassfish_configuration(project,
-                                    :server_name => 'GlassFish 4.1.1.162',
+                                    :server_name => 'GlassFish 4.1.1.171_0_1',
                                     :exploded => [project.name],
                                     :packaged => local_packaged_apps)
 
     if local_packaged_apps.size > 0
       only_packaged_apps = BuildrPlus::Glassfish.only_only_packaged_apps.dup
       ipr.add_glassfish_configuration(project,
-                                      :configuration_name => "#{BuildrPlus::Naming.pascal_case(project.name)} Only - GlassFish 4.1.1.162",
-                                      :server_name => 'GlassFish 4.1.1.162',
+                                      :configuration_name => "#{Reality::Naming.pascal_case(project.name)} Only - GlassFish 4.1.1.171_0_1",
+                                      :server_name => 'GlassFish 4.1.1.171_0_1',
                                       :exploded => [project.name],
                                       :packaged => only_packaged_apps)
     end
@@ -125,8 +127,8 @@ BuildrPlus::Roles.role(:container) do
       gwt_modules = p.determine_top_level_gwt_modules('Dev')
       gwt_modules.each do |gwt_module|
         short_name = gwt_module.gsub(/.*\.([^.]+)Dev$/, '\1')
-        path = short_name.gsub(/^#{BuildrPlus::Naming.pascal_case(project.name)}/, '')
-        path = "#{BuildrPlus::Naming.underscore(path)}.html" if path.size > 0
+        path = short_name.gsub(/^#{Reality::Naming.pascal_case(project.name)}/, '')
+        path = "#{Reality::Naming.underscore(path)}.html" if path.size > 0
         ipr.add_gwt_configuration(p,
                                   :gwt_module => gwt_module,
                                   :vm_parameters => '-Xmx3G',

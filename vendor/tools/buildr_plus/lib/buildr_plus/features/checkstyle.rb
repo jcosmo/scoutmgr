@@ -163,7 +163,7 @@ end
 BuildrPlus::FeatureManager.feature(:checkstyle) do |f|
   f.enhance(:Config) do
     def default_checkstyle_rules
-      'au.com.stocksoftware.checkstyle:checkstyle:xml:1.8'
+      'au.com.stocksoftware.checkstyle:checkstyle:xml:1.11'
     end
 
     def checkstyle_rules
@@ -181,8 +181,11 @@ BuildrPlus::FeatureManager.feature(:checkstyle) do |f|
       r.rule('edu.umd.cs.findbugs.annotations.SuppressFBWarnings', :rule_type => :class)
       r.rule('edu.umd.cs.findbugs.annotations.SuppressWarnings', :rule_type => :class, :disallow => true)
       r.rule('javax.faces.bean', :disallow => true)
+      r.rule('org.hamcrest', :disallow => true)
 
       r.rule('java.util')
+      r.subpackage_rule('server', 'java.nio.charset.StandardCharsets', :rule_type => :class)
+      r.subpackage_rule('server', 'java.time')
 
       if BuildrPlus::FeatureManager.activated?(:appconfig)
         r.rule("#{g}.shared.#{project.name_as_class}FeatureFlags", :rule_type => :class)
@@ -243,6 +246,7 @@ BuildrPlus::FeatureManager.feature(:checkstyle) do |f|
         if BuildrPlus::FeatureManager.activated?(:replicant)
           r.subpackage_rule('server.net', "#{g}.shared.net")
           r.subpackage_rule('server.service', "#{g}.server.net")
+          r.subpackage_rule('server.service', 'org.realityforge.replicant.server.transport.ReplicantSession', :rule_type => :class)
           r.subpackage_rule('server.service', 'org.realityforge.replicant.server.EntityMessage', :rule_type => :class)
           r.subpackage_rule('server.service', 'org.realityforge.replicant.server.EntityMessageSet', :rule_type => :class)
 

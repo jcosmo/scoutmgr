@@ -16,39 +16,12 @@ BuildrPlus::Roles.role(:all_in_one) do
   project.publish = true
 
   if BuildrPlus::FeatureManager.activated?(:domgen)
-    generators = [:ee_data_types, :ee_beans_xml]
-    generators << [:ee_web_xml] if BuildrPlus::Artifacts.war?
+    generators = BuildrPlus::Deps.server_generators + project.additional_domgen_generators
     if BuildrPlus::FeatureManager.activated?(:db)
       generators << [:jpa, :jpa_test_orm_xml, :jpa_test_persistence_xml]
       generators << [:jpa_test_qa, :jpa_test_qa_external, :jpa_ejb_dao, :jpa_dao_test] if BuildrPlus::FeatureManager.activated?(:ejb)
       generators << [:imit_server_entity_listener, :imit_server_entity_replication] if BuildrPlus::FeatureManager.activated?(:replicant)
     end
-
-    generators << [:gwt_rpc_shared, :gwt_rpc_server] if BuildrPlus::FeatureManager.activated?(:gwt)
-    generators << [:imit_shared, :imit_server_service, :imit_server_qa] if BuildrPlus::FeatureManager.activated?(:replicant)
-
-    if BuildrPlus::FeatureManager.activated?(:sync)
-      if BuildrPlus::Sync.standalone?
-        generators << [:sync_ejb]
-      else
-        generators << [:sync_core_ejb]
-      end
-    end
-
-    generators << [:ee_messages, :ee_exceptions, :ejb_service_facades, :ejb_test_qa_external, :ee_filter, :ejb_test_qa, :ejb_test_service_test] if BuildrPlus::FeatureManager.activated?(:ejb)
-
-    generators << [:jackson_date_util, :jackson_marshalling_tests] if BuildrPlus::FeatureManager.activated?(:jackson)
-
-    generators << [:jaxb_marshalling_tests, :xml_xsd_resources, :xml_public_xsd_webapp] if BuildrPlus::FeatureManager.activated?(:xml)
-    generators << [:jws_server, :ejb_glassfish_config_assets] if BuildrPlus::FeatureManager.activated?(:soap)
-
-    generators << [:jms] if BuildrPlus::FeatureManager.activated?(:jms)
-    generators << [:jaxrs] if BuildrPlus::FeatureManager.activated?(:jaxrs)
-    generators << [:mail_mail_queue, :mail_test_module] if BuildrPlus::FeatureManager.activated?(:mail)
-    generators << [:appconfig_feature_flag_container] if BuildrPlus::FeatureManager.activated?(:appconfig)
-    generators << [:syncrecord_datasources, :syncrecord_abstract_service, :syncrecord_control_rest_service] if BuildrPlus::FeatureManager.activated?(:syncrecord)
-    generators << [:keycloak_filter, :keycloak_client_config, :keycloak_client_definitions] if BuildrPlus::FeatureManager.activated?(:keycloak)
-    generators << [:timerstatus_filter] if BuildrPlus::FeatureManager.activated?(:timerstatus)
 
     generators << [:ee_redfish] if BuildrPlus::FeatureManager.activated?(:redfish)
 
@@ -59,15 +32,9 @@ BuildrPlus::Roles.role(:all_in_one) do
     end
   end
 
-  compile.with BuildrPlus::Libs.ee_provided
-  compile.with BuildrPlus::Libs.glassfish_embedded if BuildrPlus::FeatureManager.activated?(:soap) || BuildrPlus::FeatureManager.activated?(:db)
-
-  compile.with artifacts(Object.const_get(:PACKAGED_DEPS)) if Object.const_defined?(:PACKAGED_DEPS)
-  compile.with BuildrPlus::Deps.model_deps
   compile.with BuildrPlus::Deps.server_deps
+  compile.with artifacts(Object.const_get(:PACKAGED_DEPS)) if Object.const_defined?(:PACKAGED_DEPS)
 
-  test.with BuildrPlus::Libs.guiceyloops,
-            BuildrPlus::Libs.db_drivers
   test.with BuildrPlus::Deps.model_qa_support_deps
 
   package(:war).tap do |war|
@@ -75,8 +42,8 @@ BuildrPlus::Roles.role(:all_in_one) do
     war.libs << artifacts(Object.const_get(:PACKAGED_DEPS)) if Object.const_defined?(:PACKAGED_DEPS)
     # Findbugs libs added otherwise CDI scanning slows down due to massive number of ClassNotFoundExceptions
     war.libs << BuildrPlus::Deps.findbugs_provided
-    war.libs << BuildrPlus::Deps.model_deps
-    war.libs << BuildrPlus::Deps.server_deps
+    war.libs << BuildrPlus::Deps.model_compile_deps
+    war.libs << BuildrPlus::Deps.server_compile_deps
     war.exclude project.less_path if BuildrPlus::FeatureManager.activated?(:less)
     if BuildrPlus::FeatureManager.activated?(:sass)
       project.sass_paths.each do |sass_path|
@@ -116,10 +83,9 @@ BuildrPlus::Roles.role(:all_in_one) do
   default_testng_args = []
   default_testng_args << '-ea'
   default_testng_args << '-Xmx2024M'
-  default_testng_args << '-XX:MaxPermSize=364M'
 
   if BuildrPlus::FeatureManager.activated?(:db)
-    default_testng_args << "-javaagent:#{Buildr.artifact(BuildrPlus::Libs.eclipselink).to_s}"
+    default_testng_args << "-javaagent:#{Buildr.artifact(BuildrPlus::Libs.eclipselink).to_s}" unless BuildrPlus::FeatureManager.activated?(:gwt)
 
     if BuildrPlus::FeatureManager.activated?(:dbt)
       BuildrPlus::Config.load_application_config! if BuildrPlus::FeatureManager.activated?(:config)
@@ -144,8 +110,8 @@ BuildrPlus::Roles.role(:all_in_one) do
   dependencies << Object.const_get(:PACKAGED_DEPS) if Object.const_defined?(:PACKAGED_DEPS)
   # Findbugs libs added otherwise CDI scanning slows down due to massive number of ClassNotFoundExceptions
   dependencies << BuildrPlus::Deps.findbugs_provided
-  dependencies << BuildrPlus::Deps.model_deps
-  dependencies << BuildrPlus::Deps.server_deps
+  dependencies << BuildrPlus::Deps.model_compile_deps
+  dependencies << BuildrPlus::Deps.server_compile_deps
 
   war_module_names = [project.iml.name]
   jpa_module_names = BuildrPlus::FeatureManager.activated?(:db) ? [project.iml.name] : []
@@ -164,19 +130,19 @@ BuildrPlus::Roles.role(:all_in_one) do
   local_packaged_apps['greenmail'] = BuildrPlus::Libs.greenmail_server if BuildrPlus::FeatureManager.activated?(:mail)
 
   ipr.add_glassfish_remote_configuration(project,
-                                         :server_name => 'GlassFish 4.1.1.162',
+                                         :server_name => 'GlassFish 4.1.1.171_0_1',
                                          :exploded => [project.name],
                                          :packaged => remote_packaged_apps)
   ipr.add_glassfish_configuration(project,
-                                  :server_name => 'GlassFish 4.1.1.162',
+                                  :server_name => 'GlassFish 4.1.1.171_0_1',
                                   :exploded => [project.name],
                                   :packaged => local_packaged_apps)
 
   if local_packaged_apps.size > 0
     only_packaged_apps = BuildrPlus::Glassfish.only_only_packaged_apps.dup
     ipr.add_glassfish_configuration(project,
-                                    :configuration_name => "#{BuildrPlus::Naming.pascal_case(project.name)} Only - GlassFish 4.1.1.162",
-                                    :server_name => 'GlassFish 4.1.1.162',
+                                    :configuration_name => "#{Reality::Naming.pascal_case(project.name)} Only - GlassFish 4.1.1.171_0_1",
+                                    :server_name => 'GlassFish 4.1.1.171_0_1',
                                     :exploded => [project.name],
                                     :packaged => only_packaged_apps)
   end

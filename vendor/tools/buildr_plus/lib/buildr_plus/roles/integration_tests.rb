@@ -16,6 +16,8 @@ BuildrPlus::Roles.role(:integration_tests) do
   if BuildrPlus::FeatureManager.activated?(:domgen)
     generators = [:ee_integration_test]
     generators << [:jpa_test_orm_xml, :jpa_test_persistence_xml] if BuildrPlus::FeatureManager.activated?(:db)
+    generators << [:jms_integration_tests] if BuildrPlus::FeatureManager.activated?(:jms)
+    generators << [:jws_service_integration_test] if BuildrPlus::FeatureManager.activated?(:soap)
     generators << [:appconfig_integration_test] if BuildrPlus::FeatureManager.activated?(:appconfig)
     generators << [:syncrecord_integration_test] if BuildrPlus::FeatureManager.activated?(:syncrecord)
     generators << [:timerstatus_integration_test] if BuildrPlus::FeatureManager.activated?(:timerstatus)
@@ -33,17 +35,21 @@ BuildrPlus::Roles.role(:integration_tests) do
   test.enhance(artifacts(BuildrPlus::Libs.glassfish_embedded))
   test.enhance([war_package])
 
-  test.with BuildrPlus::Libs.db_drivers
+  test.with BuildrPlus::Deps.integration_deps
 
   BuildrPlus::Roles.merge_projects_with_role(project.test, :integration_qa_support)
   BuildrPlus::Roles.merge_projects_with_role(project.test, :soap_client)
 
-  test.using :java_args => BuildrPlus::Guiceyloops.integration_test_java_args,
-             :properties =>
-               {
-                 'embedded.glassfish.artifacts' => BuildrPlus::Guiceyloops.glassfish_spec_list,
-                 'war.filename' => war_package.to_s,
-               }
+  properties = {
+    'embedded.glassfish.artifacts' => BuildrPlus::Guiceyloops.glassfish_spec_list,
+    'war.filename' => war_package.to_s,
+  }
+  BuildrPlus::Integration.additional_applications_to_deploy.each do |key, artifact|
+    properties["#{key}.war.filename"] = Buildr.artifact(artifact).to_s
+    test.enhance([Buildr.artifact(artifact)])
+  end
+
+  test.using :java_args => BuildrPlus::Guiceyloops.integration_test_java_args, :properties => properties
 
   package(:jar)
   package(:sources)
