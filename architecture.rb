@@ -228,15 +228,13 @@ Domgen.repository(:Scoutmgr) do |repository|
       t.datetime(:UpdatedAt)
       t.string(:Token, 50, :immutable => true)
 
-      t.query(:FindByUser, '-facets' => [:imit])
+      t.query(:FindByUser)
       t.query(:FindByUserName, '-facets' => [:imit])
-      t.query(:FindByToken, '-facets' => [:imit])
+      t.query(:FindByToken)
 
       t.query(:DeleteIdleSessions,
-              '-facets' => [:imit],
               'jpa.jpql' => 'O.updatedAt < :UpdatedAt')
       t.query(:DeleteUserSessions,
-              '-facets' => [:imit],
               'jpa.jpql' => 'O.user = :User')
 
       t.sql.index([:UpdatedAt])
