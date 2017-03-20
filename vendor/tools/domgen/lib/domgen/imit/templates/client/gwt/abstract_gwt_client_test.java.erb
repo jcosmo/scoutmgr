@@ -4,8 +4,24 @@ package <%= to_package(repository.imit.qualified_abstract_gwt_client_test_name) 
 @java.lang.SuppressWarnings( { "UnusedDeclaration" } )
 @javax.annotation.Generated( "Domgen" )
 public abstract class <%= repository.imit.abstract_gwt_client_test_name %>
-  extends <%= repository.imit.qualified_abstract_client_test_name %>
+  extends <%= repository.imit.qualified_client_test_name %>
 {
+<% repository.imit.gwt_test_factories.each do |short_code, classname| -%>
+  @javax.annotation.Nonnull
+  @edu.umd.cs.findbugs.annotations.SuppressFBWarnings( "NP_NONNULL_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR" )
+  protected <%= classname %> <%= short_code %>;
+<% end -%>
+
+  @org.testng.annotations.BeforeMethod
+  public void preTest()
+    throws Exception
+  {
+    super.preTest();
+<% repository.imit.gwt_test_factories.each do |short_code, classname| -%>
+    <%= short_code %> = s( <%= classname %>.class );
+<% end -%>
+  }
+
   @java.lang.Override
   protected com.google.inject.Module[] getModules()
   {
@@ -18,6 +34,12 @@ public abstract class <%= repository.imit.abstract_gwt_client_test_name %>
     addModule( modules, new<%= repository.gwt_rpc.mock_services_module_name %>() );
     addModule( modules, newReplicantGwtClientTestModule() );
     return modules.toArray( new com.google.inject.Module[ modules.size() ] );
+  }
+
+  @java.lang.SuppressWarnings( { "unchecked", "UnusedParameters" } )
+  protected final <T> java.lang.Class<<%= repository.gwt.qualified_async_callback_name %><T>> asyncResultType( @javax.annotation.Nonnull final java.lang.Class<T> type )
+  {
+    return (Class) <%= repository.gwt.qualified_async_callback_name %>.class;
   }
 
   @javax.annotation.Nullable

@@ -30,15 +30,6 @@ module Domgen
         @use_cdi.nil? ? true : false
       end
 
-      def bean_discovery_mode=(mode)
-        Domgen.error("Unknown bean discovery mode '#{mode}'") unless %w(all annotated none).include?(mode)
-        @bean_discovery_mode = mode
-      end
-
-      def bean_discovery_mode
-        @bean_discovery_mode ||= 'annotated'
-      end
-
       attr_writer :web_metadata_complete
 
       def web_metadata_complete?
@@ -63,18 +54,32 @@ module Domgen
         @cdi_scan_excludes ||= []
       end
 
-      def beans_xml_content_fragments
-        @beans_xml_content_fragments ||= []
-      end
+      # A beans.xml is created in both the model and server components
+      ['', 'model_'].each do |prefix|
+        class_eval <<-RUBY
+          def #{prefix}bean_discovery_mode=(mode)
+            Domgen.error("Unknown \#{prefix}bean discovery mode '\#{mode}'") unless %w(all annotated none).include?(mode)
+            @#{prefix}bean_discovery_mode = mode
+          end
 
-      def beans_xml_fragments
-        @beans_xml_fragments ||= []
-      end
+          def #{prefix}bean_discovery_mode
+            @#{prefix}bean_discovery_mode ||= 'annotated'
+          end
 
-      def resolved_beans_xml_fragments
-        self.beans_xml_fragments.collect do |fragment|
-          repository.read_file(fragment)
-        end
+          def #{prefix}beans_xml_content_fragments
+            @#{prefix}beans_xml_content_fragments ||= []
+          end
+
+          def #{prefix}beans_xml_fragments
+            @#{prefix}beans_xml_fragments ||= []
+          end
+
+          def resolved_#{prefix}beans_xml_fragments
+            self.#{prefix}beans_xml_fragments.collect do |fragment|
+              repository.read_file(fragment)
+            end
+          end
+        RUBY
       end
 
       attr_writer :server_event_package
@@ -83,36 +88,26 @@ module Domgen
         @server_event_package || "#{server_package}.event"
       end
 
-
       def version=(version)
         Domgen.error("Unknown version '#{version}'") unless %w(6 7).include?(version)
         @version = version
       end
 
+      java_artifact :cdi_qualifier, nil, :shared, :ee, '#{repository.name}'
+      java_artifact :cdi_qualifier_literal, nil, :shared, :ee, '#{repository.name}Literal'
       java_artifact :abstract_filter, :filter, :server, :ee, 'Abstract#{repository.name}Filter'
-      java_artifact :abstract_app_server, :test, :server, :ee, 'Abstract#{repository.name}AppServer', :sub_package => 'util'
-      java_artifact :app_server_factory, :test, :server, :ee, '#{repository.name}AppServerFactory', :sub_package => 'util'
-      java_artifact :abstract_integration_test, :test, :server, :ee, 'Abstract#{repository.name}GlassFishTest', :sub_package => 'util'
-      java_artifact :deploy_test, :test, :server, :ee, '#{repository.name}DeployTest', :sub_package => 'util'
+      java_artifact :abstract_app_server, :test, :integration, :ee, 'Abstract#{repository.name}AppServer', :sub_package => 'util'
+      java_artifact :app_server, :test, :integration, :ee, '#{repository.name}AppServer', :sub_package => 'util'
+      java_artifact :app_server_factory, :test, :integration, :ee, '#{repository.name}AppServerFactory', :sub_package => 'util'
+      java_artifact :abstract_integration_test, :test, :integration, :ee, 'Abstract#{repository.name}GlassFishTest', :sub_package => 'util'
+      java_artifact :base_integration_test, :test, :integration, :ee, '#{repository.name}GlassFishTest', :sub_package => 'util'
+      java_artifact :deploy_test, nil, :integration, :ee, '#{repository.name}DeployTest'
+      java_artifact :aggregate_integration_test, :test, :integration, :ee, '#{repository.name}AggregateIntegrationTest', :sub_package => 'util'
 
-      def qualified_base_integration_test_name
-        "#{server_util_test_package}.#{base_integration_test_name}"
-      end
+      attr_writer :custom_base_integration_test
 
-      attr_writer :base_integration_test_name
-
-      def base_integration_test_name
-        @base_integration_test_name || abstract_integration_test_name.gsub(/^Abstract/,'')
-      end
-
-      def qualified_app_server_name
-        "#{server_util_test_package}.#{app_server_name}"
-      end
-
-      attr_writer :app_server_name
-
-      def app_server_name
-        @app_server_name || abstract_app_server_name.gsub(/^Abstract/,'')
+      def custom_base_integration_test?
+        @custom_base_integration_test.nil? ? false : !!@custom_base_integration_test
       end
     end
 

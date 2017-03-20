@@ -6,6 +6,68 @@ package <%= to_package(repository.ejb.qualified_abstract_service_test_name) %>;
 public abstract class <%= repository.ejb.abstract_service_test_name %>
   extends <%= repository.jpa? ? repository.jpa.qualified_base_entity_test_name : 'org.realityforge.guiceyloops.server.AbstractServerTest' %>
 {
+<% if repository.jms? -%>
+  @org.testng.annotations.BeforeMethod
+  @java.lang.Override
+  public void preTest()
+    throws Exception
+  {
+    super.preTest();
+    purgeDestinations();
+  }
+
+  @org.testng.annotations.AfterMethod
+  @java.lang.Override
+  public void postTest()
+  {
+    shutdownJMSContexts();
+    super.postTest();
+  }
+
+  protected final void shutdownJMSContexts()
+  {
+    for ( final com.google.inject.Binding<javax.jms.JMSContext> binding : getInjector().findBindingsByType( com.google.inject.TypeLiteral.get( javax.jms.JMSContext.class ) ) )
+    {
+      binding.getProvider().get().close();
+    }
+  }
+
+  protected void purgeDestinations()
+    throws Exception
+  {
+<% repository.jms.destinations.each do |destination| -%>
+    org.realityforge.guiceyloops.server.glassfish.OpenMQUtil.purgeQueue( <%= repository.jms.qualified_constants_container_name %>.<%= Reality::Naming.uppercase_constantize(destination.name) %>_PHYSICAL_NAME );
+<% end -%>
+  }
+
+  @javax.annotation.Nonnull
+  @java.lang.Override
+  protected String getPrimaryJmsConnectionFactoryName()
+  {
+    return <%= repository.jms.qualified_constants_container_name %>.CONNECTION_FACTORY_RESOURCE_NAME;
+  }
+
+  @javax.annotation.Nonnull
+  @java.lang.Override
+  protected String getPrimaryBrokerName()
+  {
+    return "<%= repository.name %>";
+  }
+
+  @org.testng.annotations.BeforeSuite
+  public void beforeSuite()
+    throws Exception
+  {
+    <%= repository.jms.qualified_test_broker_factory_name %>.getBroker().start();
+  }
+
+  @org.testng.annotations.AfterSuite
+  public void afterSuite()
+  {
+    <%= repository.jms.qualified_test_broker_factory_name %>.getBroker().stop();
+  }
+
+<% end -%>
   @javax.annotation.Nullable
   protected com.google.inject.Module new<%= repository.name %>ServicesModule()
   {
@@ -30,6 +92,21 @@ public abstract class <%= repository.ejb.abstract_service_test_name %>
 <% if repository.mail? -%>
     addModule( modules, newMailServicesModule() );
 <% end -%>
+<% if repository.keycloak? -%>
+    addModule( modules, newKeycloakServerModule() );
+<% end -%>
+<% if repository.jms? -%>
+    addModule( modules, newJmsServerModule() );
+<% end -%>
+<% if repository.sync? && repository.sync.standalone? -%>
+    addModule( modules, newSyncServerModule() );
+<% end -%>
+<% if repository.jpa? -%>
+<% repository.jpa.persistence_units.select{|persistence_unit| persistence_unit.generate_test_util?}.each do |persistence_unit| -%>
+    addModule( modules, new<%= repository.name %><% persistence_unit.name %>PersistenceUnitModule() );
+<% end -%>
+<% end -%>
+
     return modules.toArray( new com.google.inject.Module[ modules.size() ] );
   }
 <% if repository.ejb.include_server_test_module? -%>
@@ -61,6 +138,46 @@ public abstract class <%= repository.ejb.abstract_service_test_name %>
   {
     return new iris.mail.server.test.util.MailServicesModule( this );
   }
+<% end -%>
+<% if repository.keycloak? -%>
+
+  @javax.annotation.Nullable
+  protected com.google.inject.Module newKeycloakServerModule()
+  {
+    return new <%= repository.keycloak.qualified_test_module_name %>( this );
+  }
+
+  public void setupAccount( <%= repository.keycloak.default_client.claims.collect {|claim| "@javax.annotation.Nonnull final String #{Reality::Naming.camelize(claim.java_accessor_key)}"}.join(', ') -%> )
+  {
+    toObject( <%= repository.keycloak.qualified_test_auth_service_implementation_name %>.class, s( <%= repository.service_by_name(repository.keycloak.auth_service_name).ejb.qualified_service_name %>.class ) ).setupAccount( <%= repository.keycloak.default_client.claims.collect {|claim| Reality::Naming.camelize(claim.java_accessor_key)}.join(', ') -%> );
+  }
+
+<% end -%>
+<% if repository.jms? -%>
+
+  @javax.annotation.Nullable
+  protected com.google.inject.Module newJmsServerModule()
+  {
+    return new <%= repository.jms.qualified_test_module_name %>();
+  }
+<% end -%>
+<% if repository.sync? && repository.sync.standalone? -%>
+
+  @javax.annotation.Nullable
+  protected com.google.inject.Module newSyncServerModule()
+  {
+    return new <%= repository.sync.qualified_test_module_name %>( this );
+  }
+<% end -%>
+<% if repository.jpa? -%>
+<% repository.jpa.persistence_units.select{|persistence_unit| persistence_unit.generate_test_util?}.each do |persistence_unit| -%>
+
+  @javax.annotation.Nullable
+  protected com.google.inject.Module new<%= repository.name %><% persistence_unit.name %>PersistenceUnitModule()
+  {
+    return new <%= persistence_unit.qualified_persistence_unit_module_name %>();
+  }
+<% end -%>
 <% end -%>
 <% unless repository.jpa? -%>
 

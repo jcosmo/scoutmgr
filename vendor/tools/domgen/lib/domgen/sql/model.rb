@@ -271,9 +271,9 @@ module Domgen
 
       # The SQL generated in constraint
       def constraint_sql
-        parameter_string = parameters.collect { |parameter_name| "  #{table.entity.attribute_by_name(parameter_name).sql.column_name}" }.join(",")
+        parameter_string = parameters.collect { |parameter_name| "  #{table.entity.attribute_by_name(parameter_name).sql.column_name}" }.join(',')
         function_call = "#{self.qualified_function_name}(#{parameter_string}) = 1"
-        (self.or_conditions + [function_call]).join(" OR ")
+        (self.or_conditions + [function_call]).join(' OR ')
       end
 
       def to_s
@@ -296,11 +296,11 @@ module Domgen
       end
 
       def after=(after)
-        @after = scope("after", after)
+        @after = scope('after', after)
       end
 
       def instead_of=(instead_of)
-        @instead_of = scope("instead_of", instead_of)
+        @instead_of = scope('instead_of', instead_of)
       end
 
       private
@@ -373,7 +373,7 @@ module Domgen
     facet.enhance(Repository) do
 
       def dialect
-        @dialect ||= (repository.mssql? ? Domgen::Mssql::MssqlDialect.new : repository.pgsql? ? Domgen::Pgsql::PgsqlDialect.new  : (Domgen.error('Unable to determine the dialect in use')) )
+        @dialect ||= (repository.mssql? ? Domgen::Mssql::MssqlDialect.new : repository.pgsql? ? Domgen::Pgsql::PgsqlDialect.new : (Domgen.error('Unable to determine the dialect in use')))
       end
 
       def error_handler
@@ -459,7 +459,7 @@ module Domgen
       protected
 
       def sequence_map
-        @sequences ||= Domgen::OrderedHash.new
+        @sequences ||= Reality::OrderedHash.new
       end
 
       def register_sequence(name, sequence)
@@ -588,7 +588,7 @@ module Domgen
       end
 
       def constraint_values
-        @constraint_values ||= Domgen::OrderedHash.new
+        @constraint_values ||= Reality::OrderedHash.new
       end
 
       def constraints
@@ -608,7 +608,7 @@ module Domgen
       end
 
       def function_constraint_values
-        @function_constraint_values ||= Domgen::OrderedHash.new
+        @function_constraint_values ||= Reality::OrderedHash.new
       end
 
       def function_constraints
@@ -633,7 +633,7 @@ module Domgen
       end
 
       def validation_values
-        @validation_values ||= Domgen::OrderedHash.new
+        @validation_values ||= Reality::OrderedHash.new
       end
 
       def validations
@@ -658,7 +658,7 @@ module Domgen
       end
 
       def action_values
-        @action_values ||= Domgen::OrderedHash.new
+        @action_values ||= Reality::OrderedHash.new
       end
 
       def actions
@@ -683,7 +683,7 @@ module Domgen
       end
 
       def trigger_values
-        @trigger_values ||= Domgen::OrderedHash.new
+        @trigger_values ||= Reality::OrderedHash.new
       end
 
       def triggers
@@ -712,7 +712,7 @@ module Domgen
       end
 
       def index_values
-        @index_values ||= Domgen::OrderedHash.new
+        @index_values ||= Reality::OrderedHash.new
       end
 
       def indexes
@@ -728,7 +728,7 @@ module Domgen
       end
 
       def foreign_key_values
-        @foreign_key_values ||= Domgen::OrderedHash.new
+        @foreign_key_values ||= Reality::OrderedHash.new
       end
 
       def foreign_keys
@@ -745,7 +745,7 @@ module Domgen
 
       def post_verify
         if self.partition_scheme && indexes.select { |index| index.cluster? }.empty?
-          Domgen.error("Must specify a clustered index if using a partition scheme")
+          Domgen.error('Must specify a clustered index if using a partition scheme')
         end
 
         self.indexes.each do |index|
@@ -759,7 +759,7 @@ module Domgen
         end
 
         entity.unique_constraints.each do |c|
-          index(c.attribute_names, {:unique => true}, true)
+          index(c.attribute_names, { :unique => true }, true)
         end
 
         entity.relationship_constraints.each do |c|
@@ -770,7 +770,7 @@ module Domgen
           constraint_sql << "#{lhs.sql.quoted_column_name} IS NULL" if lhs.nullable?
           constraint_sql << "#{rhs.sql.quoted_column_name} IS NULL" if rhs.nullable?
           constraint_sql << "#{lhs.sql.quoted_column_name} #{op} #{rhs.sql.quoted_column_name}"
-          constraint(c.name, :sql => constraint_sql.join(" OR ")) unless constraint_by_name(c.name)
+          constraint(c.name, :sql => constraint_sql.join(' OR ')) unless constraint_by_name(c.name)
           copy_tags(c, constraint_by_name(c.name))
         end
 
@@ -791,22 +791,22 @@ module Domgen
         entity.dependency_constraints.each do |c|
           constraint(c.name, :sql => <<SQL) unless constraint_by_name(c.name)
 #{entity.attribute_by_name(c.attribute_name).sql.quoted_column_name} IS NULL OR
-( #{c.dependent_attribute_names.collect { |name| "#{entity.attribute_by_name(name).sql.quoted_column_name} IS NOT NULL" }.join(" AND ") } )
+( #{c.dependent_attribute_names.collect { |name| "#{entity.attribute_by_name(name).sql.quoted_column_name} IS NOT NULL" }.join(' AND ') } )
 SQL
           copy_tags(c, constraint_by_name(c.name))
         end
 
         entity.codependent_constraints.each do |c|
           constraint(c.name, :sql => <<SQL) unless constraint_by_name(c.name)
-( #{c.attribute_names.collect { |name| "#{entity.attribute_by_name(name).sql.quoted_column_name} IS NOT NULL" }.join(" AND ")} ) OR
-( #{c.attribute_names.collect { |name| "#{entity.attribute_by_name(name).sql.quoted_column_name} IS NULL" }.join(" AND ") } )
+( #{c.attribute_names.collect { |name| "#{entity.attribute_by_name(name).sql.quoted_column_name} IS NOT NULL" }.join(' AND ')} ) OR
+( #{c.attribute_names.collect { |name| "#{entity.attribute_by_name(name).sql.quoted_column_name} IS NULL" }.join(' AND ') } )
 SQL
           copy_tags(c, constraint_by_name(c.name))
         end
         entity.dependency_constraints.each do |c|
           constraint(c.name, :sql => <<SQL) unless constraint_by_name(c.name)
 #{entity.attribute_by_name(c.attribute_name).sql.quoted_column_name} IS NULL OR
-( #{c.dependent_attribute_names.collect { |name| "#{entity.attribute_by_name(name).sql.quoted_column_name} IS NOT NULL" }.join(" AND ") } )
+( #{c.dependent_attribute_names.collect { |name| "#{entity.attribute_by_name(name).sql.quoted_column_name} IS NOT NULL" }.join(' AND ') } )
 SQL
           copy_tags(c, constraint_by_name(c.name))
         end
@@ -815,7 +815,7 @@ SQL
             candidate = c.attribute_names[i]
             str = c.attribute_names.collect { |name| "#{entity.attribute_by_name(name).sql.quoted_column_name} IS#{(candidate == name) ? ' NOT' : ''} NULL" }.join(' AND ')
             "(#{str})"
-          end.join(" OR ")
+          end.join(' OR ')
           constraint(c.name, :sql => sql) unless constraint_by_name(c.name)
           copy_tags(c, constraint_by_name(c.name))
         end
@@ -862,7 +862,7 @@ SQL
 
           joins = []
           next_id = "@#{target_attribute.sql.column_name}"
-          last_name = "@"
+          last_name = '@'
           attribute_name_path.each_with_index do |attribute_name, index|
             ot = object_path[index]
             name = "C#{index}"
@@ -904,7 +904,7 @@ SQL
 
         immutable_attributes = self.entity.attributes.select { |a| a.immutable? && !a.primary_key? }
         if immutable_attributes.size > 0
-          validation_name = "Immuter"
+          validation_name = 'Immuter'
           unless validation?(validation_name)
             guard = self.dialect.immuter_guard(self.entity, immutable_attributes)
             guard_sql = self.dialect.immuter_sql(self.entity, immutable_attributes)
@@ -930,11 +930,11 @@ SQL
         inserted I
 SQL
               concrete_subtypes.each_pair do |name, subtype|
-                sql << "      LEFT JOIN #{subtype.sql.qualified_table_name} #{name} ON #{name}.#{self.dialect.quote("ID")} = I.#{attribute.sql.quoted_column_name}"
+                sql << "      LEFT JOIN #{subtype.sql.qualified_table_name} #{name} ON #{name}.#{self.dialect.quote('ID')} = I.#{attribute.sql.quoted_column_name}"
               end
-              sql << "      WHERE (#{names.collect { |name| "#{name}.#{self.dialect.quote("ID")} IS NULL" }.join(' AND ') })"
+              sql << "      WHERE (#{names.collect { |name| "#{name}.#{self.dialect.quote('ID')} IS NULL" }.join(' AND ') })"
               (0..(names.size - 2)).each do |index|
-                sql << " OR\n (#{names[index] }.#{self.dialect.quote("ID")} IS NOT NULL AND (#{((index + 1)..(names.size - 1)).collect { |index2| "#{names[index2]}.#{self.dialect.quote("ID")} IS NOT NULL" }.join(' OR ') }))"
+                sql << " OR\n (#{names[index] }.#{self.dialect.quote('ID')} IS NOT NULL AND (#{((index + 1)..(names.size - 1)).collect { |index2| "#{names[index2]}.#{self.dialect.quote('ID')} IS NOT NULL" }.join(' OR ') }))"
               end
               validation(validation_name, :negative_sql => sql, :guard => guard) unless validation?(validation_name)
             end
@@ -965,7 +965,7 @@ SQL
               if !validations.empty?
                 desc += "Enforce following validations:\n"
                 validations.each do |validation|
-                  desc += "* #{validation.name}#{validation.tags[:Description] ? ": " : ""}#{validation.tags[:Description]}\n"
+                  desc += "* #{validation.name}#{validation.tags[:Description] ? ': ' : ''}#{validation.tags[:Description]}\n"
                 end
                 desc += "\n"
               end
@@ -973,7 +973,7 @@ SQL
               if !actions.empty?
                 desc += "Performing the following actions:\n"
                 actions.each do |action|
-                  desc += "* #{action.name}#{action.tags[:Description] ? ": " : ""}#{action.tags[:Description]}\n"
+                  desc += "* #{action.name}#{action.tags[:Description] ? ': ' : ''}#{action.tags[:Description]}\n"
                 end
               end
 
@@ -988,7 +988,7 @@ SQL
           foreign_key([a.name],
                       a.referenced_entity.qualified_name,
                       [a.referenced_entity.primary_key.name],
-                      {:on_update => a.sql.on_update, :on_delete => a.sql.on_delete},
+                      { :on_update => a.sql.on_update, :on_delete => a.sql.on_delete },
                       true)
         end
 
@@ -1011,7 +1011,7 @@ SQL
 
       def column_name
         if @column_name.nil?
-          if attribute.reference?
+          if attribute.reference? || attribute.remote_reference?
             @column_name = attribute.referencing_link_name
           else
             @column_name = attribute.name
@@ -1117,6 +1117,28 @@ SQL
 
       def perform_complete
         self.sequence if self.sequence?
+      end
+    end
+
+    facet.enhance(RemoteEntityAttribute) do
+      def dialect
+        attribute.remote_entity.data_module.sql.dialect
+      end
+
+      attr_accessor :column_name
+
+      def column_name
+        @column_name || attribute.name
+      end
+
+      def quoted_column_name
+        self.dialect.quote(self.column_name)
+      end
+
+      attr_writer :sql_type
+
+      def sql_type
+        @sql_type ||= self.dialect.column_type(self)
       end
     end
   end

@@ -42,7 +42,7 @@ module Domgen
       java_artifact :sync_record_locks, :service, :server, :syncrecord, '#{repository.name}SyncRecordLocks'
       java_artifact :control_rest_service, :rest, :server, :syncrecord, '#{repository.name}SyncControlRestService'
       java_artifact :test_module, :test, :server, :syncrecord, '#{repository.name}SyncRecordTestModule', :sub_package => 'util'
-      java_artifact :status_integration_test, :rest, :server, :syncrecord, '#{repository.name}SyncRecordStatusTest'
+      java_artifact :status_integration_test, :rest, :integration, :syncrecord, '#{repository.name}SyncRecordStatusTest'
 
       attr_writer :short_test_code
 
@@ -98,7 +98,10 @@ module Domgen
           end
         end
 
-        repository.jpa.application_artifact_fragments << "iris.syncrecord#{repository.pgsql? ? '.pg': ''}:sync-record-server" if repository.jpa?
+        if repository.jpa?
+          repository.jpa.application_artifact_fragments << "iris.syncrecord#{repository.pgsql? ? '.pg': ''}:sync-record-server"
+          repository.jpa.add_test_factory(short_test_code, 'iris.syncrecord.server.test.util.SyncRecordFactory')
+        end
       end
 
       protected
@@ -109,7 +112,7 @@ module Domgen
       end
 
       def data_source_map
-        @data_sources ||= Domgen::OrderedHash.new
+        @data_sources ||= Reality::OrderedHash.new
       end
     end
 

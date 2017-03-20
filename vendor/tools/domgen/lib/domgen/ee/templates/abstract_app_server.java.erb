@@ -5,10 +5,10 @@ package <%= to_package(repository.ee.qualified_abstract_app_server_name) %>;
 public abstract class <%= repository.ee.abstract_app_server_name %>
   extends org.realityforge.guiceyloops.server.glassfish.AbstractAppServer
 {
-  private static final String APP_NAME = "<%= Domgen::Naming.underscore(repository.name) %>";
+  private static final String APP_NAME = "<%= Reality::Naming.underscore(repository.name) %>";
 
   @java.lang.Override
-  protected String getContextRoot()
+  public String getContextRoot()
   {
     return "/" + APP_NAME;
   }
@@ -19,7 +19,7 @@ public abstract class <%= repository.ee.abstract_app_server_name %>
 -%>
   public final String get<%= service.data_module.name %><%= service.name %>EndpointAddress()
   {
-    return getSiteURL() + "<%= service.jws.url %>";
+    return getSiteURL() + <%= repository.jws.qualified_constants_container_name %>.<%= Reality::Naming.uppercase_constantize(service.qualified_name.gsub('.','_')) %>_URL;
   }
 <%
     end
@@ -34,10 +34,16 @@ public abstract class <%= repository.ee.abstract_app_server_name %>
 
     // Database Configuration Start
 <% if repository.jpa.include_default_unit? -%>
-    glassfish.create<%= repository.mssql? ? 'SqlServer' : 'Postgres' -%>JdbcResource( "<%= repository.jpa.resolved_data_source -%>" );
+    glassfish.create<%= repository.mssql? ? 'SqlServer' : 'Postgres' -%>JdbcResource( <%= repository.jpa.qualified_unit_descriptor_name %>.RESOURCE_NAME );
+<% repository.jpa.default_persistence_unit.related_database_keys.each do |key| -%>
+    glassfish.createCustomResource( "<%= repository.jpa.default_persistence_unit.related_database_jndi(key) %>", <%= repository.jpa.default_persistence_unit.qualified_persistence_unit_test_util_name %>.get<%= Reality::Naming.pascal_case(key) %>DatabaseName() );
+<% end -%>
 <% end -%>
 <% repository.jpa.standalone_persistence_units.each do |unit| -%>
-    glassfish.create<%= repository.mssql? ? 'SqlServer' : 'Postgres' -%>JdbcResource( "<%= unit.resolved_data_source -%>", glassfish.toGlassFishPropertiesString( org.realityforge.guiceyloops.server.DatabaseUtil.getGlassFishDataSourceProperties( "<%= Domgen::Naming.underscore(unit.short_name) %>" ) ) );
+    glassfish.create<%= repository.mssql? ? 'SqlServer' : 'Postgres' -%>JdbcResource( <%= repository.jpa.qualified_unit_descriptor_name %>.<%= Reality::Naming.uppercase_constantize(unit.short_name) %>_RESOURCE_NAME, glassfish.toGlassFishPropertiesString( org.realityforge.guiceyloops.server.DatabaseUtil.getGlassFishDataSourceProperties( <%= repository.jpa.qualified_unit_descriptor_name %>.<%= Reality::Naming.uppercase_constantize(unit.short_name) %>_KEY ) ) );
+<% unit.related_database_keys.each do |key| -%>
+    glassfish.createCustomResource( "<%= unit.related_database_jndi(key) %>", <%= unit.qualified_persistence_unit_test_util_name %>.get<%= Reality::Naming.pascal_case(key) %>DatabaseName() );
+<% end -%>
 <% end -%>
     // Database Configuration Ende
 
@@ -46,24 +52,14 @@ public abstract class <%= repository.ee.abstract_app_server_name %>
 
     // JMS Configuration Start
     // iiop required for JMS
-    glassfish.createLocalIiopListener( "<%= Domgen::Naming.underscore(repository.name) %>/iiop_listener" );
+    glassfish.createLocalIiopListener( "<%= Reality::Naming.underscore(repository.name) %>/iiop_listener" );
     glassfish.deleteDefaultIiopListeners();
 
-    glassfish.setDefaultJmsHost( "<%= Domgen::Naming.underscore(repository.name) %>/jms/host", getOpenMQContainer() );
-    glassfish.createJmsConnectionFactory( "<%= repository.jms.connection_factory_resource_name %>", getOpenMQContainer() );
+    glassfish.setDefaultJmsHost( "<%= Reality::Naming.underscore(repository.name) %>/jms/host", getOpenMQContainer() );
+    glassfish.createJmsConnectionFactory( <%= repository.jms.qualified_constants_container_name %>.CONNECTION_FACTORY_RESOURCE_NAME, getOpenMQContainer() );
 
-<%
-  destinations = {}
-  repository.jms.endpoint_methods.each do |method|
-    destinations[method.jms.destination_resource_name] = {'type' => method.jms.destination_type, 'physical_name' => method.jms.physical_resource_name}
-  end
-  repository.jms.router_methods.each do |method|
-    destinations[method.jms.route_to_destination_resource_name] =
-      {'type' => method.jms.route_to_destination_type, 'physical_name' => method.jms.route_to_physical_resource_name}
-  end
--%>
-<% destinations.each_pair do |name, config| -%>
-    glassfish.createJms<%= 'javax.jms.Topic' == config['type'] ? 'Topic' : 'Queue' %>( "<%= name %>", "<%= config['physical_name'] %>" );
+<% repository.jms.destinations.each do |destination| -%>
+    glassfish.createJms<%= 'javax.jms.Topic' == destination.destination_type ? 'Topic' : 'Queue' %>( <%= repository.jms.qualified_constants_container_name %>.<%= Reality::Naming.uppercase_constantize(destination.name) %>_RESOURCE_NAME, <%= repository.jms.qualified_constants_container_name %>.<%= Reality::Naming.uppercase_constantize(destination.name) %>_PHYSICAL_NAME );
 <% end -%>
     // JMS Configuration Ende
 

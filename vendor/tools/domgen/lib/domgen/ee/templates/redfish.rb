@@ -7,10 +7,10 @@ def define_custom_resource(data, key, value, restype = nil)
 end
 
 def define_persistence_unit(data, repository, name, resource, options = {})
-  application = Domgen::Naming.underscore(repository.name)
-  constant_prefix = Domgen::Naming.uppercase_constantize(repository.name)
+  application = Reality::Naming.underscore(repository.name)
+  constant_prefix = Reality::Naming.uppercase_constantize(repository.name)
 
-  cname = Domgen::Naming.uppercase_constantize(name)
+  cname = Reality::Naming.uppercase_constantize(name)
   prefix = cname == constant_prefix ? constant_prefix : "#{constant_prefix}_#{cname}"
   connection_pool = "#{resource}ConnectionPool"
 
@@ -58,8 +58,8 @@ def define_persistence_unit(data, repository, name, resource, options = {})
 end
 
 def generate(repository)
-  application = Domgen::Naming.underscore(repository.name)
-  constant_prefix = Domgen::Naming.uppercase_constantize(repository.name)
+  application = Reality::Naming.underscore(repository.name)
+  constant_prefix = Reality::Naming.uppercase_constantize(repository.name)
 
   data = {}
 
@@ -120,18 +120,8 @@ def generate(repository)
   if repository.jms?
     data['jms_resources'] = {}
 
-    destinations = {}
-
-    repository.jms.endpoint_methods.each do |method|
-      destinations[method.jms.destination_resource_name] = {'type' => method.jms.destination_type, 'physical_name' => method.jms.physical_resource_name}
-    end
-    repository.jms.router_methods.each do |method|
-      destinations[method.jms.route_to_destination_resource_name] =
-        {'type' => method.jms.route_to_destination_type, 'physical_name' => method.jms.route_to_physical_resource_name}
-    end
-
-    destinations.each_pair do |name, config|
-      data['jms_resources'][name] = {'restype' => config['type'], 'properties' => {'Name' => config['physical_name']}}
+    repository.jms.destinations.each do |destination|
+      data['jms_resources'][destination.resource_name] = { 'restype' => destination.destination_type, 'properties' => { 'Name' => destination.physical_name } }
     end
 
     data['environment_vars']["#{constant_prefix}_BROKER_USERNAME"] = repository.jms.default_username
@@ -148,9 +138,7 @@ def generate(repository)
   end
 
   if repository.jpa?
-    units = []
-    units << repository.jpa.default_persistence_unit if repository.jpa.include_default_unit?
-    units += repository.jpa.standalone_persistence_units
+    units = repository.jpa.persistence_units
 
     data['jdbc_connection_pools'] = {}
     units.each do |unit|
@@ -161,6 +149,12 @@ def generate(repository)
                               :xa_data_source => unit.xa_data_source?,
                               :socket_timeout => unit.socket_timeout,
                               :login_timeout => unit.login_timeout)
+
+      unit.related_database_keys.each do |key|
+        env_key = "#{Reality::Naming.uppercase_constantize(repository.name)}_#{repository.name == unit.short_name ? '' : "#{unit.short_name}_"}#{Reality::Naming.uppercase_constantize(key)}_DATABASE_NAME"
+        data['environment_vars'][env_key] = ''
+        define_custom_resource(data, unit.related_database_jndi(key), "${#{env_key}}")
+      end
     end
   end
 

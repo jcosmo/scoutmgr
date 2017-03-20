@@ -9,6 +9,7 @@ public class <%= repository.gwt_rpc.rpc_services_module_name %>
 <% if repository.keycloak? -%>
   @javax.annotation.Nullable
   private static org.realityforge.gwt.keycloak.Keycloak c_keycloak;
+  private static int c_minTokenValiditySeconds = <%= repository.imit? ? 'org.realityforge.replicant.shared.transport.ReplicantContext.MAX_POLL_TIME_IN_SECONDS * 2' : '10' %>;
 
   @javax.annotation.Nonnull
   public static org.realityforge.gwt.keycloak.Keycloak getKeycloak()
@@ -25,6 +26,29 @@ public class <%= repository.gwt_rpc.rpc_services_module_name %>
     c_keycloak = keycloak;
   }
 
+  public static int getMinTokenValiditySeconds()
+  {
+    return c_minTokenValiditySeconds;
+  }
+
+  public static void setMinTokenValiditySeconds( final int minTokenValiditySeconds )
+  {
+    c_minTokenValiditySeconds = minTokenValiditySeconds;
+  }
+
+  public static void updateTokenAndExecute( @javax.annotation.Nonnull final java.lang.Runnable action )
+  {
+    getKeycloak().updateToken( c_minTokenValiditySeconds, new java.lang.Runnable()
+    {
+      @java.lang.Override
+      public void run()
+      {
+        <% if repository.imit? -%>getSessionContext().<% end -%>setAuthenticationToken( getKeycloak().getToken() );
+        action.run();
+      }
+    } );
+  }
+
 <% end -%>
 <% if repository.imit? -%>
   @javax.annotation.Nonnull
@@ -38,8 +62,9 @@ public class <%= repository.gwt_rpc.rpc_services_module_name %>
 
 <% else -%>
   private static String c_baseURL;
+  private static String c_authenticationToken;
 
-  public static void setBaseURL( final String baseURL )
+  public static void setBaseURL( @javax.annotation.Nonnull final String baseURL )
   {
     c_baseURL = baseURL;
   }
@@ -49,6 +74,15 @@ public class <%= repository.gwt_rpc.rpc_services_module_name %>
     return c_baseURL;
   }
 
+  public static String getAuthenticationToken()
+  {
+    return c_authenticationToken;
+  }
+
+  public static void setAuthenticationToken( @javax.annotation.Nullable final String authenticationToken )
+  {
+    c_authenticationToken = authenticationToken;
+  }
 <% end -%>
 <%
   needs_xsrf =

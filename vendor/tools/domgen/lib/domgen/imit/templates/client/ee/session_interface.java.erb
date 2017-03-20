@@ -14,7 +14,7 @@ public interface <%= repository.imit.ee_client_session_interface_name %>
     # Names are fully qualified so take any random data module
     entity = repository.entity_by_name(graph.instance_root)
     type = entity.primary_key.imit.java_type
-    param = "#{type} #{Domgen::Naming.camelize(entity.name)}#{entity.primary_key.name}"
+    param = "#{type} #{Reality::Naming.camelize(entity.name)}#{entity.primary_key.name}"
   end
   update_param = param.dup
   if graph.filter_parameter
@@ -24,7 +24,7 @@ public interface <%= repository.imit.ee_client_session_interface_name %>
     filter_param = "#{java_type} filter"
     update_param = "#{update_param}#{filter_param}"
   end
-  suffix = "@javax.annotation.Nullable Runnable runnable"
+  suffix = '@javax.annotation.Nullable Runnable runnable'
 %>
   boolean isSubscribedTo<%= graph.name %>(<%= param %>);
 

@@ -15,7 +15,7 @@
     "url": "https://github.com/realityforge/domgen.git",
     "branch": "master",
     "squashed": true,
-    "revision": "db1b6ed33e540081ec7b43bf57a60333f0168650"
+    "revision": "b7a5a0a292adad79fe50b2ada97a4db3ed7dbf4b"
   },
   "vendor/tools/redfish": {
     "url": "https://github.com/realityforge/redfish.git",

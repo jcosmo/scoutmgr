@@ -16,20 +16,20 @@ require 'erb'
 require 'fileutils'
 require 'logger'
 
-require 'domgen/version'
-require 'domgen/orderedhash'
-require 'domgen/naming'
+require 'reality/core'
+require 'reality/facets'
+require 'reality/generators'
+require 'reality/naming'
+require 'reality/orderedhash'
 
 # Core components
 require 'domgen/core'
-require 'domgen/facets'
 require 'domgen/typedb'
 require 'domgen/features'
 require 'domgen/model'
+require 'domgen/facets'
 require 'domgen/model_checks'
 require 'domgen/template'
-require 'domgen/render_context'
-require 'domgen/generator'
 require 'domgen/filters'
 
  # Integration utilities
@@ -89,7 +89,6 @@ require 'domgen/jms/generator'
 require 'domgen/active_record/generator'
 
 # Docbook
-require 'domgen/xml/templates/xml'
 require 'domgen/xml/generator'
 
 # Rake Tasks
@@ -140,6 +139,7 @@ require 'domgen/restygwt/generator'
 
 # Imit
 require 'domgen/imit/model'
+require 'domgen/imit/helper'
 require 'domgen/imit/generator'
 
 # AutoBean
@@ -152,6 +152,7 @@ require 'domgen/audit/generator'
 
 # Database level synchronization
 require 'domgen/sync/model'
+require 'domgen/sync/helper'
 require 'domgen/sync/generator'
 
 # Some caching for gwt apps

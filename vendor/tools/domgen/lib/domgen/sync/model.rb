@@ -13,13 +13,17 @@
 #
 
 module Domgen
-  class Sync
+  module Sync
     VALID_MASTER_FACETS = [:application, :sql, :mssql, :pgsql, :ee, :ejb, :java, :jpa, :sync, :syncrecord, :appconfig]
     VALID_SYNC_TEMP_FACETS = [:application, :sql, :mssql, :pgsql, :sync, :syncrecord, :appconfig]
   end
 
   FacetManager.facet(:sync => [:syncrecord, :sql]) do |facet|
     facet.enhance(Repository) do
+      include Domgen::Java::BaseJavaGenerator
+      include Domgen::Java::JavaClientServerApplication
+
+      java_artifact :test_module, :test, :server, :sync, '#{repository.name}SyncServerModule', :sub_package => 'util'
 
       def transaction_time=(transaction_time)
         @transaction_time = transaction_time
@@ -27,6 +31,15 @@ module Domgen
 
       def transaction_time?
         @transaction_time.nil? ? false : !!@transaction_time
+      end
+
+      def standalone=(standalone)
+        @standalone = standalone
+      end
+
+      # Return false if the Data => SyncTemp && SyncTemp => Master stages occurs in a separate process
+      def standalone?
+        @standalone.nil? ? true : !!@standalone
       end
 
       attr_writer :mapping_source_attribute
@@ -152,7 +165,7 @@ module Domgen
               s.method(:"Remove#{entity.data_module.name}#{entity.name}") do |m|
                 m.integer(:MappingID)
                 m.parameter(:ID, entity.primary_key.jpa.java_type(:boundary), :nullable => true)
-                m.returns(:boolean, :description => 'Return true on removalfrom non-master, false if not required')
+                m.returns(:boolean, :description => 'Return true on remove from non-master, false if not required')
               end
               s.method(:"Mark#{entity.data_module.name}#{entity.name}RemovalsPreSync") do |m|
                 m.text(:MappingSourceCode)
@@ -193,7 +206,6 @@ module Domgen
         @transaction_time.nil? ? data_module.repository.sync.transaction_time? : !!@transaction_time
       end
 
-
       include Domgen::Java::BaseJavaGenerator
       include Domgen::Java::EEClientServerJavaPackage
 
@@ -208,6 +220,18 @@ module Domgen
       java_artifact :abstract_sync_temp_population_impl, :service, :server, :sync, 'AbstractSyncTempPopulationService#{data_module.repository.ejb.implementation_suffix}'
       java_artifact :master_sync_service_test, :service, :server, :sync, 'AbstractMasterSyncService#{data_module.repository.ejb.implementation_suffix}Test'
 
+      def master_sync_persistent_unit
+        raise 'master_sync_persistent_unit invoked when not master_data_module' unless master_data_module?
+        return nil if @master_sync_persistent_unit_nil
+        @master_sync_persistent_unit || data_module.repository.jpa.include_default_unit? ? data_module.repository.name : nil
+      end
+
+      def master_sync_persistent_unit=(master_sync_persistent_unit)
+        raise 'master_sync_persistent_unit= invoked when not master_data_module' unless master_data_module?
+        @master_sync_persistent_unit_nil = master_sync_persistent_unit.nil?
+        @master_sync_persistent_unit = master_sync_persistent_unit
+      end
+
       def entities_to_synchronize
         raise 'entities_to_synchronize invoked when not master_data_module' unless master_data_module?
         data_module.repository.data_modules.select { |d| d.sync? }.collect do |dm|
@@ -216,11 +240,11 @@ module Domgen
       end
 
       def master_data_module?
-        data_module.repository.sync.master_data_module == data_module.name
+        data_module.repository.sync.master_data_module.to_s == data_module.name.to_s
       end
 
       def sync_temp_data_module?
-        data_module.repository.sync.sync_temp_data_module == data_module.name
+        data_module.repository.sync.sync_temp_data_module.to_s == data_module.name.to_s
       end
 
       def entity_prefix=(entity_prefix)
@@ -233,6 +257,17 @@ module Domgen
         raise "Attempted to invoke entity_prefix on #{data_module.name}, but not valid as it is the master data_module" if master_data_module?
         raise "Attempted to invoke entity_prefix on #{data_module.name}, but not valid as it is the sync_temp data_module" if sync_temp_data_module?
         @entity_prefix || ''
+      end
+    end
+
+    facet.enhance(Service) do
+      include Domgen::Java::BaseJavaGenerator
+
+      java_artifact :test_service, :test, :server, :sync, 'TestSyncTempPopulationServiceImpl', :sub_package => 'util'
+
+      def sync_temp_population_service?
+        service.data_module.name.to_s == service.data_module.repository.sync.master_data_module.to_s &&
+          service.name.to_s == 'SyncTempPopulationService'
       end
     end
 
@@ -296,6 +331,10 @@ module Domgen
 
       def references_requiring_manual_sync
         entity.referencing_attributes.select { |a| (!a.sync? || a.sync.manual_sync?) && a.referenced_entity.sql? }
+      end
+
+      def managed_references_requiring_manual_sync
+        entity.referencing_attributes.select { |a| a.sync? && !a.sync.manual_sync? && a.entity.sync.core? }
       end
 
       def references_not_requiring_manual_sync
@@ -362,7 +401,10 @@ module Domgen
             !a.primary_key? &&
             !a.immutable? &&
             ![:MasterSynchronized, :CreatedAt, :DeletedAt].include?(a.name) &&
-            !(a.reference? && a.referenced_entity.sync? && a.referenced_entity.sync.synchronize?)
+            (
+              !a.reference? ||
+              a.referenced_entity.sync? && a.referenced_entity.sync.synchronize?
+            )
         end.size > 0
       end
 
@@ -443,6 +485,8 @@ module Domgen
               options[:length] = a.length
               options[:min_length] = a.min_length
               options[:allow_blank] = a.allow_blank?
+            elsif a.remote_reference?
+              options[:referenced_remote_entity] = a.referenced_remote_entity
             end
             options[:abstract] = a.abstract?
 
@@ -518,6 +562,9 @@ module Domgen
               options[:length] = a.length
               options[:min_length] = a.min_length
               options[:allow_blank] = a.allow_blank?
+            end
+            if a.remote_reference?
+              options[:referenced_remote_entity] = a.referenced_remote_entity
             end
             options[:collection_type] = a.collection_type
             options[:nullable] = a.nullable? || a.primary_key?

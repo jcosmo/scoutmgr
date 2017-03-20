@@ -16,6 +16,7 @@ module Domgen
   FacetManager.facet(:jws => [:jaxb]) do |facet|
     facet.enhance(Repository) do
       include Domgen::Java::BaseJavaGenerator
+      include Domgen::Java::JavaClientServerApplication
 
       attr_writer :api_package
 
@@ -29,6 +30,7 @@ module Domgen
         @fake_service_package || "#{repository.java.base_package}.fake"
       end
 
+      java_artifact :constants_container, nil, :shared, :jws, '#{repository.name}JwsConstants'
       java_artifact :fake_server, :service, :fake, :jws, 'Fake#{repository.name}Server'
       java_artifact :fake_server_factory, :service, :fake, :jws, 'Fake#{repository.name}ServerFactory'
       java_artifact :abstract_fake_server_test, :service, :fake, :jws, 'AbstractFake#{repository.name}ServerTest'
@@ -107,6 +109,7 @@ module Domgen
       include Domgen::Java::BaseJavaGenerator
 
       java_artifact :type_converter, nil, :api, :jws, '#{service.name}TypeConverter'
+      java_artifact :service_integration_test, :api, :integration, :jws, 'Abstract#{service.name}IntegrationTest'
 
       def qualified_api_interface_name
         "#{api_package}.#{web_service_name}"
@@ -117,7 +120,7 @@ module Domgen
       end
 
       def api_package
-        "#{service.data_module.jws.api_package}.#{Domgen::Naming.underscore(web_service_name.gsub(/Service$/, ''))}"
+        "#{service.data_module.jws.api_package}.#{Reality::Naming.underscore(web_service_name.gsub(/Service$/, ''))}"
       end
 
       def boundary_ejb_name
@@ -177,8 +180,8 @@ module Domgen
       def referenced_structs
         structs = []
 
-        service.methods.select{|method| method.jws?}.each do |method|
-          method.parameters.select{|field| field.struct?}.each do |field|
+        service.methods.select { |method| method.jws? }.each do |method|
+          method.parameters.select { |field| field.struct? }.each do |field|
             structs << field.referenced_struct
           end
           structs << method.return_value.referenced_struct if method.return_value.struct?
@@ -192,7 +195,7 @@ module Domgen
           struct = to_process.pop
           next if processed.include?(struct)
           processed << struct
-          struct.fields.select{|field| field.struct?}.each do |field|
+          struct.fields.select { |field| field.struct? }.each do |field|
             structs << field.referenced_struct
           end
         end
@@ -209,7 +212,6 @@ module Domgen
         jws_active = false
         service.methods.each do |method|
           next unless method.jws?
-          next unless method.jws.compatible?
           jws_active = true
         end
         service.disable_facet(:jws) unless jws_active
@@ -218,7 +220,7 @@ module Domgen
 
     facet.enhance(Method) do
       def name
-        Domgen::Naming.camelize(method.name)
+        Reality::Naming.camelize(method.name)
       end
 
       def input_action
@@ -243,6 +245,10 @@ module Domgen
         compatible
       end
 
+      def pre_complete
+        method.disable_facet(:jws) unless compatible?
+      end
+
       private
 
       def characteristic_compatible?(characteristic)
@@ -259,7 +265,7 @@ module Domgen
 
     facet.enhance(Parameter) do
       def name
-        Domgen::Naming.camelize(parameter.name)
+        Reality::Naming.camelize(parameter.name)
       end
 
       include Domgen::Java::EEJavaCharacteristic

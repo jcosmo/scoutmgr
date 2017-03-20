@@ -52,7 +52,7 @@ module Domgen
       include Domgen::Java::JavaClientServerApplication
 
       java_artifact :feature_flag_container, nil, :shared, :appconfig, '#{repository.name}FeatureFlags'
-      java_artifact :integration_test, :rest, :server, :appconfig, '#{repository.name}AppconfigTest'
+      java_artifact :integration_test, :rest, :integration, :appconfig, '#{repository.name}AppconfigTest'
 
       attr_writer :short_test_code
 
@@ -84,7 +84,10 @@ module Domgen
 
       def pre_complete
         repository.jaxrs.extensions << 'iris.appconfig.server.rest.SystemSettingRestService' if repository.jaxrs?
-        repository.jpa.application_artifact_fragments << "iris.appconfig#{repository.pgsql? ? '.pg': ''}:app-config-server" if repository.jpa?
+        if repository.jpa?
+          repository.jpa.application_artifact_fragments << "iris.appconfig#{repository.pgsql? ? '.pg' : ''}:app-config-server"
+          repository.jpa.add_test_factory(short_test_code, 'iris.appconfig.server.test.util.AppConfigFactory')
+        end
       end
 
       protected
@@ -95,7 +98,7 @@ module Domgen
       end
 
       def feature_flag_map
-        @feature_flag ||= Domgen::OrderedHash.new
+        @feature_flag ||= Reality::OrderedHash.new
       end
     end
   end

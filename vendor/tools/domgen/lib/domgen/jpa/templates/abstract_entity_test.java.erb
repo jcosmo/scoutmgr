@@ -1,30 +1,16 @@
 /* DO NOT EDIT: File is auto-generated */
 package <%= to_package(repository.jpa.qualified_abstract_entity_test_name) %>;
+<% remote_refs = repository.application.remote_references_included? -%>
 
 @java.lang.SuppressWarnings( { "UnusedDeclaration" } )
 @javax.annotation.Generated( "Domgen" )
 public abstract class <%= repository.jpa.abstract_entity_test_name %>
   extends org.realityforge.guiceyloops.server.AbstractServerTest
 {
-<% repository.data_modules.select{|data_module| data_module.jpa?}.each do |data_module| -%>
+<% repository.jpa.test_factories.each do |short_code, classname| -%>
   @javax.annotation.Nonnull
   @edu.umd.cs.findbugs.annotations.SuppressFBWarnings( "NP_NONNULL_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR" )
-  protected <%= data_module.jpa.qualified_test_factory_name %> <%= data_module.jpa.short_test_code %>;
-<% end -%>
-<% if repository.appconfig? -%>
-  @javax.annotation.Nonnull
-  @edu.umd.cs.findbugs.annotations.SuppressFBWarnings( "NP_NONNULL_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR" )
-  protected iris.appconfig.server.test.util.AppConfigFactory <%= repository.appconfig.short_test_code %>;
-<% end -%>
-<% if repository.syncrecord? -%>
-  @javax.annotation.Nonnull
-  @edu.umd.cs.findbugs.annotations.SuppressFBWarnings( "NP_NONNULL_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR" )
-  protected iris.syncrecord.server.test.util.SyncRecordFactory <%= repository.syncrecord.short_test_code %>;
-<% end -%>
-<% if repository.mail? -%>
-  @javax.annotation.Nonnull
-  @edu.umd.cs.findbugs.annotations.SuppressFBWarnings( "NP_NONNULL_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR" )
-  protected iris.mail.server.test.util.MailFactory <%= repository.mail.short_test_code %>;
+  protected <%= classname %> <%= short_code %>;
 <% end -%>
 
   @org.testng.annotations.BeforeMethod
@@ -32,24 +18,17 @@ public abstract class <%= repository.jpa.abstract_entity_test_name %>
     throws Exception
   {
     super.preTest();
-    final <%= repository.jpa.qualified_test_factory_set_name %> factorySet = new <%= repository.jpa.qualified_test_factory_set_name %>( getInjector() );
-<% repository.data_modules.select{|data_module| data_module.jpa?}.each do |data_module| -%>
-    <%= data_module.jpa.short_test_code %> = factorySet.<%= Domgen::Naming.camelize(data_module.name) %>();
+<% if remote_refs -%>
+    org.realityforge.replicant.client.test.ee.ReplicantEntityCustomizer.configure( em(), s( org.realityforge.replicant.client.EntitySystem.class ) );
+<% end -%>
+<% repository.jpa.test_factories.each do |short_code, classname| -%>
+    <%= short_code %> = s( <%= classname %>.class );
 <% end -%>
 <%
   # TODO - there should be a better way of doing this. Perhaps Runnables/Actions that are added by facets?
   if repository.imit?
 -%>
     s( javax.transaction.TransactionSynchronizationRegistry.class ).putResource( "ReplicationActive", "Test" );
-<% end -%>
-<% if repository.appconfig? -%>
-    <%= repository.appconfig.short_test_code %> = new iris.appconfig.server.test.util.AppConfigFactorySet( getInjector() ).appConfig();
-<% end -%>
-<% if repository.syncrecord? -%>
-    <%= repository.syncrecord.short_test_code %> = new iris.syncrecord.server.test.util.SyncRecordFactorySet( getInjector() ).syncRecord();
-<% end -%>
-<% if repository.mail? -%>
-    <%= repository.mail.short_test_code %> = new iris.mail.server.test.util.MailFactorySet( getInjector() ).mail();
 <% end -%>
   }
 <% if repository.jpa.include_default_unit? -%>
@@ -60,6 +39,12 @@ public abstract class <%= repository.jpa.abstract_entity_test_name %>
     return new <%= repository.jpa.qualified_persistent_test_module_name %>();
   }
 <% end -%>
+
+  @javax.annotation.Nullable
+  protected com.google.inject.Module new<%= repository.name %>FactorySetModule()
+  {
+    return new <%= repository.jpa.test_factory_module_name %>();
+  }
 
   @javax.annotation.Nullable
   protected com.google.inject.Module new<%= repository.name %>DaoModule()
@@ -75,6 +60,7 @@ public abstract class <%= repository.jpa.abstract_entity_test_name %>
 <% repository.jpa.extra_test_modules.each do |test_module| %>
     modules.add( new <%= test_module %>() );
 <% end -%>
+    addModule( modules, new<%= repository.name %>FactorySetModule() );
     addModule( modules, new<%= repository.name %>DaoModule() );
 <% if repository.jpa.include_default_unit? -%>
     addModule( modules, new<%= repository.name %>PersistentTestModule() );
@@ -95,6 +81,9 @@ public abstract class <%= repository.jpa.abstract_entity_test_name %>
     addModule( modules, newMailPersistenceEntityModule() );
     addModule( modules, newMailRepositoryModule() );
 <% end -%>
+<% if remote_refs -%>
+    addModule( modules, newReplicantClientTestModule() );
+<% end -%>
     return modules.toArray( new com.google.inject.Module[ modules.size() ] );
   }
 <% repository.jpa.standalone_persistence_units.select{|unit| unit.mock_test_mode?}.each do |unit| -%>
@@ -102,7 +91,7 @@ public abstract class <%= repository.jpa.abstract_entity_test_name %>
   @javax.annotation.Nullable
   protected com.google.inject.Module new<%= unit.unit_name %>PersistenceModule()
   {
-    return new org.realityforge.guiceyloops.server.MockPersistenceTestModule( <%= repository.jpa.qualified_unit_descriptor_name %>.<%= Domgen::Naming.uppercase_constantize(unit.short_name) %>_NAME );
+    return new org.realityforge.guiceyloops.server.MockPersistenceTestModule( <%= repository.jpa.qualified_unit_descriptor_name %>.<%= Reality::Naming.uppercase_constantize(unit.short_name) %>_NAME );
   }
 <% end -%>
 <% repository.jpa.standalone_persistence_units.select{|unit| unit.raw_test_mode?}.each do |unit| -%>
@@ -111,6 +100,14 @@ public abstract class <%= repository.jpa.abstract_entity_test_name %>
   protected com.google.inject.Module new<%= unit.unit_name %>PersistenceModule()
   {
     return new <%= unit.qualified_raw_test_module_name %>();
+  }
+<% end -%>
+<% if remote_refs -%>
+
+  @javax.annotation.Nullable
+  protected com.google.inject.Module newReplicantClientTestModule()
+  {
+    return new org.realityforge.replicant.client.test.ReplicantClientTestModule();
   }
 <% end -%>
 <% if repository.appconfig? -%>

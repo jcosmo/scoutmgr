@@ -22,27 +22,23 @@ module Domgen
 
       include Domgen::Java::BaseJavaGenerator
 
-      java_artifact :entrypoint, nil, :client, :gwt, '#{qualified_name}'
-      java_artifact :entrypoint_module, :ioc, :client, :gwt, '#{qualified_name}EntrypointModule'
-      java_artifact :gwt_module, :modules, nil, :gwt, '#{qualified_name}EntrypointSupport'
+      java_artifact :entrypoint, nil, :client, :gwt, '#{name}'
+      java_artifact :entrypoint_module, :ioc, :client, :gwt, '#{name}EntrypointModule'
+      java_artifact :gwt_module, :modules, nil, :gwt, '#{name}EntrypointSupport'
 
       def modules_package
         entrypoint.gwt_repository.modules_package
       end
 
       def qualified_application_name
-        "#{gwt_repository.repository.gwt.client_package}.#{qualified_name}App"
-      end
-
-      def qualified_name
-        Domgen::Naming.pascal_case(name)
+        "#{gwt_repository.repository.gwt.client_package}.#{name}App"
       end
 
       attr_reader :name
     end
   end
 
-  FacetManager.facet(:gwt => [:java, :json]) do |facet|
+  FacetManager.facet(:gwt => [:java, :json, :ce]) do |facet|
     facet.enhance(Repository) do
       include Domgen::Java::BaseJavaGenerator
       include Domgen::Java::JavaClientServerApplication
@@ -50,7 +46,7 @@ module Domgen
       attr_writer :module_name
 
       def module_name
-        @module_name || Domgen::Naming.underscore(repository.name)
+        @module_name || Reality::Naming.underscore(repository.name)
       end
 
       attr_writer :client_event_package
@@ -88,7 +84,7 @@ module Domgen
       end
 
       def default_entrypoint
-        key = Domgen::Naming.underscore(repository.name.to_s)
+        key = repository.name.to_s
         entrypoint(key) unless entrypoint_by_name?(key)
         entrypoint_by_key(key)
       end
@@ -112,7 +108,17 @@ module Domgen
         entrypoint_map.values
       end
 
-      TargetManager.register_target('gwt.entrypoint', :repository, :gwt, :entrypoints)
+      attr_writer :css_obfuscation_prefix
+
+      def css_obfuscation_prefix
+        if @css_obfuscation_prefix.nil?
+          words = Reality::Naming.split_into_words(repository.name.to_s)
+          @css_obfuscation_prefix = (words.size == 1 ? repository.name.to_s : words.collect { |w| w[0, 1] }.join).downcase[0, 2]
+        end
+        @css_obfuscation_prefix
+      end
+
+      Domgen.target_manager.target(:entrypoint, :repository, :facet_key => :gwt)
 
       def pre_complete
         if repository.ee?
@@ -142,6 +148,7 @@ module Domgen
     end
 
     facet.enhance(DataModule) do
+      include Domgen::Java::BaseJavaGenerator
       include Domgen::Java::ClientServerJavaPackage
 
       attr_writer :client_data_type_package
@@ -154,6 +161,25 @@ module Domgen
 
       def client_event_package
         @client_event_package || resolve_package(:client_event_package)
+      end
+
+      def generate_struct_factory?
+        data_module.structs.select{|s|s.gwt? && s.gwt.generate_overlay?}.size > 0
+      end
+
+      attr_writer :short_test_code
+
+      def short_test_code
+        @short_test_code || Reality::Naming.split_into_words(data_module.name.to_s).collect { |w| w[0, 1] }.join.downcase
+      end
+
+      java_artifact :struct_test_factory, :test, :client, :gwt, '#{data_module.name}StructFactory', :sub_package => 'util'
+      java_artifact :abstract_struct_test_factory, :test, :client, :gwt, 'Abstract#{data_module.name}StructFactory', :sub_package => 'util'
+
+      def pre_complete
+        if data_module.repository.imit? && generate_struct_factory?
+          data_module.repository.imit.add_gwt_test_factory("#{short_test_code}s", qualified_struct_test_factory_name)
+        end
       end
 
       protected
