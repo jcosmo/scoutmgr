@@ -44,7 +44,9 @@ Domgen.repository(:Scoutmgr) do |repository|
       t.imit.replicate(:People, :type)
       t.imit.replicate(:Users, :type)
 
-      t.query(:FindAllWhereNameLike, 'jpa.jpql' => 'O.firstName LIKE :Name OR O.lastName LIKE :Name') do |q|
+      t.query(:FindAllWhereNameLike,
+              '-facets' => [:imit],
+              'jpa.jpql' => 'O.firstName LIKE :Name OR O.lastName LIKE :Name') do |q|
         q.string(:Name, 255)
       end
     end
@@ -228,12 +230,16 @@ Domgen.repository(:Scoutmgr) do |repository|
       t.datetime(:UpdatedAt)
       t.string(:Token, 50, :immutable => true)
 
-      t.query(:FindByUser)
-      t.query(:FindByUserName)
-      t.query(:FindByToken)
+      t.query(:FindByUser, '-facets' => [:imit])
+      t.query(:FindByUserName, '-facets' => [:imit])
+      t.query(:FindByToken, '-facets' => [:imit])
 
-      t.query(:DeleteIdleSessions, 'jpa.jpql' => 'O.updatedAt < :UpdatedAt')
-      t.query(:DeleteUserSessions, 'jpa.jpql' => 'O.user = :User')
+      t.query(:DeleteIdleSessions,
+              '-facets' => [:imit],
+              'jpa.jpql' => 'O.updatedAt < :UpdatedAt')
+      t.query(:DeleteUserSessions,
+              '-facets' => [:imit],
+              'jpa.jpql' => 'O.user = :User')
 
       t.sql.index([:UpdatedAt])
     end
