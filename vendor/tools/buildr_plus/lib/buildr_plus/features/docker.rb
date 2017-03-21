@@ -19,8 +19,8 @@ BuildrPlus::FeatureManager.feature(:docker) do |f|
       @push_image.nil? ? false : @push_image
     end
 
-    def organisation=(foo)
-      @organisation = foo
+    def organisation=(organisation)
+      @organisation = organisation
       self.push_image = true
     end
 
