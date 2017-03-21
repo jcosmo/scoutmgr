@@ -4,10 +4,11 @@
 /*.ids
 /*.ipr
 /*.iws
+/.ideaDataSources
 /artifacts
 /config/application.yml
 /config/database.yml
-/config/k8s
+/dataSources
 /reports
 /target
 /tmp
