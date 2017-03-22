@@ -67,6 +67,3 @@ badge: Animal Keeper
 
 category: Linking to Venturers
   badge: Venturer Link Badge
-
-
-
