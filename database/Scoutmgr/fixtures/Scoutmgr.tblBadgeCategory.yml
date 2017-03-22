@@ -1,30 +1,31 @@
+---
 1:
   ID: 1
-  Name: 'Scoutcraft'
+  Name: Scoutcraft
   ScoutSectionID: 3
   Rank: 1
 2:
   ID: 2
-  Name: 'Pioneer'
+  Name: Pioneer
   ScoutSectionID: 3
   Rank: 2
 3:
   ID: 3
-  Name: 'Explorer'
+  Name: Explorer
   ScoutSectionID: 3
   Rank: 3
 4:
   ID: 4
-  Name: 'Adventurer'
+  Name: Adventurer
   ScoutSectionID: 3
   Rank: 4
 5:
   ID: 5
-  Name: 'Proficiency'
+  Name: Proficiencies
   ScoutSectionID: 3
   Rank: 5
 6:
   ID: 6
-  Name: 'Linking to Venturers'
+  Name: Linking to Venturers
   ScoutSectionID: 3
   Rank: 6

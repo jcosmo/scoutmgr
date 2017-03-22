@@ -1,0 +1,72 @@
+category: Scoutcraft
+badge: Scoutcraft
+  The Scoutcraft Badge is the FIRST badge completed by EVERY new scout.
+
+  The Scoutcraft Badge is earned within 4 to 6 weeks of you joining the Troup.  Your Patrol Leader
+  and Scout Leader work together to carry out the testing and training for this badge.
+
+  With your Patrol, complete the following
+task: Learn and be able to demonstrate the following knots
+  a: Reef knot
+  b: Clove hitch
+  c: Sheet bend
+  d: Rolling hitch
+task: Understand the Australian Flag
+  a: Describe the Australian Flag
+  b: Hoist and break the flag
+  c: Explain the correct use of the flag
+task: First aid
+  a: Know how to report an emergency
+  b: Know the first steps to control bleeding
+task: Safety with camping tools
+  a: Know the laws of carrying and use knives in your state or territory
+  b: Know and understand the safety rules for the use and storage of knives, bush saws and axes
+  c: Explain the rules that apply to the supply and use of firewood in camping areas in your state and territory
+  d: Demonstrate the use of a pocket knife or multi-tool
+
+category: Pioneer
+badge: Campcraft
+  To achieve the Pioneer Campcraft Target, the Scout must complete all of the requirements for No''s 1 to 8.
+task: Knots and Lashings
+  a: Know the Scoutcraft knots
+  b: Learn the following lashings
+    1: Square lashing
+    2: Round lashing
+    3: Prussic square lashing for synthetic rope
+task: Fire and fuel
+  a: Know the laws about lighting fires in your State or Territory
+
+badge: Citizenship
+  Awareness of community organisations, first aid, heritage and community service
+
+badge: Construction
+  Plan projects, build a Scout chariot and camp gadgets
+
+badge: Emergencies
+  Understand an emergency, do some first aid, and visit a hospital or other location
+
+badge: Environment
+  Natural, recycling and environmental management'
+
+badge: Air Activities
+  Knowledge of weather conditions, aircraft recognition, visit airport or make models
+
+badge: Water Safety
+  Swim, demonstrate rescue techniques
+
+badge: Water Activities
+  Learn safe boating procedures
+
+category: Explorer
+
+category: Adventurer
+
+category: Proficiencies
+badge: Animal Keeper
+  Show that you have an interest in, have learnt about and have improved your knowledge of caring for an animal
+
+category: Linking to Venturers
+  badge: Venturer Link Badge
+
+
+

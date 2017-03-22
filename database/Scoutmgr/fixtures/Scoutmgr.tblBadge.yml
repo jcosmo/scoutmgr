@@ -1,73 +1,78 @@
+---
 1:
   ID: 1
-  Name: 'Scout Craft'
-  Description: 'The Scoutcraft Badge is the FIRST badge completed by EVERY new scout.
+  Name: Scoutcraft
+  Description: |-
+    The Scoutcraft Badge is the FIRST badge completed by EVERY new scout.
 
-The Scoutcraft Badge is earned within 4 to 6 weeks of you joining the Troup.  Your Patrol Leader
-and Scout Leader work together to carry out the testing and training for this badge.
+    The Scoutcraft Badge is earned within 4 to 6 weeks of you joining the Troup.  Your Patrol Leader
+    and Scout Leader work together to carry out the testing and training for this badge.
 
-With your Patrol, complete the following:'
+    With your Patrol, complete the following
   BadgeCategoryID: 1
   Rank: 1
 2:
   ID: 2
-  Name: 'Campcraft'
-  Description: 'To achieve the Pioneer Campcraft Target, the Scout must complete all of the requirements for No''s 1 to 8.'
-  BadgeCategoryID: 2
-  Rank: 1
-3:
-  ID: 3
-  Name: 'Citizenship'
-  Description: 'Awareness of community organisations, first aid, heritage and community service'
+  Name: Campcraft
+  Description: To achieve the Pioneer Campcraft Target, the Scout must complete all
+    of the requirements for No''s 1 to 8.
   BadgeCategoryID: 2
   Rank: 2
-6:
-  ID: 6
-  Name: 'Construction'
-  Description: 'Plan projects, build a Scout chariot and camp gadgets'
+3:
+  ID: 3
+  Name: Citizenship
+  Description: Awareness of community organisations, first aid, heritage and community
+    service
   BadgeCategoryID: 2
   Rank: 3
-7:
-  ID: 7
-  Name: 'Emergencies'
-  Description: 'Understand an emergency, do some first aid, and visit a hospital or other location'
+4:
+  ID: 4
+  Name: Construction
+  Description: Plan projects, build a Scout chariot and camp gadgets
   BadgeCategoryID: 2
   Rank: 4
-8:
-  ID: 8
-  Name: 'Environment'
-  Description: 'Natural, recycling and environmental management'
+5:
+  ID: 5
+  Name: Emergencies
+  Description: Understand an emergency, do some first aid, and visit a hospital or
+    other location
   BadgeCategoryID: 2
   Rank: 5
-9:
-  ID: 9
-  Name: 'Air Activities'
-  Description: 'Knowledge of weather conditions, aircraft recognition, visit airport or make models'
+6:
+  ID: 6
+  Name: Environment
+  Description: Natural, recycling and environmental management'
   BadgeCategoryID: 2
   Rank: 6
-10:
-  ID: 10
-  Name: 'Water Safety'
-  Description: 'Swim, demonstrate rescue techniques'
+7:
+  ID: 7
+  Name: Air Activities
+  Description: Knowledge of weather conditions, aircraft recognition, visit airport
+    or make models
   BadgeCategoryID: 2
   Rank: 7
-11:
-  ID: 11
-  Name: 'Water Activities'
-  Description: 'Learn safe boating procedures'
+8:
+  ID: 8
+  Name: Water Safety
+  Description: Swim, demonstrate rescue techniques
   BadgeCategoryID: 2
   Rank: 8
-12:
-  ID: 12
-  Name: 'Animal Keeper'
-  Description: 'Show that you have an interest in, have learnt about and have improved your knowledge of caring for an animal'
+9:
+  ID: 9
+  Name: Water Activities
+  Description: Learn safe boating procedures
+  BadgeCategoryID: 2
+  Rank: 9
+10:
+  ID: 10
+  Name: Animal Keeper
+  Description: Show that you have an interest in, have learnt about and have improved
+    your knowledge of caring for an animal
   BadgeCategoryID: 5
-  Rank: 1
-
-
-100:
-  ID: 100
-  Name: 'Venturer Link Badge'
+  Rank: 10
+11:
+  ID: 11
+  Name: Venturer Link Badge
   Description: ''
   BadgeCategoryID: 6
-  Rank: 1
+  Rank: 11

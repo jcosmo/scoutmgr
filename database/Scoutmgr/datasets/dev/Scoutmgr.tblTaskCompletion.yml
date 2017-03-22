@@ -1,15 +1,15 @@
 1:
   ID: -1
   PersonID: -1
-  BadgeTaskID: 0111
+  BadgeTaskID: 1
   DateCompleted: 1 Mar 2016
 2:
   ID: -2
   PersonID: -1
-  BadgeTaskID: 0112
+  BadgeTaskID: 2
   DateCompleted: 1 Feb 2016
 3:
   ID: -3
   PersonID: -1
-  BadgeTaskID: 0113
+  BadgeTaskID: 3
   DateCompleted: 7 Mar 2016
