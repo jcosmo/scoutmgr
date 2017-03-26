@@ -11,6 +11,7 @@ import com.gwtplatform.mvp.shared.proxy.PlaceRequest;
 import gwt.material.design.client.ui.MaterialColumn;
 import gwt.material.design.client.ui.MaterialDropDown;
 import gwt.material.design.client.ui.MaterialLink;
+import gwt.material.design.client.ui.MaterialNavSection;
 import javax.inject.Inject;
 import scoutmgr.client.entity.Person;
 import scoutmgr.client.ioc.FrontendContext;
@@ -47,6 +48,8 @@ public class NavbarView
   MaterialLink _myTroopLink;
   @UiField
   MaterialDropDown _adminDropdown;
+  @UiField
+  MaterialNavSection _accountSection;
 
   private MaterialLink _currentLink;
 
@@ -126,8 +129,9 @@ public class NavbarView
   }
 
   @Override
-  public void disableAllAccess()
+  public void disableAllAccess( final boolean disableLogout )
   {
+    _accountSection.setVisible( !disableLogout );
     enableSiteAdminFunctionality( false);
     _myRecordMenuContainer.setVisible( false );
     _myTroopMenuContainer.setVisible( false );

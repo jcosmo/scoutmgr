@@ -45,7 +45,7 @@ public class LoginPresenter
                   final View view,
                   final Proxy proxy )
   {
-    super( eventBus, view, proxy, RevealType.RootLayout );
+    super( eventBus, view, proxy, ApplicationPresenter.SLOT_MAIN_CONTENT );
     getView().setUiHandlers( this );
   }
 

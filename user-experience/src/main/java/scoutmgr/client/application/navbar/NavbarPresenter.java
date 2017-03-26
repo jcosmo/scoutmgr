@@ -22,7 +22,7 @@ public class NavbarPresenter
   {
     void setMenuItemActive( PlaceRequest nameToken );
 
-    void disableAllAccess();
+    void disableAllAccess( final boolean disableLogout );
 
     void enablePersonalRecordAccess( boolean b );
 
@@ -50,12 +50,12 @@ public class NavbarPresenter
   {
     if ( !_frontendContext.isLoggedIn() )
     {
-      getView().disableAllAccess();
+      getView().disableAllAccess( true );
     }
     else
     {
       final User user = _frontendContext.getUser();
-      getView().disableAllAccess();
+      getView().disableAllAccess( false );
       getView().enablePersonalRecordAccess( null != user.getPerson() );
       getView().enableSiteAdminFunctionality( PermissionUtil.isSiteAdmin( user ) );
       getView().enableUserManagement( PermissionUtil.isUserAdmin( user ) );

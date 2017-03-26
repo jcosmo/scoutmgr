@@ -5,7 +5,7 @@
   <g:HTMLPanel>
     <m:MaterialRow>
       <m:MaterialColumn grid="s12 m4 l4" offset="l4 m4" >
-        <m:MaterialTitle title="Login" description="Please provide your login details."/>
+        <m:MaterialTitle title="Please Log In"/>
         <m:MaterialPanel padding="5" shadow="1">
           <m:MaterialPanel >
             <m:MaterialTextBox ui:field="_username" type="TEXT" placeholder="Username"/>
