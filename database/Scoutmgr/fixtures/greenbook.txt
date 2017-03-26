@@ -5,7 +5,7 @@ badge: Scoutcraft
   The Scoutcraft Badge is earned within 4 to 6 weeks of you joining the Troup.  Your Patrol Leader
   and Scout Leader work together to carry out the testing and training for this badge.
 
-  
+
 task: With your Patrol, learn and be able to demonstrate the following knots
   a: Reef knot
   b: Clove hitch
@@ -27,7 +27,7 @@ task: Patrol System
   a: Discuss with your Patrol leader the requirements of the Pioneer Target or other appropriate Target of the Award Scheme
   b: Discuss with your Patrol leader how the Patrol system works in your troop e.g. election of Patrol Leader, appointment of APL, responsibilities of Troop Council and how it works.
   c: Show an understanding of how a Patrol works within the Troop
-  
+
 category: Pioneer
 badge: Campcraft
   To achieve the Pioneer Campcraft Target, the Scout must complete all of the requirements for No's 1 to 8.
@@ -68,13 +68,13 @@ task: Camp activity. With your Patrol:
   c: With other scouts, prepare a menu and food list for a weekend camp
   d: Select and lay out a Patrol camp site
  task: Journey
-  a:  With at least four other members of your Patrol, plan and go on a hike for at least one day on a marked walking track in a familliar area. 
-task: Camp. With your Patrol or other scouts have camped out in tents for a minimum of six nights.  
+  a:  With at least four other members of your Patrol, plan and go on a hike for at least one day on a marked walking track in a familliar area.
+task: Camp. With your Patrol or other scouts have camped out in tents for a minimum of six nights.
 
 badge: Citizenship
   This badge allows you, as a Scout, to fulfil the Purpose of the Scout Association.
 
-  To achieve the Pioneer Citizenship Target the Scout must complete all of the requirements for No�s. 1 to 4, together with any three of the remaining six parts.
+  To achieve the Pioneer Citizenship Target the Scout must complete all of the requirements for Nos. 1 to 4, together with any three of the remaining six parts.
   task: Values
     a: Promise and Law
       1: Know and understand the Scout Promise and Law
@@ -114,9 +114,9 @@ badge: Citizenship
     a: Complete one third of a project for the Landcare Badge.
     b: Discuss with your family five ways in which they could be more environmentally friendly. Discuss these with your Patrol.
   task: Fitness. Show an understanding of a healthy lifestyle including the need for a healthy diet, correct amount of sleep and why we need to exercise.
-    
+
 badge: Air Activities
-  To achieve the Pioneer Air Activities Target the Scout must complete all of the requirements for No�s. 1 to 3, together with one part from No. 4.
+  To achieve the Pioneer Air Activities Target the Scout must complete all of the requirements for Nos. 1 to 3, together with one part from No. 4.
   task: Recognition. Be able to recognise by sight four different types of aircraft and know their function
   task: Weather
     a: Explain how the three types of weather can have an effect on the flight performance of an aircraft.
@@ -137,7 +137,7 @@ badge: Air Activities
     c: Have a flight in a light aircraft or glider or hot air balloon.
 
 badge: Construction
-  To achieve the Pioneer Construction Target the Scout must complete all of the requirements for No�s. 1 to 4.
+  To achieve the Pioneer Construction Target the Scout must complete all of the requirements for Nos. 1 to 4.
   task: Planning. Sketch and explain how you, along with your Patrol, would go about constructing:
     a: a flagpole about five metres high using at least two lengths of material
     b: a Scout chariot
@@ -153,7 +153,7 @@ badge: Construction
     a: erecting a flagpole about three metres high, using at least two lengths of material, which need not be wood
     b: the building of a Scout chariot
     c: the construction of a camp washstand or similar items.
-  
+
 badge: Emergencies
   To achieve the Pioneer Emergencies Target, the Scout must complete the following
   task: Recognition. Be able to suggest at least five different situations that could be classified as an emergency.
@@ -179,7 +179,7 @@ badge: Emergencies
     b: learn how to treat a nose bleed
     c: know four uses of a triangular bandage
     d: learn the treatment for minor burns and scalds sustained at camp
-    e: learn how to treat fractures to the lower arm and leg.    
+    e: learn how to treat fractures to the lower arm and leg.
   task: Activity. In a Scout activity:
     a: learn two types of hand seats and know when each should be used
     b: assist in carrying a patient on a stretcher
@@ -188,7 +188,7 @@ badge: Emergencies
       2: list the things which may be dangerous, and
       3: help fix at least one of them
     d: with your Patrol, or other Scouts, assist in one mock emergency activity.
-  
+
 badge: Environment
 To achieve the Pioneer Environment Target, the Scout must complete all the requirements for No 1 or No 2
   task: Complete the requirements for the LANDCARE BADGE
@@ -227,7 +227,7 @@ badge: Water Activities
     a: Have passed the Scoutcraft and Pioneer Campcraft knotting requirements.
     b: Learn and use the following knots for boating activities:
       1: figure of eight knot
-      2: anchor or fisherman�s bend
+      2: anchor or fishermans bend
       3: bowline
     c: Learn and use a common rope whipping, e.g. simple whipping, west country whipping.
   task: Canoeing Elective. In an approved canoe, with the assistance of a qualified person who has appropriate qualifications, complete the following:
@@ -245,10 +245,10 @@ badge: Water Activities
     b: learn the parts of a sailboat
     c: be able to assist in rigging a boat
     d: crew in a sailboat for a minimum of 6 hours.
-  task: Yachting Australia Elective. Yachting Australia course, �Basic Skills 1 � Getting into Small Boat Sailing�.
-  
+  task: Yachting Australia Elective. Yachting Australia course, Basic Skills 1  Getting into Small Boat Sailing.
+
 badge: Water Safety
-  To achieve the Pioneer Water Safety Target, the Scout must complete al of the requirements for No�s 1 to 4.
+  To achieve the Pioneer Water Safety Target, the Scout must complete al of the requirements for Nos 1 to 4.
   task: Safe entry and swim
     a: Jump into deep water, fully clothed (long pants, shirt, socks and runners), and remove these items in the water with feet off the bottom.
     b: Demonstrate the following:
@@ -263,16 +263,16 @@ badge: Water Safety
     a: Know the problems and dangers that can occur, or are present, in three different locations in your local area. For example sea, rivers, swimming pools dams and lakes.
     b: Know how to prevent and/or treat the following: sunburn, cramp, skin cancer, stings, exhaustion, leeches, blue-ringed octopus and one other danger to your environment eg stone fish.
   task: Have passed the requirements of Citizenship 2 at Pioneer Level.
-  
+
 category: Explorer
 badge: Campcraft
-  To achieve the Explorer Target, the Scout must complete all the requirements for No�s 1 to 8.
+  To achieve the Explorer Target, the Scout must complete all the requirements for Nos 1 to 8.
   task: Knots and lashings
     a: Assist a Scout in passing those knots and lashings required for Pioneer level.
     b: Learn to tie and use in a Scout activity the following:
       1: bowline (or double figure of eight for synthetic rope)
       2: sheepshank
-      3: either a west country, or sail maker�s whipping
+      3: either a west country, or sail makers whipping
       4: round turn and two half hitches
       5: diagonal lashing
       6: figure of eight lashing.
@@ -312,14 +312,14 @@ badge: Campcraft
     c: pack and carry all appropriate gear and equipment, including food, water, tents etc.
     d: a report is to be presented to the Troop Council on completion.
   task: Camps. With your Patrol or other Scouts, have camped out in tents for a minimum of twelve nights.
-  
+
 badge: Citizenship
-  To achieve the Explorer Citizenship Target, the Scout must complete all of the requirements for No�s 1 to 4, together with any three of the remaining six parts.
+  To achieve the Explorer Citizenship Target, the Scout must complete all of the requirements for Nos 1 to 4, together with any three of the remaining six parts.
   task: Values
     a: Promise and Law Discuss with your Scout Leader the part that the Scout Promise and Law plays in your life.
     b: Spiritual development Assist your Patrol Leader in planning and running a Scouts Own at a Scout Camp or other Troop activity.
   task: First aid. Complete (a) or (b), (c), (d) and (e)
-    a: Know the first aid for Explorer Emergencies. 
+    a: Know the first aid for Explorer Emergencies.
     b: Demonstrate an understanding of the DRSABCD principle.
     c: Demonstrate that you can carry out the requirements for first aid at Pioneer Citizenship level.
     d: Demonstrate two types of hand seats and one other way of moving an injured person.
@@ -356,23 +356,23 @@ badge: Citizenship
   task: Fitness
     a: Lead a discussion with Pioneer level Scouts about a healthy lifestyle including the need for a proper diet, proper amount of sleep and the value of exercise.
     b: With your Patrol or other Scouts, participate in an activity that focuses on the value of exercise and sport as a part of a healthy lifestyle.
- 
+
  badge: Air activities
-    To achieve the Explorer Air Activities Target, the Scout must complete all of the requirements for No�s 1 to 4.
+    To achieve the Explorer Air Activities Target, the Scout must complete all of the requirements for Nos 1 to 4.
     task: Recognition.  Recognise by sight 8 types of aircraft and discuss in detail at least 2.
     task: Weather
       a:  Explain three elements of weather and the effects they have on:
         1: the flight performance
 	2: take off and landing of an aircraft or glider.
       b: Have a knowledge of weather pattern in your geographical area.
-      c: Find out the difference in the terms �ground speed� and �air speed�, and how they relate to headwinds and tailwinds.      
+      c: Find out the difference in the terms ground speed and air speed, and how they relate to headwinds and tailwinds.
     task: Theory. Demonstrate an elementary knowledge of:
       a: the principles governing the theory of flight
       b: the use in an aircraft of an airspeed indicator, altimeter and magnetic compass
       c: how to read and apply the 24-hour clock and the phonetic alphabet
       d: the movable control surfaces of an aircraft and be able to describe their function (e.g. rudder, elevators, ailerons, flaps and trim tab).
     task: Activity. After visiting a Scout Air Activity Centre and/or aerodrome with your Patrol or other Scouts, draw a map showing the location of hangars, control tower, runways, taxiways, tarmac, wind socks, the direction of the prevailing wind, fuel stores, navigation aids, and emergency facilities.
- 
+
  badge: Construction
    To achieve the Explorer Construction Target, the Scout must complete all of the requirements for No's 1 to 4.
    task: Planning. Sketch and explain how you, along with your Patrol, would go about constructing:
@@ -404,7 +404,7 @@ badge: Citizenship
      e: ballista/catapult capable of propelling a projectile at least 10m
      f: swing bridge suitable of carrying each Patrol member across a gap of at least 3m
      g: another project of equivalent safety or difficulty approved by Troop Council.
-     
+
   badge: Emergencies
     To achieve the Explorer Emergencies Target, the Scout must complete the following
     task: Recognition. Be able to suggest at least ten very different situations that could be classified as an emergency.
@@ -426,7 +426,7 @@ badge: Citizenship
         1: build a bush stretcher or an improvised stretcher, and
 	2: use this stretcher to carry a patient over a distance of 500m.
   badge: Environment
-    To achieve the Explorer Environment Target, the Scout must complete all the requirements for No�s 1 to 4.
+    To achieve the Explorer Environment Target, the Scout must complete all the requirements for Nos 1 to 4.
   task: Nature
     a: Identify a region within your community which has had an environmental effect on plant, wildlife and insect population from any one of the following salinity, soil erosion, poor water quality, introduced species either animal or plant, removal of bush land, waterway.
     b: Discuss with your Patrol how wildlife, plants and insects depend on each other for survival.
@@ -444,14 +444,14 @@ badge: Citizenship
       1: separation of recyclables
       2: composting
       3:waste reduction, e.g. area clean up, bottle drive, worm farm, and report to the Patrol/Troop with your outcome.
-    b: Prepare an evaluation of your local waste disposal system and suggest improvements. 
+    b: Prepare an evaluation of your local waste disposal system and suggest improvements.
     c: Where possible, visit an installation such as local rubbish tip, transfer station, recycling facility, sewerage plant, report on your visit and suggest any changes that you think could be made.
-  
+
   badge: Water activities
-    To achieve the Explorer Water Activities Target, the Scout must complete all of the requirements for No�s 1 to 5, together with one of the electives A-F.
+    To achieve the Explorer Water Activities Target, the Scout must complete all of the requirements for Nos 1 to 5, together with one of the electives A-F.
     task: Weather
       a: Know the Pioneer level requirements for Weather.
-      b: Demonstrate and apply weather forecasting to a water activities event with a duration of two days.      
+      b: Demonstrate and apply weather forecasting to a water activities event with a duration of two days.
     task: Safety
       a: Know the Pioneer level requirements for Safety.
       b: Swim 100 metres whilst wearing a personal flotation device.
@@ -502,7 +502,7 @@ badge: Citizenship
       b: Demonstrate knowledge of correct methods of loading and trimming a pulling boat.
       c: Participate in launching and recovery of a pulling boat.
       d: Demonstrate sculling a dinghy with one oar.
-      e: Row a pulling boat as part of a crew, over a distance of 2 kilometres. 
+      e: Row a pulling boat as part of a crew, over a distance of 2 kilometres.
       f: Demonstrate the correct method of towing and being towed.
     task: Sailing Elective.
       a: Pass, or have passed, all tests prescribed for Pioneer level elective.
@@ -512,12 +512,12 @@ badge: Citizenship
       e: Describe the advantages and disadvantages of lee and weather shores.
       f: Demonstrate the correct method of towing and being towed.
       g: Participate in two overnight sailing expeditions.
-    task: Yachting Australia Elective. Complete the Yachting Australia course, �Basic Skills 1 � Getting into Small Boat Sailing�.
+    task: Yachting Australia Elective. Complete the Yachting Australia course, Basic Skills 1  Getting into Small Boat Sailing.
     task: Power Elective
       a: Learn and know the parts of the powerboat.
       b: Learn and know the parts of engines.
       c: Participate in a power boat crew for a minimum of 6 hours.
-      
+
   badge: Water safety
     To achieve the Explorer Water Safety Target the Scout must complete all of the requirements 1 to 4.
     task: Safe entry and swim.
@@ -527,23 +527,23 @@ badge: Citizenship
       b: Demonstrate the following:
         1: swim 100 metres without an APFD, including 50 metres using any of the resting strokes
 	2: remain afloat for at least four minutes without the use of an APFD
-	3: put on an APFD in deep water and swim 50 metres. Demonstrate the �HELP� position
-	4: with at least two other Scouts demonstrate the �huddle� position.
+	3: put on an APFD in deep water and swim 50 metres. Demonstrate the HELP position
+	4: with at least two other Scouts demonstrate the huddle position.
     task: Rescue. Perform a simulated rescue in one of the following situations:
       a: using an improvised flotation device, use a safety jump to enter the water and swim to a conscious patient at least ten metres from shore. Use any tow method to return the patient to the shore.
       b: perform an assisted carry with approach and tow of at least 30 metres, with a fully clothed conscious patient.
     task: Safety. Present to the Adviser a list of at least ten major safety items suggested by clubs active in one of the following: swimming, yachting, power boating, surfing, water skiing, canoeing, scuba diving, board diving.
     task: Have passed the requirements of Emergencies 1 at Explorer Level.
-    
+
 category: Adventurer
   badge: Campcraft
-    To achieve the Adventurer Campcraft Target the Scout must complete all of the requirements for No�s 1 to 8.
+    To achieve the Adventurer Campcraft Target the Scout must complete all of the requirements for Nos 1 to 8.
     task: Knots and lashings
       a: Teach and test a Scout those knots and lashings required for the Explorer Campcraft.
       b: Learn and use in a Scout activity the following:
         1: backsplice and eye splice
-	2: hunter�s bend
-	3: fisherman�s knot or prussick knot (for synthetic rope)
+	2: hunters bend
+	3: fishermans knot or prussick knot (for synthetic rope)
 	4: Japanese and Filipino lashing
 	5: alpine butterfly knot (for synthetic rope).
     task: Fire and fuel
@@ -559,7 +559,7 @@ category: Adventurer
       e: With your Patrol, discuss the natural dangers and hazards that can occur in your local area. Discuss ways to stay safe from these dangers and hazards.
     task: Navigation
       a: With another Scout, set up and run an orienteering course for your Patrol and other Scouts, either in a local park or at a camp.
-      b: Demonstrate how to plan a route for a hike from a topographic map, including an understanding of Naismith�s Rule.
+      b: Demonstrate how to plan a route for a hike from a topographic map, including an understanding of Naismiths Rule.
       c: Demonstrate how to establish your location on a map using back bearings and triangulation or resection.
       d: Help other Scouts to pass the requirements of Explorer level Navigation.
     task: Cooking
@@ -579,17 +579,17 @@ category: Adventurer
 	3: with members of your Patrol or with other Scouts, assemble the personal and Patrol equipment required for a camp held in extreme weather conditions and participate in such a camp. Prepare the menus and organise the purchase of food for this camp. The safety of the Scouts is top priority when assessing the conditions under which the camp is to be held. All government and Branch rules and regulations must be complied with.
     task: Journey. Plan and undertake a hike of at least 30 km with at least four other Scouts into unfamiliar terrain requiring two nights out-of-doors. Use lightweight equipment and foods as far as practicable. The hike must be monitored by an Adult Leader to ensure the safety of the Scouts. All government and Branch rules and regulations must be complied with. Canoes or bicycles may be used but the distance covered should be increased accordingly. If canoes or bicycles are used the team should be self sufficient, as with hikes, and carry all items required for the journey. Report on your experience through the use of an illustrated log.
     task: Camps. With your Patrol or other Scouts have camped out in tents for a minimum of 15 nights.
-    
+
   badge: Citizenship
-    To achieve the Adventurer Citizenship Target, the Scout must complete all the requirements for No�s 1 to 4, together with any three of the remaining six parts.
+    To achieve the Adventurer Citizenship Target, the Scout must complete all the requirements for Nos 1 to 4, together with any three of the remaining six parts.
     task: Values
       a: Promise and Law Assist and test a Pioneer Scout in the completion of test 1 of Pioneer Citizenship.
-      b: Spiritual development. Lead your Patrol in planning and participating in a Scouts� Own at a Camp or other Troop Activity (such as World Scouts� Day or a church service).
+      b: Spiritual development. Lead your Patrol in planning and participating in a Scouts Own at a Camp or other Troop Activity (such as World Scouts Day or a church service).
     task:First aid. Complete (a) or (b)
       a: Complete a recognized First Aid Course.
       b: Assist and test a Scout to pass the First Aid segment of the Pioneer Badge.
         1: Demonstrate how to deal with fractures to the limbs and collarbone.
-	2: With another Scout set up and run a �mock' emergency to cover at least three of the tasks required in Pioneer and Explorer level and First Aid segment.
+	2: With another Scout set up and run a mock' emergency to cover at least three of the tasks required in Pioneer and Explorer level and First Aid segment.
     task: Leadership. In the Troop Council, or with your Patrol, plan and conduct three activities which will provide opportunities for your Patrol members to learn about leadership and being a productive member of a team.
     task: Good turn. Complete one of (a), (b) or (c)
       a: Assist at a Cub Scout camp or Joey Scout sleepover.
@@ -618,9 +618,9 @@ category: Adventurer
     task: Fitness
       a: Using a game or activity instruct your Patrol in the requirements for Pioneer level.
       b: With your Patrol or other Scouts, participate in an activity and/or discussion that focuses on the negative effects of drugs, smoking and other substance abuse.
-    
+
   badge: Air activities
-    To achieve the Adventurer Air Activities Target, the Scout must complete all the requirements for No�s 1 to 5.
+    To achieve the Adventurer Air Activities Target, the Scout must complete all the requirements for Nos 1 to 5.
     task: Recognition
       a: Be able to recognise by sight twelve types of aircraft.
       b: Recognise and describe the difference between the piston engine and the turbojet engine and show that you understand how the power of these units is adapted to propel an aircraft.
@@ -630,8 +630,8 @@ category: Adventurer
     task: Theory
       a: Describe the correct procedure for radio communication with the control tower or other aircraft on the ground and in the air.
       b: Do one of the following:
-        1: give a talk to your Patrol or Troop for at least five minutes on Australia�s early aviation history
-	2: compile a report on Australia�s aviation pioneers
+        1: give a talk to your Patrol or Troop for at least five minutes on Australias early aviation history
+	2: compile a report on Australias aviation pioneers
 	3: find out, by discussion with a commercial pilot or flight instructor, what the main responsibilities are in performance of their work.
     task: Activity
       a: Arrange to visit a Scout or Air Activity Centre and/or aerodrome, and find out:
@@ -646,7 +646,7 @@ category: Adventurer
 	2: Describe cockpit checks performed by the pilot prior to takeoff and prior to the landing approach.
 	3: Describe the primary effect of aircraft controls.
 	4: Have two flights in a light aircraft.
-	5: Know and demonstrate an elementary knowledge of aircraft controls � control column, rudder pedals, throttle, flaps, trim tabs, mixture control.
+	5: Know and demonstrate an elementary knowledge of aircraft controls  control column, rudder pedals, throttle, flaps, trim tabs, mixture control.
 	6: With the use of a map, compass and protractor, show how to plot a course between two towns.
 	7: Know the procedure to adopt in the event of an emergency.
       b: GLIDING FAMILIARISATION
@@ -661,7 +661,7 @@ category: Adventurer
 	2: glider (hand launched) aerobatics
 	3: rubber powered one minute
 	4: engine powered (maximum 15 seconds motor run) two minutes.
-	
+
   badge: Construction
     To achieve the Adventurer Construction Target, the Scout must complete all of the requirements for No's 1 to 4.
     task: Planning
@@ -685,7 +685,7 @@ category: Adventurer
       g: another project of equivalent safety or difficulty approved by Troop Council.
 
   badge: Emergencies
-    To achieve the Adventurer Emergencies Target, the Scout must complete all of the requirements of No�s 1 to 5.
+    To achieve the Adventurer Emergencies Target, the Scout must complete all of the requirements of Nos 1 to 5.
     task: Recognition. Together with a qualified instructor, teach and test your Patrol about eight different types of emergencies and how to react to these emergencies.
     task: Knowledge
       a: To teach and demonstrate the DRSABCD Action Plan.
@@ -696,16 +696,16 @@ category: Adventurer
     task: Visit. Organise for your Patrol or other Scouts to visit one of the locations listed in Pioneer 3. This is not to be one of the same locations visited during the earning of the Pioneer and Explorer Levels.
     task: Treatment
       a: 1. Teach your Patrol or other Scouts about:
-        1: the circulation of the blood 
-	2: how to control external bleeding 
-	3: the likely cause, symptoms and treatment of internal bleeding. 
-      b: Demonstrate the use of a knapsack spray and rakes in fighting a grass fire. 
+        1: the circulation of the blood
+	2: how to control external bleeding
+	3: the likely cause, symptoms and treatment of internal bleeding.
+      b: Demonstrate the use of a knapsack spray and rakes in fighting a grass fire.
       c: Teach your Patrol:
-        1: the different types of fire extinguishers 
+        1: the different types of fire extinguishers
 	2: explain on what types of fire each should be used/not used, e.g. electrical, oil.
-      d: Lead your Patrol or other Scouts in Explorer Emergencies 4 Activity. 
-      e: Set up emergency communications between two points 500m apart and out of sight of each other. 
-      f: Teach and test a Scout at Explorer level how to deal with fractures to the limbs and collarbone. 
+      d: Lead your Patrol or other Scouts in Explorer Emergencies 4 Activity.
+      e: Set up emergency communications between two points 500m apart and out of sight of each other.
+      f: Teach and test a Scout at Explorer level how to deal with fractures to the limbs and collarbone.
       g: Demonstrate to your Patrol how to treat a sprained ankle.
       h: Demonstrate to your Patrol how to treat a patient with an eye injury.
     task: Mock emergency

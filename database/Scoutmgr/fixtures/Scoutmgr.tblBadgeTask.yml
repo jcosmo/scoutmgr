@@ -1196,7 +1196,7 @@
   ParentID: 195
 197:
   ID: 197
-  Description: anchor or fisherman�s bend
+  Description: anchor or fishermans bend
   BadgeID: 8
   Rank: 197
   ParentID: 195
@@ -1308,8 +1308,8 @@
   ParentID: 210
 215:
   ID: 215
-  Description: Yachting Australia Elective. Yachting Australia course, �Basic Skills
-    1 � Getting into Small Boat Sailing�.
+  Description: Yachting Australia Elective. Yachting Australia course, Basic Skills
+    1  Getting into Small Boat Sailing.
   BadgeID: 8
   Rank: 215
 216:
@@ -1430,7 +1430,7 @@
   ParentID: 232
 235:
   ID: 235
-  Description: either a west country, or sail maker�s whipping
+  Description: either a west country, or sail makers whipping
   BadgeID: 10
   Rank: 235
   ParentID: 232
@@ -1970,7 +1970,7 @@
   ParentID: 318
 322:
   ID: 322
-  Description: Find out the difference in the terms �ground speed� and �air speed�,
+  Description: Find out the difference in the terms ground speed and air speed,
     and how they relate to headwinds and tailwinds.
   BadgeID: 12
   Rank: 322
@@ -2806,7 +2806,7 @@
 458:
   ID: 458
   Description: Yachting Australia Elective. Complete the Yachting Australia course,
-    �Basic Skills 1 � Getting into Small Boat Sailing�.
+    Basic Skills 1  Getting into Small Boat Sailing.
   BadgeID: 16
   Rank: 458
 459:
@@ -2878,14 +2878,14 @@
   ParentID: 467
 470:
   ID: 470
-  Description: put on an APFD in deep water and swim 50 metres. Demonstrate the �HELP�
+  Description: put on an APFD in deep water and swim 50 metres. Demonstrate the HELP
     position
   BadgeID: 17
   Rank: 470
   ParentID: 467
 471:
   ID: 471
-  Description: with at least two other Scouts demonstrate the �huddle� position.
+  Description: with at least two other Scouts demonstrate the huddle position.
   BadgeID: 17
   Rank: 471
   ParentID: 467
@@ -2947,13 +2947,13 @@
   ParentID: 479
 481:
   ID: 481
-  Description: hunter�s bend
+  Description: hunters bend
   BadgeID: 18
   Rank: 481
   ParentID: 479
 482:
   ID: 482
-  Description: fisherman�s knot or prussick knot (for synthetic rope)
+  Description: fishermans knot or prussick knot (for synthetic rope)
   BadgeID: 18
   Rank: 482
   ParentID: 479
@@ -3055,7 +3055,7 @@
 498:
   ID: 498
   Description: Demonstrate how to plan a route for a hike from a topographic map,
-    including an understanding of Naismith�s Rule.
+    including an understanding of Naismiths Rule.
   BadgeID: 18
   Rank: 498
   ParentID: 496
@@ -3203,7 +3203,7 @@
 520:
   ID: 520
   Description: Spiritual development. Lead your Patrol in planning and participating
-    in a Scouts� Own at a Camp or other Troop Activity (such as World Scouts� Day
+    in a Scouts Own at a Camp or other Troop Activity (such as World Scouts Day
     or a church service).
   BadgeID: 19
   Rank: 520
@@ -3234,7 +3234,7 @@
   ParentID: 523
 525:
   ID: 525
-  Description: With another Scout set up and run a �mock' emergency to cover at least
+  Description: With another Scout set up and run a mock' emergency to cover at least
     three of the tasks required in Pioneer and Explorer level and First Aid segment.
   BadgeID: 19
   Rank: 525
@@ -3487,14 +3487,14 @@
   ParentID: 560
 563:
   ID: 563
-  Description: give a talk to your Patrol or Troop for at least five minutes on Australia�s
+  Description: give a talk to your Patrol or Troop for at least five minutes on Australias
     early aviation history
   BadgeID: 20
   Rank: 563
   ParentID: 562
 564:
   ID: 564
-  Description: compile a report on Australia�s aviation pioneers
+  Description: compile a report on Australias aviation pioneers
   BadgeID: 20
   Rank: 564
   ParentID: 562
@@ -3587,7 +3587,7 @@
   ParentID: 574
 579:
   ID: 579
-  Description: Know and demonstrate an elementary knowledge of aircraft controls �
+  Description: Know and demonstrate an elementary knowledge of aircraft controls
     control column, rudder pedals, throttle, flaps, trim tabs, mixture control.
   BadgeID: 20
   Rank: 579
