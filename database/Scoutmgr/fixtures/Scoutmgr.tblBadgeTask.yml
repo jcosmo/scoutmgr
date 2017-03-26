@@ -1,7 +1,7 @@
 ---
 1:
   ID: 1
-  Description: Learn and be able to demonstrate the following knots
+  Description: With your Patrol, learn and be able to demonstrate the following knots
   BadgeID: 1
   Rank: 1
 2:
@@ -101,47 +101,3849 @@
   ParentID: 13
 18:
   ID: 18
-  Description: Knots and Lashings
-  BadgeID: 2
+  Description: Patrol System
+  BadgeID: 1
   Rank: 18
 19:
   ID: 19
-  Description: Know the Scoutcraft knots
-  BadgeID: 2
+  Description: Discuss with your Patrol leader the requirements of the Pioneer Target
+    or other appropriate Target of the Award Scheme
+  BadgeID: 1
   Rank: 19
   ParentID: 18
 20:
   ID: 20
-  Description: Learn the following lashings
-  BadgeID: 2
+  Description: Discuss with your Patrol leader how the Patrol system works in your
+    troop e.g. election of Patrol Leader, appointment of APL, responsibilities of
+    Troop Council and how it works.
+  BadgeID: 1
   Rank: 20
   ParentID: 18
 21:
   ID: 21
-  Description: Square lashing
-  BadgeID: 2
+  Description: Show an understanding of how a Patrol works within the Troop
+  BadgeID: 1
   Rank: 21
-  ParentID: 20
+  ParentID: 18
 22:
   ID: 22
-  Description: Round lashing
+  Description: Knots and Lashings
   BadgeID: 2
   Rank: 22
-  ParentID: 20
 23:
   ID: 23
-  Description: Prussic square lashing for synthetic rope
+  Description: Know the Scoutcraft knots
   BadgeID: 2
   Rank: 23
-  ParentID: 20
+  ParentID: 22
 24:
   ID: 24
-  Description: Fire and fuel
+  Description: Learn the following lashings
   BadgeID: 2
   Rank: 24
+  ParentID: 22
 25:
   ID: 25
-  Description: Know the laws about lighting fires in your State or Territory
+  Description: Square lashing
   BadgeID: 2
   Rank: 25
   ParentID: 24
+26:
+  ID: 26
+  Description: Round lashing
+  BadgeID: 2
+  Rank: 26
+  ParentID: 24
+27:
+  ID: 27
+  Description: Prussic square lashing for synthetic rope
+  BadgeID: 2
+  Rank: 27
+  ParentID: 24
+28:
+  ID: 28
+  Description: Fire and fuel
+  BadgeID: 2
+  Rank: 28
+29:
+  ID: 29
+  Description: Know the laws about lighting fires in your State or Territory
+  BadgeID: 2
+  Rank: 29
+  ParentID: 28
+30:
+  ID: 30
+  Description: Explain what you can do to keep fires under control, to protect yourself
+    and other Scouts whilst camping/hiking etc.
+  BadgeID: 2
+  Rank: 30
+  ParentID: 28
+31:
+  ID: 31
+  Description: Learn how to light and extinguish a fire in dry conditions.
+  BadgeID: 2
+  Rank: 31
+  ParentID: 28
+32:
+  ID: 32
+  Description: Demonstrate how to set up and use two types of stoves, either gas or
+    fuel, or how to select and cut firewood
+  BadgeID: 2
+  Rank: 32
+  ParentID: 28
+33:
+  ID: 33
+  Description: Know the dangers of gas or fuel lanterns
+  BadgeID: 2
+  Rank: 33
+  ParentID: 28
+34:
+  ID: 34
+  Description: Safety and survival
+  BadgeID: 2
+  Rank: 34
+35:
+  ID: 35
+  Description: 'Learn what you can do to prevent the following:'
+  BadgeID: 2
+  Rank: 35
+  ParentID: 34
+36:
+  ID: 36
+  Description: becoming separated from your Patrol and getting lost
+  BadgeID: 2
+  Rank: 36
+  ParentID: 35
+37:
+  ID: 37
+  Description: getting sunburnt, sunstroke, heat exhaustion and skin cancer
+  BadgeID: 2
+  Rank: 37
+  ParentID: 35
+38:
+  ID: 38
+  Description: Injuries from swimming in unknown waters
+  BadgeID: 2
+  Rank: 38
+  ParentID: 35
+39:
+  ID: 39
+  Description: 'Demonstrate an understanding of:'
+  BadgeID: 2
+  Rank: 39
+  ParentID: 35
+40:
+  ID: 40
+  Description: practical traffic safety for a Patrol Hike
+  BadgeID: 2
+  Rank: 40
+  ParentID: 39
+41:
+  ID: 41
+  Description: the correct footwear to use at Scouting activities
+  BadgeID: 2
+  Rank: 41
+  ParentID: 39
+42:
+  ID: 42
+  Description: 'Navigation. Learn and demonstrate the following:'
+  BadgeID: 2
+  Rank: 42
+43:
+  ID: 43
+  Description: the eight principle points of the compass and their equivalent in degrees
+  BadgeID: 2
+  Rank: 43
+  ParentID: 42
+44:
+  ID: 44
+  Description: the use and care of a compass
+  BadgeID: 2
+  Rank: 44
+  ParentID: 42
+45:
+  ID: 45
+  Description: the relationship between true and magnetic north
+  BadgeID: 2
+  Rank: 45
+  ParentID: 42
+46:
+  ID: 46
+  Description: how to set and follow a bearing
+  BadgeID: 2
+  Rank: 46
+  ParentID: 42
+47:
+  ID: 47
+  Description: how to read a map including scale, legend, date of issue, grid reference
+    and contour lines
+  BadgeID: 2
+  Rank: 47
+  ParentID: 42
+48:
+  ID: 48
+  Description: Cooking. Assist in the cooking of at least three camp meals.
+  BadgeID: 2
+  Rank: 48
+49:
+  ID: 49
+  Description: 'Camp activity. With your Patrol:'
+  BadgeID: 2
+  Rank: 49
+50:
+  ID: 50
+  Description: 'Learn about the following:'
+  BadgeID: 2
+  Rank: 50
+  ParentID: 49
+51:
+  ID: 51
+  Description: personal hygiene in camp
+  BadgeID: 2
+  Rank: 51
+  ParentID: 50
+52:
+  ID: 52
+  Description: care of bedding
+  BadgeID: 2
+  Rank: 52
+  ParentID: 50
+53:
+  ID: 53
+  Description: protection against insects
+  BadgeID: 2
+  Rank: 53
+  ParentID: 50
+54:
+  ID: 54
+  Description: learn how to pitch, strike, dry and store a tent
+  BadgeID: 2
+  Rank: 54
+  ParentID: 50
+55:
+  ID: 55
+  Description: Pack your own personal equipment for a weekend camp
+  BadgeID: 2
+  Rank: 55
+  ParentID: 50
+56:
+  ID: 56
+  Description: With other scouts, prepare a menu and food list for a weekend camp
+  BadgeID: 2
+  Rank: 56
+  ParentID: 50
+57:
+  ID: 57
+  Description: Select and lay out a Patrol camp site
+  BadgeID: 2
+  Rank: 57
+  ParentID: 50
+58:
+  ID: 58
+  Description: Journey
+  BadgeID: 2
+  Rank: 58
+59:
+  ID: 59
+  Description: With at least four other members of your Patrol, plan and go on a hike
+    for at least one day on a marked walking track in a familliar area.
+  BadgeID: 2
+  Rank: 59
+  ParentID: 58
+60:
+  ID: 60
+  Description: Camp. With your Patrol or other scouts have camped out in tents for
+    a minimum of six nights.
+  BadgeID: 2
+  Rank: 60
+61:
+  ID: 61
+  Description: Values
+  BadgeID: 3
+  Rank: 61
+62:
+  ID: 62
+  Description: Promise and Law
+  BadgeID: 3
+  Rank: 62
+  ParentID: 61
+63:
+  ID: 63
+  Description: Know and understand the Scout Promise and Law
+  BadgeID: 3
+  Rank: 63
+  ParentID: 62
+64:
+  ID: 64
+  Description: Show your Scout Leader that you are doing your best to keep your Scout
+    Promise and you are living by the Scout Law.
+  BadgeID: 3
+  Rank: 64
+  ParentID: 62
+65:
+  ID: 65
+  Description: Spiritual awareness
+  BadgeID: 3
+  Rank: 65
+  ParentID: 62
+66:
+  ID: 66
+  Description: Make up a prayer or similar item for use at a Scout meeting/activity.
+  BadgeID: 3
+  Rank: 66
+  ParentID: 65
+67:
+  ID: 67
+  Description: First aid. Complete (a) or (b)
+  BadgeID: 3
+  Rank: 67
+68:
+  ID: 68
+  Description: Know the first aid for Pioneer Emergencies
+  BadgeID: 3
+  Rank: 68
+  ParentID: 67
+69:
+  ID: 69
+  Description: 'Undertake the following:'
+  BadgeID: 3
+  Rank: 69
+  ParentID: 67
+70:
+  ID: 70
+  Description: learn the correct method to obtain a response from an injured person
+  BadgeID: 3
+  Rank: 70
+  ParentID: 69
+71:
+  ID: 71
+  Description: learn how to find and check a pulse
+  BadgeID: 3
+  Rank: 71
+  ParentID: 69
+72:
+  ID: 72
+  Description: learn how to, and demonstrate, how you would correctly place an unconscious
+    person on their side (recovery position)
+  BadgeID: 3
+  Rank: 72
+  ParentID: 69
+73:
+  ID: 73
+  Description: learn and demonstrate the treatments for snake and spider bites
+  BadgeID: 3
+  Rank: 73
+  ParentID: 69
+74:
+  ID: 74
+  Description: what are three things that could cause a headache or fever?
+  BadgeID: 3
+  Rank: 74
+  ParentID: 69
+75:
+  ID: 75
+  Description: learn the correct method of treating wounds and preventing infection
+  BadgeID: 3
+  Rank: 75
+  ParentID: 69
+76:
+  ID: 76
+  Description: learn the principles of foot care, e.g. prevention and treatment of
+    blisters.
+  BadgeID: 3
+  Rank: 76
+  ParentID: 69
+77:
+  ID: 77
+  Description: Leadership. Discuss with your Patrol Leader three different examples
+    of times when your Patrol has worked as a team. Explain to your Patrol Leader
+    how you believe this has helped your Patrol.
+  BadgeID: 3
+  Rank: 77
+78:
+  ID: 78
+  Description: Good turn. While earning this badge as a Scout, participate in some
+    form of community service, which must be over a minimum of two hours, preferably
+    outside the Scout movement.
+  BadgeID: 3
+  Rank: 78
+79:
+  ID: 79
+  Description: Breaking the Cycle
+  BadgeID: 3
+  Rank: 79
+80:
+  ID: 80
+  Description: Watch the 'Bullying it's not part of Scouting' Youtube video and have
+    a discussion with your Leaders and parents about why Scouts do not bully.
+  BadgeID: 3
+  Rank: 80
+  ParentID: 79
+81:
+  ID: 81
+  Description: Using the Scout video discuss
+  BadgeID: 3
+  Rank: 81
+  ParentID: 79
+82:
+  ID: 82
+  Description: What do you think is occurring?
+  BadgeID: 3
+  Rank: 82
+  ParentID: 81
+83:
+  ID: 83
+  Description: How do you think the person is feeling?
+  BadgeID: 3
+  Rank: 83
+  ParentID: 81
+84:
+  ID: 84
+  Description: Discuss what you would do if you were the person in the video
+  BadgeID: 3
+  Rank: 84
+  ParentID: 81
+85:
+  ID: 85
+  Description: Who would you share this with?
+  BadgeID: 3
+  Rank: 85
+  ParentID: 81
+86:
+  ID: 86
+  Description: How does this action fit with our Scout code?
+  BadgeID: 3
+  Rank: 86
+  ParentID: 81
+87:
+  ID: 87
+  Description: How do you care for yourself or others?
+  BadgeID: 3
+  Rank: 87
+  ParentID: 81
+88:
+  ID: 88
+  Description: Discuss with your PL/APL your Troop's Scout Code and how the Code applies
+    to you and contribute to annual review of Troop Code and sign.
+  BadgeID: 3
+  Rank: 88
+  ParentID: 81
+89:
+  ID: 89
+  Description: Heritage. Complete (a) or (b)
+  BadgeID: 3
+  Rank: 89
+90:
+  ID: 90
+  Description: Know the meanings of three local place names and discuss these with
+    your Patrol Leader.
+  BadgeID: 3
+  Rank: 90
+  ParentID: 89
+91:
+  ID: 91
+  Description: Name two cultures within your community that are different from your
+    own. List two ways in which each is different from your own. Discuss your answers
+    with your Patrol Leader.
+  BadgeID: 3
+  Rank: 91
+  ParentID: 89
+92:
+  ID: 92
+  Description: Activity. Complete (a) or (b)
+  BadgeID: 3
+  Rank: 92
+93:
+  ID: 93
+  Description: With your Patrol, find out what facilities (health, education, leisure,
+    and social) are available in your local area for young people of Scout age. These
+    may be provided by your local government and/or other service providers. Find
+    out who runs them (Department of Health, Department of Education, Local Council
+    etc) and present your findings to the Troop.
+  BadgeID: 3
+  Rank: 93
+  ParentID: 92
+94:
+  ID: 94
+  Description: With your Patrol or other Scouts take part in a tour of your community,
+    designed to help a visitor see and learn about it.
+  BadgeID: 3
+  Rank: 94
+  ParentID: 92
+95:
+  ID: 95
+  Description: Community. With members of your Patrol, visit an organisation that
+    serves your local community. Find out what service it provides and how it is organised.
+    Such an organisation could be the local seat of government, community service
+    agency, local TV or radio station, newspaper, urban or rural fire service, ambulance
+    station, police station, emergency services, forestry, sewerage authority etc.
+  BadgeID: 3
+  Rank: 95
+96:
+  ID: 96
+  Description: Environment. Complete (a) or (b)
+  BadgeID: 3
+  Rank: 96
+97:
+  ID: 97
+  Description: Complete one third of a project for the Landcare Badge.
+  BadgeID: 3
+  Rank: 97
+  ParentID: 96
+98:
+  ID: 98
+  Description: Discuss with your family five ways in which they could be more environmentally
+    friendly. Discuss these with your Patrol.
+  BadgeID: 3
+  Rank: 98
+  ParentID: 96
+99:
+  ID: 99
+  Description: Fitness. Show an understanding of a healthy lifestyle including the
+    need for a healthy diet, correct amount of sleep and why we need to exercise.
+  BadgeID: 3
+  Rank: 99
+100:
+  ID: 100
+  Description: Recognition. Be able to recognise by sight four different types of
+    aircraft and know their function
+  BadgeID: 4
+  Rank: 100
+101:
+  ID: 101
+  Description: Weather
+  BadgeID: 4
+  Rank: 101
+102:
+  ID: 102
+  Description: Explain how the three types of weather can have an effect on the flight
+    performance of an aircraft.
+  BadgeID: 4
+  Rank: 102
+  ParentID: 101
+103:
+  ID: 103
+  Description: Be able to recognise four signs of changes in the weather in your local
+    area.
+  BadgeID: 4
+  Rank: 103
+  ParentID: 101
+104:
+  ID: 104
+  Description: Theory
+  BadgeID: 4
+  Rank: 104
+105:
+  ID: 105
+  Description: Know the difference between a monoplane and a biplane.
+  BadgeID: 4
+  Rank: 105
+  ParentID: 104
+106:
+  ID: 106
+  Description: 'Using a model or pictures of an aircraft describe the following parts:
+    fuselage, mainplane, tailplane, undercarriage, leading edge, trailing edge, rudder,
+    aileron, tailfin, flaps, trimtab.'
+  BadgeID: 4
+  Rank: 106
+  ParentID: 104
+107:
+  ID: 107
+  Description: Activity. Complete (a), (b), or (c)
+  BadgeID: 4
+  Rank: 107
+108:
+  ID: 108
+  Description: 'With members of your Patrol or other Scouts visit a Scout Air Activities
+    Centre and/or airfield, and find out:'
+  BadgeID: 4
+  Rank: 108
+  ParentID: 107
+109:
+  ID: 109
+  Description: who owns the airfield
+  BadgeID: 4
+  Rank: 109
+  ParentID: 108
+110:
+  ID: 110
+  Description: how many runways there are
+  BadgeID: 4
+  Rank: 110
+  ParentID: 108
+111:
+  ID: 111
+  Description: what the runway compass directions are
+  BadgeID: 4
+  Rank: 111
+  ParentID: 108
+112:
+  ID: 112
+  Description: what and where the windsock is
+  BadgeID: 4
+  Rank: 112
+  ParentID: 108
+113:
+  ID: 113
+  Description: what colour the runway markers are.
+  BadgeID: 4
+  Rank: 113
+  ParentID: 108
+114:
+  ID: 114
+  Description: 'Construct both:'
+  BadgeID: 4
+  Rank: 114
+  ParentID: 108
+115:
+  ID: 115
+  Description: a glider (hand launched) which can fly for ten seconds
+  BadgeID: 4
+  Rank: 115
+  ParentID: 114
+116:
+  ID: 116
+  Description: a rubber-band powered model which can fly for 30 seconds. One model
+    of each type required and the use of a kit is permitted.
+  BadgeID: 4
+  Rank: 116
+  ParentID: 114
+117:
+  ID: 117
+  Description: Have a flight in a light aircraft or glider or hot air balloon.
+  BadgeID: 4
+  Rank: 117
+  ParentID: 114
+118:
+  ID: 118
+  Description: 'Planning. Sketch and explain how you, along with your Patrol, would
+    go about constructing:'
+  BadgeID: 5
+  Rank: 118
+119:
+  ID: 119
+  Description: a flagpole about five metres high using at least two lengths of material
+  BadgeID: 5
+  Rank: 119
+  ParentID: 118
+120:
+  ID: 120
+  Description: a Scout chariot
+  BadgeID: 5
+  Rank: 120
+  ParentID: 118
+121:
+  ID: 121
+  Description: a camp wash stand or similar simple equipment.
+  BadgeID: 5
+  Rank: 121
+  ParentID: 118
+122:
+  ID: 122
+  Description: Equipment and safety
+  BadgeID: 5
+  Rank: 122
+123:
+  ID: 123
+  Description: Know how to select suitably sized poles and ropes required for the
+    above structures.
+  BadgeID: 5
+  Rank: 123
+  ParentID: 122
+124:
+  ID: 124
+  Description: Know how to trim poles to length using a bush saw.
+  BadgeID: 5
+  Rank: 124
+  ParentID: 122
+125:
+  ID: 125
+  Description: Explain what safety precautions you would take if building a tower
+    bridge or similar.
+  BadgeID: 5
+  Rank: 125
+  ParentID: 122
+126:
+  ID: 126
+  Description: Knots and lashings
+  BadgeID: 5
+  Rank: 126
+127:
+  ID: 127
+  Description: Demonstrate the Scoutcraft knots and the Pioneer Campcraft lashings.
+  BadgeID: 5
+  Rank: 127
+  ParentID: 126
+128:
+  ID: 128
+  Description: Know how to tie two types of anchorages.
+  BadgeID: 5
+  Rank: 128
+  ParentID: 126
+129:
+  ID: 129
+  Description: 'Projects. With your Patrol or other Scouts take part in:'
+  BadgeID: 5
+  Rank: 129
+130:
+  ID: 130
+  Description: erecting a flagpole about three metres high, using at least two lengths
+    of material, which need not be wood
+  BadgeID: 5
+  Rank: 130
+  ParentID: 129
+131:
+  ID: 131
+  Description: the building of a Scout chariot
+  BadgeID: 5
+  Rank: 131
+  ParentID: 129
+132:
+  ID: 132
+  Description: the construction of a camp washstand or similar items.
+  BadgeID: 5
+  Rank: 132
+  ParentID: 129
+133:
+  ID: 133
+  Description: Recognition. Be able to suggest at least five different situations
+    that could be classified as an emergency.
+  BadgeID: 6
+  Rank: 133
+134:
+  ID: 134
+  Description: 'Knowledge. Learn the following:'
+  BadgeID: 6
+  Rank: 134
+135:
+  ID: 135
+  Description: the importance of checking for any dangers to yourself and others before
+    approaching an unconscious person
+  BadgeID: 6
+  Rank: 135
+  ParentID: 134
+136:
+  ID: 136
+  Description: how to correctly check if a person is breathing
+  BadgeID: 6
+  Rank: 136
+  ParentID: 134
+137:
+  ID: 137
+  Description: the common causes of a blocked airway, and how to clear it
+  BadgeID: 6
+  Rank: 137
+  ParentID: 134
+138:
+  ID: 138
+  Description: how to open the airway.
+  BadgeID: 6
+  Rank: 138
+  ParentID: 134
+139:
+  ID: 139
+  Description: Visit. With your Patrol or other Scouts visit one of the following
+    and report on their preparations for particular emergencies.
+  BadgeID: 6
+  Rank: 139
+140:
+  ID: 140
+  Description: Fire Station
+  BadgeID: 6
+  Rank: 140
+  ParentID: 139
+141:
+  ID: 141
+  Description: Police Station
+  BadgeID: 6
+  Rank: 141
+  ParentID: 139
+142:
+  ID: 142
+  Description: State Emergency Services Station
+  BadgeID: 6
+  Rank: 142
+  ParentID: 139
+143:
+  ID: 143
+  Description: Casualty at a public hospital
+  BadgeID: 6
+  Rank: 143
+  ParentID: 139
+144:
+  ID: 144
+  Description: Ambulance Station
+  BadgeID: 6
+  Rank: 144
+  ParentID: 139
+145:
+  ID: 145
+  Description: Surf Life Saving Club
+  BadgeID: 6
+  Rank: 145
+  ParentID: 139
+146:
+  ID: 146
+  Description: Meals on Wheels kitchen
+  BadgeID: 6
+  Rank: 146
+  ParentID: 139
+147:
+  ID: 147
+  Description: Railway breakdown crew
+  BadgeID: 6
+  Rank: 147
+  ParentID: 139
+148:
+  ID: 148
+  Description: An airport
+  BadgeID: 6
+  Rank: 148
+  ParentID: 139
+149:
+  ID: 149
+  Description: Quarantine Station
+  BadgeID: 6
+  Rank: 149
+  ParentID: 139
+150:
+  ID: 150
+  Description: Air/Sea Rescue Station.
+  BadgeID: 6
+  Rank: 150
+  ParentID: 139
+151:
+  ID: 151
+  Description: 'Treatment. The basic principles of first aid:'
+  BadgeID: 6
+  Rank: 151
+152:
+  ID: 152
+  Description: learn how to control bleeding from a badly cut arm or leg
+  BadgeID: 6
+  Rank: 152
+  ParentID: 151
+153:
+  ID: 153
+  Description: learn how to treat a nose bleed
+  BadgeID: 6
+  Rank: 153
+  ParentID: 151
+154:
+  ID: 154
+  Description: know four uses of a triangular bandage
+  BadgeID: 6
+  Rank: 154
+  ParentID: 151
+155:
+  ID: 155
+  Description: learn the treatment for minor burns and scalds sustained at camp
+  BadgeID: 6
+  Rank: 155
+  ParentID: 151
+156:
+  ID: 156
+  Description: learn how to treat fractures to the lower arm and leg.
+  BadgeID: 6
+  Rank: 156
+  ParentID: 151
+157:
+  ID: 157
+  Description: 'Activity. In a Scout activity:'
+  BadgeID: 6
+  Rank: 157
+158:
+  ID: 158
+  Description: learn two types of hand seats and know when each should be used
+  BadgeID: 6
+  Rank: 158
+  ParentID: 157
+159:
+  ID: 159
+  Description: assist in carrying a patient on a stretcher
+  BadgeID: 6
+  Rank: 159
+  ParentID: 157
+160:
+  ID: 160
+  Description: 'with another Scout:'
+  BadgeID: 6
+  Rank: 160
+  ParentID: 157
+161:
+  ID: 161
+  Description: inspect your Troop meeting place or home garage/storage shed
+  BadgeID: 6
+  Rank: 161
+  ParentID: 160
+162:
+  ID: 162
+  Description: list the things which may be dangerous, and
+  BadgeID: 6
+  Rank: 162
+  ParentID: 160
+163:
+  ID: 163
+  Description: help fix at least one of them
+  BadgeID: 6
+  Rank: 163
+  ParentID: 160
+164:
+  ID: 164
+  Description: with your Patrol, or other Scouts, assist in one mock emergency activity.
+  BadgeID: 6
+  Rank: 164
+  ParentID: 160
+165:
+  ID: 165
+  Description: Complete the requirements for the LANDCARE BADGE
+  BadgeID: 7
+  Rank: 165
+166:
+  ID: 166
+  Description: Environment
+  BadgeID: 7
+  Rank: 166
+167:
+  ID: 167
+  Description: Nature
+  BadgeID: 7
+  Rank: 167
+  ParentID: 166
+168:
+  ID: 168
+  Description: Identify a local degraded area, for example caused by salinity in a
+    waterway or soil erosion in bushland.
+  BadgeID: 7
+  Rank: 168
+  ParentID: 167
+169:
+  ID: 169
+  Description: Discuss causes and suggest future actions.
+  BadgeID: 7
+  Rank: 169
+  ParentID: 167
+170:
+  ID: 170
+  Description: Contribute to an action plan for improvement.
+  BadgeID: 7
+  Rank: 170
+  ParentID: 167
+171:
+  ID: 171
+  Description: Participate in a study of a local conservation area and discover the
+    habitat and/or fauna species being protected. Document your findings.
+  BadgeID: 7
+  Rank: 171
+  ParentID: 167
+172:
+  ID: 172
+  Description: Recycling
+  BadgeID: 7
+  Rank: 172
+  ParentID: 167
+173:
+  ID: 173
+  Description: With your family, demonstrate how you have taken responsibility for
+    household waste (such as separation of recyclables, composting, waste reduction).
+  BadgeID: 7
+  Rank: 173
+  ParentID: 172
+174:
+  ID: 174
+  Description: With your Patrol or other Scouts help to create an educational poster.
+  BadgeID: 7
+  Rank: 174
+  ParentID: 172
+175:
+  ID: 175
+  Description: Activity
+  BadgeID: 7
+  Rank: 175
+  ParentID: 172
+176:
+  ID: 176
+  Description: With a group of Scouts, design and produce an environmental educational
+    presentation (such as poster, demonstration, activity). The presentation should
+    show how humans have had an impact on the environment and what can be done to
+    improve the present situation.
+  BadgeID: 7
+  Rank: 176
+  ParentID: 175
+177:
+  ID: 177
+  Description: Present your findings to your chosen audience.
+  BadgeID: 7
+  Rank: 177
+  ParentID: 175
+178:
+  ID: 178
+  Description: Visit
+  BadgeID: 7
+  Rank: 178
+  ParentID: 175
+179:
+  ID: 179
+  Description: Participate in an evaluation of your local waste disposal system and
+    suggest improvements. Where possible, visit an installation (such as local rubbish
+    tip, transfer station, recycling facility, sewerage plant).
+  BadgeID: 7
+  Rank: 179
+  ParentID: 178
+180:
+  ID: 180
+  Description: Report on your findings.
+  BadgeID: 7
+  Rank: 180
+  ParentID: 178
+181:
+  ID: 181
+  Description: Visit or contact an organisation that helps to protect the local environment.
+    Find out what items they cover, such as flora (plants), fauna (animals) and waterways.
+    Help on a service activity for a total of four hours.
+  BadgeID: 7
+  Rank: 181
+  ParentID: 178
+182:
+  ID: 182
+  Description: Weather
+  BadgeID: 8
+  Rank: 182
+183:
+  ID: 183
+  Description: Be able to locate weather forecasting information that is suitable
+    for your water activity.
+  BadgeID: 8
+  Rank: 183
+  ParentID: 182
+184:
+  ID: 184
+  Description: Explain the effects of weather on canoeing, sailing or rowing.
+  BadgeID: 8
+  Rank: 184
+  ParentID: 182
+185:
+  ID: 185
+  Description: Safety
+  BadgeID: 8
+  Rank: 185
+186:
+  ID: 186
+  Description: Demonstrate wearing an approved personal flotation device and know
+    when it should be worn while boating.
+  BadgeID: 8
+  Rank: 186
+  ParentID: 185
+187:
+  ID: 187
+  Description: Stay afloat for three minutes without a personal floatation device.
+  BadgeID: 8
+  Rank: 187
+  ParentID: 185
+188:
+  ID: 188
+  Description: Be able to swim 50 metres.
+  BadgeID: 8
+  Rank: 188
+  ParentID: 185
+189:
+  ID: 189
+  Description: Explain the importance of staying with an overturned boat and why you
+    must never go boating alone.
+  BadgeID: 8
+  Rank: 189
+  ParentID: 185
+190:
+  ID: 190
+  Description: First aid
+  BadgeID: 8
+  Rank: 190
+191:
+  ID: 191
+  Description: Have passed the Citizenship First Aid requirements for Pioneer level.
+  BadgeID: 8
+  Rank: 191
+  ParentID: 190
+192:
+  ID: 192
+  Description: Know how to prevent and treat common problems associated with boating
+    (sunburn, eyestrain, sunstroke, seasickness, immersion and hypothermia).
+  BadgeID: 8
+  Rank: 192
+  ParentID: 190
+193:
+  ID: 193
+  Description: Knots
+  BadgeID: 8
+  Rank: 193
+194:
+  ID: 194
+  Description: Have passed the Scoutcraft and Pioneer Campcraft knotting requirements.
+  BadgeID: 8
+  Rank: 194
+  ParentID: 193
+195:
+  ID: 195
+  Description: 'Learn and use the following knots for boating activities:'
+  BadgeID: 8
+  Rank: 195
+  ParentID: 193
+196:
+  ID: 196
+  Description: figure of eight knot
+  BadgeID: 8
+  Rank: 196
+  ParentID: 195
+197:
+  ID: 197
+  Description: anchor or fisherman�s bend
+  BadgeID: 8
+  Rank: 197
+  ParentID: 195
+198:
+  ID: 198
+  Description: bowline
+  BadgeID: 8
+  Rank: 198
+  ParentID: 195
+199:
+  ID: 199
+  Description: Learn and use a common rope whipping, e.g. simple whipping, west country
+    whipping.
+  BadgeID: 8
+  Rank: 199
+  ParentID: 195
+200:
+  ID: 200
+  Description: 'Canoeing Elective. In an approved canoe, with the assistance of a
+    qualified person who has appropriate qualifications, complete the following:'
+  BadgeID: 8
+  Rank: 200
+201:
+  ID: 201
+  Description: learn the main parts of a canoe and paddle
+  BadgeID: 8
+  Rank: 201
+  ParentID: 200
+202:
+  ID: 202
+  Description: demonstrate paddling backwards and forwards and emergency stopping
+  BadgeID: 8
+  Rank: 202
+  ParentID: 200
+203:
+  ID: 203
+  Description: paddle upstream, return and make a clean approach to the landing stage
+    or bank
+  BadgeID: 8
+  Rank: 203
+  ParentID: 200
+204:
+  ID: 204
+  Description: capsize canoe in water; bring it back to shore and empty canoe in correct
+    manner
+  BadgeID: 8
+  Rank: 204
+  ParentID: 200
+205:
+  ID: 205
+  Description: paddle a canoe for a minimum of 3 hours.
+  BadgeID: 8
+  Rank: 205
+  ParentID: 200
+206:
+  ID: 206
+  Description: 'Rowing Elective. In an approved rowing boat, with the assistance of
+    a qualified person who has appropriate qualifications, complete the following:'
+  BadgeID: 8
+  Rank: 206
+207:
+  ID: 207
+  Description: learn and name the various parts of an oar
+  BadgeID: 8
+  Rank: 207
+  ParentID: 206
+208:
+  ID: 208
+  Description: learn by name and be able to point out a minimum of five parts of a
+    rowing boat
+  BadgeID: 8
+  Rank: 208
+  ParentID: 206
+209:
+  ID: 209
+  Description: demonstrate how to row a dinghy around a 50m triangular course.
+  BadgeID: 8
+  Rank: 209
+  ParentID: 206
+210:
+  ID: 210
+  Description: 'Sailing Elective. In an approved sailing boat, with the assistance
+    of a qualified person who has appropriate qualifications, complete the following:'
+  BadgeID: 8
+  Rank: 210
+211:
+  ID: 211
+  Description: learn the parts of a sail
+  BadgeID: 8
+  Rank: 211
+  ParentID: 210
+212:
+  ID: 212
+  Description: learn the parts of a sailboat
+  BadgeID: 8
+  Rank: 212
+  ParentID: 210
+213:
+  ID: 213
+  Description: be able to assist in rigging a boat
+  BadgeID: 8
+  Rank: 213
+  ParentID: 210
+214:
+  ID: 214
+  Description: crew in a sailboat for a minimum of 6 hours.
+  BadgeID: 8
+  Rank: 214
+  ParentID: 210
+215:
+  ID: 215
+  Description: Yachting Australia Elective. Yachting Australia course, �Basic Skills
+    1 � Getting into Small Boat Sailing�.
+  BadgeID: 8
+  Rank: 215
+216:
+  ID: 216
+  Description: Safe entry and swim
+  BadgeID: 9
+  Rank: 216
+217:
+  ID: 217
+  Description: Jump into deep water, fully clothed (long pants, shirt, socks and runners),
+    and remove these items in the water with feet off the bottom.
+  BadgeID: 9
+  Rank: 217
+  ParentID: 216
+218:
+  ID: 218
+  Description: 'Demonstrate the following:'
+  BadgeID: 9
+  Rank: 218
+  ParentID: 216
+219:
+  ID: 219
+  Description: swim 50 metres without an approved personal floatation device (PFD)
+    then tread water or slow swim for 15 minutes
+  BadgeID: 9
+  Rank: 219
+  ParentID: 218
+220:
+  ID: 220
+  Description: swim 15 minutes without any floatation device
+  BadgeID: 9
+  Rank: 220
+  ParentID: 218
+221:
+  ID: 221
+  Description: remain afloat for at least three minutes without any floatation device.
+  BadgeID: 9
+  Rank: 221
+  ParentID: 218
+222:
+  ID: 222
+  Description: 'Rescue Demonstrate the following:'
+  BadgeID: 9
+  Rank: 222
+223:
+  ID: 223
+  Description: a reaching assist (arm, towel, pole etc.)
+  BadgeID: 9
+  Rank: 223
+  ParentID: 222
+224:
+  ID: 224
+  Description: a throwing assist (rope, ring, buoy, etc.)
+  BadgeID: 9
+  Rank: 224
+  ParentID: 222
+225:
+  ID: 225
+  Description: how to carry an unconscious person over ten metres.
+  BadgeID: 9
+  Rank: 225
+  ParentID: 222
+226:
+  ID: 226
+  Description: Safety
+  BadgeID: 9
+  Rank: 226
+227:
+  ID: 227
+  Description: Know the problems and dangers that can occur, or are present, in three
+    different locations in your local area. For example sea, rivers, swimming pools
+    dams and lakes.
+  BadgeID: 9
+  Rank: 227
+  ParentID: 226
+228:
+  ID: 228
+  Description: 'Know how to prevent and/or treat the following: sunburn, cramp, skin
+    cancer, stings, exhaustion, leeches, blue-ringed octopus and one other danger
+    to your environment eg stone fish.'
+  BadgeID: 9
+  Rank: 228
+  ParentID: 226
+229:
+  ID: 229
+  Description: Have passed the requirements of Citizenship 2 at Pioneer Level.
+  BadgeID: 9
+  Rank: 229
+230:
+  ID: 230
+  Description: Knots and lashings
+  BadgeID: 10
+  Rank: 230
+231:
+  ID: 231
+  Description: Assist a Scout in passing those knots and lashings required for Pioneer
+    level.
+  BadgeID: 10
+  Rank: 231
+  ParentID: 230
+232:
+  ID: 232
+  Description: 'Learn to tie and use in a Scout activity the following:'
+  BadgeID: 10
+  Rank: 232
+  ParentID: 230
+233:
+  ID: 233
+  Description: bowline (or double figure of eight for synthetic rope)
+  BadgeID: 10
+  Rank: 233
+  ParentID: 232
+234:
+  ID: 234
+  Description: sheepshank
+  BadgeID: 10
+  Rank: 234
+  ParentID: 232
+235:
+  ID: 235
+  Description: either a west country, or sail maker�s whipping
+  BadgeID: 10
+  Rank: 235
+  ParentID: 232
+236:
+  ID: 236
+  Description: round turn and two half hitches
+  BadgeID: 10
+  Rank: 236
+  ParentID: 232
+237:
+  ID: 237
+  Description: diagonal lashing
+  BadgeID: 10
+  Rank: 237
+  ParentID: 232
+238:
+  ID: 238
+  Description: figure of eight lashing.
+  BadgeID: 10
+  Rank: 238
+  ParentID: 232
+239:
+  ID: 239
+  Description: Demonstrate how to tie down a load on a trailer or truck.
+  BadgeID: 10
+  Rank: 239
+  ParentID: 232
+240:
+  ID: 240
+  Description: Fire and fuel
+  BadgeID: 10
+  Rank: 240
+241:
+  ID: 241
+  Description: Assist a Scout in passing all the activities required at Pioneer level.
+  BadgeID: 10
+  Rank: 241
+  ParentID: 240
+242:
+  ID: 242
+  Description: Light, maintain and extinguish a fire in wet conditions.
+  BadgeID: 10
+  Rank: 242
+  ParentID: 240
+243:
+  ID: 243
+  Description: Safety and survival
+  BadgeID: 10
+  Rank: 243
+244:
+  ID: 244
+  Description: Assist a Scout in passing the safety and survival requirements for
+    Pioneer level.
+  BadgeID: 10
+  Rank: 244
+  ParentID: 243
+245:
+  ID: 245
+  Description: Assemble a personal first aid kit for use on camps and hikes.
+  BadgeID: 10
+  Rank: 245
+  ParentID: 243
+246:
+  ID: 246
+  Description: Explain what hypothermia is, how to prevent it, and how to treat it
+    should it occur
+  BadgeID: 10
+  Rank: 246
+  ParentID: 243
+247:
+  ID: 247
+  Description: 'Navigation. Understand and demonstrate a proficiency in the following:'
+  BadgeID: 10
+  Rank: 247
+248:
+  ID: 248
+  Description: know the Pioneer level skills
+  BadgeID: 10
+  Rank: 248
+  ParentID: 247
+249:
+  ID: 249
+  Description: care of a map
+  BadgeID: 10
+  Rank: 249
+  ParentID: 247
+250:
+  ID: 250
+  Description: how to orientate a topographic map by both compass and physical features
+  BadgeID: 10
+  Rank: 250
+  ParentID: 247
+251:
+  ID: 251
+  Description: how to establish direction using the sun in daylight and stars at night
+  BadgeID: 10
+  Rank: 251
+  ParentID: 247
+252:
+  ID: 252
+  Description: navigate between two points over at least one km in a bush environment
+  BadgeID: 10
+  Rank: 252
+  ParentID: 247
+253:
+  ID: 253
+  Description: with your Patrol, find out how to operate a GPS and how to use it in
+    conjunction with a map and compass
+  BadgeID: 10
+  Rank: 253
+  ParentID: 247
+254:
+  ID: 254
+  Description: assist a Scout in passing the requirements of Pioneer level navigation.
+  BadgeID: 10
+  Rank: 254
+  ParentID: 247
+255:
+  ID: 255
+  Description: 'Cooking. With your Patrol or other Scouts, plan and cook a two-course
+    meal under camp conditions:'
+  BadgeID: 10
+  Rank: 255
+256:
+  ID: 256
+  Description: demonstrating an understanding of the need for a balanced diet
+  BadgeID: 10
+  Rank: 256
+  ParentID: 255
+257:
+  ID: 257
+  Description: this will include menu planning and purchase of food for the meal.
+  BadgeID: 10
+  Rank: 257
+  ParentID: 255
+258:
+  ID: 258
+  Description: Camp activity
+  BadgeID: 10
+  Rank: 258
+259:
+  ID: 259
+  Description: Assist a Scout in passing the requirements of Pioneer level No 1- 4.
+  BadgeID: 10
+  Rank: 259
+  ParentID: 258
+260:
+  ID: 260
+  Description: 'Demonstrate a sound knowledge of the following:'
+  BadgeID: 10
+  Rank: 260
+  ParentID: 258
+261:
+  ID: 261
+  Description: camp sanitation
+  BadgeID: 10
+  Rank: 261
+  ParentID: 260
+262:
+  ID: 262
+  Description: drinking water precautions
+  BadgeID: 10
+  Rank: 262
+  ParentID: 260
+263:
+  ID: 263
+  Description: storage of food
+  BadgeID: 10
+  Rank: 263
+  ParentID: 260
+264:
+  ID: 264
+  Description: care of the environment on a Patrol campsite.
+  BadgeID: 10
+  Rank: 264
+  ParentID: 260
+265:
+  ID: 265
+  Description: 'With your Patrol or other Scouts:'
+  BadgeID: 10
+  Rank: 265
+  ParentID: 260
+266:
+  ID: 266
+  Description: assemble personal and Patrol equipment for a weekend canoe trip, hike
+    or camp
+  BadgeID: 10
+  Rank: 266
+  ParentID: 265
+267:
+  ID: 267
+  Description: prepare a menu and food list for the selected activity and purchase
+    all necessary requirements
+  BadgeID: 10
+  Rank: 267
+  ParentID: 265
+268:
+  ID: 268
+  Description: participate in the activity selected above with the appropriate gear
+    and equipment.
+  BadgeID: 10
+  Rank: 268
+  ParentID: 265
+269:
+  ID: 269
+  Description: 'Journey. With four other Scouts complete the following:'
+  BadgeID: 10
+  Rank: 269
+270:
+  ID: 270
+  Description: plan and go on a hike of at least 24 hours and 15 kilometres
+  BadgeID: 10
+  Rank: 270
+  ParentID: 269
+271:
+  ID: 271
+  Description: the hike should be in an unfamiliar area
+  BadgeID: 10
+  Rank: 271
+  ParentID: 269
+272:
+  ID: 272
+  Description: pack and carry all appropriate gear and equipment, including food,
+    water, tents etc.
+  BadgeID: 10
+  Rank: 272
+  ParentID: 269
+273:
+  ID: 273
+  Description: a report is to be presented to the Troop Council on completion.
+  BadgeID: 10
+  Rank: 273
+  ParentID: 269
+274:
+  ID: 274
+  Description: Camps. With your Patrol or other Scouts, have camped out in tents for
+    a minimum of twelve nights.
+  BadgeID: 10
+  Rank: 274
+275:
+  ID: 275
+  Description: Values
+  BadgeID: 11
+  Rank: 275
+276:
+  ID: 276
+  Description: Promise and Law Discuss with your Scout Leader the part that the Scout
+    Promise and Law plays in your life.
+  BadgeID: 11
+  Rank: 276
+  ParentID: 275
+277:
+  ID: 277
+  Description: Spiritual development Assist your Patrol Leader in planning and running
+    a Scouts Own at a Scout Camp or other Troop activity.
+  BadgeID: 11
+  Rank: 277
+  ParentID: 275
+278:
+  ID: 278
+  Description: First aid. Complete (a) or (b), (c), (d) and (e)
+  BadgeID: 11
+  Rank: 278
+279:
+  ID: 279
+  Description: Know the first aid for Explorer Emergencies.
+  BadgeID: 11
+  Rank: 279
+  ParentID: 278
+280:
+  ID: 280
+  Description: Demonstrate an understanding of the DRSABCD principle.
+  BadgeID: 11
+  Rank: 280
+  ParentID: 278
+281:
+  ID: 281
+  Description: Demonstrate that you can carry out the requirements for first aid at
+    Pioneer Citizenship level.
+  BadgeID: 11
+  Rank: 281
+  ParentID: 278
+282:
+  ID: 282
+  Description: Demonstrate two types of hand seats and one other way of moving an
+    injured person.
+  BadgeID: 11
+  Rank: 282
+  ParentID: 278
+283:
+  ID: 283
+  Description: Be able to recognise the symptoms of shock and know how to treat a
+    person who is suffering from shock.
+  BadgeID: 11
+  Rank: 283
+  ParentID: 278
+284:
+  ID: 284
+  Description: Leadership. Discuss with your Patrol Leader three examples of when
+    you have had the opportunity to develop leadership skills during the Scout program.
+  BadgeID: 11
+  Rank: 284
+285:
+  ID: 285
+  Description: Good turn. Complete (a) or (b)
+  BadgeID: 11
+  Rank: 285
+286:
+  ID: 286
+  Description: Complete a maintenance task to Scout property, e.g. painting, whipping
+    rope ends, removing leaves from gutters, repairing Patrol box or other equipment
+    (minimum service four hours).
+  BadgeID: 11
+  Rank: 286
+  ParentID: 285
+287:
+  ID: 287
+  Description: Participate in some form of community service that must be over a minimum
+    of four hours (e.g. assist a service organisation, environmental, organisation
+    hospital, etc.)
+  BadgeID: 11
+  Rank: 287
+  ParentID: 285
+288:
+  ID: 288
+  Description: Breaking the Cycle. Complete (a) or (b)
+  BadgeID: 11
+  Rank: 288
+289:
+  ID: 289
+  Description: Discuss as a Patrol or Troop your current Troop Code and contribute
+    to annual review of Troop Code and sign. Make a poster, video or skit on why people
+    bully others
+  BadgeID: 11
+  Rank: 289
+  ParentID: 288
+290:
+  ID: 290
+  Description: Alone or in a group research the consequenses of bullying and share
+    your findings with the Troops.
+  BadgeID: 11
+  Rank: 290
+  ParentID: 288
+291:
+  ID: 291
+  Description: Heritage. Complete (a), (b), (c)
+  BadgeID: 11
+  Rank: 291
+292:
+  ID: 292
+  Description: With your Patrol conduct an activity with an International theme.
+  BadgeID: 11
+  Rank: 292
+  ParentID: 291
+293:
+  ID: 293
+  Description: With your Patrol, find out about some aspect of the history of your
+    local area and make a short verbal or other presentation about your findings to
+    the Troop. You might choose stories from the past, a person of historic note,
+    a local historical site, a monument, a museum, etc.
+  BadgeID: 11
+  Rank: 293
+  ParentID: 291
+294:
+  ID: 294
+  Description: With your Patrol plan, prepare and cook a meal from another culture.
+  BadgeID: 11
+  Rank: 294
+  ParentID: 291
+295:
+  ID: 295
+  Description: Activity. Complete (a) or (b)
+  BadgeID: 11
+  Rank: 295
+296:
+  ID: 296
+  Description: With your Patrol or other Scouts participate in an activity with Scouts
+    from another District.
+  BadgeID: 11
+  Rank: 296
+  ParentID: 295
+297:
+  ID: 297
+  Description: Alone or with your Patrol plan a tour of your community designed to
+    help a visitor see and learn about it, and either conduct a visitor on the tour
+    or go as a Patrol.
+  BadgeID: 11
+  Rank: 297
+  ParentID: 295
+298:
+  ID: 298
+  Description: Community
+  BadgeID: 11
+  Rank: 298
+299:
+  ID: 299
+  Description: Organise an activity or produce a chart for Cub Scouts on road and
+    bicycle safety.
+  BadgeID: 11
+  Rank: 299
+  ParentID: 298
+300:
+  ID: 300
+  Description: 'Prepare a chart for your hall or den showing appropriate contacts
+    for the following emergencies:'
+  BadgeID: 11
+  Rank: 300
+  ParentID: 298
+301:
+  ID: 301
+  Description: Poison
+  BadgeID: 11
+  Rank: 301
+  ParentID: 300
+302:
+  ID: 302
+  Description: Fire
+  BadgeID: 11
+  Rank: 302
+  ParentID: 300
+303:
+  ID: 303
+  Description: Injuries
+  BadgeID: 11
+  Rank: 303
+  ParentID: 300
+304:
+  ID: 304
+  Description: sick animals
+  BadgeID: 11
+  Rank: 304
+  ParentID: 300
+305:
+  ID: 305
+  Description: damage to roads and bridges
+  BadgeID: 11
+  Rank: 305
+  ParentID: 300
+306:
+  ID: 306
+  Description: electricity
+  BadgeID: 11
+  Rank: 306
+  ParentID: 300
+307:
+  ID: 307
+  Description: phone
+  BadgeID: 11
+  Rank: 307
+  ParentID: 300
+308:
+  ID: 308
+  Description: gas and water
+  BadgeID: 11
+  Rank: 308
+  ParentID: 300
+309:
+  ID: 309
+  Description: Environment. Complete (a), (b), (c)
+  BadgeID: 11
+  Rank: 309
+310:
+  ID: 310
+  Description: Complete section A (Explore and Reflect) of the World Scout Environment
+    Badge.
+  BadgeID: 11
+  Rank: 310
+  ParentID: 309
+311:
+  ID: 311
+  Description: Complete the remaining two thirds of your project for the Landcare
+    Badge.
+  BadgeID: 11
+  Rank: 311
+  ParentID: 309
+312:
+  ID: 312
+  Description: On a walk through your local community with your Patrol, identify and
+    record ten ways in which your local community could be more environmentally friendly.
+  BadgeID: 11
+  Rank: 312
+  ParentID: 309
+313:
+  ID: 313
+  Description: Fitness
+  BadgeID: 11
+  Rank: 313
+314:
+  ID: 314
+  Description: Lead a discussion with Pioneer level Scouts about a healthy lifestyle
+    including the need for a proper diet, proper amount of sleep and the value of
+    exercise.
+  BadgeID: 11
+  Rank: 314
+  ParentID: 313
+315:
+  ID: 315
+  Description: With your Patrol or other Scouts, participate in an activity that focuses
+    on the value of exercise and sport as a part of a healthy lifestyle.
+  BadgeID: 11
+  Rank: 315
+  ParentID: 313
+316:
+  ID: 316
+  Description: Recognition.  Recognise by sight 8 types of aircraft and discuss in
+    detail at least 2.
+  BadgeID: 12
+  Rank: 316
+317:
+  ID: 317
+  Description: Weather
+  BadgeID: 12
+  Rank: 317
+318:
+  ID: 318
+  Description: 'Explain three elements of weather and the effects they have on:'
+  BadgeID: 12
+  Rank: 318
+  ParentID: 317
+319:
+  ID: 319
+  Description: the flight performance
+  BadgeID: 12
+  Rank: 319
+  ParentID: 318
+320:
+  ID: 320
+  Description: take off and landing of an aircraft or glider.
+  BadgeID: 12
+  Rank: 320
+  ParentID: 318
+321:
+  ID: 321
+  Description: Have a knowledge of weather pattern in your geographical area.
+  BadgeID: 12
+  Rank: 321
+  ParentID: 318
+322:
+  ID: 322
+  Description: Find out the difference in the terms �ground speed� and �air speed�,
+    and how they relate to headwinds and tailwinds.
+  BadgeID: 12
+  Rank: 322
+  ParentID: 318
+323:
+  ID: 323
+  Description: 'Theory. Demonstrate an elementary knowledge of:'
+  BadgeID: 12
+  Rank: 323
+324:
+  ID: 324
+  Description: the principles governing the theory of flight
+  BadgeID: 12
+  Rank: 324
+  ParentID: 323
+325:
+  ID: 325
+  Description: the use in an aircraft of an airspeed indicator, altimeter and magnetic
+    compass
+  BadgeID: 12
+  Rank: 325
+  ParentID: 323
+326:
+  ID: 326
+  Description: how to read and apply the 24-hour clock and the phonetic alphabet
+  BadgeID: 12
+  Rank: 326
+  ParentID: 323
+327:
+  ID: 327
+  Description: the movable control surfaces of an aircraft and be able to describe
+    their function (e.g. rudder, elevators, ailerons, flaps and trim tab).
+  BadgeID: 12
+  Rank: 327
+  ParentID: 323
+328:
+  ID: 328
+  Description: Activity. After visiting a Scout Air Activity Centre and/or aerodrome
+    with your Patrol or other Scouts, draw a map showing the location of hangars,
+    control tower, runways, taxiways, tarmac, wind socks, the direction of the prevailing
+    wind, fuel stores, navigation aids, and emergency facilities.
+  BadgeID: 12
+  Rank: 328
+329:
+  ID: 329
+  Description: 'Planning. Sketch and explain how you, along with your Patrol, would
+    go about constructing:'
+  BadgeID: 13
+  Rank: 329
+330:
+  ID: 330
+  Description: a monkey suspension bridge to span about seven metres
+  BadgeID: 13
+  Rank: 330
+  ParentID: 329
+331:
+  ID: 331
+  Description: a camp table or similarly complex equipment
+  BadgeID: 13
+  Rank: 331
+  ParentID: 329
+332:
+  ID: 332
+  Description: a braced foot bridge with handrails to span about three metres
+  BadgeID: 13
+  Rank: 332
+  ParentID: 329
+333:
+  ID: 333
+  Description: assist another Scout to pass the requirements at Pioneer level for
+    Planning.
+  BadgeID: 13
+  Rank: 333
+  ParentID: 329
+334:
+  ID: 334
+  Description: Equipment and safety
+  BadgeID: 13
+  Rank: 334
+335:
+  ID: 335
+  Description: 'Demonstrate how to:'
+  BadgeID: 13
+  Rank: 335
+  ParentID: 334
+336:
+  ID: 336
+  Description: care for and store ropes
+  BadgeID: 13
+  Rank: 336
+  ParentID: 335
+337:
+  ID: 337
+  Description: care for construction tools.
+  BadgeID: 13
+  Rank: 337
+  ParentID: 335
+338:
+  ID: 338
+  Description: 'Demonstrate a knowledge of how:'
+  BadgeID: 13
+  Rank: 338
+  ParentID: 335
+339:
+  ID: 339
+  Description: ropes and pulleys work
+  BadgeID: 13
+  Rank: 339
+  ParentID: 338
+340:
+  ID: 340
+  Description: they can be used to move heavy objects vertically and horizontally.
+  BadgeID: 13
+  Rank: 340
+  ParentID: 338
+341:
+  ID: 341
+  Description: 'Demonstrate the following:'
+  BadgeID: 13
+  Rank: 341
+  ParentID: 338
+342:
+  ID: 342
+  Description: trimming poles to length using a saw
+  BadgeID: 13
+  Rank: 342
+  ParentID: 341
+343:
+  ID: 343
+  Description: pointing wooden pegs using an axe or tomahawk.
+  BadgeID: 13
+  Rank: 343
+  ParentID: 341
+344:
+  ID: 344
+  Description: sharpening of an axe or tomahawk.
+  BadgeID: 13
+  Rank: 344
+  ParentID: 341
+345:
+  ID: 345
+  Description: Knots
+  BadgeID: 13
+  Rank: 345
+346:
+  ID: 346
+  Description: Demonstrate the Explorer Campcraft Knots and lashings.
+  BadgeID: 13
+  Rank: 346
+  ParentID: 345
+347:
+  ID: 347
+  Description: Learn and demonstrate
+  BadgeID: 13
+  Rank: 347
+  ParentID: 345
+348:
+  ID: 348
+  Description: a double sheetbend
+  BadgeID: 13
+  Rank: 348
+  ParentID: 347
+349:
+  ID: 349
+  Description: a bowline on the bight.
+  BadgeID: 13
+  Rank: 349
+  ParentID: 347
+350:
+  ID: 350
+  Description: 'Major projects. Take an active role in one of the following major
+    projects:'
+  BadgeID: 13
+  Rank: 350
+351:
+  ID: 351
+  Description: braced footbridge at least 3m long
+  BadgeID: 13
+  Rank: 351
+  ParentID: 350
+352:
+  ID: 352
+  Description: monkey suspension bridge spanning at least 7m
+  BadgeID: 13
+  Rank: 352
+  ParentID: 350
+353:
+  ID: 353
+  Description: camp table or similar complex piece of camping equipment
+  BadgeID: 13
+  Rank: 353
+  ParentID: 350
+354:
+  ID: 354
+  Description: tower with a platform approximately 3m above the ground
+  BadgeID: 13
+  Rank: 354
+  ParentID: 350
+355:
+  ID: 355
+  Description: ballista/catapult capable of propelling a projectile at least 10m
+  BadgeID: 13
+  Rank: 355
+  ParentID: 350
+356:
+  ID: 356
+  Description: swing bridge suitable of carrying each Patrol member across a gap of
+    at least 3m
+  BadgeID: 13
+  Rank: 356
+  ParentID: 350
+357:
+  ID: 357
+  Description: another project of equivalent safety or difficulty approved by Troop
+    Council.
+  BadgeID: 13
+  Rank: 357
+  ParentID: 350
+358:
+  ID: 358
+  Description: Recognition. Be able to suggest at least ten very different situations
+    that could be classified as an emergency.
+  BadgeID: 14
+  Rank: 358
+359:
+  ID: 359
+  Description: Knowledge
+  BadgeID: 14
+  Rank: 359
+360:
+  ID: 360
+  Description: Demonstrate how to approach an unconscious patient.
+  BadgeID: 14
+  Rank: 360
+  ParentID: 359
+361:
+  ID: 361
+  Description: Demonstrate how to identify if the patient is breathing.
+  BadgeID: 14
+  Rank: 361
+  ParentID: 359
+362:
+  ID: 362
+  Description: Explain the difference between venous and arterial bleeding.
+  BadgeID: 14
+  Rank: 362
+  ParentID: 359
+363:
+  ID: 363
+  Description: Demonstrate how to control all forms of external bleeding.
+  BadgeID: 14
+  Rank: 363
+  ParentID: 359
+364:
+  ID: 364
+  Description: Demonstrate how to use the fire extinguisher in your Troop meeting
+    place or home.
+  BadgeID: 14
+  Rank: 364
+  ParentID: 359
+365:
+  ID: 365
+  Description: Know on what type of fire it should be used/not used.
+  BadgeID: 14
+  Rank: 365
+  ParentID: 359
+366:
+  ID: 366
+  Description: Demonstrate the correct method for treating a victim of snake or spider
+    bite.
+  BadgeID: 14
+  Rank: 366
+  ParentID: 359
+367:
+  ID: 367
+  Description: With your Patrol or other Scouts complete (a) or (b)
+  BadgeID: 14
+  Rank: 367
+368:
+  ID: 368
+  Description: visit one of the locations listed in Pioneer Emergencies No 3.
+  BadgeID: 14
+  Rank: 368
+  ParentID: 367
+369:
+  ID: 369
+  Description: arrange a visit to your Troop by a representative of one of those services.
+  BadgeID: 14
+  Rank: 369
+  ParentID: 367
+370:
+  ID: 370
+  Description: Activity
+  BadgeID: 14
+  Rank: 370
+371:
+  ID: 371
+  Description: By participating with your Patrol or other Scouts in two mock emergencies,
+    demonstrate an understanding of the basic principles of first aid.
+  BadgeID: 14
+  Rank: 371
+  ParentID: 370
+372:
+  ID: 372
+  Description: Demonstrate the method of dealing with a patient in contact with a
+    live electric wire.
+  BadgeID: 14
+  Rank: 372
+  ParentID: 370
+373:
+  ID: 373
+  Description: 'With your Patrol:'
+  BadgeID: 14
+  Rank: 373
+  ParentID: 370
+374:
+  ID: 374
+  Description: build a bush stretcher or an improvised stretcher, and
+  BadgeID: 14
+  Rank: 374
+  ParentID: 373
+375:
+  ID: 375
+  Description: use this stretcher to carry a patient over a distance of 500m.
+  BadgeID: 14
+  Rank: 375
+  ParentID: 373
+376:
+  ID: 376
+  Description: Nature
+  BadgeID: 15
+  Rank: 376
+377:
+  ID: 377
+  Description: Identify a region within your community which has had an environmental
+    effect on plant, wildlife and insect population from any one of the following
+    salinity, soil erosion, poor water quality, introduced species either animal or
+    plant, removal of bush land, waterway.
+  BadgeID: 15
+  Rank: 377
+  ParentID: 376
+378:
+  ID: 378
+  Description: Discuss with your Patrol how wildlife, plants and insects depend on
+    each other for survival.
+  BadgeID: 15
+  Rank: 378
+  ParentID: 376
+379:
+  ID: 379
+  Description: Devise an action plan for improvement.
+  BadgeID: 15
+  Rank: 379
+  ParentID: 376
+380:
+  ID: 380
+  Description: Activity
+  BadgeID: 15
+  Rank: 380
+381:
+  ID: 381
+  Description: With a group of Scouts, design and produce an environmental educational
+    presentation (such as poster, demonstration, activity).
+  BadgeID: 15
+  Rank: 381
+  ParentID: 380
+382:
+  ID: 382
+  Description: The presentation should show how introduced species of animal or plant
+    life have had an impact on the environment and what can be done to improve the
+    present situation.
+  BadgeID: 15
+  Rank: 382
+  ParentID: 380
+383:
+  ID: 383
+  Description: Present your findings to your chosen audience.
+  BadgeID: 15
+  Rank: 383
+  ParentID: 380
+384:
+  ID: 384
+  Description: Visit
+  BadgeID: 15
+  Rank: 384
+385:
+  ID: 385
+  Description: Visit or contact an organisation devoted to protecting the local or
+    national environment.
+  BadgeID: 15
+  Rank: 385
+  ParentID: 384
+386:
+  ID: 386
+  Description: Find out what aspect/s they cover, such as flora, fauna, vegetation,
+    waterways.
+  BadgeID: 15
+  Rank: 386
+  ParentID: 384
+387:
+  ID: 387
+  Description: Help out on a service activity for a total of eight hours.
+  BadgeID: 15
+  Rank: 387
+  ParentID: 384
+388:
+  ID: 388
+  Description: Recycling. Complete (a), (b) or (c)
+  BadgeID: 15
+  Rank: 388
+389:
+  ID: 389
+  Description: 'With members of your Patrol, participate in a recycling activity of
+    at least 8 hours, which could include one of the following:'
+  BadgeID: 15
+  Rank: 389
+  ParentID: 388
+390:
+  ID: 390
+  Description: separation of recyclables
+  BadgeID: 15
+  Rank: 390
+  ParentID: 389
+391:
+  ID: 391
+  Description: composting
+  BadgeID: 15
+  Rank: 391
+  ParentID: 389
+392:
+  ID: 392
+  Description: waste reduction, e.g. area clean up, bottle drive, worm farm, and report
+    to the Patrol/Troop with your outcome.
+  BadgeID: 15
+  Rank: 392
+  ParentID: 389
+393:
+  ID: 393
+  Description: Prepare an evaluation of your local waste disposal system and suggest
+    improvements.
+  BadgeID: 15
+  Rank: 393
+  ParentID: 389
+394:
+  ID: 394
+  Description: Where possible, visit an installation such as local rubbish tip, transfer
+    station, recycling facility, sewerage plant, report on your visit and suggest
+    any changes that you think could be made.
+  BadgeID: 15
+  Rank: 394
+  ParentID: 389
+395:
+  ID: 395
+  Description: Weather
+  BadgeID: 16
+  Rank: 395
+396:
+  ID: 396
+  Description: Know the Pioneer level requirements for Weather.
+  BadgeID: 16
+  Rank: 396
+  ParentID: 395
+397:
+  ID: 397
+  Description: Demonstrate and apply weather forecasting to a water activities event
+    with a duration of two days.
+  BadgeID: 16
+  Rank: 397
+  ParentID: 395
+398:
+  ID: 398
+  Description: Safety
+  BadgeID: 16
+  Rank: 398
+399:
+  ID: 399
+  Description: Know the Pioneer level requirements for Safety.
+  BadgeID: 16
+  Rank: 399
+  ParentID: 398
+400:
+  ID: 400
+  Description: Swim 100 metres whilst wearing a personal flotation device.
+  BadgeID: 16
+  Rank: 400
+  ParentID: 398
+401:
+  ID: 401
+  Description: Be able to remove your clothes in water and then swim 100 metres.
+  BadgeID: 16
+  Rank: 401
+  ParentID: 398
+402:
+  ID: 402
+  Description: Know local boating rules applicable to your own region of operation.
+  BadgeID: 16
+  Rank: 402
+  ParentID: 398
+403:
+  ID: 403
+  Description: 'Have an understanding of either:'
+  BadgeID: 16
+  Rank: 403
+  ParentID: 398
+404:
+  ID: 404
+  Description: tides and currents in coastal areas or
+  BadgeID: 16
+  Rank: 404
+  ParentID: 403
+405:
+  ID: 405
+  Description: water behaviours in rivers and creeks.
+  BadgeID: 16
+  Rank: 405
+  ParentID: 403
+406:
+  ID: 406
+  Description: Be able to recognise five common distress signals, including at least
+    one each of sight, sound and light.
+  BadgeID: 16
+  Rank: 406
+  ParentID: 403
+407:
+  ID: 407
+  Description: Demonstrate a knowledge of buoys, beacons and navigation signs used
+    in your region of operation.
+  BadgeID: 16
+  Rank: 407
+  ParentID: 403
+408:
+  ID: 408
+  Description: First aid. Know the Citizenship First Aid requirements at Explorer
+    level.
+  BadgeID: 16
+  Rank: 408
+409:
+  ID: 409
+  Description: Knots
+  BadgeID: 16
+  Rank: 409
+410:
+  ID: 410
+  Description: Know the Pioneer level requirements for Knots.
+  BadgeID: 16
+  Rank: 410
+  ParentID: 409
+411:
+  ID: 411
+  Description: 'Make and use, in a boating activity, two of the splices from (1 -
+    4) as well as both (5) and (6):'
+  BadgeID: 16
+  Rank: 411
+  ParentID: 409
+412:
+  ID: 412
+  Description: eye splice
+  BadgeID: 16
+  Rank: 412
+  ParentID: 411
+413:
+  ID: 413
+  Description: back splice
+  BadgeID: 16
+  Rank: 413
+  ParentID: 411
+414:
+  ID: 414
+  Description: short splice
+  BadgeID: 16
+  Rank: 414
+  ParentID: 411
+415:
+  ID: 415
+  Description: long splice
+  BadgeID: 16
+  Rank: 415
+  ParentID: 411
+416:
+  ID: 416
+  Description: palm and needle whipping
+  BadgeID: 16
+  Rank: 416
+  ParentID: 411
+417:
+  ID: 417
+  Description: barrel hitch.
+  BadgeID: 16
+  Rank: 417
+  ParentID: 411
+418:
+  ID: 418
+  Description: 'Demonstrate the meaning and use of :'
+  BadgeID: 16
+  Rank: 418
+  ParentID: 411
+419:
+  ID: 419
+  Description: Parbuckling
+  BadgeID: 16
+  Rank: 419
+  ParentID: 418
+420:
+  ID: 420
+  Description: barrel hitch
+  BadgeID: 16
+  Rank: 420
+  ParentID: 418
+421:
+  ID: 421
+  Description: Spanish windlass.
+  BadgeID: 16
+  Rank: 421
+  ParentID: 418
+422:
+  ID: 422
+  Description: Basic skills. Learn the nautical terms generally used in boating, with
+    the assistance of an Adventurer level Scout. These are found in, e.g. the Nautical
+    Glossary in the Fieldbook for Australian Scouting.
+  BadgeID: 16
+  Rank: 422
+423:
+  ID: 423
+  Description: Canoeing Elective
+  BadgeID: 16
+  Rank: 423
+424:
+  ID: 424
+  Description: ". Demonstrate the following:"
+  BadgeID: 16
+  Rank: 424
+  ParentID: 423
+425:
+  ID: 425
+  Description: sweep forward and reverse
+  BadgeID: 16
+  Rank: 425
+  ParentID: 424
+426:
+  ID: 426
+  Description: draw
+  BadgeID: 16
+  Rank: 426
+  ParentID: 424
+427:
+  ID: 427
+  Description: slap
+  BadgeID: 16
+  Rank: 427
+  ParentID: 424
+428:
+  ID: 428
+  Description: support scull
+  BadgeID: 16
+  Rank: 428
+  ParentID: 424
+429:
+  ID: 429
+  Description: J stroke
+  BadgeID: 16
+  Rank: 429
+  ParentID: 424
+430:
+  ID: 430
+  Description: Paddle up-stream 50 metres and return, using paddle on one side only.
+  BadgeID: 16
+  Rank: 430
+  ParentID: 424
+431:
+  ID: 431
+  Description: Demonstrate ferry glide.
+  BadgeID: 16
+  Rank: 431
+  ParentID: 424
+432:
+  ID: 432
+  Description: Capsize loaded canoe in water greater than 2m deep and return with
+    it to bank and empty in correct manner.
+  BadgeID: 16
+  Rank: 432
+  ParentID: 424
+433:
+  ID: 433
+  Description: Re-embark standing in knee-deep water.
+  BadgeID: 16
+  Rank: 433
+  ParentID: 424
+434:
+  ID: 434
+  Description: Demonstrate H rescue, both as rescuer and rescued.
+  BadgeID: 16
+  Rank: 434
+  ParentID: 424
+435:
+  ID: 435
+  Description: Have a good knowledge of the principles of working a canoe in waters
+    of your region of operation.
+  BadgeID: 16
+  Rank: 435
+  ParentID: 424
+436:
+  ID: 436
+  Description: Demonstrate how to pack a canoe for an overnight journey.
+  BadgeID: 16
+  Rank: 436
+  ParentID: 424
+437:
+  ID: 437
+  Description: Be able to estimate the time that it would take to cover a given distance
+    on water.
+  BadgeID: 16
+  Rank: 437
+  ParentID: 424
+438:
+  ID: 438
+  Description: Participate in an overnight canoeing expedition.
+  BadgeID: 16
+  Rank: 438
+  ParentID: 424
+439:
+  ID: 439
+  Description: Sailboarding  Elective
+  BadgeID: 16
+  Rank: 439
+440:
+  ID: 440
+  Description: Know and name the various parts of a sailboard.
+  BadgeID: 16
+  Rank: 440
+  ParentID: 439
+441:
+  ID: 441
+  Description: Be able to rig a sailboard.
+  BadgeID: 16
+  Rank: 441
+  ParentID: 439
+442:
+  ID: 442
+  Description: Demonstrate your ability to use your sailboard in sheltered waters.
+  BadgeID: 16
+  Rank: 442
+  ParentID: 439
+443:
+  ID: 443
+  Description: Rowing Elective
+  BadgeID: 16
+  Rank: 443
+444:
+  ID: 444
+  Description: Pass, or have passed, all tests prescribed for Pioneer level elective.
+  BadgeID: 16
+  Rank: 444
+  ParentID: 443
+445:
+  ID: 445
+  Description: Demonstrate knowledge of correct methods of loading and trimming a
+    pulling boat.
+  BadgeID: 16
+  Rank: 445
+  ParentID: 443
+446:
+  ID: 446
+  Description: Participate in launching and recovery of a pulling boat.
+  BadgeID: 16
+  Rank: 446
+  ParentID: 443
+447:
+  ID: 447
+  Description: Demonstrate sculling a dinghy with one oar.
+  BadgeID: 16
+  Rank: 447
+  ParentID: 443
+448:
+  ID: 448
+  Description: Row a pulling boat as part of a crew, over a distance of 2 kilometres.
+  BadgeID: 16
+  Rank: 448
+  ParentID: 443
+449:
+  ID: 449
+  Description: Demonstrate the correct method of towing and being towed.
+  BadgeID: 16
+  Rank: 449
+  ParentID: 443
+450:
+  ID: 450
+  Description: Sailing Elective.
+  BadgeID: 16
+  Rank: 450
+451:
+  ID: 451
+  Description: Pass, or have passed, all tests prescribed for Pioneer level elective.
+  BadgeID: 16
+  Rank: 451
+  ParentID: 450
+452:
+  ID: 452
+  Description: Be able to rig a sailboat.
+  BadgeID: 16
+  Rank: 452
+  ParentID: 450
+453:
+  ID: 453
+  Description: Understand how and when to reef down.
+  BadgeID: 16
+  Rank: 453
+  ParentID: 450
+454:
+  ID: 454
+  Description: With an Adventurer level Scout who has appropriate qualifications,
+    capsize and recover a small sailboat.
+  BadgeID: 16
+  Rank: 454
+  ParentID: 450
+455:
+  ID: 455
+  Description: Describe the advantages and disadvantages of lee and weather shores.
+  BadgeID: 16
+  Rank: 455
+  ParentID: 450
+456:
+  ID: 456
+  Description: Demonstrate the correct method of towing and being towed.
+  BadgeID: 16
+  Rank: 456
+  ParentID: 450
+457:
+  ID: 457
+  Description: Participate in two overnight sailing expeditions.
+  BadgeID: 16
+  Rank: 457
+  ParentID: 450
+458:
+  ID: 458
+  Description: Yachting Australia Elective. Complete the Yachting Australia course,
+    �Basic Skills 1 � Getting into Small Boat Sailing�.
+  BadgeID: 16
+  Rank: 458
+459:
+  ID: 459
+  Description: Power Elective
+  BadgeID: 16
+  Rank: 459
+460:
+  ID: 460
+  Description: Learn and know the parts of the powerboat.
+  BadgeID: 16
+  Rank: 460
+  ParentID: 459
+461:
+  ID: 461
+  Description: Learn and know the parts of engines.
+  BadgeID: 16
+  Rank: 461
+  ParentID: 459
+462:
+  ID: 462
+  Description: Participate in a power boat crew for a minimum of 6 hours.
+  BadgeID: 16
+  Rank: 462
+  ParentID: 459
+463:
+  ID: 463
+  Description: Safe entry and swim.
+  BadgeID: 17
+  Rank: 463
+464:
+  ID: 464
+  Description: 'Demonstrate the following:'
+  BadgeID: 17
+  Rank: 464
+  ParentID: 463
+465:
+  ID: 465
+  Description: perform a forward roll into deep water, fully clothed and swim 25 metres.
+    Remove clothing retaining one item to use as a towing aid
+  BadgeID: 17
+  Rank: 465
+  ParentID: 464
+466:
+  ID: 466
+  Description: use the item of clothing retained to tow a conscious, cooperative patient
+    20 metres, avoiding contact at all times.
+  BadgeID: 17
+  Rank: 466
+  ParentID: 464
+467:
+  ID: 467
+  Description: 'Demonstrate the following:'
+  BadgeID: 17
+  Rank: 467
+  ParentID: 464
+468:
+  ID: 468
+  Description: swim 100 metres without an APFD, including 50 metres using any of the
+    resting strokes
+  BadgeID: 17
+  Rank: 468
+  ParentID: 467
+469:
+  ID: 469
+  Description: remain afloat for at least four minutes without the use of an APFD
+  BadgeID: 17
+  Rank: 469
+  ParentID: 467
+470:
+  ID: 470
+  Description: put on an APFD in deep water and swim 50 metres. Demonstrate the �HELP�
+    position
+  BadgeID: 17
+  Rank: 470
+  ParentID: 467
+471:
+  ID: 471
+  Description: with at least two other Scouts demonstrate the �huddle� position.
+  BadgeID: 17
+  Rank: 471
+  ParentID: 467
+472:
+  ID: 472
+  Description: 'Rescue. Perform a simulated rescue in one of the following situations:'
+  BadgeID: 17
+  Rank: 472
+473:
+  ID: 473
+  Description: using an improvised flotation device, use a safety jump to enter the
+    water and swim to a conscious patient at least ten metres from shore. Use any
+    tow method to return the patient to the shore.
+  BadgeID: 17
+  Rank: 473
+  ParentID: 472
+474:
+  ID: 474
+  Description: perform an assisted carry with approach and tow of at least 30 metres,
+    with a fully clothed conscious patient.
+  BadgeID: 17
+  Rank: 474
+  ParentID: 472
+475:
+  ID: 475
+  Description: 'Safety. Present to the Adviser a list of at least ten major safety
+    items suggested by clubs active in one of the following: swimming, yachting, power
+    boating, surfing, water skiing, canoeing, scuba diving, board diving.'
+  BadgeID: 17
+  Rank: 475
+476:
+  ID: 476
+  Description: Have passed the requirements of Emergencies 1 at Explorer Level.
+  BadgeID: 17
+  Rank: 476
+477:
+  ID: 477
+  Description: Knots and lashings
+  BadgeID: 18
+  Rank: 477
+478:
+  ID: 478
+  Description: Teach and test a Scout those knots and lashings required for the Explorer
+    Campcraft.
+  BadgeID: 18
+  Rank: 478
+  ParentID: 477
+479:
+  ID: 479
+  Description: 'Learn and use in a Scout activity the following:'
+  BadgeID: 18
+  Rank: 479
+  ParentID: 477
+480:
+  ID: 480
+  Description: backsplice and eye splice
+  BadgeID: 18
+  Rank: 480
+  ParentID: 479
+481:
+  ID: 481
+  Description: hunter�s bend
+  BadgeID: 18
+  Rank: 481
+  ParentID: 479
+482:
+  ID: 482
+  Description: fisherman�s knot or prussick knot (for synthetic rope)
+  BadgeID: 18
+  Rank: 482
+  ParentID: 479
+483:
+  ID: 483
+  Description: Japanese and Filipino lashing
+  BadgeID: 18
+  Rank: 483
+  ParentID: 479
+484:
+  ID: 484
+  Description: alpine butterfly knot (for synthetic rope).
+  BadgeID: 18
+  Rank: 484
+  ParentID: 479
+485:
+  ID: 485
+  Description: Fire and fuel
+  BadgeID: 18
+  Rank: 485
+486:
+  ID: 486
+  Description: Teach and test a Scout the skill required in Explorer Campcraft 2(b).
+  BadgeID: 18
+  Rank: 486
+  ParentID: 485
+487:
+  ID: 487
+  Description: Show how to make sure a campsite complies with the fire regulations
+    in your state.
+  BadgeID: 18
+  Rank: 487
+  ParentID: 485
+488:
+  ID: 488
+  Description: Explain the three principles of how to survive a bush fire. Give three
+    examples of how to apply them.
+  BadgeID: 18
+  Rank: 488
+  ParentID: 485
+489:
+  ID: 489
+  Description: Explain and demonstrate the use of and differences between two types
+    of portable hike stoves.
+  BadgeID: 18
+  Rank: 489
+  ParentID: 485
+490:
+  ID: 490
+  Description: Safety and survival
+  BadgeID: 18
+  Rank: 490
+491:
+  ID: 491
+  Description: Instruct and test a Scout in the safety and survival requirements for
+    Explorer level Safety and survival.
+  BadgeID: 18
+  Rank: 491
+  ParentID: 490
+492:
+  ID: 492
+  Description: Demonstrate two methods of obtaining water under survival conditions.
+  BadgeID: 18
+  Rank: 492
+  ParentID: 490
+493:
+  ID: 493
+  Description: Know how to find and improvise shelter in the bush, and to maintain
+    body temperature.
+  BadgeID: 18
+  Rank: 493
+  ParentID: 490
+494:
+  ID: 494
+  Description: Demonstrate to your Scout Leader that you are familiar with the contents
+    of the Troop First Aid Kit and know the correct use of these items.
+  BadgeID: 18
+  Rank: 494
+  ParentID: 490
+495:
+  ID: 495
+  Description: With your Patrol, discuss the natural dangers and hazards that can
+    occur in your local area. Discuss ways to stay safe from these dangers and hazards.
+  BadgeID: 18
+  Rank: 495
+  ParentID: 490
+496:
+  ID: 496
+  Description: Navigation
+  BadgeID: 18
+  Rank: 496
+497:
+  ID: 497
+  Description: With another Scout, set up and run an orienteering course for your
+    Patrol and other Scouts, either in a local park or at a camp.
+  BadgeID: 18
+  Rank: 497
+  ParentID: 496
+498:
+  ID: 498
+  Description: Demonstrate how to plan a route for a hike from a topographic map,
+    including an understanding of Naismith�s Rule.
+  BadgeID: 18
+  Rank: 498
+  ParentID: 496
+499:
+  ID: 499
+  Description: Demonstrate how to establish your location on a map using back bearings
+    and triangulation or resection.
+  BadgeID: 18
+  Rank: 499
+  ParentID: 496
+500:
+  ID: 500
+  Description: Help other Scouts to pass the requirements of Explorer level Navigation.
+  BadgeID: 18
+  Rank: 500
+  ParentID: 496
+501:
+  ID: 501
+  Description: Cooking
+  BadgeID: 18
+  Rank: 501
+502:
+  ID: 502
+  Description: 'Discuss and demonstrate with members of your Patrol the advantages
+    and disadvantages of:'
+  BadgeID: 18
+  Rank: 502
+  ParentID: 501
+503:
+  ID: 503
+  Description: fresh foods
+  BadgeID: 18
+  Rank: 503
+  ParentID: 502
+504:
+  ID: 504
+  Description: dehydrated foods
+  BadgeID: 18
+  Rank: 504
+  ParentID: 502
+505:
+  ID: 505
+  Description: pre-packaged foods.
+  BadgeID: 18
+  Rank: 505
+  ParentID: 502
+506:
+  ID: 506
+  Description: 'Plan and cook for your Patrol two of the following:'
+  BadgeID: 18
+  Rank: 506
+  ParentID: 502
+507:
+  ID: 507
+  Description: a three course meal using a gas/fuel stove or an open fire
+  BadgeID: 18
+  Rank: 507
+  ParentID: 506
+508:
+  ID: 508
+  Description: a two course meal using a camp oven
+  BadgeID: 18
+  Rank: 508
+  ParentID: 506
+509:
+  ID: 509
+  Description: a backwoods meal comprising three courses for at least two people,
+    without the use of utensils.
+  BadgeID: 18
+  Rank: 509
+  ParentID: 506
+510:
+  ID: 510
+  Description: Camp activity
+  BadgeID: 18
+  Rank: 510
+511:
+  ID: 511
+  Description: Instruct and test a Scout in requirements of Explorer Campcraft 6b.
+  BadgeID: 18
+  Rank: 511
+  ParentID: 510
+512:
+  ID: 512
+  Description: 'Complete two of the following:'
+  BadgeID: 18
+  Rank: 512
+  ParentID: 510
+513:
+  ID: 513
+  Description: estimate, across water, a distance of at least 10 metres and a height
+    of not more than 30 metres using improvised apparatus and your own personal measurements.
+    Use three different methods to an accuracy of +-10%.
+  BadgeID: 18
+  Rank: 513
+  ParentID: 512
+514:
+  ID: 514
+  Description: demonstrate how to repair minor tears in tents, and how to care for
+    a hike tent of your choice.
+  BadgeID: 18
+  Rank: 514
+  ParentID: 512
+515:
+  ID: 515
+  Description: with members of your Patrol or with other Scouts, assemble the personal
+    and Patrol equipment required for a camp held in extreme weather conditions and
+    participate in such a camp. Prepare the menus and organise the purchase of food
+    for this camp. The safety of the Scouts is top priority when assessing the conditions
+    under which the camp is to be held. All government and Branch rules and regulations
+    must be complied with.
+  BadgeID: 18
+  Rank: 515
+  ParentID: 512
+516:
+  ID: 516
+  Description: Journey. Plan and undertake a hike of at least 30 km with at least
+    four other Scouts into unfamiliar terrain requiring two nights out-of-doors. Use
+    lightweight equipment and foods as far as practicable. The hike must be monitored
+    by an Adult Leader to ensure the safety of the Scouts. All government and Branch
+    rules and regulations must be complied with. Canoes or bicycles may be used but
+    the distance covered should be increased accordingly. If canoes or bicycles are
+    used the team should be self sufficient, as with hikes, and carry all items required
+    for the journey. Report on your experience through the use of an illustrated log.
+  BadgeID: 18
+  Rank: 516
+517:
+  ID: 517
+  Description: Camps. With your Patrol or other Scouts have camped out in tents for
+    a minimum of 15 nights.
+  BadgeID: 18
+  Rank: 517
+518:
+  ID: 518
+  Description: Values
+  BadgeID: 19
+  Rank: 518
+519:
+  ID: 519
+  Description: Promise and Law Assist and test a Pioneer Scout in the completion of
+    test 1 of Pioneer Citizenship.
+  BadgeID: 19
+  Rank: 519
+  ParentID: 518
+520:
+  ID: 520
+  Description: Spiritual development. Lead your Patrol in planning and participating
+    in a Scouts� Own at a Camp or other Troop Activity (such as World Scouts� Day
+    or a church service).
+  BadgeID: 19
+  Rank: 520
+  ParentID: 518
+521:
+  ID: 521
+  Description: First aid. Complete (a) or (b)
+  BadgeID: 19
+  Rank: 521
+522:
+  ID: 522
+  Description: Complete a recognized First Aid Course.
+  BadgeID: 19
+  Rank: 522
+  ParentID: 521
+523:
+  ID: 523
+  Description: Assist and test a Scout to pass the First Aid segment of the Pioneer
+    Badge.
+  BadgeID: 19
+  Rank: 523
+  ParentID: 521
+524:
+  ID: 524
+  Description: Demonstrate how to deal with fractures to the limbs and collarbone.
+  BadgeID: 19
+  Rank: 524
+  ParentID: 523
+525:
+  ID: 525
+  Description: With another Scout set up and run a �mock' emergency to cover at least
+    three of the tasks required in Pioneer and Explorer level and First Aid segment.
+  BadgeID: 19
+  Rank: 525
+  ParentID: 523
+526:
+  ID: 526
+  Description: Leadership. In the Troop Council, or with your Patrol, plan and conduct
+    three activities which will provide opportunities for your Patrol members to learn
+    about leadership and being a productive member of a team.
+  BadgeID: 19
+  Rank: 526
+527:
+  ID: 527
+  Description: Good turn. Complete one of (a), (b) or (c)
+  BadgeID: 19
+  Rank: 527
+528:
+  ID: 528
+  Description: Assist at a Cub Scout camp or Joey Scout sleepover.
+  BadgeID: 19
+  Rank: 528
+  ParentID: 527
+529:
+  ID: 529
+  Description: Seek out a worthwhile service to others and actively participate for
+    a cumulative period of at least ten hours. If possible, involve members of your
+    Patrol on appropriate occasions, to satisfy their Pioneer or Explorer level requirements.
+  BadgeID: 19
+  Rank: 529
+  ParentID: 527
+530:
+  ID: 530
+  Description: With your Patrol or other Scouts, participate in a community service
+    project for at least 10 hours with a local service club such as Apex, Lions or
+    Rotary. Find out what services the organisation offers to the community.
+  BadgeID: 19
+  Rank: 530
+  ParentID: 527
+531:
+  ID: 531
+  Description: Breaking the Cycle. Lead a night program including
+  BadgeID: 19
+  Rank: 531
+532:
+  ID: 532
+  Description: Activity or game that demonstrates elements of the Scout Law and why
+    bullying is not part of Scouting
+  BadgeID: 19
+  Rank: 532
+  ParentID: 531
+533:
+  ID: 533
+  Description: Lead discussion on current Troop Code and contribute to the annual
+    review of Troop Code and sign
+  BadgeID: 19
+  Rank: 533
+  ParentID: 531
+534:
+  ID: 534
+  Description: Discuss with your Troop effective strategies to prevent bullying. You
+    may use a presentation group discussion or information night.
+  BadgeID: 19
+  Rank: 534
+  ParentID: 531
+535:
+  ID: 535
+  Description: Heritage. Complete (a) or (b)
+  BadgeID: 19
+  Rank: 535
+536:
+  ID: 536
+  Description: Report on the history, growth and present role of an Australian organisation
+    of your choice e.g. Royal Flying Doctor Service, Defence Forces, The St. John
+    Ambulance Association.
+  BadgeID: 19
+  Rank: 536
+  ParentID: 535
+537:
+  ID: 537
+  Description: With your Patrol or other Scouts, visit an Australian historical site
+    of national significance, and create a photographic, electronic or video record
+    of your visit. Present this record to your Troop or other Scouts.
+  BadgeID: 19
+  Rank: 537
+  ParentID: 535
+538:
+  ID: 538
+  Description: 'Activity. Complete two of the following:'
+  BadgeID: 19
+  Rank: 538
+539:
+  ID: 539
+  Description: Make regular contact over a three month period of time by e-mail or
+    letter with a Scout or Patrol in another country or other State or Territory.
+  BadgeID: 19
+  Rank: 539
+  ParentID: 538
+540:
+  ID: 540
+  Description: Exchange ideas for games and activities, and
+  BadgeID: 19
+  Rank: 540
+  ParentID: 539
+541:
+  ID: 541
+  Description: Use at least one of these games or activities in your Troop program.
+  BadgeID: 19
+  Rank: 541
+  ParentID: 539
+542:
+  ID: 542
+  Description: With your Patrol, investigate an agency that provides aid and assistance
+    to overseas communities and countries such as Care Australia, Amnesty International,
+    Red Cross International Aid, or World Vision. Find out how you can help them.
+  BadgeID: 19
+  Rank: 542
+  ParentID: 539
+543:
+  ID: 543
+  Description: With your Patrol or other Scouts, choose an international issue that
+    is making headlines in the media. Research and discuss the issue.
+  BadgeID: 19
+  Rank: 543
+  ParentID: 539
+544:
+  ID: 544
+  Description: Organise for your Patrol a visit to the seat of either local, state
+    or federal government.
+  BadgeID: 19
+  Rank: 544
+  ParentID: 539
+545:
+  ID: 545
+  Description: With your Patrol, use the Internet or other sources to find out about
+    Scouting in three other countries and present your findings to the Troop.
+  BadgeID: 19
+  Rank: 545
+  ParentID: 539
+546:
+  ID: 546
+  Description: Community. Organise for your Patrol a visit to one of the service facilities
+    outlined in Pioneer Citizenship 7, and understand the contribution made to the
+    community by the organisation selected.
+  BadgeID: 19
+  Rank: 546
+547:
+  ID: 547
+  Description: Environment. Complete (a) or (b and c)
+  BadgeID: 19
+  Rank: 547
+548:
+  ID: 548
+  Description: Complete the World Scout Environment Badge
+  BadgeID: 19
+  Rank: 548
+  ParentID: 547
+549:
+  ID: 549
+  Description: With your Patrol participate in a discussion and activity about walking
+    softly in the bush by following the minimum impact code for bushwalking as set
+    down by the National Parks authority in your state or territory.
+  BadgeID: 19
+  Rank: 549
+  ParentID: 547
+550:
+  ID: 550
+  Description: On a hike or camp with your Patrol or with other Scouts, examine the
+    good and bad effects of man on the surrounding environment. Discuss the impact
+    of this and include suggestions for any actions that could be taken to remedy
+    the bad effects.
+  BadgeID: 19
+  Rank: 550
+  ParentID: 547
+551:
+  ID: 551
+  Description: Fitness
+  BadgeID: 19
+  Rank: 551
+552:
+  ID: 552
+  Description: Using a game or activity instruct your Patrol in the requirements for
+    Pioneer level.
+  BadgeID: 19
+  Rank: 552
+  ParentID: 551
+553:
+  ID: 553
+  Description: With your Patrol or other Scouts, participate in an activity and/or
+    discussion that focuses on the negative effects of drugs, smoking and other substance
+    abuse.
+  BadgeID: 19
+  Rank: 553
+  ParentID: 551
+554:
+  ID: 554
+  Description: Recognition
+  BadgeID: 20
+  Rank: 554
+555:
+  ID: 555
+  Description: Be able to recognise by sight twelve types of aircraft.
+  BadgeID: 20
+  Rank: 555
+  ParentID: 554
+556:
+  ID: 556
+  Description: Recognise and describe the difference between the piston engine and
+    the turbojet engine and show that you understand how the power of these units
+    is adapted to propel an aircraft.
+  BadgeID: 20
+  Rank: 556
+  ParentID: 554
+557:
+  ID: 557
+  Description: Weather
+  BadgeID: 20
+  Rank: 557
+558:
+  ID: 558
+  Description: Know the various types of cloud and the weather usually associated
+    with each type, and what effect these formations have upon the flight performance
+    of an aircraft. 1.Find out some of the factors required to estimate the time it
+    would take to cover a certain distance in the air.
+  BadgeID: 20
+  Rank: 558
+  ParentID: 557
+559:
+  ID: 559
+  Description: Show a proficiency in interpreting weather maps.
+  BadgeID: 20
+  Rank: 559
+  ParentID: 557
+560:
+  ID: 560
+  Description: Theory
+  BadgeID: 20
+  Rank: 560
+561:
+  ID: 561
+  Description: Describe the correct procedure for radio communication with the control
+    tower or other aircraft on the ground and in the air.
+  BadgeID: 20
+  Rank: 561
+  ParentID: 560
+562:
+  ID: 562
+  Description: 'Do one of the following:'
+  BadgeID: 20
+  Rank: 562
+  ParentID: 560
+563:
+  ID: 563
+  Description: give a talk to your Patrol or Troop for at least five minutes on Australia�s
+    early aviation history
+  BadgeID: 20
+  Rank: 563
+  ParentID: 562
+564:
+  ID: 564
+  Description: compile a report on Australia�s aviation pioneers
+  BadgeID: 20
+  Rank: 564
+  ParentID: 562
+565:
+  ID: 565
+  Description: find out, by discussion with a commercial pilot or flight instructor,
+    what the main responsibilities are in performance of their work.
+  BadgeID: 20
+  Rank: 565
+  ParentID: 562
+566:
+  ID: 566
+  Description: Activity
+  BadgeID: 20
+  Rank: 566
+567:
+  ID: 567
+  Description: 'Arrange to visit a Scout or Air Activity Centre and/or aerodrome,
+    and find out:'
+  BadgeID: 20
+  Rank: 567
+  ParentID: 566
+568:
+  ID: 568
+  Description: who is responsible for the maintenance of airport services
+  BadgeID: 20
+  Rank: 568
+  ParentID: 567
+569:
+  ID: 569
+  Description: what is the function of a control tower
+  BadgeID: 20
+  Rank: 569
+  ParentID: 567
+570:
+  ID: 570
+  Description: what is the function of an Air Traffic Controller
+  BadgeID: 20
+  Rank: 570
+  ParentID: 567
+571:
+  ID: 571
+  Description: what airlines/aircraft use the aerodrome.
+  BadgeID: 20
+  Rank: 571
+  ParentID: 567
+572:
+  ID: 572
+  Description: Complete five of the tests from one of the following familiarization
+    electives, or complete the aeromodelling task.
+  BadgeID: 20
+  Rank: 572
+  ParentID: 567
+573:
+  ID: 573
+  Description: Familiarisation. Complete (a) or (b) or (c)
+  BadgeID: 20
+  Rank: 573
+574:
+  ID: 574
+  Description: AIR ACTIVITIES LIGHT AIRCRAFT FAMILIARISATION
+  BadgeID: 20
+  Rank: 574
+  ParentID: 573
+575:
+  ID: 575
+  Description: Learn how to assist correctly in ground handling of an aircraft and
+    find out the safety precautions required whilst refueling.
+  BadgeID: 20
+  Rank: 575
+  ParentID: 574
+576:
+  ID: 576
+  Description: Describe cockpit checks performed by the pilot prior to takeoff and
+    prior to the landing approach.
+  BadgeID: 20
+  Rank: 576
+  ParentID: 574
+577:
+  ID: 577
+  Description: Describe the primary effect of aircraft controls.
+  BadgeID: 20
+  Rank: 577
+  ParentID: 574
+578:
+  ID: 578
+  Description: Have two flights in a light aircraft.
+  BadgeID: 20
+  Rank: 578
+  ParentID: 574
+579:
+  ID: 579
+  Description: Know and demonstrate an elementary knowledge of aircraft controls �
+    control column, rudder pedals, throttle, flaps, trim tabs, mixture control.
+  BadgeID: 20
+  Rank: 579
+  ParentID: 574
+580:
+  ID: 580
+  Description: With the use of a map, compass and protractor, show how to plot a course
+    between two towns.
+  BadgeID: 20
+  Rank: 580
+  ParentID: 574
+581:
+  ID: 581
+  Description: Know the procedure to adopt in the event of an emergency.
+  BadgeID: 20
+  Rank: 581
+  ParentID: 574
+582:
+  ID: 582
+  Description: GLIDING FAMILIARISATION
+  BadgeID: 20
+  Rank: 582
+  ParentID: 574
+583:
+  ID: 583
+  Description: Learn and demonstrate handling and parking.
+  BadgeID: 20
+  Rank: 583
+  ParentID: 582
+584:
+  ID: 584
+  Description: Learn and demonstrate launching signals.
+  BadgeID: 20
+  Rank: 584
+  ParentID: 582
+585:
+  ID: 585
+  Description: Act as a satisfactory member of a ground-handling crew in an actual
+    landing.
+  BadgeID: 20
+  Rank: 585
+  ParentID: 582
+586:
+  ID: 586
+  Description: Know the procedure to adopt in the event of an emergency.
+  BadgeID: 20
+  Rank: 586
+  ParentID: 582
+587:
+  ID: 587
+  Description: Have had two flights in a glider.
+  BadgeID: 20
+  Rank: 587
+  ParentID: 582
+588:
+  ID: 588
+  Description: With the use of map, compass and protractor show how to plot a course
+    between two towns.
+  BadgeID: 20
+  Rank: 588
+  ParentID: 582
+589:
+  ID: 589
+  Description: 'AEROMODELLING. Construct two models selected from the following classifications
+    (use of kit permitted). The models shall have the minimum flight times listed
+    below:'
+  BadgeID: 20
+  Rank: 589
+  ParentID: 582
+590:
+  ID: 590
+  Description: glider (hand launched) 17 seconds
+  BadgeID: 20
+  Rank: 590
+  ParentID: 589
+591:
+  ID: 591
+  Description: glider (hand launched) aerobatics
+  BadgeID: 20
+  Rank: 591
+  ParentID: 589
+592:
+  ID: 592
+  Description: rubber powered one minute
+  BadgeID: 20
+  Rank: 592
+  ParentID: 589
+593:
+  ID: 593
+  Description: engine powered (maximum 15 seconds motor run) two minutes.
+  BadgeID: 20
+  Rank: 593
+  ParentID: 589
+594:
+  ID: 594
+  Description: Planning
+  BadgeID: 21
+  Rank: 594
+595:
+  ID: 595
+  Description: Sketch and explain how you, along with your Patrol, would go about
+    constructing one of the major projects.
+  BadgeID: 21
+  Rank: 595
+  ParentID: 594
+596:
+  ID: 596
+  Description: Assist and test another Scout to pass the requirements of Explorer
+    Planning 1.
+  BadgeID: 21
+  Rank: 596
+  ParentID: 594
+597:
+  ID: 597
+  Description: Equipment and safety
+  BadgeID: 21
+  Rank: 597
+598:
+  ID: 598
+  Description: Demonstrate a knowledge of the sizes and strengths of materials (poles,
+    ropes, and tackle) needed to safely build and use the structures specified for
+    a major project.
+  BadgeID: 21
+  Rank: 598
+  ParentID: 597
+599:
+  ID: 599
+  Description: Explain to your Patrol the safety requirements for building and using
+    the structures specified.
+  BadgeID: 21
+  Rank: 599
+  ParentID: 597
+600:
+  ID: 600
+  Description: Explain to your Patrol or other Scouts, the main advantages and disadvantages
+    of different types of ropes, e.g. manila, sisal, nylon, and polypropylene. Include
+    the best method of terminating the ends of these ropes.
+  BadgeID: 21
+  Rank: 600
+  ParentID: 597
+601:
+  ID: 601
+  Description: Knots and structure
+  BadgeID: 21
+  Rank: 601
+602:
+  ID: 602
+  Description: Demonstrate the knots, splices and lashings in Adventurer Campcraft
+    1b.
+  BadgeID: 21
+  Rank: 602
+  ParentID: 601
+603:
+  ID: 603
+  Description: Assist and test your Patrol or other Scouts to pass the knots and lashings
+    required in a major project.
+  BadgeID: 21
+  Rank: 603
+  ParentID: 601
+604:
+  ID: 604
+  Description: Demonstrate tensioning of ropes with and without pulleys, and rope
+    ladder construction.
+  BadgeID: 21
+  Rank: 604
+  ParentID: 601
+605:
+  ID: 605
+  Description: 'Organisation and management. Plan and lead your Patrol or other Scouts
+    in the completion of two of the following major projects:'
+  BadgeID: 21
+  Rank: 605
+606:
+  ID: 606
+  Description: braced footbridge at least 3m long
+  BadgeID: 21
+  Rank: 606
+  ParentID: 605
+607:
+  ID: 607
+  Description: monkey suspension bridge spanning at least 7m
+  BadgeID: 21
+  Rank: 607
+  ParentID: 605
+608:
+  ID: 608
+  Description: camp table or similar complex piece of camping equipment
+  BadgeID: 21
+  Rank: 608
+  ParentID: 605
+609:
+  ID: 609
+  Description: tower with a platform approximately 3m above the ground
+  BadgeID: 21
+  Rank: 609
+  ParentID: 605
+610:
+  ID: 610
+  Description: ballista/catapult capable of propelling a projectile at least 10m
+  BadgeID: 21
+  Rank: 610
+  ParentID: 605
+611:
+  ID: 611
+  Description: swing bridge suitable of safely carrying each Patrol member across
+    a gap of at least 3m
+  BadgeID: 21
+  Rank: 611
+  ParentID: 605
+612:
+  ID: 612
+  Description: another project of equivalent safety or difficulty approved by Troop
+    Council.
+  BadgeID: 21
+  Rank: 612
+  ParentID: 605
+613:
+  ID: 613
+  Description: Recognition. Together with a qualified instructor, teach and test your
+    Patrol about eight different types of emergencies and how to react to these emergencies.
+  BadgeID: 22
+  Rank: 613
+614:
+  ID: 614
+  Description: Knowledge
+  BadgeID: 22
+  Rank: 614
+615:
+  ID: 615
+  Description: To teach and demonstrate the DRSABCD Action Plan.
+  BadgeID: 22
+  Rank: 615
+  ParentID: 614
+616:
+  ID: 616
+  Description: Together with a qualified instructor, teach and test your Patrol the
+    correct technique for Cardiopulmonary Resuscitation.
+  BadgeID: 22
+  Rank: 616
+  ParentID: 614
+617:
+  ID: 617
+  Description: Be able to recognise suspicious and/or dangerous chemical situations
+    and potentially explosive devices and know what to do should you find them.
+  BadgeID: 22
+  Rank: 617
+  ParentID: 614
+618:
+  ID: 618
+  Description: Be able to recognise hazards posed by sharps (needles, syringes, glass,
+    metal objects).
+  BadgeID: 22
+  Rank: 618
+  ParentID: 614
+619:
+  ID: 619
+  Description: Be able to recognise hazards associated with medications and drugs.
+  BadgeID: 22
+  Rank: 619
+  ParentID: 614
+620:
+  ID: 620
+  Description: Visit. Organise for your Patrol or other Scouts to visit one of the
+    locations listed in Pioneer 3. This is not to be one of the same locations visited
+    during the earning of the Pioneer and Explorer Levels.
+  BadgeID: 22
+  Rank: 620
+621:
+  ID: 621
+  Description: Treatment
+  BadgeID: 22
+  Rank: 621
+622:
+  ID: 622
+  Description: '1. Teach your Patrol or other Scouts about:'
+  BadgeID: 22
+  Rank: 622
+  ParentID: 621
+623:
+  ID: 623
+  Description: the circulation of the blood
+  BadgeID: 22
+  Rank: 623
+  ParentID: 622
+624:
+  ID: 624
+  Description: how to control external bleeding
+  BadgeID: 22
+  Rank: 624
+  ParentID: 622
+625:
+  ID: 625
+  Description: the likely cause, symptoms and treatment of internal bleeding.
+  BadgeID: 22
+  Rank: 625
+  ParentID: 622
+626:
+  ID: 626
+  Description: Demonstrate the use of a knapsack spray and rakes in fighting a grass
+    fire.
+  BadgeID: 22
+  Rank: 626
+  ParentID: 622
+627:
+  ID: 627
+  Description: 'Teach your Patrol:'
+  BadgeID: 22
+  Rank: 627
+  ParentID: 622
+628:
+  ID: 628
+  Description: the different types of fire extinguishers
+  BadgeID: 22
+  Rank: 628
+  ParentID: 627
+629:
+  ID: 629
+  Description: explain on what types of fire each should be used/not used, e.g. electrical,
+    oil.
+  BadgeID: 22
+  Rank: 629
+  ParentID: 627
+630:
+  ID: 630
+  Description: Lead your Patrol or other Scouts in Explorer Emergencies 4 Activity.
+  BadgeID: 22
+  Rank: 630
+  ParentID: 627
+631:
+  ID: 631
+  Description: Set up emergency communications between two points 500m apart and out
+    of sight of each other.
+  BadgeID: 22
+  Rank: 631
+  ParentID: 627
+632:
+  ID: 632
+  Description: Teach and test a Scout at Explorer level how to deal with fractures
+    to the limbs and collarbone.
+  BadgeID: 22
+  Rank: 632
+  ParentID: 627
+633:
+  ID: 633
+  Description: Demonstrate to your Patrol how to treat a sprained ankle.
+  BadgeID: 22
+  Rank: 633
+  ParentID: 627
+634:
+  ID: 634
+  Description: Demonstrate to your Patrol how to treat a patient with an eye injury.
+  BadgeID: 22
+  Rank: 634
+  ParentID: 627
+635:
+  ID: 635
+  Description: Mock emergency
+  BadgeID: 22
+  Rank: 635

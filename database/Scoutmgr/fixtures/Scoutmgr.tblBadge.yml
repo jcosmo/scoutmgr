@@ -7,72 +7,188 @@
 
     The Scoutcraft Badge is earned within 4 to 6 weeks of you joining the Troup.  Your Patrol Leader
     and Scout Leader work together to carry out the testing and training for this badge.
-
-    With your Patrol, complete the following
   BadgeCategoryID: 1
   Rank: 1
 2:
   ID: 2
   Name: Campcraft
   Description: To achieve the Pioneer Campcraft Target, the Scout must complete all
-    of the requirements for No''s 1 to 8.
+    of the requirements for No's 1 to 8.
   BadgeCategoryID: 2
   Rank: 2
 3:
   ID: 3
   Name: Citizenship
-  Description: Awareness of community organisations, first aid, heritage and community
-    service
+  Description: |-
+    This badge allows you, as a Scout, to fulfil the Purpose of the Scout Association.
+
+    To achieve the Pioneer Citizenship Target the Scout must complete all of the requirements for No�s. 1 to 4, together with any three of the remaining six parts.
   BadgeCategoryID: 2
   Rank: 3
 4:
   ID: 4
-  Name: Construction
-  Description: Plan projects, build a Scout chariot and camp gadgets
+  Name: Air Activities
+  Description: To achieve the Pioneer Air Activities Target the Scout must complete
+    all of the requirements for No�s. 1 to 3, together with one part from No. 4.
   BadgeCategoryID: 2
   Rank: 4
 5:
   ID: 5
-  Name: Emergencies
-  Description: Understand an emergency, do some first aid, and visit a hospital or
-    other location
+  Name: Construction
+  Description: To achieve the Pioneer Construction Target the Scout must complete
+    all of the requirements for No�s. 1 to 4.
   BadgeCategoryID: 2
   Rank: 5
 6:
   ID: 6
-  Name: Environment
-  Description: Natural, recycling and environmental management'
+  Name: Emergencies
+  Description: To achieve the Pioneer Emergencies Target, the Scout must complete
+    the following
   BadgeCategoryID: 2
   Rank: 6
 7:
   ID: 7
-  Name: Air Activities
-  Description: Knowledge of weather conditions, aircraft recognition, visit airport
-    or make models
+  Name: Environment
+  Description: To achieve the Pioneer Environment Target, the Scout must complete
+    all the requirements for No 1 or No 2
   BadgeCategoryID: 2
   Rank: 7
 8:
   ID: 8
-  Name: Water Safety
-  Description: Swim, demonstrate rescue techniques
+  Name: Water Activities
+  Description: To achieve the Pioneer Water Activities Target, the scout must be able
+    to recognise four different types of craft constructions AND complete all of the
+    requirements for Nos 1-4, together with any one of the electives A-D.
   BadgeCategoryID: 2
   Rank: 8
 9:
   ID: 9
-  Name: Water Activities
-  Description: Learn safe boating procedures
+  Name: Water Safety
+  Description: To achieve the Pioneer Water Safety Target, the Scout must complete
+    al of the requirements for No�s 1 to 4.
   BadgeCategoryID: 2
   Rank: 9
 10:
   ID: 10
+  Name: Campcraft
+  Description: To achieve the Explorer Target, the Scout must complete all the requirements
+    for No�s 1 to 8.
+  BadgeCategoryID: 3
+  Rank: 10
+11:
+  ID: 11
+  Name: Citizenship
+  Description: To achieve the Explorer Citizenship Target, the Scout must complete
+    all of the requirements for No�s 1 to 4, together with any three of the remaining
+    six parts.
+  BadgeCategoryID: 3
+  Rank: 11
+12:
+  ID: 12
+  Name: Air activities
+  Description: To achieve the Explorer Air Activities Target, the Scout must complete
+    all of the requirements for No�s 1 to 4.
+  BadgeCategoryID: 3
+  Rank: 12
+13:
+  ID: 13
+  Name: Construction
+  Description: To achieve the Explorer Construction Target, the Scout must complete
+    all of the requirements for No's 1 to 4.
+  BadgeCategoryID: 3
+  Rank: 13
+14:
+  ID: 14
+  Name: Emergencies
+  Description: To achieve the Explorer Emergencies Target, the Scout must complete
+    the following
+  BadgeCategoryID: 3
+  Rank: 14
+15:
+  ID: 15
+  Name: Environment
+  Description: To achieve the Explorer Environment Target, the Scout must complete
+    all the requirements for No�s 1 to 4.
+  BadgeCategoryID: 3
+  Rank: 15
+16:
+  ID: 16
+  Name: Water activities
+  Description: To achieve the Explorer Water Activities Target, the Scout must complete
+    all of the requirements for No�s 1 to 5, together with one of the electives A-F.
+  BadgeCategoryID: 3
+  Rank: 16
+17:
+  ID: 17
+  Name: Water safety
+  Description: To achieve the Explorer Water Safety Target the Scout must complete
+    all of the requirements 1 to 4.
+  BadgeCategoryID: 3
+  Rank: 17
+18:
+  ID: 18
+  Name: Campcraft
+  Description: To achieve the Adventurer Campcraft Target the Scout must complete
+    all of the requirements for No�s 1 to 8.
+  BadgeCategoryID: 4
+  Rank: 18
+19:
+  ID: 19
+  Name: Citizenship
+  Description: To achieve the Adventurer Citizenship Target, the Scout must complete
+    all the requirements for No�s 1 to 4, together with any three of the remaining
+    six parts.
+  BadgeCategoryID: 4
+  Rank: 19
+20:
+  ID: 20
+  Name: Air activities
+  Description: To achieve the Adventurer Air Activities Target, the Scout must complete
+    all the requirements for No�s 1 to 5.
+  BadgeCategoryID: 4
+  Rank: 20
+21:
+  ID: 21
+  Name: Construction
+  Description: To achieve the Adventurer Construction Target, the Scout must complete
+    all of the requirements for No's 1 to 4.
+  BadgeCategoryID: 4
+  Rank: 21
+22:
+  ID: 22
+  Name: Emergencies
+  Description: To achieve the Adventurer Emergencies Target, the Scout must complete
+    all of the requirements of No�s 1 to 5.
+  BadgeCategoryID: 4
+  Rank: 22
+23:
+  ID: 23
+  Name: Environment
+  Description: ''
+  BadgeCategoryID: 4
+  Rank: 23
+24:
+  ID: 24
+  Name: Water activities
+  Description: ''
+  BadgeCategoryID: 4
+  Rank: 24
+25:
+  ID: 25
+  Name: Water safety
+  Description: ''
+  BadgeCategoryID: 4
+  Rank: 25
+26:
+  ID: 26
   Name: Animal Keeper
   Description: Show that you have an interest in, have learnt about and have improved
     your knowledge of caring for an animal
   BadgeCategoryID: 5
-  Rank: 10
-11:
-  ID: 11
+  Rank: 26
+27:
+  ID: 27
   Name: Venturer Link Badge
   Description: ''
   BadgeCategoryID: 6
-  Rank: 11
+  Rank: 27
