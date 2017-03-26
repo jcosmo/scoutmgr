@@ -78,7 +78,7 @@ Domgen.repository(:Scoutmgr) do |repository|
     data_module.entity(:Badge) do |t|
       t.integer(:ID, :primary_key => true)
       t.string(:Name, 255)
-      t.string(:Description, 1024)
+      t.text(:Description)
       t.integer(:Rank)
 
       t.reference(:BadgeCategory, 'inverse.traversable' => true)
@@ -90,7 +90,7 @@ Domgen.repository(:Scoutmgr) do |repository|
       t.integer(:ID, :primary_key => true)
       t.reference(:Badge, 'inverse.traversable' => true)
       t.reference(:BadgeTask, :name => :Parent, 'inverse.traversable' => true, :nullable => true)
-      t.string(:Description, 255)
+      t.text(:Description)
       t.integer(:Rank)
 
       t.imit.replicate(:Metadata, :type)
