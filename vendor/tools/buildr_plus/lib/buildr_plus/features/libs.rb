@@ -53,7 +53,7 @@ BuildrPlus::FeatureManager.feature(:libs) do |f|
     end
 
     def glassfish_embedded
-      %w(fish.payara.extras:payara-embedded-all:jar:4.1.1.171.0.1)
+      %w(fish.payara.extras:payara-embedded-all:jar:4.1.1.171.1)
     end
 
     def eclipselink
@@ -181,7 +181,7 @@ BuildrPlus::FeatureManager.feature(:libs) do |f|
     end
 
     def rest_criteria
-      %w(org.realityforge.rest.criteria:rest-criteria:jar:0.9.4 org.antlr:antlr4-runtime:jar:4.3 org.antlr:antlr4-annotations:jar:4.3) + self.field_filter
+      %w(org.realityforge.rest.criteria:rest-criteria:jar:0.9.5 org.antlr:antlr4-runtime:jar:4.3 org.antlr:antlr4-annotations:jar:4.3) + self.field_filter
     end
 
     def commons_logging
@@ -302,11 +302,11 @@ BuildrPlus::FeatureManager.feature(:libs) do |f|
     end
 
     def glassfish_timers_domain
-      %W(org.realityforge.glassfish.timers#{BuildrPlus::Db.pgsql? ? '.pg' : ''}:glassfish-timers-domain:json:0.5)
+      %W(org.realityforge.glassfish.timers#{BuildrPlus::Db.pgsql? ? '.pg' : ''}:glassfish-timers-domain:json:0.6)
     end
 
     def glassfish_timers_db
-      %W(org.realityforge.glassfish.timers#{BuildrPlus::Db.pgsql? ? '.pg' : ''}:glassfish-timers-db:jar:0.5)
+      %W(org.realityforge.glassfish.timers#{BuildrPlus::Db.pgsql? ? '.pg' : ''}:glassfish-timers-db:jar:0.6)
     end
 
     def slf4j

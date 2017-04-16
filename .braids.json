@@ -2,25 +2,21 @@
   "vendor/tools/buildr_plus": {
     "url": "https://github.com/realityforge/buildr_plus.git",
     "branch": "master",
-    "squashed": true,
-    "revision": "4ce40e2c985fee5e2136c66b9d67fc0bbbbb6223"
+    "revision": "a8b854e6a107aec17536134e53eacbb102678c86"
   },
   "vendor/tools/dbt": {
     "url": "https://github.com/realityforge/dbt.git",
     "branch": "master",
-    "squashed": true,
     "revision": "07aacef47f79f00a8d80ac90fb79227312682f6a"
   },
   "vendor/tools/domgen": {
     "url": "https://github.com/realityforge/domgen.git",
     "branch": "master",
-    "squashed": true,
     "revision": "b7a5a0a292adad79fe50b2ada97a4db3ed7dbf4b"
   },
   "vendor/tools/redfish": {
     "url": "https://github.com/realityforge/redfish.git",
     "branch": "master",
-    "squashed": true,
     "revision": "a6fea9228fa64205d1ece2774a5bb84e1921f5c4"
   }
 }

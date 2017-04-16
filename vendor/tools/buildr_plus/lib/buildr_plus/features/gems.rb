@@ -62,8 +62,8 @@ BuildrPlus::FeatureManager.feature(:gems) do |f|
 
       gems = {}
 
-      gem(gems, 'buildr', '1.5.0')
-      gem(gems, 'braid', '1.0.14')
+      gem(gems, 'buildr', '1.5.2')
+      gem(gems, 'braid', '1.0.18')
       # Rspec required for buildr
       gem(gems, 'rspec-expectations', '2.14.3')
       gem(gems, 'rspec-mocks', '2.14.3')
