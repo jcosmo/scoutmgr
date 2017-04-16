@@ -5,12 +5,13 @@ import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
-import com.google.gwt.user.client.ui.Anchor;
-import com.google.gwt.user.client.ui.ListBox;
-import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.user.datepicker.client.DateBox;
 import com.gwtplatform.mvp.client.ViewWithUiHandlers;
+import gwt.material.design.client.ui.MaterialButton;
+import gwt.material.design.client.ui.MaterialDatePicker;
+import gwt.material.design.client.ui.MaterialListBox;
+import gwt.material.design.client.ui.MaterialTextBox;
 import java.util.ArrayList;
 import javax.inject.Inject;
 import org.realityforge.gwt.datatypes.client.date.RDate;
@@ -24,19 +25,19 @@ public class MemberFormView
   implements MemberFormPresenter.View
 {
   @UiField
-  TextBox _familyName;
+  MaterialTextBox _familyName;
   @UiField
-  TextBox _givenName;
+  MaterialTextBox _givenName;
   @UiField
-  Anchor _saveButton;
+  MaterialButton _saveButton;
   @UiField
-  Anchor _cancelButton;
+  MaterialButton _cancelButton;
   @UiField
-  DateBox _dob;
+  MaterialDatePicker _dob;
   @UiField
-  TextBox _regNum;
+  MaterialTextBox _regNum;
   @UiField
-  ListBox _scoutSection;
+  MaterialListBox _scoutSection;
 
   @Inject
   EntityRepository _entityRepository;
@@ -50,8 +51,7 @@ public class MemberFormView
   MemberFormView( final Binder uiBinder )
   {
     initWidget( uiBinder.createAndBindUi( this ) );
-    final DateTimeFormat format = DateTimeFormat.getFormat( "dd/MM/yyyy" );
-    _dob.setFormat( new DateBox.DefaultFormat( format ) );
+    _dob.setFormat( "dd/MM/yyyy" );
   }
 
   @Override

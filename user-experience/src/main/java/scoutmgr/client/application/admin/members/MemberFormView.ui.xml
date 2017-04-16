@@ -1,79 +1,43 @@
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
              xmlns:g="urn:import:com.google.gwt.user.client.ui"
-             xmlns:d="urn:import:com.google.gwt.user.datepicker.client">
+             xmlns:d="urn:import:com.google.gwt.user.datepicker.client"
+              xmlns:m="urn:import:gwt.material.design.client.ui">
   <ui:with field="_nameTokens" type="scoutmgr.client.place.NameTokens"/>
   <ui:with field='_bundle' type='scoutmgr.client.resource.ScoutmgrResourceBundle'/>
-  <g:HTMLPanel>
-    <div id="content" class="{_bundle.scoutmgr.content}">
-      <form class="{_bundle.bootstrap.formHorizontal} form-edit form-editable">
-        <div class="{_bundle.bootstrap.formGroup}">
-          <label class="{_bundle.bootstrap.controlLabel} required star-added {_bundle.bootstrap.colSm2}">
-            <span class="star">*</span>
-            Registration Number
-          </label>
-          <div class="{_bundle.bootstrap.inputGroup} nopadding disableable {_bundle.bootstrap.colSm4}">
-            <span class="edit-panel-control-holder">
-              <g:TextBox ui:field="_regNum" addStyleNames="{_bundle.bootstrap.formControl}"/>
-            </span>
-          </div>
-        </div>
-        <div class="{_bundle.bootstrap.formGroup}">
-          <label class="{_bundle.bootstrap.controlLabel} required star-added {_bundle.bootstrap.colSm2}">
-            <span class="star">*</span>
-            Scout Section
-          </label>
-          <div class="{_bundle.bootstrap.inputGroup} nopadding disableable {_bundle.bootstrap.colSm4}">
-            <span class="edit-panel-control-holder">
-              <g:ListBox ui:field="_scoutSection" addStyleNames="{_bundle.bootstrap.formControl}"/>
-            </span>
-          </div>
-        </div>
-        <div class="{_bundle.bootstrap.formGroup}">
-          <label class="{_bundle.bootstrap.controlLabel} required star-added {_bundle.bootstrap.colSm2}">
-            <span class="star">*</span>
-            Given Name
-          </label>
-          <div class="{_bundle.bootstrap.inputGroup} nopadding disableable {_bundle.bootstrap.colSm4}">
-            <span class="edit-panel-control-holder">
-              <g:TextBox ui:field="_givenName" addStyleNames="{_bundle.bootstrap.formControl}"/>
-            </span>
-          </div>
-        </div>
-        <div class="{_bundle.bootstrap.formGroup}">
-          <label class="{_bundle.bootstrap.controlLabel} required star-added {_bundle.bootstrap.colSm2}">
-            <span class="star">*</span>
-            Family Name
-          </label>
-          <div class="{_bundle.bootstrap.inputGroup} nopadding disableable {_bundle.bootstrap.colSm4}">
-            <span class="edit-panel-control-holder">
-              <g:TextBox ui:field="_familyName" addStyleNames="{_bundle.bootstrap.formControl}"/>
-            </span>
-          </div>
-        </div>
-        <div class="{_bundle.bootstrap.formGroup}">
-          <label class="{_bundle.bootstrap.controlLabel} required star-added {_bundle.bootstrap.colSm2}">
-            <span class="star">*</span>
-            Date of Birth
-          </label>
-          <div class="{_bundle.bootstrap.inputGroup} nopadding disableable {_bundle.bootstrap.colSm4}">
-            <span class="edit-panel-control-holder">
-              <d:DateBox ui:field="_dob" addStyleNames="{_bundle.bootstrap.formControl}"/>
-            </span>
-          </div>
-        </div>
-        <div class="spacer"/>
-        <div class="editable-panel-buttons {_bundle.bootstrap.colSmOffset2} {_bundle.bootstrap.colSm4}">
-          <g:Anchor href="#{_nameTokens.getAdminScouts}" ui:field="_cancelButton" addStyleNames="{_bundle.bootstrap.btn} {_bundle.bootstrap.btnDefault} cancel-button">
-            <i class="{_bundle.bootstrap.glyphicon} {_bundle.bootstrap.glyphiconRemove}"/>
-            Cancel
-          </g:Anchor>
-          <g:Anchor href="#" ui:field="_saveButton" addStyleNames="{_bundle.bootstrap.btn} {_bundle.bootstrap.btnPrimary} submit-button">
-            <i class="{_bundle.bootstrap.glyphicon} {_bundle.bootstrap.glyphiconOk}"/>
-            Save
-          </g:Anchor>
-        </div>
-      </form>
-    </div>
+  <g:HTMLPanel id="content" addStyleNames="{_bundle.scoutmgr.content}">
+    <form>
+      <m:MaterialRow>
+        <m:MaterialColumn grid="s10 m6 l4" offset="s1 m3 l4">
+          <m:MaterialTextBox ui:field="_regNum" placeholder="Registration Number"/>
+        </m:MaterialColumn>
+      </m:MaterialRow>
+      <m:MaterialRow>
+        <m:MaterialColumn grid="s10 m6 l4" offset="s1 m3 l4">
+          <m:MaterialListBox ui:field="_scoutSection" placeholder="Scout Section"/>
+        </m:MaterialColumn>
+      </m:MaterialRow>
+      <m:MaterialRow>
+        <m:MaterialColumn grid="s10 m6 l4" offset="s1 m3 l4">
+          <m:MaterialTextBox ui:field="_givenName" placeholder="Given Name"/>
+        </m:MaterialColumn>
+      </m:MaterialRow>
+      <m:MaterialRow>
+        <m:MaterialColumn grid="s10 m6 l4" offset="s1 m3 l4">
+          <m:MaterialTextBox ui:field="_familyName" placeholder="Family Name"/>
+        </m:MaterialColumn>
+      </m:MaterialRow>
+      <m:MaterialRow>
+        <m:MaterialColumn grid="s10 m6 l4" offset="s1 m3 l4">
+          <m:MaterialDatePicker ui:field="_dob" placeholder="Date of birth"/>
+        </m:MaterialColumn>
+      </m:MaterialRow>
+      <m:MaterialRow>
+        <m:MaterialColumn grid="s10 m6 l4" offset="s1 m3 l4" textAlign="RIGHT" addStyleNames="{_bundle.scoutmgr.buttonBar}">
+          <m:MaterialButton ui:field="_cancelButton" text="Cancel" iconType="UNDO"/>
+          <m:MaterialButton ui:field="_saveButton" text="Save" iconType="DONE"/>
+        </m:MaterialColumn>
+      </m:MaterialRow>
+    </form>
   </g:HTMLPanel>
 </ui:UiBinder>
