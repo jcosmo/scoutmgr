@@ -4,9 +4,9 @@
   <inherits name='scoutmgr.modules.ScoutmgrAppSupport'/>
 
   <inherits name="com.gwtplatform.mvp.MvpWithEntryPoint"/>
-  <!--<inherits name="gwt.material.design.GwtMaterialWithJQueryDebug"/>-->
-  <inherits name="gwt.material.design.GwtMaterialDesignBasic" />
-  <inherits name="gwt.material.design.addins.GWTMaterialAddins"/>
+  <inherits name="gwt.material.design.GwtMaterialWithJQueryDebug"/>
+  <!--<inherits name="gwt.material.design.GwtMaterialDesignBasic" />-->
+  <!--<inherits name="gwt.material.design.addins.GWTMaterialAddins"/>-->
   <inherits name="gwt.material.design.themes.GwtMaterialThemeBlue"/>
 
   <set-configuration-property name="gin.ginjector.modules" value="scoutmgr.client.ioc.ScoutmgrClientModule" />
