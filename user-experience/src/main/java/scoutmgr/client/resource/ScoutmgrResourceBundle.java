@@ -2248,6 +2248,8 @@ public interface ScoutmgrResourceBundle
     String badgeTaskRow();
 
     String whenColumn();
+
+    String buttonBar();
   }
 
   @Source( "scoutmgr.main.gss" )

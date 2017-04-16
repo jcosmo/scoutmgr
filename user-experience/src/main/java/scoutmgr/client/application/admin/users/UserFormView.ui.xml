@@ -32,7 +32,7 @@
           </m:MaterialColumn>
         </m:MaterialRow>
         <m:MaterialRow>
-          <m:MaterialColumn grid="s3" offset="s6" textAlign="RIGHT">
+          <m:MaterialColumn grid="s6" offset="s3" textAlign="RIGHT" addStyleNames="{_bundle.scoutmgr.buttonBar}">
             <m:MaterialButton ui:field="_cancelButton" text="Cancel" iconType="UNDO"/>
             <m:MaterialButton ui:field="_saveButton" text="Save" iconType="DONE"/>
           </m:MaterialColumn>

@@ -157,3 +157,9 @@ body {
   height: 1.4rem;
   box-shadow: none;
 }
+
+@external btn;
+.buttonBar .btn {
+  margin-left: 8px;
+  margin-right: 8px;
+}
