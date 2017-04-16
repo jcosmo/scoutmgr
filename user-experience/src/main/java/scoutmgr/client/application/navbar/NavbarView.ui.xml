@@ -6,31 +6,31 @@
   <ui:with type="scoutmgr.client.place.NameTokens" field="_nameTokens"></ui:with>
   <g:HTMLPanel>
     <header>
-      <m:MaterialNavBar backgroundColor="blue lighten-3" textColor="black" type="FIXED" addStyleNames="z-depth-0 {_bundle.scoutmgr.navbar}">
-        <m:MaterialNavBrand float="LEFT" text="Scout Manager" textColor="black"/>
-        <m:MaterialNavSection float="RIGHT">
+      <m:MaterialNavBar backgroundColor="BLUE_LIGHTEN_3" textColor="BLACK" type="FIXED" addStyleNames="z-depth-0 {_bundle.scoutmgr.navbar}">
+        <m:MaterialNavBrand float="LEFT" text="Scout Manager" textColor="BLACK"/>
+        <m:MaterialNavSection float="RIGHT" ui:field="_accountSection">
           <m:MaterialTooltip text="Account Settings" position="BOTTOM">
             <m:MaterialLink iconType="ACCOUNT_CIRCLE" iconColor="black" iconPosition="NONE"/>
           </m:MaterialTooltip>
           <m:MaterialTooltip text="Logout" position="BOTTOM">
-            <m:MaterialLink ui:field="_logoutLink" iconType="CANCEL" iconColor="black" iconPosition="NONE"/>
+            <m:MaterialLink ui:field="_logoutLink" iconType="CANCEL" iconColor="BLACK" iconPosition="NONE"/>
           </m:MaterialTooltip>
         </m:MaterialNavSection>
       </m:MaterialNavBar>
-      <m:MaterialRow grid="s12" backgroundColor="blue lighten-4" addStyleNames="{_bundle.scoutmgr.menubar}">
+      <m:MaterialRow grid="s12" backgroundColor="BLUE_LIGHTEN_4" addStyleNames="{_bundle.scoutmgr.menubar}">
         <m:MaterialColumn ui:field="_myRecordMenuContainer">
-          <m:MaterialLink ui:field="_myRecordLink" padding="12" waves="DEFAULT" text="My Record" textColor="black"/>
+          <m:MaterialLink ui:field="_myRecordLink" padding="12" waves="DEFAULT" text="My Record" textColor="BLACK"/>
         </m:MaterialColumn>
         <m:MaterialColumn ui:field="_myTroopMenuContainer">
-          <m:MaterialLink ui:field="_myTroopLink" href="#{_nameTokens.getTroop}" padding="12" waves="DEFAULT" text="My Troop" textColor="black"/>
+          <m:MaterialLink ui:field="_myTroopLink" href="#{_nameTokens.getTroop}" padding="12" waves="DEFAULT" text="My Troop" textColor="BLACK"/>
         </m:MaterialColumn>
         <m:MaterialColumn ui:field="_adminMenuContainer">
-          <m:MaterialLink ui:field="_adminLink" activates="menu-admin" padding="12" waves="DEFAULT" text="Administration" textColor="black"/>
+          <m:MaterialLink ui:field="_adminLink" activates="menu-admin" padding="12" waves="DEFAULT" text="Administration" textColor="BLACK"/>
           <m:MaterialDropDown ui:field="_adminDropdown" activator="menu-admin" belowOrigin="true">
-            <m:MaterialLink ui:field="_adminScoutLink" href="#{_nameTokens.getAdminScouts}" waves="DEFAULT" text="Scouts" textColor="black"/>
-            <m:MaterialLink ui:field="_adminEventsLink" href="#{_nameTokens.getEvents}" waves="DEFAULT" text="Events" textColor="black"/>
-            <m:MaterialLink ui:field="_adminBadgesLink" href="#{_nameTokens.getAdminBadges}" waves="DEFAULT" text="Badges" textColor="black"/>
-            <m:MaterialLink ui:field="_adminUsersLink" href="#{_nameTokens.getAdminUsers}" waves="DEFAULT" text="Users" textColor="black"/>
+            <m:MaterialLink ui:field="_adminScoutLink" href="#{_nameTokens.getAdminScouts}" waves="DEFAULT" text="Scouts" textColor="BLACK"/>
+            <m:MaterialLink ui:field="_adminEventsLink" href="#{_nameTokens.getEvents}" waves="DEFAULT" text="Events" textColor="BLACK"/>
+            <m:MaterialLink ui:field="_adminBadgesLink" href="#{_nameTokens.getAdminBadges}" waves="DEFAULT" text="Badges" textColor="BLACK"/>
+            <m:MaterialLink ui:field="_adminUsersLink" href="#{_nameTokens.getAdminUsers}" waves="DEFAULT" text="Users" textColor="BLACK"/>
           </m:MaterialDropDown>
         </m:MaterialColumn>
       </m:MaterialRow>

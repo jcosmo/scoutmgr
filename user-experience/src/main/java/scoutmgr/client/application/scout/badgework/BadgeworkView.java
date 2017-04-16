@@ -46,8 +46,9 @@ public class BadgeworkView
   extends ViewWithUiHandlers<BadgeworkUiHandlers>
   implements BadgeworkPresenter.View, ClickHandler
 {
-  public static final String INCOMPLETE_ICON_COLOUR = "grey lighten-3";
-  public static final String COMPLETE_ICON_COLOUR = "green";
+  private static final String INCOMPLETE_ICON_COLOUR = "GREY_LIGHTEN_3";
+  private static final String COMPLETE_ICON_COLOUR = "GREEN";
+
   @UiField
   ScoutmgrResourceBundle _bundle;
   @UiField
@@ -300,17 +301,17 @@ public class BadgeworkView
       _summaryProgress = summaryProgress;
     }
 
-    public MaterialCard getMaterialCard()
+    MaterialCard getMaterialCard()
     {
       return _materialCard;
     }
 
-    public MaterialCollection getMaterialCollection()
+    MaterialCollection getMaterialCollection()
     {
       return _reveal;
     }
 
-    public HTML getSummaryProgress()
+    HTML getSummaryProgress()
     {
       return _summaryProgress;
     }

@@ -21,7 +21,7 @@
     </g:layer>
     <g:layer bottom="0" height="80px" right="0" width="80px">
       <m:MaterialFAB>
-        <m:MaterialAnchorButton ui:field="_addUserButton" type="FLOATING" text="Add User" backgroundColor="blue" iconType="ADD" size="LARGE"/>
+        <m:MaterialAnchorButton ui:field="_addUserButton" type="FLOATING" text="Add User" backgroundColor="BLUE" iconType="ADD" size="LARGE"/>
       </m:MaterialFAB>
     </g:layer>
   </g:LayoutPanel>
