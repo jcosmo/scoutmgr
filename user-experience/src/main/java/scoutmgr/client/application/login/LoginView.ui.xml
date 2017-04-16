@@ -8,8 +8,8 @@
         <m:MaterialTitle title="Please Log In"/>
         <m:MaterialPanel>
           <m:MaterialPanel>
-            <m:MaterialTextBox ui:field="_username" type="TEXT" label="Username"/>
-            <m:MaterialTextBox ui:field="_password" type="PASSWORD" label="Password"/>
+            <m:MaterialTextBox ui:field="_username" type="TEXT" placeholder="Username"/>
+            <m:MaterialTextBox ui:field="_password" type="PASSWORD" placeholder="Password"/>
             <m:MaterialButton ui:field="_signInButton" waves="LIGHT" text="Log In" width="100%"/>
           </m:MaterialPanel>
         </m:MaterialPanel>
