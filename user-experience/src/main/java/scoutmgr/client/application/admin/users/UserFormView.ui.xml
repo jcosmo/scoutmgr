@@ -7,32 +7,32 @@
     <g:HTMLPanel id="content" addStyleNames="{_bundle.scoutmgr.content}">
       <form>
         <m:MaterialRow>
-          <m:MaterialColumn grid="s6" offset="s3">
+          <m:MaterialColumn grid="s10 m6 l4" offset="s1 m3 l4">
             <m:MaterialTextBox ui:field="_username" placeholder="Username" />
           </m:MaterialColumn>
         </m:MaterialRow>
         <m:MaterialRow>
-          <m:MaterialColumn grid="s6" offset="s3">
+          <m:MaterialColumn grid="s10 m6 l4" offset="s1 m3 l4">
             <m:MaterialTextBox ui:field="_email" placeholder="Email"/>
           </m:MaterialColumn>
         </m:MaterialRow>
         <m:MaterialRow>
-          <m:MaterialColumn grid="s6" offset="s3">
+          <m:MaterialColumn grid="s10 m6 l4" offset="s1 m3 l4">
             <m:MaterialListBox ui:field="_users" placeholder="Associated Scout"/>
           </m:MaterialColumn>
         </m:MaterialRow>
         <m:MaterialRow>
-          <m:MaterialColumn grid="s6" offset="s3">
+          <m:MaterialColumn grid="s10 m6 l4" offset="s1 m3 l4">
             <m:MaterialTextBox ui:field="_password" placeholder="Password"/>
           </m:MaterialColumn>
         </m:MaterialRow>
         <m:MaterialRow>
-          <m:MaterialColumn grid="s6" offset="s3">
+          <m:MaterialColumn grid="s10 m6 l4" offset="s1 m3 l4">
             <m:MaterialTextBox ui:field="_repeatPassword" placeholder="Password (again)"/>
           </m:MaterialColumn>
         </m:MaterialRow>
         <m:MaterialRow>
-          <m:MaterialColumn grid="s6" offset="s3" textAlign="RIGHT" addStyleNames="{_bundle.scoutmgr.buttonBar}">
+          <m:MaterialColumn grid="s10 m6 l4" offset="s1 m3 l4" textAlign="RIGHT" addStyleNames="{_bundle.scoutmgr.buttonBar}">
             <m:MaterialButton ui:field="_cancelButton" text="Cancel" iconType="UNDO"/>
             <m:MaterialButton ui:field="_saveButton" text="Save" iconType="DONE"/>
           </m:MaterialColumn>
