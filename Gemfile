@@ -1,6 +1,6 @@
 # DO NOT EDIT: File is auto-generated
 source 'https://rubygems.org'
-gem 'braid', '= 1.0.14'
+gem 'braid', '= 1.0.18'
 gem 'buildr', '= 1.5.0'
 gem 'buildr_plus', '= 1.0.0', :path => "vendor/tools/buildr_plus"
 gem 'dbt', '= 0.10.0.dev', :path => "vendor/tools/dbt"
