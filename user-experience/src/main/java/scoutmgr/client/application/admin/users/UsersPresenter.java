@@ -1,7 +1,5 @@
 package scoutmgr.client.application.admin.users;
 
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
@@ -158,13 +156,16 @@ public class UsersPresenter
   public void requestDeleteUser( final User user )
   {
     _dialogPresenter.configureConfirmation( "Are you sure?",
-                                            "Delete " + user.getUserName() + " ?",
+                                            "You are about to delete '" + user.getUserName() + "'\n" +
+                                            "If you continue then this user will be unable to log in any more.",
                                             event ->
                                             {
                                               deleteUser( user );
-                                              removeFromPopupSlot( _dialogPresenter );
-                                            } );
-    addToPopupSlot( _dialogPresenter, true );
+                                              _dialogPresenter.close();
+                                            },
+                                            "Cancel",
+                                            "Delete" );
+    _dialogPresenter.open();
   }
 
   void deleteUser( final User user )

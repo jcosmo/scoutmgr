@@ -9,6 +9,7 @@ import com.gwtplatform.mvp.client.annotations.ProxyStandard;
 import com.gwtplatform.mvp.client.proxy.LockInteractionEvent;
 import com.gwtplatform.mvp.client.proxy.RevealContentHandler;
 import javax.inject.Inject;
+import scoutmgr.client.application.dialog.DialogPresenter;
 import scoutmgr.client.application.footer.FooterPresenter;
 import scoutmgr.client.application.navbar.NavbarPresenter;
 
@@ -22,7 +23,8 @@ public class ApplicationPresenter
   private FooterPresenter _footerPresenter;
 
   @ProxyStandard
-  public interface Proxy extends com.gwtplatform.mvp.client.proxy.Proxy<ApplicationPresenter>
+  public interface Proxy
+    extends com.gwtplatform.mvp.client.proxy.Proxy<ApplicationPresenter>
   {
   }
 
@@ -46,6 +48,8 @@ public class ApplicationPresenter
   public static final Type<RevealContentHandler<?>> SLOT_MAIN_NAVBAR = new Type<>();
   @ContentSlot
   public static final Type<RevealContentHandler<?>> SLOT_MAIN_FOOTER = new Type<>();
+  @ContentSlot
+  public static final Type<RevealContentHandler<?>> SLOT_DIALOG = new Type<>();
 
   /**
    * Display a short lock message whenever navigation is in progress.
@@ -64,5 +68,10 @@ public class ApplicationPresenter
     super.onBind();
     setInSlot( SLOT_MAIN_NAVBAR, _navbarPresenter );
     setInSlot( SLOT_MAIN_FOOTER, _footerPresenter );
+  }
+
+  public void showDialog( final DialogPresenter dialogPresenter )
+  {
+    setInSlot( SLOT_DIALOG, dialogPresenter );
   }
 }

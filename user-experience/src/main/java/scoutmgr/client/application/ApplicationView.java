@@ -6,6 +6,7 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.LayoutPanel;
+import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.gwtplatform.mvp.client.ViewImpl;
@@ -54,6 +55,10 @@ public class ApplicationView
     else if ( slot == ApplicationPresenter.SLOT_MAIN_FOOTER )
     {
       _footerPanel.setWidget( content );
+    }
+    else if ( slot == ApplicationPresenter.SLOT_DIALOG )
+    {
+      RootPanel.get().add( content );
     }
     else
     {

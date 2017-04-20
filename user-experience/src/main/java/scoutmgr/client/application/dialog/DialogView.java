@@ -1,21 +1,23 @@
 package scoutmgr.client.application.dialog;
 
-import com.google.gwt.dom.client.SpanElement;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.safehtml.shared.SafeHtmlUtils;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.uibinder.client.UiHandler;
-import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Widget;
-import com.google.web.bindery.event.shared.EventBus;
-import com.gwtplatform.mvp.client.PopupViewWithUiHandlers;
+import com.gwtplatform.mvp.client.ViewImpl;
+import gwt.material.design.client.constants.ButtonType;
+import gwt.material.design.client.constants.HeadingSize;
+import gwt.material.design.client.ui.MaterialButton;
+import gwt.material.design.client.ui.MaterialModal;
+import gwt.material.design.client.ui.MaterialModalContent;
+import gwt.material.design.client.ui.MaterialModalFooter;
+import gwt.material.design.client.ui.html.Heading;
+import gwt.material.design.client.ui.html.Paragraph;
 import javax.inject.Inject;
 import scoutmgr.client.resource.ScoutmgrResourceBundle;
 
 public class DialogView
-  extends PopupViewWithUiHandlers<UiHandlers>
+  extends ViewImpl
   implements DialogPresenter.View
 {
   interface Binder
@@ -24,79 +26,68 @@ public class DialogView
   }
 
   @UiField
-  SpanElement _caption;
-  @UiField
-  HTMLPanel _buttonPanel;
+  MaterialModalFooter _buttonPanel;
   @UiField
   ScoutmgrResourceBundle _bundle;
   @UiField
-  Button _closeButton;
-  @UiField
-  HTMLPanel _contentPanel;
-  @UiField
-  HTMLPanel _headerWidgetPanel;
-  @UiField
-  HTMLPanel _actionsPanel;
+  MaterialModalContent _contentPanel;
+
+  private final Heading _title;
 
   @Inject
-  DialogView( final EventBus eventBus, final Binder uiBinder )
+  DialogView( final Binder uiBinder )
   {
-    super( eventBus );
     initWidget( uiBinder.createAndBindUi( this ) );
+    _title = new Heading( HeadingSize.H4 );
+    _title.setFontWeight( 300 );
+    _contentPanel.add( _title );
+  }
+
+  private MaterialModal materialModal()
+  {
+    return (MaterialModal) asWidget();
   }
 
   @Override
-  public void addButton( final Button button )
+  protected void onAttach()
   {
-    _buttonPanel.setVisible( true );
-    button.addStyleName( _bundle.bootstrap().btn() );
-    _buttonPanel.add( button );
+    super.onAttach();
+    materialModal().openModal();
   }
 
   @Override
-  public void addAction( final Widget actionWidget )
+  public void close()
   {
-    _actionsPanel.add( actionWidget );
+    materialModal().closeModal();
+    materialModal().removeFromParent();
   }
 
   @Override
-  public void addHeaderWidget( final Widget widget )
+  public void setTitle( final String title )
   {
-    _headerWidgetPanel.add( widget );
-  }
-
-  @Override
-  public void setCaption( final String caption )
-  {
-    _caption.setInnerText( caption );
+    _title.getElement().setInnerHTML( title );
   }
 
   @Override
   public void reset()
   {
     _buttonPanel.clear();
-    _buttonPanel.setVisible( false );
-    _headerWidgetPanel.clear();
-    _actionsPanel.clear();
     _contentPanel.clear();
-    _caption.setInnerText( "" );
+    _contentPanel.add( _title );
   }
 
-  @UiHandler( "_closeButton" )
-  public void handleClick( final ClickEvent event )
+  public void addContent( final String message )
   {
-    getUiHandlers().closeClicked();
+    _contentPanel.add( new Paragraph( message ) );
   }
 
-  public void setContents( final Widget widget )
+  @Override
+  public void addButton( final String text, final ClickHandler handler )
   {
-    _contentPanel.clear();
-    _contentPanel.add( widget );
-  }
-
-  public void setContents( final String message )
-  {
-    _contentPanel.clear();
-    _contentPanel.add( new HTMLPanel( SafeHtmlUtils.htmlEscape( message ) ) );
+    final MaterialButton button = new MaterialButton();
+    button.setType( ButtonType.FLAT );
+    button.setText( text );
+    button.addClickHandler( handler );
+    _buttonPanel.add( button );
   }
 }

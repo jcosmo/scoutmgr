@@ -1,7 +1,5 @@
 package scoutmgr.client.application.admin.members;
 
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
@@ -151,13 +149,16 @@ public class MembersPresenter
   public void requestDeleteScout( final Person person )
   {
     _dialogPresenter.configureConfirmation( "Are you sure?",
-                                            "Delete " + person.getFirstName() + " " + person.getLastName() + "?",
+                                            "You are about to delete '" + person.getFirstName() + " " + person.getLastName() + "'\n" +
+                                            "If you continue then all history for this Scout's badgework, event attendance, etc will be permanently lost.",
                                             event ->
                                             {
                                               deleteScout( person );
-                                              removeFromPopupSlot( _dialogPresenter );
-                                            } );
-    addToPopupSlot( _dialogPresenter, true );
+                                              _dialogPresenter.close();
+                                            },
+                                            "Cancel",
+                                            "Delete" );
+    _dialogPresenter.open();
   }
 
   void deleteScout( final Person person )

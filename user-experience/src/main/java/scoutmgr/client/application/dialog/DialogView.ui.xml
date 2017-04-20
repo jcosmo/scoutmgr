@@ -1,31 +1,13 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
-             xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+             xmlns:m="urn:import:gwt.material.design.client.ui">
   <ui:with field='_bundle' type='scoutmgr.client.resource.ScoutmgrResourceBundle'/>
-  <ui:style gss="true">
-    .dialog .closeButton {
-      margin-left: 20px;
-    }
-
-    .dialog .actionsPanel a {
-      float: right;
-      margin-left: 10px;
+  <ui:style>
+    .borderOnFooter {
+      border-top: solid 1px rgba(0,0,0,0.1);
     }
   </ui:style>
-  <g:PopupPanel ui:field="_dialog" addStyleNames="{_bundle.scoutmgr.modal} {style.dialog}" glassEnabled="true" glassStyleName="{_bundle.scoutmgr.modalBackdrop}">
-    <g:HTMLPanel addStyleNames="{_bundle.bootstrap.modalContent}">
-      <div class="{_bundle.bootstrap.popoverTitle}">
-        <g:Button ui:field="_closeButton" addStyleNames="{_bundle.bootstrap.close} {style.closeButton}"></g:Button>
-        <g:HTMLPanel ui:field="_actionsPanel" addStyleNames="{_bundle.bootstrap.pullRight} {style.actionsPanel}"/>
-        <h4 class="{_bundle.bootstrap.modalTitle}">
-          <span ui:field="_caption">
-          </span>
-        </h4>
-        <g:HTMLPanel ui:field="_headerWidgetPanel" addStyleNames="{_bundle.bootstrap.pullRight}"/>
-      </div>
-      <g:HTMLPanel ui:field="_contentPanel" addStyleNames="{_bundle.bootstrap.modalBody}">
-      </g:HTMLPanel>
-      <g:HTMLPanel ui:field="_buttonPanel" addStyleNames="{_bundle.bootstrap.modalFooter}" visible="false">
-      </g:HTMLPanel>
-    </g:HTMLPanel>
-  </g:PopupPanel>
+  <m:MaterialModal type="DEFAULT" dismissable="false" inDuration="200" outDuration="200">
+    <m:MaterialModalContent ui:field="_contentPanel" />
+    <m:MaterialModalFooter ui:field="_buttonPanel" addStyleNames="{style.borderOnFooter}"/>
+  </m:MaterialModal>
 </ui:UiBinder>
