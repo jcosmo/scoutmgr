@@ -8,7 +8,6 @@ public class ResourceLoader
   @Inject
   ResourceLoader( final ScoutmgrResourceBundle resources )
   {
-    resources.bootstrap().ensureInjected();
     resources.scoutmgr().ensureInjected();
   }
 }
