@@ -30,9 +30,9 @@ public class BadgeworkPresenter
   private EntityRepository _entityRepository;
 
   @Inject
-  BadgeworkProgressPresenter _badgeworkProgressPresenter;
+  private BadgeworkProgressPresenter _badgeworkProgressPresenter;
 
-  final EntityChangeBroker _changeBroker;
+  private final EntityChangeBroker _changeBroker;
   private EntityChangeListener _scoutChangeListener;
 
   private Person _scout;
