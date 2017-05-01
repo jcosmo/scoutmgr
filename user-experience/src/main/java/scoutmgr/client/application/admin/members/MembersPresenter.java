@@ -163,7 +163,7 @@ public class MembersPresenter
 
   void deleteScout( final Person person )
   {
-    _personnelService.deleteScout( person.getID() );
+    _personnelService.deletePerson( person.getID() );
   }
 
   @Override

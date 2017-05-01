@@ -23,14 +23,14 @@ public class PersonnelServiceImplTest
   }
 
   @Override
-  public void addScout()
+  public void addPerson()
     throws Exception
   {
 
   }
 
   @Override
-  public void updateScout()
+  public void updatePerson()
     throws Exception
   {
 
@@ -44,7 +44,7 @@ public class PersonnelServiceImplTest
   }
 
   @Override
-  public void deleteScout()
+  public void deletePerson()
     throws Exception
   {
 

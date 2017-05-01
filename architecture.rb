@@ -124,21 +124,12 @@ Domgen.repository(:Scoutmgr) do |repository|
         m.returns(:struct, :referenced_struct => :PersonDTO, :collection_type => :sequence)
       end
 
-      s.method(:AddScout) do |m|
-        m.string :ScoutSection, 255
-        m.string :FirstName, 255
-        m.string :LastName, 255
-        m.date :Dob
-        m.string :RegistrationNumber, 20
+      s.method(:AddPerson) do |m|
+        m.struct(:Person, :PersonDTO )
       end
 
-      s.method(:UpdateScout) do |m|
-        m.integer(:IdForUpdate)
-        m.string :ScoutSection, 255
-        m.string :FirstName, 255
-        m.string :LastName, 255
-        m.date :Dob
-        m.string :RegistrationNumber, 20
+      s.method(:UpdatePerson) do |m|
+        m.struct(:Person, :PersonDTO )
       end
 
       s.method(:UpdateCompletion) do |m|
@@ -147,7 +138,7 @@ Domgen.repository(:Scoutmgr) do |repository|
         m.struct(:TaskCompletionDTOs, :TaskCompletionDTO, :collection_type => :sequence)
       end
 
-      s.method(:DeleteScout) do |m|
+      s.method(:DeletePerson) do |m|
         m.integer(:ID)
       end
     end
