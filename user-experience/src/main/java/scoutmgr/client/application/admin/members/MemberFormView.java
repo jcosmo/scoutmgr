@@ -6,6 +6,8 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Widget;
 import com.gwtplatform.mvp.client.ViewWithUiHandlers;
+import com.gwtplatform.mvp.client.proxy.PlaceManager;
+import com.gwtplatform.mvp.shared.proxy.PlaceRequest;
 import gwt.material.design.client.ui.MaterialButton;
 import gwt.material.design.client.ui.MaterialDatePicker;
 import gwt.material.design.client.ui.MaterialListBox;
@@ -15,6 +17,7 @@ import javax.inject.Inject;
 import org.realityforge.gwt.datatypes.client.date.RDate;
 import org.realityforge.replicant.client.EntityRepository;
 import scoutmgr.client.entity.ScoutSection;
+import scoutmgr.client.place.NameTokens;
 import scoutmgr.client.view.model.ScoutViewModel;
 
 @SuppressWarnings( "Convert2Lambda" )
@@ -39,6 +42,9 @@ public class MemberFormView
 
   @Inject
   EntityRepository _entityRepository;
+
+  @Inject
+  PlaceManager _placeManager;
 
   interface Binder
     extends UiBinder<Widget, MemberFormView>
@@ -92,5 +98,11 @@ public class MemberFormView
     event.stopPropagation();
     getUiHandlers().saveMember( _scoutSection.getSelectedValue(), _regNum.getText(), _givenName.getText(),
                                 _familyName.getText(), RDate.fromDate( _dob.getValue() ) );
+  }
+
+  @UiHandler( "_cancelButton" )
+  public void onCancel( final ClickEvent event )
+  {
+    _placeManager.revealPlace( new PlaceRequest.Builder().nameToken( NameTokens.ADMIN_SCOUTS ).build() );
   }
 }
