@@ -92,6 +92,15 @@ public class MembersPresenter
           getView().setMembers( _model2ViewModel.values() );
         }
       }
+
+      @Override
+      public void attributeChanged( @Nonnull final EntityChangeEvent event )
+      {
+        final Person person = (Person) event.getObject();
+        final ScoutViewModel viewModel = new ScoutViewModel( person );
+        _model2ViewModel.put( person, viewModel );
+        getView().setMembers( _model2ViewModel.values() );
+      }
     };
 
     getView().setUiHandlers( this );

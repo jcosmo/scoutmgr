@@ -98,6 +98,15 @@ public class UsersPresenter
           getView().setUsers( _model2ViewModel.values() );
         }
       }
+
+      @Override
+      public void attributeChanged( @Nonnull final EntityChangeEvent event )
+      {
+        final User user = (User) event.getObject();
+        final UserViewModel viewModel = new UserViewModel( user );
+        _model2ViewModel.put( user, viewModel );
+        getView().setUsers( _model2ViewModel.values() );
+      }
     };
 
     getView().setUiHandlers( this );
