@@ -197,9 +197,7 @@ implements BadgeworkProgressPresenter.View
     whoColumn.add( who );
     row.add( whoColumn );
 
-    checkBox.addClickHandler( ( e ) -> {
-      completer.changeState( checkBox.getValue() );
-    } );
+    checkBox.addClickHandler( ( e ) -> completer.changeState( checkBox.getValue() ) );
 
     return new RowViewModel(row, checkBox, when, who );
   }
@@ -283,10 +281,10 @@ implements BadgeworkProgressPresenter.View
     private final MaterialDatePicker _when;
     private final MaterialLabel _who;
 
-    public RowViewModel( final MaterialRow row,
-                         final MaterialCheckBox checkBox,
-                         final MaterialDatePicker when,
-                         final MaterialLabel who )
+    RowViewModel( final MaterialRow row,
+                  final MaterialCheckBox checkBox,
+                  final MaterialDatePicker when,
+                  final MaterialLabel who )
     {
 
       _row = row;
@@ -295,22 +293,22 @@ implements BadgeworkProgressPresenter.View
       _who = who;
     }
 
-    public MaterialRow getRow()
+    MaterialRow getRow()
     {
       return _row;
     }
 
-    public MaterialCheckBox getCheckBox()
+    MaterialCheckBox getCheckBox()
     {
       return _checkBox;
     }
 
-    public MaterialDatePicker getWhen()
+    MaterialDatePicker getWhen()
     {
       return _when;
     }
 
-    public MaterialLabel getWho()
+    MaterialLabel getWho()
     {
       return _who;
     }
