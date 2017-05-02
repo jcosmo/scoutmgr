@@ -170,7 +170,7 @@ public class MembersPresenter
     _dialogPresenter.open();
   }
 
-  void deleteScout( final Person person )
+  private void deleteScout( final Person person )
   {
     _personnelService.deletePerson( person.getID() );
   }
