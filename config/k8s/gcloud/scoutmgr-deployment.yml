@@ -1,0 +1,37 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: scoutmgr
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: scoutmgr
+    spec:
+      containers:
+        - name: scoutmgr
+          image: fantom/scoutmgr:828e80b
+          env:
+            - name: SCOUTMGR_DB_DATABASE
+              value: scoutmgr
+            - name: SCOUTMGR_DB_HOST
+              value: postgres
+            - name: SCOUTMGR_DB_PORT
+              value: "5432"
+            - name: SCOUTMGR_DB_USERNAME
+              value: postgres
+            - name: SCOUTMGR_DB_PASSWORD
+              value: password
+            - name: TIMERS_DB_DATABASE
+              value: timers
+            - name: TIMERS_DB_HOST
+              value: postgres
+            - name: TIMERS_DB_PORT
+              value: "5432"
+            - name: TIMERS_DB_USERNAME
+              value: postgres
+            - name: TIMERS_DB_PASSWORD
+              value: password
+          ports:
+            - containerPort: 8080

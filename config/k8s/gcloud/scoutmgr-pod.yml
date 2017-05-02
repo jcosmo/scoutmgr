@@ -7,7 +7,7 @@ metadata:
 spec:
   containers:
     - name: scoutmgr
-      image: fantom/scoutmgr:1.0-9-g824ac8c
+      image: fantom/scoutmgr:828e80b
       env:
         - name: SCOUTMGR_DB_DATABASE
           value: scoutmgr
