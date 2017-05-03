@@ -19,6 +19,7 @@ import gwt.material.design.client.ui.MaterialRow;
 import java.util.Date;
 import java.util.HashMap;
 import javax.inject.Inject;
+import org.realityforge.gwt.datatypes.client.date.DateTimeService;
 import org.realityforge.gwt.datatypes.client.date.RDate;
 import scoutmgr.client.entity.Badge;
 import scoutmgr.client.entity.BadgeTask;
@@ -28,7 +29,7 @@ import scoutmgr.client.view.model.TaskCompletionViewModel;
 
 public class BadgeworkProgressView
   extends ViewWithUiHandlers<BadgeworkProgressUiHandlers>
-implements BadgeworkProgressPresenter.View
+  implements BadgeworkProgressPresenter.View
 {
   @UiField
   MaterialButton _cancelButton;
@@ -44,6 +45,8 @@ implements BadgeworkProgressPresenter.View
   MaterialButton _saveButton;
   @UiField
   HTMLPanel _extraRows;
+  @Inject
+  DateTimeService _dateTimeService;
 
   private ScoutViewModel _scout;
   private Badge _badge;
@@ -150,12 +153,12 @@ implements BadgeworkProgressPresenter.View
   }
 
   private RowViewModel createTargetRow( final String description,
-                                       final TaskCompletionViewModel completionRecord,
-                                       final BadgeCompleter completer )
+                                        final TaskCompletionViewModel completionRecord,
+                                        final BadgeCompleter completer )
   {
     final boolean isCompleted = null != completionRecord;
     final RDate dateCompleted = isCompleted ? completionRecord.getDateCompleted() : null;
-    final String signedBy = "Some Leader";
+    final String signedBy = isCompleted ? completionRecord.getSignedBy() : null;
 
     final MaterialRow row = new MaterialRow();
     final MaterialColumn titleColumn = new MaterialColumn();
@@ -177,29 +180,36 @@ implements BadgeworkProgressPresenter.View
     whenColumn.addStyleName( _bundle.scoutmgr().whenColumn() );
     whenColumn.setGrid( "s2" );
     final MaterialDatePicker when = new MaterialDatePicker();
+    when.setFormat( "dd mmm yy" );
     when.setEnabled( isCompleted );
     if ( isCompleted )
     {
       when.setValue( RDate.toDate( dateCompleted ) );
     }
     whenColumn.add( when );
-    when.addValueChangeHandler( e -> completer.updateWhen( when.getDate()) );
+    when.addValueChangeHandler( e -> completer.updateWhen( when.getDate() ) );
     row.add( whenColumn );
 
     final MaterialColumn whoColumn = new MaterialColumn();
     whoColumn.setGrid( "s3" );
     final MaterialLabel who = new MaterialLabel();
     who.setTruncate( true );
-    if ( isCompleted )
+    if ( signedBy != null )
     {
       who.setText( signedBy );
+      who.setTooltip( formatDate( completionRecord.getDateSigned() ) );
     }
     whoColumn.add( who );
     row.add( whoColumn );
 
     checkBox.addClickHandler( ( e ) -> completer.changeState( checkBox.getValue() ) );
 
-    return new RowViewModel(row, checkBox, when, who );
+    return new RowViewModel( row, checkBox, when, who );
+  }
+
+  private String formatDate( final RDate date )
+  {
+    return _dateTimeService.formatDate( date, "dd MMM yy" );
   }
 
   private MaterialRow createHeaderRow( final String description )
@@ -257,20 +267,29 @@ implements BadgeworkProgressPresenter.View
   {
     final boolean isCompleted = null != completion;
     final RDate dateCompleted = isCompleted ? completion.getDateCompleted() : null;
-    final String signedBy = "Some Leader";
+    final String signedBy = isCompleted ? completion.getSignedBy() : null;
 
     rowVm.getCheckBox().setValue( isCompleted );
     if ( isCompleted )
     {
       rowVm.getWhen().setValue( RDate.toDate( dateCompleted ) );
       rowVm.getWhen().setEnabled( true );
-      rowVm.getWho().setText( signedBy );
     }
     else
     {
       rowVm.getWhen().clear();
       rowVm.getWhen().setEnabled( false );
-      rowVm.getWho().setText( null );
+    }
+
+    if ( isCompleted && null != completion.getSignedBy() )
+    {
+      rowVm.getSigner().setText( signedBy );
+      rowVm.getSigner().setTooltip( formatDate( completion.getDateSigned() ) );
+    }
+    else
+    {
+      rowVm.getSigner().setText( null );
+      rowVm.getSigner().setTooltip( null );
     }
   }
 
@@ -279,18 +298,18 @@ implements BadgeworkProgressPresenter.View
     private MaterialRow _row;
     private final MaterialCheckBox _checkBox;
     private final MaterialDatePicker _when;
-    private final MaterialLabel _who;
+    private final MaterialLabel _signer;
 
     RowViewModel( final MaterialRow row,
                   final MaterialCheckBox checkBox,
                   final MaterialDatePicker when,
-                  final MaterialLabel who )
+                  final MaterialLabel signer )
     {
 
       _row = row;
       _checkBox = checkBox;
       _when = when;
-      _who = who;
+      _signer = signer;
     }
 
     MaterialRow getRow()
@@ -308,9 +327,9 @@ implements BadgeworkProgressPresenter.View
       return _when;
     }
 
-    MaterialLabel getWho()
+    MaterialLabel getSigner()
     {
-      return _who;
+      return _signer;
     }
   }
 }

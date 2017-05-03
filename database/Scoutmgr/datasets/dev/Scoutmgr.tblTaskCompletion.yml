@@ -3,13 +3,23 @@
   PersonID: -1
   BadgeTaskID: 1
   DateCompleted: 1 Mar 2016
+  DateRecorded: 1 Mar 2016
+  RecordedBy: Some Guy
+  DateSigned: 10 Mar 2016
+  SignedBy: Your Leader
 2:
   ID: -2
   PersonID: -1
   BadgeTaskID: 2
   DateCompleted: 1 Feb 2016
+  DateRecorded: 1 Feb 2016
+  RecordedBy: Some Guy
+  DateSigned: 10 Feb 2016
+  SignedBy: Your Leader
 3:
   ID: -3
   PersonID: -1
   BadgeTaskID: 3
   DateCompleted: 7 Mar 2016
+  DateRecorded: 10 Mar 2016
+  RecordedBy: Some Guy
