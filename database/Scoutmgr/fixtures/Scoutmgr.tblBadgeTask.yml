@@ -1196,7 +1196,7 @@
   ParentID: 195
 197:
   ID: 197
-  Description: anchor or fishermans bend
+  Description: anchor or fisherman�s bend
   BadgeID: 8
   Rank: 197
   ParentID: 195
@@ -1308,8 +1308,8 @@
   ParentID: 210
 215:
   ID: 215
-  Description: Yachting Australia Elective. Yachting Australia course, Basic Skills
-    1  Getting into Small Boat Sailing.
+  Description: Yachting Australia Elective. Yachting Australia course, �Basic Skills
+    1 � Getting into Small Boat Sailing�.
   BadgeID: 8
   Rank: 215
 216:
@@ -1430,7 +1430,7 @@
   ParentID: 232
 235:
   ID: 235
-  Description: either a west country, or sail makers whipping
+  Description: either a west country, or sail maker�s whipping
   BadgeID: 10
   Rank: 235
   ParentID: 232
@@ -1970,7 +1970,7 @@
   ParentID: 318
 322:
   ID: 322
-  Description: Find out the difference in the terms ground speed and air speed,
+  Description: Find out the difference in the terms �ground speed� and �air speed�,
     and how they relate to headwinds and tailwinds.
   BadgeID: 12
   Rank: 322
@@ -2806,7 +2806,7 @@
 458:
   ID: 458
   Description: Yachting Australia Elective. Complete the Yachting Australia course,
-    Basic Skills 1  Getting into Small Boat Sailing.
+    �Basic Skills 1 � Getting into Small Boat Sailing�.
   BadgeID: 16
   Rank: 458
 459:
@@ -2878,14 +2878,14 @@
   ParentID: 467
 470:
   ID: 470
-  Description: put on an APFD in deep water and swim 50 metres. Demonstrate the HELP
+  Description: put on an APFD in deep water and swim 50 metres. Demonstrate the �HELP�
     position
   BadgeID: 17
   Rank: 470
   ParentID: 467
 471:
   ID: 471
-  Description: with at least two other Scouts demonstrate the huddle position.
+  Description: with at least two other Scouts demonstrate the �huddle� position.
   BadgeID: 17
   Rank: 471
   ParentID: 467
@@ -2947,13 +2947,13 @@
   ParentID: 479
 481:
   ID: 481
-  Description: hunters bend
+  Description: hunter�s bend
   BadgeID: 18
   Rank: 481
   ParentID: 479
 482:
   ID: 482
-  Description: fishermans knot or prussick knot (for synthetic rope)
+  Description: fisherman�s knot or prussick knot (for synthetic rope)
   BadgeID: 18
   Rank: 482
   ParentID: 479
@@ -3055,7 +3055,7 @@
 498:
   ID: 498
   Description: Demonstrate how to plan a route for a hike from a topographic map,
-    including an understanding of Naismiths Rule.
+    including an understanding of Naismith�s Rule.
   BadgeID: 18
   Rank: 498
   ParentID: 496
@@ -3203,7 +3203,7 @@
 520:
   ID: 520
   Description: Spiritual development. Lead your Patrol in planning and participating
-    in a Scouts Own at a Camp or other Troop Activity (such as World Scouts Day
+    in a Scouts� Own at a Camp or other Troop Activity (such as World Scouts� Day
     or a church service).
   BadgeID: 19
   Rank: 520
@@ -3234,7 +3234,7 @@
   ParentID: 523
 525:
   ID: 525
-  Description: With another Scout set up and run a mock' emergency to cover at least
+  Description: With another Scout set up and run a �mock' emergency to cover at least
     three of the tasks required in Pioneer and Explorer level and First Aid segment.
   BadgeID: 19
   Rank: 525
@@ -3487,14 +3487,14 @@
   ParentID: 560
 563:
   ID: 563
-  Description: give a talk to your Patrol or Troop for at least five minutes on Australias
+  Description: give a talk to your Patrol or Troop for at least five minutes on Australia�s
     early aviation history
   BadgeID: 20
   Rank: 563
   ParentID: 562
 564:
   ID: 564
-  Description: compile a report on Australias aviation pioneers
+  Description: compile a report on Australia�s aviation pioneers
   BadgeID: 20
   Rank: 564
   ParentID: 562
@@ -3587,7 +3587,7 @@
   ParentID: 574
 579:
   ID: 579
-  Description: Know and demonstrate an elementary knowledge of aircraft controls
+  Description: Know and demonstrate an elementary knowledge of aircraft controls �
     control column, rudder pedals, throttle, flaps, trim tabs, mixture control.
   BadgeID: 20
   Rank: 579
@@ -3944,6 +3944,2847 @@
   ParentID: 627
 635:
   ID: 635
-  Description: Mock emergency
+  Description: 'Lead your Patrol, or other Scouts, satisfactorily in dealing with
+    two mock emergencies. Some suggestions are: traffic accident; rescue from burning
+    building; search for lost child; near drowning in backyard pool; electrocution;
+    bushfire.'
   BadgeID: 22
   Rank: 635
+636:
+  ID: 636
+  Description: Nature. Complete (a) or (b)
+  BadgeID: 23
+  Rank: 636
+637:
+  ID: 637
+  Description: Identify where a waterway, or wetland, or river system in a local/national
+    region has been environmentally effected by such as salinity, soil erosion, pollution,
+    introduced species animal, fish or plant, and
+  BadgeID: 23
+  Rank: 637
+  ParentID: 636
+638:
+  ID: 638
+  Description: discuss causes and suggest future actions
+  BadgeID: 23
+  Rank: 638
+  ParentID: 637
+639:
+  ID: 639
+  Description: suggest an action plan for improvement.
+  BadgeID: 23
+  Rank: 639
+  ParentID: 637
+640:
+  ID: 640
+  Description: 'Participate in a study of a local, national or international:'
+  BadgeID: 23
+  Rank: 640
+  ParentID: 637
+641:
+  ID: 641
+  Description: conservation area and discover the habitat and/or fauna species being
+    protected
+  BadgeID: 23
+  Rank: 641
+  ParentID: 640
+642:
+  ID: 642
+  Description: prepare a report on your findings to the Troop.
+  BadgeID: 23
+  Rank: 642
+  ParentID: 640
+643:
+  ID: 643
+  Description: Recycling. Complete (a) or (b)
+  BadgeID: 23
+  Rank: 643
+644:
+  ID: 644
+  Description: With your Patrol plan and take a leading role in a recycling project.
+  BadgeID: 23
+  Rank: 644
+  ParentID: 643
+645:
+  ID: 645
+  Description: Lead a group of Scouts in designing and producing an environmental
+    educational presentation (such as poster, demonstration, activity).
+  BadgeID: 23
+  Rank: 645
+  ParentID: 643
+646:
+  ID: 646
+  Description: The presentation should show how humans have had an impact on the wetlands
+    or waterways.
+  BadgeID: 23
+  Rank: 646
+  ParentID: 645
+647:
+  ID: 647
+  Description: What can be done to improve the present situation.
+  BadgeID: 23
+  Rank: 647
+  ParentID: 645
+648:
+  ID: 648
+  Description: Present your findings to your chosen audience.
+  BadgeID: 23
+  Rank: 648
+  ParentID: 645
+649:
+  ID: 649
+  Description: Visit. Complete (a) or (b)
+  BadgeID: 23
+  Rank: 649
+650:
+  ID: 650
+  Description: Plan and visit the origin of the local water supply and learn what
+    purification measures are taken. Make notes on evidence of water pollution, and
+    measures to protect the watershed.
+  BadgeID: 23
+  Rank: 650
+  ParentID: 649
+651:
+  ID: 651
+  Description: Plan and visit an organisation devoted to protecting the local, national
+    or international environment.
+  BadgeID: 23
+  Rank: 651
+  ParentID: 649
+652:
+  ID: 652
+  Description: Find out what aspects they cover (such as flora, fauna, vegetation,
+    waterways), and
+  BadgeID: 23
+  Rank: 652
+  ParentID: 651
+653:
+  ID: 653
+  Description: Help out on a service activity for a total of twelve hours.
+  BadgeID: 23
+  Rank: 653
+  ParentID: 651
+654:
+  ID: 654
+  Description: Weather
+  BadgeID: 24
+  Rank: 654
+655:
+  ID: 655
+  Description: Instruct and test Pioneer and Explorer level Scouts in the weather
+    requirements for those levels.
+  BadgeID: 24
+  Rank: 655
+  ParentID: 654
+656:
+  ID: 656
+  Description: Show a proficiency in interpreting weather maps
+  BadgeID: 24
+  Rank: 656
+  ParentID: 654
+657:
+  ID: 657
+  Description: Demonstrate and apply weather forecasting to a water activities event
+    with a duration of two days.
+  BadgeID: 24
+  Rank: 657
+  ParentID: 654
+658:
+  ID: 658
+  Description: Safety
+  BadgeID: 24
+  Rank: 658
+659:
+  ID: 659
+  Description: Demonstrate proficiency in Explorer Water Activity requirements for
+    Safety.
+  BadgeID: 24
+  Rank: 659
+  ParentID: 658
+660:
+  ID: 660
+  Description: Swim 150 metres whilst wearing a personal flotation device.
+  BadgeID: 24
+  Rank: 660
+  ParentID: 658
+661:
+  ID: 661
+  Description: Be able to remove your clothes in water and then swim 200 metres.
+  BadgeID: 24
+  Rank: 661
+  ParentID: 658
+662:
+  ID: 662
+  Description: Teach Pioneer and Explorer level Scouts the local boating rules applicable
+    to your own region of operation.
+  BadgeID: 24
+  Rank: 662
+  ParentID: 658
+663:
+  ID: 663
+  Description: Complete 1 or 2
+  BadgeID: 24
+  Rank: 663
+  ParentID: 658
+664:
+  ID: 664
+  Description: Teach Pioneer and Explorer level Scouts to understand tides and currents
+    in coastal areas
+  BadgeID: 24
+  Rank: 664
+  ParentID: 663
+665:
+  ID: 665
+  Description: water behaviours in rivers and creeks.
+  BadgeID: 24
+  Rank: 665
+  ParentID: 663
+666:
+  ID: 666
+  Description: Teach Pioneer and Explorer level Scouts to recognise five common distress
+    signals, at least one each of sight, sound and light.
+  BadgeID: 24
+  Rank: 666
+  ParentID: 663
+667:
+  ID: 667
+  Description: Teach Pioneer and Explorer level Scouts to recognise buoys, beacons
+    and navigation signs used in your region of operation.
+  BadgeID: 24
+  Rank: 667
+  ParentID: 663
+668:
+  ID: 668
+  Description: Seamanship
+  BadgeID: 24
+  Rank: 668
+669:
+  ID: 669
+  Description: Instruct and act as Adviser for Pioneer and Explorer knots, splices
+    and whippings.
+  BadgeID: 24
+  Rank: 669
+  ParentID: 668
+670:
+  ID: 670
+  Description: Teach Pioneer and Explorer level Scouts the nautical terms generally
+    used in boating.
+  BadgeID: 24
+  Rank: 670
+  ParentID: 668
+671:
+  ID: 671
+  Description: In a craft of your choice, demonstrate getting in and out in deep water
+    and mooring and anchoring
+  BadgeID: 24
+  Rank: 671
+  ParentID: 668
+672:
+  ID: 672
+  Description: 'In a craft of your choice, take a leading part in:'
+  BadgeID: 24
+  Rank: 672
+  ParentID: 668
+673:
+  ID: 673
+  Description: making minor repairs
+  BadgeID: 24
+  Rank: 673
+  ParentID: 672
+674:
+  ID: 674
+  Description: cleaning and/or painting
+  BadgeID: 24
+  Rank: 674
+  ParentID: 672
+675:
+  ID: 675
+  Description: correctly loading with crew and stores.
+  BadgeID: 24
+  Rank: 675
+  ParentID: 672
+676:
+  ID: 676
+  Description: Canoeing Elective
+  BadgeID: 24
+  Rank: 676
+677:
+  ID: 677
+  Description: Pass or have passed all tests prescribed for Explorer level canoeing
+    elective.
+  BadgeID: 24
+  Rank: 677
+  ParentID: 676
+678:
+  ID: 678
+  Description: Demonstrate T and H rescue techniques.
+  BadgeID: 24
+  Rank: 678
+  ParentID: 676
+679:
+  ID: 679
+  Description: Teach Pioneer and Explorer Scouts the sweep forward and reverse, draw,
+    slap, support sculling for support, J stroke, and other requirements for Pioneer
+    and Explorer level.
+  BadgeID: 24
+  Rank: 679
+  ParentID: 676
+680:
+  ID: 680
+  Description: Demonstrate how to pack a canoe for an overnight journey.
+  BadgeID: 24
+  Rank: 680
+  ParentID: 676
+681:
+  ID: 681
+  Description: Organise and participate in an overnight canoeing expedition.
+  BadgeID: 24
+  Rank: 681
+  ParentID: 676
+682:
+  ID: 682
+  Description: Sailboarding Elective
+  BadgeID: 24
+  Rank: 682
+683:
+  ID: 683
+  Description: Pass or have passed all tests prescribed for Explorer level sailboarding
+    elective.
+  BadgeID: 24
+  Rank: 683
+  ParentID: 682
+684:
+  ID: 684
+  Description: Have a good general knowledge of the sport of sailboarding including
+    principles used in the surf.
+  BadgeID: 24
+  Rank: 684
+  ParentID: 682
+685:
+  ID: 685
+  Description: Have participated in the sport for at least a total of 20 hours.
+  BadgeID: 24
+  Rank: 685
+  ParentID: 682
+686:
+  ID: 686
+  Description: Rowing Elective
+  BadgeID: 24
+  Rank: 686
+687:
+  ID: 687
+  Description: ". Pass, or have passed, all tests prescribed for Explorer level rowing
+    elective."
+  BadgeID: 24
+  Rank: 687
+  ParentID: 686
+688:
+  ID: 688
+  Description: Teach a Pioneer level Scout the requirements of Rowing.
+  BadgeID: 24
+  Rank: 688
+  ParentID: 686
+689:
+  ID: 689
+  Description: Act as Coxswain and take a pulling boat crew through all Explorer level
+    requirements.
+  BadgeID: 24
+  Rank: 689
+  ParentID: 686
+690:
+  ID: 690
+  Description: Demonstrate ability to anchor and weigh and to free a fouled anchor,
+    including bending the line or cable to an anchor beforehand.
+  BadgeID: 24
+  Rank: 690
+  ParentID: 686
+691:
+  ID: 691
+  Description: Know correct pulling and other orders and demonstrate coming alongside
+    a jetty, to a buoy and hold water, back water and complete short turn around.
+  BadgeID: 24
+  Rank: 691
+  ParentID: 686
+692:
+  ID: 692
+  Description: Sailing Elective
+  BadgeID: 24
+  Rank: 692
+693:
+  ID: 693
+  Description: 1. Pass, or have passed, all tests prescribed for Explorer level sailing
+    elective.
+  BadgeID: 24
+  Rank: 693
+  ParentID: 692
+694:
+  ID: 694
+  Description: Teach a Pioneer Scout to rig a sailboat.
+  BadgeID: 24
+  Rank: 694
+  ParentID: 692
+695:
+  ID: 695
+  Description: Teach an Explorer Scout how and when to reef down.
+  BadgeID: 24
+  Rank: 695
+  ParentID: 692
+696:
+  ID: 696
+  Description: Teach an Explorer Scout to capsize and recover a small sailboat.
+  BadgeID: 24
+  Rank: 696
+  ParentID: 692
+697:
+  ID: 697
+  Description: Teach your Patrol or other Scouts about the advantages and disadvantages
+    of lee and weather shores.
+  BadgeID: 24
+  Rank: 697
+  ParentID: 692
+698:
+  ID: 698
+  Description: Participate in an overnight sailing expedition.
+  BadgeID: 24
+  Rank: 698
+  ParentID: 692
+699:
+  ID: 699
+  Description: Yachting Australia Elective. Complete the Yachting Australia course,
+    �Basic Skills 1 � Getting into Small Boat Sailing�.
+  BadgeID: 24
+  Rank: 699
+700:
+  ID: 700
+  Description: Motor Elective. Complete the Yachting Australia TL3 Power Boat Certificate.
+    As legislation requirements differ between States, check with your local governing
+    body regarding these.
+  BadgeID: 24
+  Rank: 700
+701:
+  ID: 701
+  Description: Safe entry and swim
+  BadgeID: 25
+  Rank: 701
+702:
+  ID: 702
+  Description: Perform a forward jump at least three metres into water greater than
+    1.5 metres deep, fully clothed (long trousers, shirt, jumper, socks, as a minimum)
+    and swim 50 metres. Remove clothing in deep water and demonstrate the use of trousers
+    as a buoyant aid (inflated clothing).
+  BadgeID: 25
+  Rank: 702
+  ParentID: 701
+703:
+  ID: 703
+  Description: Use buoyant aid to support a tired swimmer for one minute, discard
+    aid and tow patient 50 metres, maintaining a clear airway on the patient by correct
+    positioning of the head.
+  BadgeID: 25
+  Rank: 703
+  ParentID: 701
+704:
+  ID: 704
+  Description: Swim 200 metres without an APFD, using at least four different strokes
+    (not less than 25 metres for each stroke).
+  BadgeID: 25
+  Rank: 704
+  ParentID: 701
+705:
+  ID: 705
+  Description: Remain afloat for at least four minutes without the use of an APFD.
+  BadgeID: 25
+  Rank: 705
+  ParentID: 701
+706:
+  ID: 706
+  Description: Put on an APFD in water greater than 1.5 metres deep and swim 100 metres
+    and remove it in water greater than 1.5 metres deep.
+  BadgeID: 25
+  Rank: 706
+  ParentID: 701
+707:
+  ID: 707
+  Description: Rescue
+  BadgeID: 25
+  Rank: 707
+708:
+  ID: 708
+  Description: Perform two simulated rescues (situation to be nominated by Adviser).
+    A complete knowledge of noncontact, contact and assisted carries is essential.
+    Knowledge of how to avoid contact with a violent patient and a thorough knowledge
+    of defence methods and releases will be necessary.
+  BadgeID: 25
+  Rank: 708
+  ParentID: 707
+709:
+  ID: 709
+  Description: Knowledge of the techniques needed to perform resuscitation.
+  BadgeID: 25
+  Rank: 709
+  ParentID: 707
+710:
+  ID: 710
+  Description: Safety
+  BadgeID: 25
+  Rank: 710
+711:
+  ID: 711
+  Description: 'Demonstrate a thorough knowledge of the safety rules of one of the
+    following activities:'
+  BadgeID: 25
+  Rank: 711
+  ParentID: 710
+712:
+  ID: 712
+  Description: swimming, windsurfing, power boating, water skiing, canoeing, sailing,
+    yachting, board diving, spear fishing and snorkelling.
+  BadgeID: 25
+  Rank: 712
+  ParentID: 711
+713:
+  ID: 713
+  Description: Make a display/poster for your hall/shopping centre on an aspect of
+    water safety.
+  BadgeID: 25
+  Rank: 713
+  ParentID: 711
+714:
+  ID: 714
+  Description: Give a short talk to a group of Cub Scouts on water safety as it applies
+    to them.
+  BadgeID: 25
+  Rank: 714
+  ParentID: 711
+715:
+  ID: 715
+  Description: Have passed the requirements of Citizenship 2 at Adventurer Level.
+  BadgeID: 25
+  Rank: 715
+716:
+  ID: 716
+  Description: 'Demonstrate. Prior to abseil, demonstrate precautions applicable to
+    abseiling including:'
+  BadgeID: 26
+  Rank: 716
+717:
+  ID: 717
+  Description: approaching cliffs
+  BadgeID: 26
+  Rank: 717
+  ParentID: 716
+718:
+  ID: 718
+  Description: safe distance to cliff edge
+  BadgeID: 26
+  Rank: 718
+  ParentID: 716
+719:
+  ID: 719
+  Description: the need to restrain loose hair and clothing
+  BadgeID: 26
+  Rank: 719
+  ParentID: 716
+720:
+  ID: 720
+  Description: knowledge of standard communication conventions used in abseiling.
+  BadgeID: 26
+  Rank: 720
+  ParentID: 716
+721:
+  ID: 721
+  Description: 'Skill. Demonstrate thorough knowledge of:'
+  BadgeID: 26
+  Rank: 721
+722:
+  ID: 722
+  Description: tape knot, including tie offs
+  BadgeID: 26
+  Rank: 722
+  ParentID: 721
+723:
+  ID: 723
+  Description: figure 8 on a bight
+  BadgeID: 26
+  Rank: 723
+  ParentID: 721
+724:
+  ID: 724
+  Description: the correct fitting of a harness
+  BadgeID: 26
+  Rank: 724
+  ParentID: 721
+725:
+  ID: 725
+  Description: clipping onto the abseil rope
+  BadgeID: 26
+  Rank: 725
+  ParentID: 721
+726:
+  ID: 726
+  Description: checking the system and the importance of having a second person check
+    the system
+  BadgeID: 26
+  Rank: 726
+  ParentID: 721
+727:
+  ID: 727
+  Description: a mock abseil on flat ground
+  BadgeID: 26
+  Rank: 727
+  ParentID: 721
+728:
+  ID: 728
+  Description: suitable protective clothing for all seasons
+  BadgeID: 26
+  Rank: 728
+  ParentID: 721
+729:
+  ID: 729
+  Description: the importance of using appropriate equipment and ropes
+  BadgeID: 26
+  Rank: 729
+  ParentID: 721
+730:
+  ID: 730
+  Description: the basic rules for the use and care of equipment.
+  BadgeID: 26
+  Rank: 730
+  ParentID: 721
+731:
+  ID: 731
+  Description: Activity. Undertake five abseils.
+  BadgeID: 26
+  Rank: 731
+732:
+  ID: 732
+  Description: Investigate
+  BadgeID: 27
+  Rank: 732
+733:
+  ID: 733
+  Description: 'Either by discussion with your Adviser or by an illustrated talk to
+    your Patrol or other Scouts, show that you have an understanding of:'
+  BadgeID: 27
+  Rank: 733
+  ParentID: 732
+734:
+  ID: 734
+  Description: the main stages in growing cycle applicable to your chosen topic
+  BadgeID: 27
+  Rank: 734
+  ParentID: 733
+735:
+  ID: 735
+  Description: the basic skills applicable to your chosen area of agriculture.
+  BadgeID: 27
+  Rank: 735
+  ParentID: 733
+736:
+  ID: 736
+  Description: After discussion with your Adviser, undertake a project appropriate
+    to your chosen topic. Your project might be based on at least one of the following
+    from skill and activity segments.
+  BadgeID: 27
+  Rank: 736
+  ParentID: 733
+737:
+  ID: 737
+  Description: Skill
+  BadgeID: 27
+  Rank: 737
+738:
+  ID: 738
+  Description: Spend at least 10 hours helping with planting, caring for and harvesting
+    at crop.
+  BadgeID: 27
+  Rank: 738
+  ParentID: 737
+739:
+  ID: 739
+  Description: Photograph each stage of the crop and show your Patrol how the product
+    is dealt with, and teach your Patrol how the crop is planted and harvested.
+  BadgeID: 27
+  Rank: 739
+  ParentID: 737
+740:
+  ID: 740
+  Description: Assist in banding birds, tagging fish or in some other work on a flora
+    or fauna reserve, or assist a National Parks Service or Forestry service in performing
+    appropriate work.
+  BadgeID: 27
+  Rank: 740
+  ParentID: 737
+741:
+  ID: 741
+  Description: Activity
+  BadgeID: 27
+  Rank: 741
+742:
+  ID: 742
+  Description: Plan and plant a flower display garden of a least 10 square metres
+    (or a vegetable garden of at least 20 square metres) throughout one complete growing
+    season.
+  BadgeID: 27
+  Rank: 742
+  ParentID: 741
+743:
+  ID: 743
+  Description: Make a compost heap, and understand and explain the principles of manuring,
+    both natural and artificial.
+  BadgeID: 27
+  Rank: 743
+  ParentID: 741
+744:
+  ID: 744
+  Description: Investigate
+  BadgeID: 28
+  Rank: 744
+745:
+  ID: 745
+  Description: Find out the local laws and regulations that relate to how you must
+    keep your animal.
+  BadgeID: 28
+  Rank: 745
+  ParentID: 744
+746:
+  ID: 746
+  Description: Find out the history of the species of animal for which you care (e.g.
+    country of origin etc).
+  BadgeID: 28
+  Rank: 746
+  ParentID: 744
+747:
+  ID: 747
+  Description: Know the conditions required for breeding your animal.
+  BadgeID: 28
+  Rank: 747
+  ParentID: 744
+748:
+  ID: 748
+  Description: Skill
+  BadgeID: 28
+  Rank: 748
+749:
+  ID: 749
+  Description: Learn how to treat three ailments that could be suffered by your animal.
+  BadgeID: 28
+  Rank: 749
+  ParentID: 748
+750:
+  ID: 750
+  Description: Learn how to build a shelter adequate to protect your animal from the
+    elements.
+  BadgeID: 28
+  Rank: 750
+  ParentID: 748
+751:
+  ID: 751
+  Description: Learn how to train your animal (e.g. dogs to be obedient, birds to
+    talk etc). You are also required to give a presentation to your Patrol or Troop
+    in a form selected by yourself on how to care for your animal.
+  BadgeID: 28
+  Rank: 751
+  ParentID: 748
+752:
+  ID: 752
+  Description: Activity. Care for your animal for a period of at least three months.
+  BadgeID: 28
+  Rank: 752
+753:
+  ID: 753
+  Description: Investigate
+  BadgeID: 29
+  Rank: 753
+754:
+  ID: 754
+  Description: Find out two differing views on how man developed over time.
+  BadgeID: 29
+  Rank: 754
+  ParentID: 753
+755:
+  ID: 755
+  Description: Learn legends from three different cultures and tell them to your Patrol.
+  BadgeID: 29
+  Rank: 755
+  ParentID: 753
+756:
+  ID: 756
+  Description: Find out about the first Scout camp at Brownsea Island and explain
+    to your Patrol or Troop how Scout camps have changed over the years.
+  BadgeID: 29
+  Rank: 756
+  ParentID: 753
+757:
+  ID: 757
+  Description: Skill
+  BadgeID: 29
+  Rank: 757
+758:
+  ID: 758
+  Description: With your Patrol or alone, visit a museum and report on a particular
+    culture exhibited there. Perhaps you could make a drawing and then build a model
+    or replica of artifacts or crafts. Plaster modelling can be fun.
+  BadgeID: 29
+  Rank: 758
+  ParentID: 757
+759:
+  ID: 759
+  Description: Prepare and deliver an illustrated talk to your Patrol or other audience,
+    using visual aids such as wall charts, any electronic means or a culture item
+    related to your chosen subject.
+  BadgeID: 29
+  Rank: 759
+  ParentID: 757
+760:
+  ID: 760
+  Description: Activity
+  BadgeID: 29
+  Rank: 760
+761:
+  ID: 761
+  Description: Prepare a meal from a different culture for your Patrol.
+  BadgeID: 29
+  Rank: 761
+  ParentID: 760
+762:
+  ID: 762
+  Description: Visit a museum and find out what artifacts have been found from a particular
+    culture. Tell you Patrol how people lived 1000 years ago.
+  BadgeID: 29
+  Rank: 762
+  ParentID: 760
+763:
+  ID: 763
+  Description: Construct and demonstrate the use of a tool or utensil from a culture
+    more than 1000 years old.
+  BadgeID: 29
+  Rank: 763
+  ParentID: 760
+764:
+  ID: 764
+  Description: Investigate
+  BadgeID: 30
+  Rank: 764
+765:
+  ID: 765
+  Description: Find out about an artist of your own choice and discuss the development
+    of their work.
+  BadgeID: 30
+  Rank: 765
+  ParentID: 764
+766:
+  ID: 766
+  Description: Find out about the history of an artistic medium of your choice (e.g.
+    sculpture, oil painting, watercolour, portrait painting, pottery, tapestry etc).
+  BadgeID: 30
+  Rank: 766
+  ParentID: 764
+767:
+  ID: 767
+  Description: Skill
+  BadgeID: 30
+  Rank: 767
+768:
+  ID: 768
+  Description: Learn two of the main techniques used in the art form selected by you.
+  BadgeID: 30
+  Rank: 768
+  ParentID: 767
+769:
+  ID: 769
+  Description: Learn the essential materials and tools used in your particular art
+    form.
+  BadgeID: 30
+  Rank: 769
+  ParentID: 767
+770:
+  ID: 770
+  Description: Activity. Produce two different items in an art form of your choice
+    and show them to your Patrol or Troop.
+  BadgeID: 30
+  Rank: 770
+771:
+  ID: 771
+  Description: Investigate
+  BadgeID: 31
+  Rank: 771
+772:
+  ID: 772
+  Description: Find out about two main stars and one constellation of your choice.
+  BadgeID: 31
+  Rank: 772
+  ParentID: 771
+773:
+  ID: 773
+  Description: Find out how to navigate by the stars.
+  BadgeID: 31
+  Rank: 773
+  ParentID: 771
+774:
+  ID: 774
+  Description: Find out how to tell time by the stars.
+  BadgeID: 31
+  Rank: 774
+  ParentID: 771
+775:
+  ID: 775
+  Description: Know the principal observatories, both optical and radio, in the world.
+  BadgeID: 31
+  Rank: 775
+  ParentID: 771
+776:
+  ID: 776
+  Description: Skill
+  BadgeID: 31
+  Rank: 776
+777:
+  ID: 777
+  Description: Make a simple astronomical model to illustrate some feature of the
+    solar system.
+  BadgeID: 31
+  Rank: 777
+  ParentID: 776
+778:
+  ID: 778
+  Description: Be able to set up a telescope and know the precautions when using it.
+  BadgeID: 31
+  Rank: 778
+  ParentID: 776
+779:
+  ID: 779
+  Description: Know the location in the night sky of two constellations.
+  BadgeID: 31
+  Rank: 779
+  ParentID: 776
+780:
+  ID: 780
+  Description: Activity
+  BadgeID: 31
+  Rank: 780
+781:
+  ID: 781
+  Description: Organize an activity where the stars and constellations you have researched
+    are observed.
+  BadgeID: 31
+  Rank: 781
+  ParentID: 780
+782:
+  ID: 782
+  Description: Identify and report on a natural solar system or universe event, e.g.
+    visit by a comet.
+  BadgeID: 31
+  Rank: 782
+  ParentID: 780
+783:
+  ID: 783
+  Description: Visit and report on a visit to an observatory.
+  BadgeID: 31
+  Rank: 783
+  ParentID: 780
+784:
+  ID: 784
+  Description: Investigate
+  BadgeID: 32
+  Rank: 784
+785:
+  ID: 785
+  Description: Find out the origin of map making and the current method of making
+    a map.
+  BadgeID: 32
+  Rank: 785
+  ParentID: 784
+786:
+  ID: 786
+  Description: Find out three methods of purifying and straining contaminated water.
+  BadgeID: 32
+  Rank: 786
+  ParentID: 784
+787:
+  ID: 787
+  Description: Find out the natural signs used to forecast weather and their meaning.
+  BadgeID: 32
+  Rank: 787
+  ParentID: 784
+788:
+  ID: 788
+  Description: Skill
+  BadgeID: 32
+  Rank: 788
+789:
+  ID: 789
+  Description: Learn how to make two lengths of rope from natural materials using
+    different methods (e.g. spinning strands and laying up, plaiting etc.).
+  BadgeID: 32
+  Rank: 789
+  ParentID: 788
+790:
+  ID: 790
+  Description: Learn how to tell the time and direction by the sun (to an accuracy
+    of fifteen minutes of time and 5 degrees of direction) and the stars (to an accuracy
+    of 30 minutes of time and 10 degrees of direction).
+  BadgeID: 32
+  Rank: 790
+  ParentID: 788
+791:
+  ID: 791
+  Description: Learn how to make a satisfactory shelter for two people using either
+    natural materials or only those materials available to you.
+  BadgeID: 32
+  Rank: 791
+  ParentID: 788
+792:
+  ID: 792
+  Description: Learn how to prepare and cook a chicken or fish without utensils.
+  BadgeID: 32
+  Rank: 792
+  ParentID: 788
+793:
+  ID: 793
+  Description: Learn how to construct a sundial or other gadget to find true north.
+  BadgeID: 32
+  Rank: 793
+  ParentID: 788
+794:
+  ID: 794
+  Description: Activity
+  BadgeID: 32
+  Rank: 794
+795:
+  ID: 795
+  Description: Demonstrate how to prepare and light a cooking fire in the open and
+    the fire precautions to take.
+  BadgeID: 32
+  Rank: 795
+  ParentID: 794
+796:
+  ID: 796
+  Description: Make two lengths or rope from natural materials (or materials available
+    to you).
+  BadgeID: 32
+  Rank: 796
+  ParentID: 794
+797:
+  ID: 797
+  Description: Cook a camp meal using only a billy and minimal utensils (e.g. a knife
+    and spoon).
+  BadgeID: 32
+  Rank: 797
+  ParentID: 794
+798:
+  ID: 798
+  Description: Sleep in a natural shelter or a shelter made from improvised covering
+    (e.g. tarpaulin).
+  BadgeID: 32
+  Rank: 798
+  ParentID: 794
+799:
+  ID: 799
+  Description: Light a fire without using matches.
+  BadgeID: 32
+  Rank: 799
+  ParentID: 794
+800:
+  ID: 800
+  Description: 'Make two camp gadgets from bush materials. NOTE: Due care must be
+    taken so that no permanent damage is done to the bush environment. All rules and
+    regulations of the local authorities must be complied with.'
+  BadgeID: 32
+  Rank: 800
+  ParentID: 794
+801:
+  ID: 801
+  Description: 'Demonstrate. Prior to caving, demonstrate precautions applicable to
+    caving including:'
+  BadgeID: 33
+  Rank: 801
+802:
+  ID: 802
+  Description: approaching drops
+  BadgeID: 33
+  Rank: 802
+  ParentID: 801
+803:
+  ID: 803
+  Description: the safe distance from drops
+  BadgeID: 33
+  Rank: 803
+  ParentID: 801
+804:
+  ID: 804
+  Description: the need to restrain loose hair and clothing
+  BadgeID: 33
+  Rank: 804
+  ParentID: 801
+805:
+  ID: 805
+  Description: knowledge of standard communication conventions used in caving.
+  BadgeID: 33
+  Rank: 805
+  ParentID: 801
+806:
+  ID: 806
+  Description: 'Skill. Demonstrate knowledge of:'
+  BadgeID: 33
+  Rank: 806
+807:
+  ID: 807
+  Description: tape knot, including tie offs
+  BadgeID: 33
+  Rank: 807
+  ParentID: 806
+808:
+  ID: 808
+  Description: figure 8 on a bight
+  BadgeID: 33
+  Rank: 808
+  ParentID: 806
+809:
+  ID: 809
+  Description: the correct fitting of a harness
+  BadgeID: 33
+  Rank: 809
+  ParentID: 806
+810:
+  ID: 810
+  Description: 'necessary personal equipment including:'
+  BadgeID: 33
+  Rank: 810
+  ParentID: 806
+811:
+  ID: 811
+  Description: lighting
+  BadgeID: 33
+  Rank: 811
+  ParentID: 810
+812:
+  ID: 812
+  Description: protective clothing and hardware
+  BadgeID: 33
+  Rank: 812
+  ParentID: 810
+813:
+  ID: 813
+  Description: the basic rules for the use and care of equipment.
+  BadgeID: 33
+  Rank: 813
+  ParentID: 810
+814:
+  ID: 814
+  Description: Activity. Undertake two cave expeditions totalling not less than 6
+    hours.
+  BadgeID: 33
+  Rank: 814
+815:
+  ID: 815
+  Description: Investigate
+  BadgeID: 34
+  Rank: 815
+816:
+  ID: 816
+  Description: Find out the history of the subject of your collection.
+  BadgeID: 34
+  Rank: 816
+  ParentID: 815
+817:
+  ID: 817
+  Description: Subscribe to a club or magazine that provides information about your
+    collection.
+  BadgeID: 34
+  Rank: 817
+  ParentID: 815
+818:
+  ID: 818
+  Description: Find out the meaning of particular terminology relating to your collection.
+  BadgeID: 34
+  Rank: 818
+  ParentID: 815
+819:
+  ID: 819
+  Description: Skill
+  BadgeID: 34
+  Rank: 819
+820:
+  ID: 820
+  Description: Demonstrate how to organize your collection into particular classes.
+  BadgeID: 34
+  Rank: 820
+  ParentID: 819
+821:
+  ID: 821
+  Description: Demonstrate how to care for your collection.
+  BadgeID: 34
+  Rank: 821
+  ParentID: 819
+822:
+  ID: 822
+  Description: Show that you understand how to increase your collection by various
+    methods.
+  BadgeID: 34
+  Rank: 822
+  ParentID: 819
+823:
+  ID: 823
+  Description: Activity
+  BadgeID: 34
+  Rank: 823
+824:
+  ID: 824
+  Description: Give a presentation to your Patrol or Troop on your collection, explaining
+    its history and items of particular significance and how you care for it.
+  BadgeID: 34
+  Rank: 824
+  ParentID: 823
+825:
+  ID: 825
+  Description: Explain how other Scouts might begin their collection.
+  BadgeID: 34
+  Rank: 825
+  ParentID: 823
+826:
+  ID: 826
+  Description: Give a report to your Adviser on what you have learned about your collection.
+  BadgeID: 34
+  Rank: 826
+  ParentID: 823
+827:
+  ID: 827
+  Description: Investigate
+  BadgeID: 35
+  Rank: 827
+828:
+  ID: 828
+  Description: Choose a type of commercial product such as food, fashion, cars, electronics,
+    etc.
+  BadgeID: 35
+  Rank: 828
+  ParentID: 827
+829:
+  ID: 829
+  Description: Find out how these have changed over time and the various trends. Include
+    photos, drawings, etc.
+  BadgeID: 35
+  Rank: 829
+  ParentID: 827
+830:
+  ID: 830
+  Description: Skill
+  BadgeID: 35
+  Rank: 830
+831:
+  ID: 831
+  Description: Design a product of your chosen type of commerce. Include drawings
+    and detailed explanations as to why your product has the things it has.
+  BadgeID: 35
+  Rank: 831
+  ParentID: 830
+832:
+  ID: 832
+  Description: Draw up a timeline of the changes which have occurred to your chosen
+    type of commerce. Include pictures and drawings.
+  BadgeID: 35
+  Rank: 832
+  ParentID: 830
+833:
+  ID: 833
+  Description: Activity. Complete one of (a), (b) or (c).
+  BadgeID: 35
+  Rank: 833
+834:
+  ID: 834
+  Description: Draw up a Patrol budget for a weekend activity to include food, transport,
+    activities, etc.
+  BadgeID: 35
+  Rank: 834
+  ParentID: 833
+835:
+  ID: 835
+  Description: Design a product and make a video/computer-generated ad to sell your
+    product. Write a script and organize props etc.
+  BadgeID: 35
+  Rank: 835
+  ParentID: 833
+836:
+  ID: 836
+  Description: Research and organize a stock market game in which your friends buy
+    and sell false shares in a false market with real companies. Watch the news for
+    the shares rise and fall each week.
+  BadgeID: 35
+  Rank: 836
+  ParentID: 833
+837:
+  ID: 837
+  Description: Investigate
+  BadgeID: 36
+  Rank: 837
+838:
+  ID: 838
+  Description: Find out about the earliest forms of non-verbal communication. e.g.
+    sign, smoke signals, cave paintings.
+  BadgeID: 36
+  Rank: 838
+  ParentID: 837
+839:
+  ID: 839
+  Description: Find out about the history of one particular kind of communication.
+  BadgeID: 36
+  Rank: 839
+  ParentID: 837
+840:
+  ID: 840
+  Description: Find out about current developments in international communications.
+  BadgeID: 36
+  Rank: 840
+  ParentID: 837
+841:
+  ID: 841
+  Description: Find out about the history of a language other than your own.
+  BadgeID: 36
+  Rank: 841
+  ParentID: 837
+842:
+  ID: 842
+  Description: Find out about the latest technology being used for communications
+    (e.g. satellite).
+  BadgeID: 36
+  Rank: 842
+  ParentID: 837
+843:
+  ID: 843
+  Description: Skill
+  BadgeID: 36
+  Rank: 843
+844:
+  ID: 844
+  Description: Draft, edit and proof read an article for a magazine or paper.
+  BadgeID: 36
+  Rank: 844
+  ParentID: 843
+845:
+  ID: 845
+  Description: Learn and use the call signs of the phonetic alphabet for the use on
+    short wave radio, e.g. CB, HF, UHF.
+  BadgeID: 36
+  Rank: 845
+  ParentID: 843
+846:
+  ID: 846
+  Description: Learn and use information technology (IT) communication, e.g. e-mail,
+    SMS messaging, Internet chat, satellite.
+  BadgeID: 36
+  Rank: 846
+  ParentID: 843
+847:
+  ID: 847
+  Description: Send and receive a message of at least 20 words using semaphore or
+    Morse code.
+  BadgeID: 36
+  Rank: 847
+  ParentID: 843
+848:
+  ID: 848
+  Description: In a language other than your own, translate an easy passage from a
+    book or periodical. You can use sign if you wish.
+  BadgeID: 36
+  Rank: 848
+  ParentID: 843
+849:
+  ID: 849
+  Description: Activity
+  BadgeID: 36
+  Rank: 849
+850:
+  ID: 850
+  Description: Draft, edit and create a news-sheet in any media format for your Patrol,
+    Troop or Group. Include activities that you have undertaken in the past month.
+  BadgeID: 36
+  Rank: 850
+  ParentID: 849
+851:
+  ID: 851
+  Description: Help set up an amateur radio base.
+  BadgeID: 36
+  Rank: 851
+  ParentID: 849
+852:
+  ID: 852
+  Description: Using walkie-talkies, semaphore or Morse code, organise and run a wide
+    game for your Troop.
+  BadgeID: 36
+  Rank: 852
+  ParentID: 849
+853:
+  ID: 853
+  Description: Carry out a simple conversation in a language other than your own.
+  BadgeID: 36
+  Rank: 853
+  ParentID: 849
+854:
+  ID: 854
+  Description: Conduct a Patrol Council using telephone/chat room/video conferencing
+    with all of your Patrol at the one time.
+  BadgeID: 36
+  Rank: 854
+  ParentID: 849
+855:
+  ID: 855
+  Description: Investigate. Discover ways your Group could be of assistance to your
+    chosen organisation, or the community as a whole.
+  BadgeID: 37
+  Rank: 855
+856:
+  ID: 856
+  Description: Skill. Show by your active participation that you have an interest
+    in local community needs other than emergency services.
+  BadgeID: 37
+  Rank: 856
+857:
+  ID: 857
+  Description: Activity. Report to the Troop how you became, and how they could become,
+    more relevant within the community. In the report mention contacts etc. to streamline
+    future activities
+  BadgeID: 37
+  Rank: 857
+858:
+  ID: 858
+  Description: Investigate
+  BadgeID: 38
+  Rank: 858
+859:
+  ID: 859
+  Description: Find out the history and development of your particular craft.
+  BadgeID: 38
+  Rank: 859
+  ParentID: 858
+860:
+  ID: 860
+  Description: Research the preparation methods needed to perform your particular
+    craft.
+  BadgeID: 38
+  Rank: 860
+  ParentID: 858
+861:
+  ID: 861
+  Description: Find out about people skilled in the craft of your choice and discuss
+    the development of their work.
+  BadgeID: 38
+  Rank: 861
+  ParentID: 858
+862:
+  ID: 862
+  Description: Skill
+  BadgeID: 38
+  Rank: 862
+863:
+  ID: 863
+  Description: Learn at least two main techniques used in your craft of choice.
+  BadgeID: 38
+  Rank: 863
+  ParentID: 862
+864:
+  ID: 864
+  Description: Be able to discuss the methods used to perform and complete your particular
+    choice of craft.
+  BadgeID: 38
+  Rank: 864
+  ParentID: 862
+865:
+  ID: 865
+  Description: Discuss the type and use usage of materials and tools that are used
+    in your particular craft.
+  BadgeID: 38
+  Rank: 865
+  ParentID: 862
+866:
+  ID: 866
+  Description: Activity. Produce and show a completed work of your particular craft
+    requiring a minimum of 5 hours to complete the work.
+  BadgeID: 38
+  Rank: 866
+867:
+  ID: 867
+  Description: 'Investigate. Investigate and present a report on three crime prevention
+    activities undertaken by the police AND investigate and present a report addressing
+    at least two of the following questions:'
+  BadgeID: 39
+  Rank: 867
+868:
+  ID: 868
+  Description: What is Neighbourhood Watch and how do the groups help prevent crime?
+  BadgeID: 39
+  Rank: 868
+  ParentID: 867
+869:
+  ID: 869
+  Description: Make a list of items of value in your house and explain why you should
+    engrave them.
+  BadgeID: 39
+  Rank: 869
+  ParentID: 867
+870:
+  ID: 870
+  Description: Why is it important to report crimes to Police?
+  BadgeID: 39
+  Rank: 870
+  ParentID: 867
+871:
+  ID: 871
+  Description: Skill
+  BadgeID: 39
+  Rank: 871
+872:
+  ID: 872
+  Description: Engrave all items of value in your home with your surname and parent�s
+    licence numbers, with the assistance of one of your parents.
+  BadgeID: 39
+  Rank: 872
+  ParentID: 871
+873:
+  ID: 873
+  Description: Design a proforma and list all items of value in your home detailing
+    serial numbers, colours, make, models, and age of the items.
+  BadgeID: 39
+  Rank: 873
+  ParentID: 871
+874:
+  ID: 874
+  Description: Enrol your family in Neighbourhood Watch or similar organisation as
+    a means of improving your neighborhood�s safety.
+  BadgeID: 39
+  Rank: 874
+  ParentID: 871
+875:
+  ID: 875
+  Description: Activity
+  BadgeID: 39
+  Rank: 875
+876:
+  ID: 876
+  Description: Investigate and compile a list of people or organisations who can provide
+    engravers to assist the rest of the Troop to engrave items of value at home (try
+    Police Stations, Neighbourhood Watch etc).
+  BadgeID: 39
+  Rank: 876
+  ParentID: 875
+877:
+  ID: 877
+  Description: Arrange for a member of the executive in your local Neighbourhood Watch
+    group (or a Police Officer) to attend to talk to a group of Scouts about preventing
+    crime in the local area.
+  BadgeID: 39
+  Rank: 877
+  ParentID: 875
+878:
+  ID: 878
+  Description: Organise and run a security audit with your patrol and identify positive
+    and negative issues at and around your den. If there are any ways you can improve
+    security, make a list of suggestions for your Leader
+  BadgeID: 39
+  Rank: 878
+  ParentID: 875
+879:
+  ID: 879
+  Description: Investigate
+  BadgeID: 40
+  Rank: 879
+880:
+  ID: 880
+  Description: Find some information on the background of three non-English speaking
+    countries. Compare such things as trade, staple foods, living conditions, etc.
+    in relation to Australia.
+  BadgeID: 40
+  Rank: 880
+  ParentID: 879
+881:
+  ID: 881
+  Description: Find out about the traditional way of life of an Australian Aboriginal
+    group including the food they ate, the manner in which it was prepared, family
+    relationships, ceremonies, etc.
+  BadgeID: 40
+  Rank: 881
+  ParentID: 879
+882:
+  ID: 882
+  Description: Skill
+  BadgeID: 40
+  Rank: 882
+883:
+  ID: 883
+  Description: Learn and practise three greetings from non-English speaking countries
+    of your choice.
+  BadgeID: 40
+  Rank: 883
+  ParentID: 882
+884:
+  ID: 884
+  Description: Identify and try traditional foods from cultures or countries other
+    than your own.
+  BadgeID: 40
+  Rank: 884
+  ParentID: 882
+885:
+  ID: 885
+  Description: Activity
+  BadgeID: 40
+  Rank: 885
+886:
+  ID: 886
+  Description: Make and decorate a boomerang in natural materials. Demonstrate how
+    it should be thrown.
+  BadgeID: 40
+  Rank: 886
+  ParentID: 885
+887:
+  ID: 887
+  Description: Demonstrate the three greetings from above and their meanings.
+  BadgeID: 40
+  Rank: 887
+  ParentID: 885
+888:
+  ID: 888
+  Description: Prepare and cook a 3-course, traditional meal from a country of your
+    choice.
+  BadgeID: 40
+  Rank: 888
+  ParentID: 885
+889:
+  ID: 889
+  Description: Investigate
+  BadgeID: 41
+  Rank: 889
+890:
+  ID: 890
+  Description: Find out about the origins of your particular field of interest.
+  BadgeID: 41
+  Rank: 890
+  ParentID: 889
+891:
+  ID: 891
+  Description: Explain what is meant by particular terminology of your field of interest.
+  BadgeID: 41
+  Rank: 891
+  ParentID: 889
+892:
+  ID: 892
+  Description: Make a list of the different types of jobs involved in your particular
+    interest and their roles.
+  BadgeID: 41
+  Rank: 892
+  ParentID: 889
+893:
+  ID: 893
+  Description: Skill
+  BadgeID: 41
+  Rank: 893
+894:
+  ID: 894
+  Description: Demonstrate or explain to your Leaders and Adviser the various techniques
+    and developments devised for your particular field of interest.
+  BadgeID: 41
+  Rank: 894
+  ParentID: 893
+895:
+  ID: 895
+  Description: Create a performance, either solo or in a group, to present to other
+    people.
+  BadgeID: 41
+  Rank: 895
+  ParentID: 893
+896:
+  ID: 896
+  Description: Activity
+  BadgeID: 41
+  Rank: 896
+897:
+  ID: 897
+  Description: Perform a role in a play, comedy skit, theatrical revue or video production.
+  BadgeID: 41
+  Rank: 897
+  ParentID: 896
+898:
+  ID: 898
+  Description: Direct a performance by other people.
+  BadgeID: 41
+  Rank: 898
+  ParentID: 896
+899:
+  ID: 899
+  Description: Give a report to your Patrol or Troop on what you have learned about
+    your particular field of interest.
+  BadgeID: 41
+  Rank: 899
+  ParentID: 896
+900:
+  ID: 900
+  Description: Investigate
+  BadgeID: 42
+  Rank: 900
+901:
+  ID: 901
+  Description: Identify potential fire hazards around the home and the Scout Hall
+    (including bushfire hazards) and explain what can be done to reduce those hazards.
+  BadgeID: 42
+  Rank: 901
+  ParentID: 900
+902:
+  ID: 902
+  Description: By use of an illustration, describe the principle of combustion (the
+    fire triangle = fuel + heat + oxygen), and how the elimination of any one of the
+    elements will extinguish the fire.
+  BadgeID: 42
+  Rank: 902
+  ParentID: 900
+903:
+  ID: 903
+  Description: 'Give an example of three different types of combustible material for
+    each of the following properties: solids, liquids and gasses.'
+  BadgeID: 42
+  Rank: 903
+  ParentID: 900
+904:
+  ID: 904
+  Description: Explain the connection between bushfires and the environment.
+  BadgeID: 42
+  Rank: 904
+  ParentID: 900
+905:
+  ID: 905
+  Description: Describe the effects of wildfire on populated areas.
+  BadgeID: 42
+  Rank: 905
+  ParentID: 900
+906:
+  ID: 906
+  Description: Research and do a short presentation in a format of your choice to
+    your Patrol or Troop. Write a short essay (300 words) on a major fire disaster
+    in Australia�s history. Suggest action to be taken to ensure that such a catastrophe
+    does not happen again.
+  BadgeID: 42
+  Rank: 906
+  ParentID: 900
+907:
+  ID: 907
+  Description: Describe three common causes of bushfires and explain how those causes
+    can be reduced.
+  BadgeID: 42
+  Rank: 907
+  ParentID: 900
+908:
+  ID: 908
+  Description: Identify three toxic chemicals that can be produced in a house or building
+    fire.
+  BadgeID: 42
+  Rank: 908
+  ParentID: 900
+909:
+  ID: 909
+  Description: Describe two types of bushfires and their characteristics.
+  BadgeID: 42
+  Rank: 909
+  ParentID: 900
+910:
+  ID: 910
+  Description: Show that you understand the fire regulations that apply to your state.
+  BadgeID: 42
+  Rank: 910
+  ParentID: 900
+911:
+  ID: 911
+  Description: 'Skill. As a member of a Patrol, or individually:'
+  BadgeID: 42
+  Rank: 911
+912:
+  ID: 912
+  Description: visit either a Metropolitan Fire Brigade (MFB) or a Rural Fire Service/
+    Brigade, e.g. CFA Station. Describe the type of appliances available and the roles
+    that they play in fighting a fire.
+  BadgeID: 42
+  Rank: 912
+  ParentID: 911
+913:
+  ID: 913
+  Description: demonstrate three methods of survival in bush fires.
+  BadgeID: 42
+  Rank: 913
+  ParentID: 911
+914:
+  ID: 914
+  Description: describe how you would find out if a total or partial fire ban was
+    in force for a particular area in the your state on any particular day.
+  BadgeID: 42
+  Rank: 914
+  ParentID: 911
+915:
+  ID: 915
+  Description: 'Activity. Carry out the following: (SIMULATE only for (b), (c) and  (d))'
+  BadgeID: 42
+  Rank: 915
+916:
+  ID: 916
+  Description: DURING a camp, demonstrate how to prepare a camp cooking fire and a
+    campfire site to reduce the danger of bushfires.
+  BadgeID: 42
+  Rank: 916
+  ParentID: 915
+917:
+  ID: 917
+  Description: DEMONSTRATE how to leave a burning building.
+  BadgeID: 42
+  Rank: 917
+  ParentID: 915
+918:
+  ID: 918
+  Description: DEMONSTRATE the use of a knapsack spray and rakes in fighting a bushfire.
+  BadgeID: 42
+  Rank: 918
+  ParentID: 915
+919:
+  ID: 919
+  Description: DEMONSTRATE how to deal with a leaking LPG lantern bottle which is
+    on fire.
+  BadgeID: 42
+  Rank: 919
+  ParentID: 915
+920:
+  ID: 920
+  Description: Explain to your Patrol or other Scouts how to use the fire extinguisher
+    in your Troop meeting place or home, and know on what type of fire it should/should
+    not be used.
+  BadgeID: 42
+  Rank: 920
+  ParentID: 915
+921:
+  ID: 921
+  Description: Explain the treatment for minor burns sustained in camp.
+  BadgeID: 42
+  Rank: 921
+  ParentID: 915
+922:
+  ID: 922
+  Description: Investigate. Give a brief history of your chosen sport. Show that you
+    know the rules, penalties, risks and safety precautions of this sport.
+  BadgeID: 43
+  Rank: 922
+923:
+  ID: 923
+  Description: Skill.
+  BadgeID: 43
+  Rank: 923
+924:
+  ID: 924
+  Description: Develop the skills necessary to play the sport and show an improvement
+    in a particular aspect of your sport.
+  BadgeID: 43
+  Rank: 924
+  ParentID: 923
+925:
+  ID: 925
+  Description: In conjunction with your coach develop a training program suitable
+    for physical and mental endurance and skills to improve your performance in your
+    chosen sport.
+  BadgeID: 43
+  Rank: 925
+  ParentID: 923
+926:
+  ID: 926
+  Description: Activity
+  BadgeID: 43
+  Rank: 926
+927:
+  ID: 927
+  Description: Document your progress within your chosen sport showing how your fitness
+    and ability has improved over a period of at least four months.
+  BadgeID: 43
+  Rank: 927
+  ParentID: 926
+928:
+  ID: 928
+  Description: Run an activity for your Patrol or Troop which will help them understand
+    the basic rules of your chosen sport
+  BadgeID: 43
+  Rank: 928
+  ParentID: 926
+929:
+  ID: 929
+  Description: Investigate
+  BadgeID: 44
+  Rank: 929
+930:
+  ID: 930
+  Description: Find out about the development of information technology over the last
+    three years
+  BadgeID: 44
+  Rank: 930
+  ParentID: 929
+931:
+  ID: 931
+  Description: Find 10 devices people use everyday that use computer technology.
+  BadgeID: 44
+  Rank: 931
+  ParentID: 929
+932:
+  ID: 932
+  Description: Find out what information technology opportunities exist and how information
+    technology can help underprivileged people.
+  BadgeID: 44
+  Rank: 932
+  ParentID: 929
+933:
+  ID: 933
+  Description: Use the Internet to find out about Scouting in another country and
+    show the results of your research to your Patrol.
+  BadgeID: 44
+  Rank: 933
+  ParentID: 929
+934:
+  ID: 934
+  Description: Skill
+  BadgeID: 44
+  Rank: 934
+935:
+  ID: 935
+  Description: Learn how to create a website, power point presentation or other presentation
+    using information technology.
+  BadgeID: 44
+  Rank: 935
+  ParentID: 934
+936:
+  ID: 936
+  Description: Learn how to create mail merge document, and an email address on the
+    web.
+  BadgeID: 44
+  Rank: 936
+  ParentID: 934
+937:
+  ID: 937
+  Description: Learn how to install software on to a computer.
+  BadgeID: 44
+  Rank: 937
+  ParentID: 934
+938:
+  ID: 938
+  Description: Activity
+  BadgeID: 44
+  Rank: 938
+939:
+  ID: 939
+  Description: Create a presentation about Scouts using one of the mediums in skill
+    1.
+  BadgeID: 44
+  Rank: 939
+  ParentID: 938
+940:
+  ID: 940
+  Description: Use a computer to create a contact list for your Patrol or Troop.
+  BadgeID: 44
+  Rank: 940
+  ParentID: 938
+941:
+  ID: 941
+  Description: Install and configure additional software onto a computer.
+  BadgeID: 44
+  Rank: 941
+  ParentID: 938
+942:
+  ID: 942
+  Description: Investigate
+  BadgeID: 45
+  Rank: 942
+943:
+  ID: 943
+  Description: Choose one form of literary art to learn about. Gather information
+    about one aspect or a period when a form was popular, e.g. poetry, playwrights,
+    fantasy story writing.
+  BadgeID: 45
+  Rank: 943
+  ParentID: 942
+944:
+  ID: 944
+  Description: Learn about the oldest form of literary art that you can find and how
+    it was expressed.
+  BadgeID: 45
+  Rank: 944
+  ParentID: 942
+945:
+  ID: 945
+  Description: Find out about a famous writer, e.g. Shakespeare.
+  BadgeID: 45
+  Rank: 945
+  ParentID: 942
+946:
+  ID: 946
+  Description: Skill
+  BadgeID: 45
+  Rank: 946
+947:
+  ID: 947
+  Description: Learn to write in a particular form of poetry, e.g. Haiku, rhyming,
+    free verse, sonnet, limerick, quatrain, acrostic etc.
+  BadgeID: 45
+  Rank: 947
+  ParentID: 946
+948:
+  ID: 948
+  Description: Demonstrate you understand of how a particular form of writing is produced,
+    e.g. play, fantasy fiction, science fiction, TV soap etc.
+  BadgeID: 45
+  Rank: 948
+  ParentID: 946
+949:
+  ID: 949
+  Description: Activity. Complete (a) or (b)
+  BadgeID: 45
+  Rank: 949
+950:
+  ID: 950
+  Description: Write a form of poetry and write a short script using Shakespearian
+    language.
+  BadgeID: 45
+  Rank: 950
+  ParentID: 949
+951:
+  ID: 951
+  Description: Write a short novel of at least five chapters after researching how
+    to write a novel.
+  BadgeID: 45
+  Rank: 951
+  ParentID: 949
+952:
+  ID: 952
+  Description: Investigate
+  BadgeID: 46
+  Rank: 952
+953:
+  ID: 953
+  Description: For static models, find out why they are used, when they came into
+    common usage and what the components typically are.
+  BadgeID: 46
+  Rank: 953
+  ParentID: 952
+954:
+  ID: 954
+  Description: For flight models, have a working knowledge of the basic principles
+    of flight.
+  BadgeID: 46
+  Rank: 954
+  ParentID: 952
+955:
+  ID: 955
+  Description: For wheel based models, have a working knowledge of gears, steering,
+    and suspension.
+  BadgeID: 46
+  Rank: 955
+  ParentID: 952
+956:
+  ID: 956
+  Description: Skill. Design a model in enough detail for another person to construct
+    the model without your assistance.
+  BadgeID: 46
+  Rank: 956
+957:
+  ID: 957
+  Description: Activity
+  BadgeID: 46
+  Rank: 957
+958:
+  ID: 958
+  Description: Construct a model (use of kit permitted) and fly/drive as appropriate.
+  BadgeID: 46
+  Rank: 958
+  ParentID: 957
+959:
+  ID: 959
+  Description: Construct a static model (use of kit permitted) and show to an audience.
+  BadgeID: 46
+  Rank: 959
+  ParentID: 957
+960:
+  ID: 960
+  Description: Investigate
+  BadgeID: 47
+  Rank: 960
+961:
+  ID: 961
+  Description: Find out about the earliest forms of multi media.
+  BadgeID: 47
+  Rank: 961
+  ParentID: 960
+962:
+  ID: 962
+  Description: Find out the history of one particular kind of multi media.
+  BadgeID: 47
+  Rank: 962
+  ParentID: 960
+963:
+  ID: 963
+  Description: Find out about the current developments in multi media.
+  BadgeID: 47
+  Rank: 963
+  ParentID: 960
+964:
+  ID: 964
+  Description: Skill.
+  BadgeID: 47
+  Rank: 964
+965:
+  ID: 965
+  Description: Design an interactive CD-ROM, Website or PowerPoint presentation for
+    your Patrol/Troop/Group. The final product is to include pictures, music, animated
+    graphics, media player (e.g. Flash Intro), and news items. You are to include
+    at least five different activities that your Patrol/Troop/Group has been on within
+    your District/Region/Branch or nationally.
+  BadgeID: 47
+  Rank: 965
+  ParentID: 964
+966:
+  ID: 966
+  Description: Activity
+  BadgeID: 47
+  Rank: 966
+967:
+  ID: 967
+  Description: Create a 'Welcome' pack for new Scouts and their families to your Group.
+    You will need to incorporate current news items, section specific information
+    such as age groups, leaders and what they do. Include printable forms for registration.
+  BadgeID: 47
+  Rank: 967
+  ParentID: 966
+968:
+  ID: 968
+  Description: Investigate
+  BadgeID: 48
+  Rank: 968
+969:
+  ID: 969
+  Description: Investigate the requirements of your chosen field of music, e.g. read
+    music, write music, play an instrument.
+  BadgeID: 48
+  Rank: 969
+  ParentID: 968
+970:
+  ID: 970
+  Description: Find out the type of musical instrument you would like to play and
+    the requirements to play this instrument.
+  BadgeID: 48
+  Rank: 970
+  ParentID: 968
+971:
+  ID: 971
+  Description: Skill
+  BadgeID: 48
+  Rank: 971
+972:
+  ID: 972
+  Description: Write a musical piece.
+  BadgeID: 48
+  Rank: 972
+  ParentID: 971
+973:
+  ID: 973
+  Description: Study how to read music.
+  BadgeID: 48
+  Rank: 973
+  ParentID: 971
+974:
+  ID: 974
+  Description: Practise the musical instrument of your choice.
+  BadgeID: 48
+  Rank: 974
+  ParentID: 971
+975:
+  ID: 975
+  Description: Activity
+  BadgeID: 48
+  Rank: 975
+976:
+  ID: 976
+  Description: Perform individually or with a group of musicians on the instrument
+    of your choice in front of your Troop.
+  BadgeID: 48
+  Rank: 976
+  ParentID: 975
+977:
+  ID: 977
+  Description: Provide evidence to your Troop that you are able to read and write
+    music.
+  BadgeID: 48
+  Rank: 977
+  ParentID: 975
+978:
+  ID: 978
+  Description: Investigate. Demonstrate an understanding, appropriate to your level
+    of experience, of the main risks, safety precautions and requirements in your
+    chosen area of an outdoor activity.
+  BadgeID: 49
+  Rank: 978
+979:
+  ID: 979
+  Description: Skill
+  BadgeID: 49
+  Rank: 979
+980:
+  ID: 980
+  Description: Learn and demonstrate a new skill in your chosen outdoor activity.
+  BadgeID: 49
+  Rank: 980
+  ParentID: 979
+981:
+  ID: 981
+  Description: Show your knowledge of your new outdoor activity by organising and
+    participating in a Patrol talk or Troop activity.
+  BadgeID: 49
+  Rank: 981
+  ParentID: 979
+982:
+  ID: 982
+  Description: 'Activity. Over an appropriate period of time, undertake an activity
+    that extends your current level of understanding or ability in your chosen area.
+    Some examples:'
+  BadgeID: 49
+  Rank: 982
+983:
+  ID: 983
+  Description: Prepare the necessary equipment for and undertake a two-night camp.
+  BadgeID: 49
+  Rank: 983
+  ParentID: 982
+984:
+  ID: 984
+  Description: Over a three-month period, organize two hikes for your Patrol or other
+    Scouts.
+  BadgeID: 49
+  Rank: 984
+  ParentID: 982
+985:
+  ID: 985
+  Description: Participate in a canoeing or sailing training program and achieve an
+    appropriate level of competency.
+  BadgeID: 49
+  Rank: 985
+  ParentID: 982
+986:
+  ID: 986
+  Description: Investigate
+  BadgeID: 50
+  Rank: 986
+987:
+  ID: 987
+  Description: Find out the origin of the art form related to your area of interest,
+    e.g. props, sound, lighting, stage design, backstage support, producer, director.
+  BadgeID: 50
+  Rank: 987
+  ParentID: 986
+988:
+  ID: 988
+  Description: Identify and describe five elements of your art from that are essential
+    for it to be successful.
+  BadgeID: 50
+  Rank: 988
+  ParentID: 986
+989:
+  ID: 989
+  Description: Find out when your art form was first introduced into Australia and
+    by whom.
+  BadgeID: 50
+  Rank: 989
+  ParentID: 986
+990:
+  ID: 990
+  Description: Skill
+  BadgeID: 50
+  Rank: 990
+991:
+  ID: 991
+  Description: Learn how to create a script for a short play.
+  BadgeID: 50
+  Rank: 991
+  ParentID: 990
+992:
+  ID: 992
+  Description: Learn how to prepare lighting for a stage production.
+  BadgeID: 50
+  Rank: 992
+  ParentID: 990
+993:
+  ID: 993
+  Description: Learn how to erect a sound system for a stage production.
+  BadgeID: 50
+  Rank: 993
+  ParentID: 990
+994:
+  ID: 994
+  Description: Learn how to construct stage props.
+  BadgeID: 50
+  Rank: 994
+  ParentID: 990
+995:
+  ID: 995
+  Description: Learn how to prepare music for a stage production.
+  BadgeID: 50
+  Rank: 995
+  ParentID: 990
+996:
+  ID: 996
+  Description: Learn how to design a layout for a stage production.
+  BadgeID: 50
+  Rank: 996
+  ParentID: 990
+997:
+  ID: 997
+  Description: Activity
+  BadgeID: 50
+  Rank: 997
+998:
+  ID: 998
+  Description: Take part in a performance of your art form.
+  BadgeID: 50
+  Rank: 998
+  ParentID: 997
+999:
+  ID: 999
+  Description: Write a short skit of about three minutes duration.
+  BadgeID: 50
+  Rank: 999
+  ParentID: 997
+1000:
+  ID: 1000
+  Description: Assist in the preparation of stage props or assist in another backstage
+    support role.
+  BadgeID: 50
+  Rank: 1000
+  ParentID: 997
+1001:
+  ID: 1001
+  Description: Produce a short video on a subject of your choice of about five minutes
+    duration.
+  BadgeID: 50
+  Rank: 1001
+  ParentID: 997
+1002:
+  ID: 1002
+  Description: Produce a design for a stage production of your choice.
+  BadgeID: 50
+  Rank: 1002
+  ParentID: 997
+1003:
+  ID: 1003
+  Description: Assist in the production of a music score for a stage production.
+  BadgeID: 50
+  Rank: 1003
+  ParentID: 997
+1004:
+  ID: 1004
+  Description: Investigate
+  BadgeID: 51
+  Rank: 1004
+1005:
+  ID: 1005
+  Description: Find out two harmful effects of insect sprays.
+  BadgeID: 51
+  Rank: 1005
+  ParentID: 1004
+1006:
+  ID: 1006
+  Description: Explain what is meant by the 'scientific method'.
+  BadgeID: 51
+  Rank: 1006
+  ParentID: 1004
+1007:
+  ID: 1007
+  Description: Know the native birds and animals found in your area.
+  BadgeID: 51
+  Rank: 1007
+  ParentID: 1004
+1008:
+  ID: 1008
+  Description: Research a special technique used by experimenters in the scientific
+    field of your choice and be able to explain why the technique is important.
+  BadgeID: 51
+  Rank: 1008
+  ParentID: 1004
+1009:
+  ID: 1009
+  Description: Skill
+  BadgeID: 51
+  Rank: 1009
+1010:
+  ID: 1010
+  Description: Design a game that uses or tests scientific knowledge.
+  BadgeID: 51
+  Rank: 1010
+  ParentID: 1009
+1011:
+  ID: 1011
+  Description: Know the standard circuit symbols for eight electrical components,
+    e.g. capacitor, earth, etc
+  BadgeID: 51
+  Rank: 1011
+  ParentID: 1009
+1012:
+  ID: 1012
+  Description: Find the names of and be able to identify 10 native birds and 5 native
+    animals found in your area.
+  BadgeID: 51
+  Rank: 1012
+  ParentID: 1009
+1013:
+  ID: 1013
+  Description: Describe an experiment illustrating the use of scientific method.
+  BadgeID: 51
+  Rank: 1013
+  ParentID: 1009
+1014:
+  ID: 1014
+  Description: Understand any dangers or safety requirements associated with a chemical
+    experiment and an experiment with laboratory animals.
+  BadgeID: 51
+  Rank: 1014
+  ParentID: 1009
+1015:
+  ID: 1015
+  Description: Activity
+  BadgeID: 51
+  Rank: 1015
+1016:
+  ID: 1016
+  Description: Produce a game that uses or tests scientific knowledge.
+  BadgeID: 51
+  Rank: 1016
+  ParentID: 1015
+1017:
+  ID: 1017
+  Description: Construct a rain gauge and wind vane and use them to record weather
+    observations for two weeks.
+  BadgeID: 51
+  Rank: 1017
+  ParentID: 1015
+1018:
+  ID: 1018
+  Description: Explain how stalactites and stalagmites are formed.
+  BadgeID: 51
+  Rank: 1018
+  ParentID: 1015
+1019:
+  ID: 1019
+  Description: Visit a scientific laboratory or place where research is carried out.
+  BadgeID: 51
+  Rank: 1019
+  ParentID: 1015
+1020:
+  ID: 1020
+  Description: Investigate
+  BadgeID: 52
+  Rank: 1020
+1021:
+  ID: 1021
+  Description: Find out abut the history of your chosen sport.
+  BadgeID: 52
+  Rank: 1021
+  ParentID: 1020
+1022:
+  ID: 1022
+  Description: Show that you know the rules, penalties, risks and safety precautions
+    related to your chosen sport.
+  BadgeID: 52
+  Rank: 1022
+  ParentID: 1020
+1023:
+  ID: 1023
+  Description: Skill
+  BadgeID: 52
+  Rank: 1023
+1024:
+  ID: 1024
+  Description: Develop the skills necessary to play the sport and discuss how these
+    skills impact on the rest of the team.
+  BadgeID: 52
+  Rank: 1024
+  ParentID: 1023
+1025:
+  ID: 1025
+  Description: Be able to act as an umpire/referee in your chosen sport.
+  BadgeID: 52
+  Rank: 1025
+  ParentID: 1023
+1026:
+  ID: 1026
+  Description: Activity
+  BadgeID: 52
+  Rank: 1026
+1027:
+  ID: 1027
+  Description: Document your progress within the team and the progress of the team
+    for the season.
+  BadgeID: 52
+  Rank: 1027
+  ParentID: 1026
+1028:
+  ID: 1028
+  Description: Demonstrate the required skills needed to play as part of the team
+    in your chosen sport.
+  BadgeID: 52
+  Rank: 1028
+  ParentID: 1026
+1029:
+  ID: 1029
+  Description: Run an activity for your Patrol or Troop demonstrating team play OR
+    give a talk to your Troop or Patrol which will help them understand the elements
+    of your sport and the value of team play.
+  BadgeID: 52
+  Rank: 1029
+  ParentID: 1026
+1030:
+  ID: 1030
+  Description: Investigate
+  BadgeID: 53
+  Rank: 1030
+1031:
+  ID: 1031
+  Description: 'Find out the history and development of one of the following subjects:'
+  BadgeID: 53
+  Rank: 1031
+  ParentID: 1030
+1032:
+  ID: 1032
+  Description: robotics
+  BadgeID: 53
+  Rank: 1032
+  ParentID: 1031
+1033:
+  ID: 1033
+  Description: vehicle electronics
+  BadgeID: 53
+  Rank: 1033
+  ParentID: 1031
+1034:
+  ID: 1034
+  Description: GPS
+  BadgeID: 53
+  Rank: 1034
+  ParentID: 1031
+1035:
+  ID: 1035
+  Description: internal combustion engine
+  BadgeID: 53
+  Rank: 1035
+  ParentID: 1031
+1036:
+  ID: 1036
+  Description: electronic radio/CB
+  BadgeID: 53
+  Rank: 1036
+  ParentID: 1031
+1037:
+  ID: 1037
+  Description: mechanical device or system
+  BadgeID: 53
+  Rank: 1037
+  ParentID: 1031
+1038:
+  ID: 1038
+  Description: any other device or system approved by the Troop Council
+  BadgeID: 53
+  Rank: 1038
+  ParentID: 1031
+1039:
+  ID: 1039
+  Description: Skill
+  BadgeID: 53
+  Rank: 1039
+1040:
+  ID: 1040
+  Description: Show you have a working knowledge of your subject.
+  BadgeID: 53
+  Rank: 1040
+  ParentID: 1039
+1041:
+  ID: 1041
+  Description: Identify the main parts and have knowledge of its operational system.
+  BadgeID: 53
+  Rank: 1041
+  ParentID: 1039
+1042:
+  ID: 1042
+  Description: Demonstrate care, cleaning and minor maintenance of the chosen subject.
+  BadgeID: 53
+  Rank: 1042
+  ParentID: 1039
+1043:
+  ID: 1043
+  Description: Activity
+  BadgeID: 53
+  Rank: 1043
+1044:
+  ID: 1044
+  Description: Demonstrate by the use of a simple activity how your subject works.
+  BadgeID: 53
+  Rank: 1044
+  ParentID: 1043
+1045:
+  ID: 1045
+  Description: Give a talk to your Patrol/Troop on the operating principles of your
+    chosen subject.
+  BadgeID: 53
+  Rank: 1045
+  ParentID: 1043
+1046:
+  ID: 1046
+  Description: Organise an activity which enables another Scout to be trained in the
+    operation of your device or subject.
+  BadgeID: 53
+  Rank: 1046
+  ParentID: 1043
+1047:
+  ID: 1047
+  Description: 'Demonstrate. Prior to climb, demonstrate knowledge of precautions
+    applicable to top rope climbing including:'
+  BadgeID: 54
+  Rank: 1047
+1048:
+  ID: 1048
+  Description: approaching cliffs
+  BadgeID: 54
+  Rank: 1048
+  ParentID: 1047
+1049:
+  ID: 1049
+  Description: safe distance to cliff edge
+  BadgeID: 54
+  Rank: 1049
+  ParentID: 1047
+1050:
+  ID: 1050
+  Description: the need to restrain loose hair and clothing
+  BadgeID: 54
+  Rank: 1050
+  ParentID: 1047
+1051:
+  ID: 1051
+  Description: knowledge of standard communication conventions used in top rope climbing.
+  BadgeID: 54
+  Rank: 1051
+  ParentID: 1047
+1052:
+  ID: 1052
+  Description: 'Skill. Demonstrate knowledge of the following:'
+  BadgeID: 54
+  Rank: 1052
+1053:
+  ID: 1053
+  Description: tape knot, including tie offs
+  BadgeID: 54
+  Rank: 1053
+  ParentID: 1052
+1054:
+  ID: 1054
+  Description: figure 8 on a bight
+  BadgeID: 54
+  Rank: 1054
+  ParentID: 1052
+1055:
+  ID: 1055
+  Description: the correct fitting of a harness
+  BadgeID: 54
+  Rank: 1055
+  ParentID: 1052
+1056:
+  ID: 1056
+  Description: clipping onto the climbing rope
+  BadgeID: 54
+  Rank: 1056
+  ParentID: 1052
+1057:
+  ID: 1057
+  Description: checking the system and the importance of having a second person check
+    the system
+  BadgeID: 54
+  Rank: 1057
+  ParentID: 1052
+1058:
+  ID: 1058
+  Description: a mock climb on flat ground
+  BadgeID: 54
+  Rank: 1058
+  ParentID: 1052
+1059:
+  ID: 1059
+  Description: suitable protective clothing for all seasons
+  BadgeID: 54
+  Rank: 1059
+  ParentID: 1052
+1060:
+  ID: 1060
+  Description: the importance of using appropriate equipment and ropes
+  BadgeID: 54
+  Rank: 1060
+  ParentID: 1052
+1061:
+  ID: 1061
+  Description: the basic rules for the use and care of equipment.
+  BadgeID: 54
+  Rank: 1061
+  ParentID: 1052
+1062:
+  ID: 1062
+  Description: Activity. Undertake five top rope climbs.
+  BadgeID: 54
+  Rank: 1062
+1063:
+  ID: 1063
+  Description: Investigate
+  BadgeID: 55
+  Rank: 1063
+1064:
+  ID: 1064
+  Description: Investigate the types of materials used in a trade of your own choice.
+  BadgeID: 55
+  Rank: 1064
+  ParentID: 1063
+1065:
+  ID: 1065
+  Description: Investigate the types of materials commonly used in the construction
+    of a building.
+  BadgeID: 55
+  Rank: 1065
+  ParentID: 1063
+1066:
+  ID: 1066
+  Description: Investigate the materials required for your selected project. Investigate
+    the construction method of the project.
+  BadgeID: 55
+  Rank: 1066
+  ParentID: 1063
+1067:
+  ID: 1067
+  Description: Skill
+  BadgeID: 55
+  Rank: 1067
+1068:
+  ID: 1068
+  Description: Learn how to use and care for hand and power tools.
+  BadgeID: 55
+  Rank: 1068
+  ParentID: 1067
+1069:
+  ID: 1069
+  Description: Show that you are able to conserve materials on your project.
+  BadgeID: 55
+  Rank: 1069
+  ParentID: 1067
+1070:
+  ID: 1070
+  Description: Activity
+  BadgeID: 55
+  Rank: 1070
+1071:
+  ID: 1071
+  Description: Construct a specific project of your choice within your chosen trade.
+    e.g. construct a dog kennel, Patrol Box.
+  BadgeID: 55
+  Rank: 1071
+  ParentID: 1070
+1072:
+  ID: 1072
+  Description: Provide materials and costings for your project.
+  BadgeID: 55
+  Rank: 1072
+  ParentID: 1070
+1073:
+  ID: 1073
+  Description: Demonstrate the use and care for hand and power tools.
+  BadgeID: 55
+  Rank: 1073
+  ParentID: 1070
+1074:
+  ID: 1074
+  Description: Investigate
+  BadgeID: 56
+  Rank: 1074
+1075:
+  ID: 1075
+  Description: Find out about the first five years of Scouting.
+  BadgeID: 56
+  Rank: 1075
+  ParentID: 1074
+1076:
+  ID: 1076
+  Description: Who/what is WOSM? What is the role of WOSM and what is Australia�s
+    role?
+  BadgeID: 56
+  Rank: 1076
+  ParentID: 1074
+1077:
+  ID: 1077
+  Description: Gather information on the Scouting activities of two other countries
+    that may differ to our structure.
+  BadgeID: 56
+  Rank: 1077
+  ParentID: 1074
+1078:
+  ID: 1078
+  Description: Skill. Knowledge of how to research for the information required for
+    this award.
+  BadgeID: 56
+  Rank: 1078
+1079:
+  ID: 1079
+  Description: Activity
+  BadgeID: 56
+  Rank: 1079
+1080:
+  ID: 1080
+  Description: Be in regular correspondence with a Scout from another country and
+    discuss with your Patrol the outcomes of your discussions.
+  BadgeID: 56
+  Rank: 1080
+  ParentID: 1079
+1081:
+  ID: 1081
+  Description: Using natural materials, make a model of the world badge to display
+    in your den.
+  BadgeID: 56
+  Rank: 1081
+  ParentID: 1079
+1082:
+  ID: 1082
+  Description: Fundamentals and Operations
+  BadgeID: 57
+  Rank: 1082
+1083:
+  ID: 1083
+  Description: Participate in 3 Venturer Scout meetings/activities (at least one of
+    these is to be outdoors)
+  BadgeID: 57
+  Rank: 1083
+  ParentID: 1082
+1084:
+  ID: 1084
+  Description: 'During talks with the Venturer Scout Leaders:'
+  BadgeID: 57
+  Rank: 1084
+  ParentID: 1082
+1085:
+  ID: 1085
+  Description: Know, show an understanding of and be prepared to accept the Scout
+    Promise and Law
+  BadgeID: 57
+  Rank: 1085
+  ParentID: 1084
+1086:
+  ID: 1086
+  Description: Get to know other Venturer Scouts and Venturer Scout Leaders
+  BadgeID: 57
+  Rank: 1086
+  ParentID: 1084
+1087:
+  ID: 1087
+  Description: Have met the membership requirements
+  BadgeID: 57
+  Rank: 1087
+  ParentID: 1084
+1088:
+  ID: 1088
+  Description: Scouting Skills and Award Scheme. The Venturing Skills Award may be
+    commenced during the Link process.
+  BadgeID: 57
+  Rank: 1088
