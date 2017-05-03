@@ -22,21 +22,21 @@
   Description: |-
     This badge allows you, as a Scout, to fulfil the Purpose of the Scout Association.
 
-    To achieve the Pioneer Citizenship Target the Scout must complete all of the requirements for Nos. 1 to 4, together with any three of the remaining six parts.
+    To achieve the Pioneer Citizenship Target the Scout must complete all of the requirements for No�s. 1 to 4, together with any three of the remaining six parts.
   BadgeCategoryID: 2
   Rank: 3
 4:
   ID: 4
   Name: Air Activities
   Description: To achieve the Pioneer Air Activities Target the Scout must complete
-    all of the requirements for Nos. 1 to 3, together with one part from No. 4.
+    all of the requirements for No�s. 1 to 3, together with one part from No. 4.
   BadgeCategoryID: 2
   Rank: 4
 5:
   ID: 5
   Name: Construction
   Description: To achieve the Pioneer Construction Target the Scout must complete
-    all of the requirements for Nos. 1 to 4.
+    all of the requirements for No�s. 1 to 4.
   BadgeCategoryID: 2
   Rank: 5
 6:
@@ -65,21 +65,21 @@
   ID: 9
   Name: Water Safety
   Description: To achieve the Pioneer Water Safety Target, the Scout must complete
-    al of the requirements for Nos 1 to 4.
+    al of the requirements for No�s 1 to 4.
   BadgeCategoryID: 2
   Rank: 9
 10:
   ID: 10
   Name: Campcraft
   Description: To achieve the Explorer Target, the Scout must complete all the requirements
-    for Nos 1 to 8.
+    for No�s 1 to 8.
   BadgeCategoryID: 3
   Rank: 10
 11:
   ID: 11
   Name: Citizenship
   Description: To achieve the Explorer Citizenship Target, the Scout must complete
-    all of the requirements for Nos 1 to 4, together with any three of the remaining
+    all of the requirements for No�s 1 to 4, together with any three of the remaining
     six parts.
   BadgeCategoryID: 3
   Rank: 11
@@ -87,7 +87,7 @@
   ID: 12
   Name: Air activities
   Description: To achieve the Explorer Air Activities Target, the Scout must complete
-    all of the requirements for Nos 1 to 4.
+    all of the requirements for No�s 1 to 4.
   BadgeCategoryID: 3
   Rank: 12
 13:
@@ -108,14 +108,14 @@
   ID: 15
   Name: Environment
   Description: To achieve the Explorer Environment Target, the Scout must complete
-    all the requirements for Nos 1 to 4.
+    all the requirements for No�s 1 to 4.
   BadgeCategoryID: 3
   Rank: 15
 16:
   ID: 16
   Name: Water activities
   Description: To achieve the Explorer Water Activities Target, the Scout must complete
-    all of the requirements for Nos 1 to 5, together with one of the electives A-F.
+    all of the requirements for No�s 1 to 5, together with one of the electives A-F.
   BadgeCategoryID: 3
   Rank: 16
 17:
@@ -129,14 +129,14 @@
   ID: 18
   Name: Campcraft
   Description: To achieve the Adventurer Campcraft Target the Scout must complete
-    all of the requirements for Nos 1 to 8.
+    all of the requirements for No�s 1 to 8.
   BadgeCategoryID: 4
   Rank: 18
 19:
   ID: 19
   Name: Citizenship
   Description: To achieve the Adventurer Citizenship Target, the Scout must complete
-    all the requirements for Nos 1 to 4, together with any three of the remaining
+    all the requirements for No�s 1 to 4, together with any three of the remaining
     six parts.
   BadgeCategoryID: 4
   Rank: 19
@@ -144,7 +144,7 @@
   ID: 20
   Name: Air activities
   Description: To achieve the Adventurer Air Activities Target, the Scout must complete
-    all the requirements for Nos 1 to 5.
+    all the requirements for No�s 1 to 5.
   BadgeCategoryID: 4
   Rank: 20
 21:
@@ -158,37 +158,352 @@
   ID: 22
   Name: Emergencies
   Description: To achieve the Adventurer Emergencies Target, the Scout must complete
-    all of the requirements of Nos 1 to 5.
+    all of the requirements of No's 1 to 5.
   BadgeCategoryID: 4
   Rank: 22
 23:
   ID: 23
   Name: Environment
-  Description: ''
+  Description: To achieve the Adventurer Environment Target, the Scout must complete
+    all the requirements for No's 1 to 3.
   BadgeCategoryID: 4
   Rank: 23
 24:
   ID: 24
   Name: Water activities
-  Description: ''
+  Description: To achieve the Adventurer Water Activities Target, the Scout must complete
+    all the requirements for No's 1 to 3 , together with one of the electives A-F.
   BadgeCategoryID: 4
   Rank: 24
 25:
   ID: 25
   Name: Water safety
-  Description: ''
+  Description: To achieve the Adventurer Water Safety Target, the Scout must complete
+    all of the requirements for No's 1 to 4.
   BadgeCategoryID: 4
   Rank: 25
 26:
   ID: 26
-  Name: Animal Keeper
-  Description: Show that you have an interest in, have learnt about and have improved
-    your knowledge of caring for an animal
+  Name: Abseiling
+  Description: |-
+    To gain the Abseiling badge you must complete, with your Patrol or other Scouts and the appropriate qualified persons, all of the requirements for A, B and C. Participants must have attained the age of 11 years. Abseil must be single pitch, no greater than 50 metres.
+
+    All abseiling activities to comply with State safety regulations.
   BadgeCategoryID: 5
   Rank: 26
 27:
   ID: 27
+  Name: Agriculture
+  Description: |-
+    To gain the Agriculture badge you must complete one task from each of A, B and C.
+
+    Show that you have gained a broad understanding of agriculture and a more detailed knowledge of a specific interest in a field related to agriculture.
+
+    Range - farming, gardening, fishery, forestry, resource management, pesticide and fertilizer usage
+  BadgeCategoryID: 5
+  Rank: 27
+28:
+  ID: 28
+  Name: Animal Keeper
+  Description: |-
+    To gain the Animal Keepers badge you must complete one task from each of section.
+
+    Show that you have an interest in, have learnt about and have improved your knowledge of caring for an animal.
+
+    Range -  Any animal can qualify for consideration in this badge BUT it must be legal to keep the animal as a domestic pet in your State.
+  BadgeCategoryID: 5
+  Rank: 28
+29:
+  ID: 29
+  Name: Anthropology
+  Description: |-
+    To gain the Anthropology badge you must complete one task from each of A, B and C.
+
+    Anthropology is the fascinating study of the human race. It covers the development of the human societies from prehistoric time through to the future. Your aim is to show that you have an interest in, have learned about, improved your knowledge, and have an understanding in an aspect of Anthropology.
+
+    Range - Prehistory and history, human race, politics, present society, culture and religion.
+  BadgeCategoryID: 5
+  Rank: 29
+30:
+  ID: 30
+  Name: Art
+  Description: |-
+    To gain the Art badge you must complete one task from each of A, B and C.
+
+    Show you have an interest in, have practised and have an improved proficiency in some form of art.
+
+    Range - architecture, painting, drawing, sculpture, carving, pottery, ceramics, and photography.
+  BadgeCategoryID: 5
+  Rank: 30
+31:
+  ID: 31
+  Name: Astronomer
+  Description: |-
+    To gain the Astronomer badge you must complete one task from each of A, B and C.
+
+    Show you have an interest in, have practised and have an improved proficiency in Astronomy.
+  BadgeCategoryID: 5
+  Rank: 31
+32:
+  ID: 32
+  Name: Bushcraft
+  Description: |-
+    To gain the Bushcraft badge you must complete one task from section A, two tasks from section B, and three tasks from section C.
+
+    Show you have an interest in, have practised and have an improved proficiency in some form of Bushcraft.
+  BadgeCategoryID: 5
+  Rank: 32
+33:
+  ID: 33
+  Name: Caving
+  Description: |-
+    To complete the Caving badge you must complete, with your Patrol or other Scouts and the appropriate qualified persons, all of the requirements for A, B and C.
+
+    Participants must have attained the age of 11 years.
+
+    Caves must be considered horizontal or non-technical, and must not require the use of ladders or abseiling.
+
+    Duration of underground stay must not exceed 4 hours consecutively. All caving activities are to comply to State safety regulations.
+  BadgeCategoryID: 5
+  Rank: 33
+34:
+  ID: 34
+  Name: Collector
+  Description: |-
+    To gain the Collector badge you must own and develop a collection for at least four months and complete one task from each of A, B and C.
+
+    Show that you have an interest in, have practised and/or have an improved proficiency in collecting.
+
+    Range - Anything that can be collected can qualify for this badge.  E.g. stamps, signatures, coins, bottles, cards etc.
+  BadgeCategoryID: 5
+  Rank: 34
+35:
+  ID: 35
+  Name: Commerce
+  Description: |-
+    To gain the Commerce badge you must complete one task from each of A, B and C.
+
+    Show you have an interest in, have learnt about and have an improved proficiency in some form of commerce.
+  BadgeCategoryID: 5
+  Rank: 35
+36:
+  ID: 36
+  Name: Communication
+  Description: |-
+    To gain the Communication badge you must complete one task from each of A, B and C.
+
+    Show you have an interest in, have learnt about and have an improved proficiency in some form of communication.
+  BadgeCategoryID: 5
+  Rank: 36
+37:
+  ID: 37
+  Name: Community
+  Description: |-
+    To gain the Community badge you must complete all the requirements for A, B and C.
+
+    Range - Meals on Wheels, charity food collection and distribution, service clubs, charitable organisations etc.
+  BadgeCategoryID: 5
+  Rank: 37
+38:
+  ID: 38
+  Name: Craft
+  Description: |-
+    To gain the Craft badge you must complete one task from each of A, B and C.
+
+    Show you have an interest in, have learnt about and have improved your knowledge in the craft of choice.
+
+    Range - interior design, mosaics, lapidary, embossing, bookbinding, calligraphy, decorative metal working, leather craft, quilting, die casting, knitting, sewing, crochet. cake decorating, macram�, or any other craft approved by the Troop Council.
+  BadgeCategoryID: 5
+  Rank: 38
+39:
+  ID: 39
+  Name: Crime Prevention
+  Description: To gain the Crime Prevention badge you must complete one task from
+    each of A, B and C.
+  BadgeCategoryID: 5
+  Rank: 39
+40:
+  ID: 40
+  Name: Cultural Heritage
+  Description: |-
+    To gain the Cultural Heritage badge you must complete one task from each of A, B and C.
+
+    Show you have an interest in, have learnt about and have improved your knowledge in some aspects of the past, present and future.
+
+    Range - history, religion, human race, politics, native culture and present society.
+  BadgeCategoryID: 5
+  Rank: 40
+41:
+  ID: 41
+  Name: Entertainer
+  Description: |-
+    To gain the Entertainer badge you must complete one task from each A, B and C.
+
+    This badge is designed for the Scout with an interest in different aspects of entertaining other than music which is covered by the music badge. This badge covers areas such as ballet, jazz ballet, modern dance, tap dancing, ballroom dancing, poetry recitation, mime, or a part in a video production.
+  BadgeCategoryID: 5
+  Rank: 41
+42:
+  ID: 42
+  Name: Fire Awareness
+  Description: |-
+    To gain the Fire Awareness badge you must complete one task from each of A, B and C.
+
+    Show you have an interest in, have learnt about and have improved your knowledge in fire awareness (fire safety, fire fighting, fire and the environment).
+  BadgeCategoryID: 5
+  Rank: 42
+43:
+  ID: 43
+  Name: Individual Sportsman
+  Description: |-
+    To gain the Individual Sportsman badge you must participate in an individual sport for one season or at least six months and complete one task from each of A, B and C.
+
+    Make significant progress while participating in an individual sport, or take up and become proficient in an individual sport not previously played for at least six months. Show that you know the rules of the game, the risks and safety regulations. The badge includes any activity deemed by you or your Troop Council/Adviser to be a sport other than a team sport.
+  BadgeCategoryID: 5
+  Rank: 43
+44:
+  ID: 44
+  Name: Information Technology
+  Description: |-
+    To gain the Information Technology badge you must complete one task from each of A, B and C.
+
+    Show you have an interest in, have learnt about and have improved your knowledge in information technology.
+
+    Range - computers, electronic transfer, telexed and mobile phone.
+  BadgeCategoryID: 5
+  Rank: 44
+45:
+  ID: 45
+  Name: Literary Arts
+  Description: |-
+    To gain the Literary Arts badge you must complete one task from each of A, B and C.
+
+    Show you have an interest in, have learnt about and have improved your knowledge in literary arts.
+
+    Range - writing, poetry, and public speaking.
+  BadgeCategoryID: 5
+  Rank: 45
+46:
+  ID: 46
+  Name: Modeller
+  Description: |-
+    To gain the Modeller badge you must complete one task from each of A, B and C.
+
+    Show that you have an interest and an improved proficiency in creating models and constructional projects.
+
+    Range - plastics, glasswork, plaster, metal work, wood and fibreglass
+  BadgeCategoryID: 5
+  Rank: 46
+47:
+  ID: 47
+  Name: Multi Media
+  Description: |-
+    To gain the Multi Media badge you must complete one task from each of A, B and C.
+
+    Show that you have an interest in, have practised and have an improved efficiency in the field of multi media.
+
+    Range - pictures, animated graphics, news, websites, PowerPoint and computer programming.
+  BadgeCategoryID: 5
+  Rank: 47
+48:
+  ID: 48
+  Name: Music
+  Description: |-
+    To gain the Music badge you must complete one task from each of A, B and C.
+
+    Show that you have an interest in, and have practised and have an improved proficiency in music making. Perhaps take up and gain proficiency in an instrument not previously played.
+
+    Range - voice, instrument, percussion, electronic, writing music material.
+  BadgeCategoryID: 5
+  Rank: 48
+49:
+  ID: 49
+  Name: Outdoor
+  Description: |-
+    To gain the Outdoor badge you must complete one task from each of A, B and C.
+
+    This badge is completed in the outdoors. Show that you have improved your existing skills and learned new skills in outdoor activities.
+
+    Range - camping, hiking, canoeing, sailing, and other outdoor activities of Scouts choice.
+  BadgeCategoryID: 5
+  Rank: 49
+50:
+  ID: 50
+  Name: Performing Arts
+  Description: |-
+    To gain the Performing Arts badge you must complete one task from each of A, B and C.
+
+    Range - those areas of performance and entertainment not covered by the Music or Entertainer badges such areas as production, direction, stage design, lighting, sound, script writing, costume design.
+  BadgeCategoryID: 5
+  Rank: 50
+51:
+  ID: 51
+  Name: Science
+  Description: |-
+    To gain the Science badge you must complete one task from each of A, B and C.
+
+    Show you have an interest in, have learnt about and have improved your knowledge in a field of science.
+
+    Range - physical, chemical science, medicine, biology, botany, zoology, entomology, veterinary science, geography, and geology.
+  BadgeCategoryID: 5
+  Rank: 51
+52:
+  ID: 52
+  Name: Team Sport
+  Description: |-
+    To gain the Team Sport badge you must participate in a team sport for at least six months or one season and complete one task from each of A, B and C.
+
+    To make significant progress in a team sport or take up and become proficient at a team sport not previously played by you. Show that you know the rules of the game, the penalties, risks and safety regulations.
+
+    Range - team sports
+  BadgeCategoryID: 5
+  Rank: 52
+53:
+  ID: 53
+  Name: Technology
+  Description: |-
+    To gain the Technology badge you must complete one task from each of A, B and C.
+
+    Range - all areas of technology not covered in the Information Technology badge such as robotics, vehicle electronics, mechanical devices, radio and tracking devices.
+  BadgeCategoryID: 5
+  Rank: 53
+54:
+  ID: 54
+  Name: Top Rope Climbing
+  Description: |-
+    To complete the Top Rope Climbing badge you must complete, with your Patrol or other Scouts and the appropriate qualified persons, all of the requirements for A, B and C.
+
+    Participants must have attained the age of 11 years.
+
+    Climb must be single pitch no greater than 15 metres.
+
+    All top rope activities to comply with State safety regulations.
+  BadgeCategoryID: 5
+  Rank: 54
+55:
+  ID: 55
+  Name: Trade
+  Description: |-
+    To gain the Trade badge you must complete one task from each of A, B and C.
+
+    Show that you have an interest and an improved proficiency in creating useful objects or constructional projects.
+
+    Range - metalwork, woodwork, brick, stone, carpentry, plumbing, painting, plastics, fibreglass and plastering.
+  BadgeCategoryID: 5
+  Rank: 55
+56:
+  ID: 56
+  Name: World Scouting
+  Description: |-
+    To gain the World Scouting badge you must complete one task from each of A, B and C.
+
+    Show you have an interest in, have learnt about and have improved your knowledge in the Worldwide Scouting Family.
+
+    Range - Scouting knowledge of other countries, promote Scouting spirit and knowledge of other Scout badges, badge swapping.
+  BadgeCategoryID: 5
+  Rank: 56
+57:
+  ID: 57
   Name: Venturer Link Badge
   Description: ''
   BadgeCategoryID: 6
-  Rank: 27
+  Rank: 57
