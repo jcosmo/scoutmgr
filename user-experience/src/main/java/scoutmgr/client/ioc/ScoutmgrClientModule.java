@@ -9,6 +9,8 @@ import com.gwtplatform.mvp.client.annotations.UnauthorizedPlace;
 import com.gwtplatform.mvp.client.gin.AbstractPresenterModule;
 import com.gwtplatform.mvp.client.gin.DefaultModule;
 import com.gwtplatform.mvp.shared.proxy.RouteTokenFormatter;
+import org.realityforge.gwt.datatypes.client.date.DateTimeService;
+import org.realityforge.gwt.datatypes.client.date.GwtDateTimeService;
 import org.realityforge.replicant.client.gwt.LocalCacheService;
 import org.realityforge.replicant.client.gwt.ReplicantGinModule;
 import org.realityforge.replicant.client.transport.CacheService;
@@ -35,6 +37,7 @@ public class ScoutmgrClientModule
     bindNamedService( "GLOBAL", AsyncCallback.class, GlobalAsyncCallback.class );
     bind( CacheService.class ).to( LocalCacheService.class ).asEagerSingleton();
     bind( FrontendContext.class ).to( FrontendContextImpl.class ).asEagerSingleton();
+    bind( DateTimeService.class ).to( GwtDateTimeService.class ).asEagerSingleton();
 
     // Simple panel for now, until we have a UI
     bind( SimplePanel.class ).asEagerSingleton();

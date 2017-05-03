@@ -102,6 +102,14 @@ Domgen.repository(:Scoutmgr) do |repository|
       t.reference(:BadgeTask)
       t.date(:DateCompleted)
 
+      # Deliberately fail to link to the User entity, so that we can delete the user
+      # without having reference issues.  Value will be
+      t.string(:RecordedBy, 255)
+      t.date(:DateRecorded)
+      t.string(:SignedBy, 255, :nullable => true)
+      t.date(:DateSigned, :nullable => true)
+      t.codependent_constraint([:SignedBy, :DateSigned])
+
       t.unique_constraint([:Person, :BadgeTask])
     end
 

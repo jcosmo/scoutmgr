@@ -12,11 +12,19 @@ public class TaskCompletionViewModel
   private BadgeTask _badgeTask;
   private RDate _dateCompleted;
   private Integer _id;
+  private String _recordedBy;
+  private RDate _dateRecorded;
+  private String _signedBy;
+  private RDate _dateSigned;
 
   public TaskCompletionViewModel( final TaskCompletion completion )
   {
     this( completion.getBadgeTask(), completion.getDateCompleted() );
     _id = completion.getID();
+    _dateRecorded = completion.getDateRecorded();
+    _recordedBy = completion.getRecordedBy();
+    _dateSigned = completion.getDateSigned();
+    _signedBy = completion.getSignedBy();
   }
 
   public TaskCompletionViewModel( final BadgeTask badgeTask,
@@ -57,5 +65,25 @@ public class TaskCompletionViewModel
   public Integer getId()
   {
     return _id;
+  }
+
+  public String getRecordedBy()
+  {
+    return _recordedBy;
+  }
+
+  public RDate getDateRecorded()
+  {
+    return _dateRecorded;
+  }
+
+  public String getSignedBy()
+  {
+    return _signedBy;
+  }
+
+  public RDate getDateSigned()
+  {
+    return _dateSigned;
   }
 }
