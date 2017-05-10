@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.inject.Inject;
-import scoutmgr.client.data_type.TaskCompletionDTO;
-import scoutmgr.client.data_type.TaskCompletionDTOFactory;
+import scoutmgr.client.data_type.TaskCompletionUpdateDTO;
+import scoutmgr.client.data_type.TaskCompletionUpdateDTOFactory;
 import scoutmgr.client.entity.Badge;
 import scoutmgr.client.entity.Person;
 import scoutmgr.client.service.PersonnelService;
@@ -60,14 +60,16 @@ public class BadgeworkProgressPresenter
     getView().close();
   }
 
-  private List<TaskCompletionDTO> completionsForBadge( final ScoutViewModel model )
+  private List<TaskCompletionUpdateDTO> completionsForBadge( final ScoutViewModel model )
   {
     return model.getTaskCompletions().
       stream().
       filter( taskCompletionViewModel -> taskCompletionViewModel.matches( _badge ) ).
       map( taskCompletionViewModel ->
-             TaskCompletionDTOFactory.create( taskCompletionViewModel.getBadgeTask().getID(),
-                                              taskCompletionViewModel.getDateCompleted() ) ).
+             TaskCompletionUpdateDTOFactory.create( taskCompletionViewModel.getBadgeTask().getID(),
+                                                    taskCompletionViewModel.getDateCompleted(),
+                                                    false,
+                                                    false ) ).
       collect( Collectors.toCollection( ArrayList::new ) );
   }
 }

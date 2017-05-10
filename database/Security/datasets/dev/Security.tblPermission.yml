@@ -6,3 +6,8 @@
   ID: 2
   Type: USER_ADMIN
   UserID: -2
+3:
+  ID: 3
+  Type: SECTION_LEADER
+  UserID: -1
+  ScoutSectionID: 3

@@ -57,8 +57,10 @@ Domgen.repository(:Scoutmgr) do |repository|
 
     data_module.entity(:PersonGroupMembership) do |t|
       t.integer(:ID, :primary_key => true)
-      t.reference(:Person)
-      t.reference(:PersonGroupMembership)
+      t.reference(:Person, 'inverse.traversable' => true)
+      t.reference(:PersonGroup, 'inverse.traversable' => true) do |a|
+        a.imit.graph_link(:Person, :PersonGroup)
+      end
     end
 
 # TODO   audit history/activity stream
@@ -122,9 +124,11 @@ Domgen.repository(:Scoutmgr) do |repository|
       s.text(:RegistrationNumber)
     end
 
-    data_module.struct(:TaskCompletionDTO) do |s|
+    data_module.struct(:TaskCompletionUpdateDTO) do |s|
       s.integer(:BadgeTaskID)
       s.date(:DateCompleted)
+      s.boolean(:ApplySignature, :nullable => true)
+      s.boolean(:RemoveSignature, :nullable => true)
     end
 
     data_module.service(:PersonnelService) do |s|
@@ -141,9 +145,10 @@ Domgen.repository(:Scoutmgr) do |repository|
       end
 
       s.method(:UpdateCompletion) do |m|
+        m.text(:Token, 'gwt_rpc.environment_key' => 'request:cookie:ScoutmgrAuthToken')
         m.integer(:PersonID)
         m.integer(:BadgeID)
-        m.struct(:TaskCompletionDTOs, :TaskCompletionDTO, :collection_type => :sequence)
+        m.struct(:TaskCompletionUpdateDTOs, :TaskCompletionUpdateDTO, :collection_type => :sequence)
       end
 
       s.method(:DeletePerson) do |m|
@@ -207,7 +212,7 @@ Domgen.repository(:Scoutmgr) do |repository|
       # GlobalView can view all members
       # UserAdmin can administer users, assign to members
       # MemberAdmin can administer members, assign to groups
-      # GroupLeader can view/signoff members of the group
+      # GroupLeader can view/signoff members of the associated group
       # SectionLeader can view/signoff members of the section
       t.s_enum(:Type, %w(SITE_ADMIN GLOBAL_VIEW USER_ADMIN MEMBER_ADMIN GROUP_LEADER SECTION_LEADER))
 
