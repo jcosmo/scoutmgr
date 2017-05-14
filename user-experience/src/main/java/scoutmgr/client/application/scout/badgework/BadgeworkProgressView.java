@@ -48,6 +48,9 @@ public class BadgeworkProgressView
   @Inject
   DateTimeService _dateTimeService;
 
+  boolean _canSign;
+  boolean _canComplete;
+
   private ScoutViewModel _scout;
   private Badge _badge;
 
@@ -98,10 +101,15 @@ public class BadgeworkProgressView
   }
 
   @Override
-  public void configure( final ScoutViewModel scout, final Badge badge )
+  public void configure( final ScoutViewModel scout,
+                         final Badge badge,
+                         final boolean canComplete,
+                         final boolean canSign )
   {
     _scout = scout;
     _badge = badge;
+    _canComplete = canComplete;
+    _canSign = canSign;
     resetUI();
   }
 
@@ -159,6 +167,7 @@ public class BadgeworkProgressView
     final boolean isCompleted = null != completionRecord;
     final RDate dateCompleted = isCompleted ? completionRecord.getDateCompleted() : null;
     final String signedBy = isCompleted ? completionRecord.getSignedBy() : null;
+    final boolean enabled = ( isCompleted && _canSign ) || ( !isCompleted && _canComplete );
 
     final MaterialRow row = new MaterialRow();
     final MaterialColumn titleColumn = new MaterialColumn();
@@ -173,6 +182,7 @@ public class BadgeworkProgressView
     checkBox.setType( CheckBoxType.INTERMEDIATE );
     checkBox.setValue( isCompleted );
     checkBox.addStyleName( _bundle.scoutmgr().checkboxDone() );
+    checkBox.setEnabled( enabled );
     doneColumn.add( checkBox );
     row.add( doneColumn );
 
@@ -181,7 +191,7 @@ public class BadgeworkProgressView
     whenColumn.setGrid( "s2" );
     final MaterialDatePicker when = new MaterialDatePicker();
     when.setFormat( "dd mmm yy" );
-    when.setEnabled( isCompleted );
+    when.setEnabled( enabled );
     if ( isCompleted )
     {
       when.setValue( RDate.toDate( dateCompleted ) );

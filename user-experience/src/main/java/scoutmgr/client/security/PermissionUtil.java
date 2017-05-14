@@ -1,6 +1,7 @@
 package scoutmgr.client.security;
 
 import scoutmgr.client.data_type.security.PermissionType;
+import scoutmgr.client.entity.Person;
 import scoutmgr.client.entity.security.Permission;
 import scoutmgr.client.entity.security.User;
 
@@ -42,6 +43,45 @@ public final class PermissionUtil
       {
         return true;
       }
+    }
+    return false;
+  }
+
+  public static boolean canCompleteBadgework( final User user, final Person person )
+  {
+    if ( null != user.getPerson() && user.getPerson().equals( person ))
+    {
+      return true;
+    }
+
+    // Is a section leader for this person?
+    if ( user.getPermissions().stream().anyMatch(
+      permission -> PermissionType.SECTION_LEADER.equals( permission.getType() ) &&
+                    person.getScoutSection().equals( permission.getScoutSection() ) ) )
+    {
+      return true;
+    }
+
+    return false;
+  }
+
+  public static boolean canSignBadgework( final User user, final Person person )
+  {
+    // Is a section leader for this person?
+    if ( user.getPermissions().stream().anyMatch(
+      permission -> PermissionType.SECTION_LEADER.equals( permission.getType() ) &&
+                    person.getScoutSection().equals( permission.getScoutSection() ) ) )
+    {
+      return true;
+    }
+
+    // Permissions for a group this person is in
+    if ( user.getPermissions().stream().anyMatch(
+      permission -> PermissionType.GROUP_LEADER.equals( permission.getType() ) &&
+                    permission.getPersonGroup().getPersonGroupMemberships().stream().anyMatch(
+                      m -> m.getPerson().equals( person ) ) ) )
+    {
+      return true;
     }
     return false;
   }

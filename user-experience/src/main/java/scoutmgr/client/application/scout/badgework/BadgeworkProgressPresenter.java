@@ -11,6 +11,9 @@ import scoutmgr.client.data_type.TaskCompletionUpdateDTO;
 import scoutmgr.client.data_type.TaskCompletionUpdateDTOFactory;
 import scoutmgr.client.entity.Badge;
 import scoutmgr.client.entity.Person;
+import scoutmgr.client.entity.security.User;
+import scoutmgr.client.ioc.FrontendContext;
+import scoutmgr.client.security.PermissionUtil;
 import scoutmgr.client.service.PersonnelService;
 import scoutmgr.client.view.model.ScoutViewModel;
 
@@ -18,24 +21,28 @@ public class BadgeworkProgressPresenter
   extends PresenterWidget<BadgeworkProgressPresenter.View>
   implements BadgeworkProgressUiHandlers
 {
-  @com.google.inject.Inject
-  private PersonnelService _personnelService;
+  private final PersonnelService _personnelService;
+  private final FrontendContext _frontendContext;
   private Person _scout;
   private Badge _badge;
 
   interface View
     extends com.gwtplatform.mvp.client.View, HasUiHandlers<BadgeworkProgressUiHandlers>
   {
-    void configure( ScoutViewModel scout, Badge badge );
+    void configure( ScoutViewModel scout, Badge badge, final boolean canComplete, final boolean canSign );
 
     void close();
   }
 
   @Inject
   BadgeworkProgressPresenter( final EventBus eventBus,
+                              final PersonnelService personnelService,
+                              final FrontendContext frontendContext,
                               final View view )
   {
     super( eventBus, view );
+    _frontendContext = frontendContext;
+    _personnelService = personnelService;
     getView().setUiHandlers( this );
   }
 
@@ -43,7 +50,10 @@ public class BadgeworkProgressPresenter
   {
     _scout = scout;
     _badge = badge;
-    getView().configure( new ScoutViewModel( scout ), badge );
+    final User user = _frontendContext.getUser();
+    getView().configure( new ScoutViewModel( scout ), badge,
+                         PermissionUtil.canCompleteBadgework( user, scout ),
+                         PermissionUtil.canSignBadgework( user, scout ) );
   }
 
   @Override
