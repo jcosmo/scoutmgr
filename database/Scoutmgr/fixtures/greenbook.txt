@@ -27,7 +27,7 @@ task: Patrol System
   a: Discuss with your Patrol leader the requirements of the Pioneer Target or other appropriate Target of the Award Scheme
   b: Discuss with your Patrol leader how the Patrol system works in your troop e.g. election of Patrol Leader, appointment of APL, responsibilities of Troop Council and how it works.
   c: Show an understanding of how a Patrol works within the Troop
-  
+
 category: Pioneer
 badge: Campcraft
   To achieve the Pioneer Campcraft Target, the Scout must complete all of the requirements for No's 1 to 8.
@@ -68,13 +68,13 @@ task: Camp activity. With your Patrol:
   c: With other scouts, prepare a menu and food list for a weekend camp
   d: Select and lay out a Patrol camp site
  task: Journey
-  a:  With at least four other members of your Patrol, plan and go on a hike for at least one day on a marked walking track in a familliar area. 
-task: Camp. With your Patrol or other scouts have camped out in tents for a minimum of six nights.  
+  a:  With at least four other members of your Patrol, plan and go on a hike for at least one day on a marked walking track in a familliar area.
+task: Camp. With your Patrol or other scouts have camped out in tents for a minimum of six nights.
 
 badge: Citizenship
   This badge allows you, as a Scout, to fulfil the Purpose of the Scout Association.
 
-  To achieve the Pioneer Citizenship Target the Scout must complete all of the requirements for No�s. 1 to 4, together with any three of the remaining six parts.
+  To achieve the Pioneer Citizenship Target the Scout must complete all of the requirements for Nos. 1 to 4, together with any three of the remaining six parts.
   task: Values
     a: Promise and Law
       1: Know and understand the Scout Promise and Law
@@ -114,9 +114,9 @@ badge: Citizenship
     a: Complete one third of a project for the Landcare Badge.
     b: Discuss with your family five ways in which they could be more environmentally friendly. Discuss these with your Patrol.
   task: Fitness. Show an understanding of a healthy lifestyle including the need for a healthy diet, correct amount of sleep and why we need to exercise.
-    
+
 badge: Air Activities
-  To achieve the Pioneer Air Activities Target the Scout must complete all of the requirements for No�s. 1 to 3, together with one part from No. 4.
+  To achieve the Pioneer Air Activities Target the Scout must complete all of the requirements for Nos. 1 to 3, together with one part from No. 4.
   task: Recognition. Be able to recognise by sight four different types of aircraft and know their function
   task: Weather
     a: Explain how the three types of weather can have an effect on the flight performance of an aircraft.
@@ -137,7 +137,7 @@ badge: Air Activities
     c: Have a flight in a light aircraft or glider or hot air balloon.
 
 badge: Construction
-  To achieve the Pioneer Construction Target the Scout must complete all of the requirements for No�s. 1 to 4.
+  To achieve the Pioneer Construction Target the Scout must complete all of the requirements for Nos. 1 to 4.
   task: Planning. Sketch and explain how you, along with your Patrol, would go about constructing:
     a: a flagpole about five metres high using at least two lengths of material
     b: a Scout chariot
@@ -153,7 +153,7 @@ badge: Construction
     a: erecting a flagpole about three metres high, using at least two lengths of material, which need not be wood
     b: the building of a Scout chariot
     c: the construction of a camp washstand or similar items.
-  
+
 badge: Emergencies
   To achieve the Pioneer Emergencies Target, the Scout must complete the following
   task: Recognition. Be able to suggest at least five different situations that could be classified as an emergency.
@@ -179,7 +179,7 @@ badge: Emergencies
     b: learn how to treat a nose bleed
     c: know four uses of a triangular bandage
     d: learn the treatment for minor burns and scalds sustained at camp
-    e: learn how to treat fractures to the lower arm and leg.    
+    e: learn how to treat fractures to the lower arm and leg.
   task: Activity. In a Scout activity:
     a: learn two types of hand seats and know when each should be used
     b: assist in carrying a patient on a stretcher
@@ -188,7 +188,7 @@ badge: Emergencies
       2: list the things which may be dangerous, and
       3: help fix at least one of them
     d: with your Patrol, or other Scouts, assist in one mock emergency activity.
-  
+
 badge: Environment
 To achieve the Pioneer Environment Target, the Scout must complete all the requirements for No 1 or No 2
   task: Complete the requirements for the LANDCARE BADGE
@@ -227,7 +227,7 @@ badge: Water Activities
     a: Have passed the Scoutcraft and Pioneer Campcraft knotting requirements.
     b: Learn and use the following knots for boating activities:
       1: figure of eight knot
-      2: anchor or fisherman�s bend
+      2: anchor or fishermans bend
       3: bowline
     c: Learn and use a common rope whipping, e.g. simple whipping, west country whipping.
   task: Canoeing Elective. In an approved canoe, with the assistance of a qualified person who has appropriate qualifications, complete the following:
@@ -245,10 +245,10 @@ badge: Water Activities
     b: learn the parts of a sailboat
     c: be able to assist in rigging a boat
     d: crew in a sailboat for a minimum of 6 hours.
-  task: Yachting Australia Elective. Yachting Australia course, �Basic Skills 1 � Getting into Small Boat Sailing�.
-  
+  task: Yachting Australia Elective. Yachting Australia course, Basic Skills 1  Getting into Small Boat Sailing.
+
 badge: Water Safety
-  To achieve the Pioneer Water Safety Target, the Scout must complete al of the requirements for No�s 1 to 4.
+  To achieve the Pioneer Water Safety Target, the Scout must complete al of the requirements for Nos 1 to 4.
   task: Safe entry and swim
     a: Jump into deep water, fully clothed (long pants, shirt, socks and runners), and remove these items in the water with feet off the bottom.
     b: Demonstrate the following:
@@ -263,16 +263,16 @@ badge: Water Safety
     a: Know the problems and dangers that can occur, or are present, in three different locations in your local area. For example sea, rivers, swimming pools dams and lakes.
     b: Know how to prevent and/or treat the following: sunburn, cramp, skin cancer, stings, exhaustion, leeches, blue-ringed octopus and one other danger to your environment eg stone fish.
   task: Have passed the requirements of Citizenship 2 at Pioneer Level.
-  
+
 category: Explorer
 badge: Campcraft
-  To achieve the Explorer Target, the Scout must complete all the requirements for No�s 1 to 8.
+  To achieve the Explorer Target, the Scout must complete all the requirements for Nos 1 to 8.
   task: Knots and lashings
     a: Assist a Scout in passing those knots and lashings required for Pioneer level.
     b: Learn to tie and use in a Scout activity the following:
       1: bowline (or double figure of eight for synthetic rope)
       2: sheepshank
-      3: either a west country, or sail maker�s whipping
+      3: either a west country, or sail makers whipping
       4: round turn and two half hitches
       5: diagonal lashing
       6: figure of eight lashing.
@@ -312,14 +312,14 @@ badge: Campcraft
     c: pack and carry all appropriate gear and equipment, including food, water, tents etc.
     d: a report is to be presented to the Troop Council on completion.
   task: Camps. With your Patrol or other Scouts, have camped out in tents for a minimum of twelve nights.
-  
+
 badge: Citizenship
-  To achieve the Explorer Citizenship Target, the Scout must complete all of the requirements for No�s 1 to 4, together with any three of the remaining six parts.
+  To achieve the Explorer Citizenship Target, the Scout must complete all of the requirements for Nos 1 to 4, together with any three of the remaining six parts.
   task: Values
     a: Promise and Law Discuss with your Scout Leader the part that the Scout Promise and Law plays in your life.
     b: Spiritual development Assist your Patrol Leader in planning and running a Scouts Own at a Scout Camp or other Troop activity.
   task: First aid. Complete (a) or (b), (c), (d) and (e)
-    a: Know the first aid for Explorer Emergencies. 
+    a: Know the first aid for Explorer Emergencies.
     b: Demonstrate an understanding of the DRSABCD principle.
     c: Demonstrate that you can carry out the requirements for first aid at Pioneer Citizenship level.
     d: Demonstrate two types of hand seats and one other way of moving an injured person.
@@ -356,23 +356,23 @@ badge: Citizenship
   task: Fitness
     a: Lead a discussion with Pioneer level Scouts about a healthy lifestyle including the need for a proper diet, proper amount of sleep and the value of exercise.
     b: With your Patrol or other Scouts, participate in an activity that focuses on the value of exercise and sport as a part of a healthy lifestyle.
- 
+
  badge: Air activities
-    To achieve the Explorer Air Activities Target, the Scout must complete all of the requirements for No�s 1 to 4.
+    To achieve the Explorer Air Activities Target, the Scout must complete all of the requirements for Nos 1 to 4.
     task: Recognition.  Recognise by sight 8 types of aircraft and discuss in detail at least 2.
     task: Weather
       a:  Explain three elements of weather and the effects they have on:
         1: the flight performance
 	2: take off and landing of an aircraft or glider.
       b: Have a knowledge of weather pattern in your geographical area.
-      c: Find out the difference in the terms �ground speed� and �air speed�, and how they relate to headwinds and tailwinds.      
+      c: Find out the difference in the terms ground speed and air speed, and how they relate to headwinds and tailwinds.
     task: Theory. Demonstrate an elementary knowledge of:
       a: the principles governing the theory of flight
       b: the use in an aircraft of an airspeed indicator, altimeter and magnetic compass
       c: how to read and apply the 24-hour clock and the phonetic alphabet
       d: the movable control surfaces of an aircraft and be able to describe their function (e.g. rudder, elevators, ailerons, flaps and trim tab).
     task: Activity. After visiting a Scout Air Activity Centre and/or aerodrome with your Patrol or other Scouts, draw a map showing the location of hangars, control tower, runways, taxiways, tarmac, wind socks, the direction of the prevailing wind, fuel stores, navigation aids, and emergency facilities.
- 
+
  badge: Construction
    To achieve the Explorer Construction Target, the Scout must complete all of the requirements for No's 1 to 4.
    task: Planning. Sketch and explain how you, along with your Patrol, would go about constructing:
@@ -404,7 +404,7 @@ badge: Citizenship
      e: ballista/catapult capable of propelling a projectile at least 10m
      f: swing bridge suitable of carrying each Patrol member across a gap of at least 3m
      g: another project of equivalent safety or difficulty approved by Troop Council.
-     
+
   badge: Emergencies
     To achieve the Explorer Emergencies Target, the Scout must complete the following
     task: Recognition. Be able to suggest at least ten very different situations that could be classified as an emergency.
@@ -426,7 +426,7 @@ badge: Citizenship
         1: build a bush stretcher or an improvised stretcher, and
 	2: use this stretcher to carry a patient over a distance of 500m.
   badge: Environment
-    To achieve the Explorer Environment Target, the Scout must complete all the requirements for No�s 1 to 4.
+    To achieve the Explorer Environment Target, the Scout must complete all the requirements for Nos 1 to 4.
   task: Nature
     a: Identify a region within your community which has had an environmental effect on plant, wildlife and insect population from any one of the following salinity, soil erosion, poor water quality, introduced species either animal or plant, removal of bush land, waterway.
     b: Discuss with your Patrol how wildlife, plants and insects depend on each other for survival.
@@ -444,14 +444,14 @@ badge: Citizenship
       1: separation of recyclables
       2: composting
       3:waste reduction, e.g. area clean up, bottle drive, worm farm, and report to the Patrol/Troop with your outcome.
-    b: Prepare an evaluation of your local waste disposal system and suggest improvements. 
+    b: Prepare an evaluation of your local waste disposal system and suggest improvements.
     c: Where possible, visit an installation such as local rubbish tip, transfer station, recycling facility, sewerage plant, report on your visit and suggest any changes that you think could be made.
-  
+
   badge: Water activities
-    To achieve the Explorer Water Activities Target, the Scout must complete all of the requirements for No�s 1 to 5, together with one of the electives A-F.
+    To achieve the Explorer Water Activities Target, the Scout must complete all of the requirements for Nos 1 to 5, together with one of the electives A-F.
     task: Weather
       a: Know the Pioneer level requirements for Weather.
-      b: Demonstrate and apply weather forecasting to a water activities event with a duration of two days.      
+      b: Demonstrate and apply weather forecasting to a water activities event with a duration of two days.
     task: Safety
       a: Know the Pioneer level requirements for Safety.
       b: Swim 100 metres whilst wearing a personal flotation device.
@@ -502,7 +502,7 @@ badge: Citizenship
       b: Demonstrate knowledge of correct methods of loading and trimming a pulling boat.
       c: Participate in launching and recovery of a pulling boat.
       d: Demonstrate sculling a dinghy with one oar.
-      e: Row a pulling boat as part of a crew, over a distance of 2 kilometres. 
+      e: Row a pulling boat as part of a crew, over a distance of 2 kilometres.
       f: Demonstrate the correct method of towing and being towed.
     task: Sailing Elective.
       a: Pass, or have passed, all tests prescribed for Pioneer level elective.
@@ -512,12 +512,12 @@ badge: Citizenship
       e: Describe the advantages and disadvantages of lee and weather shores.
       f: Demonstrate the correct method of towing and being towed.
       g: Participate in two overnight sailing expeditions.
-    task: Yachting Australia Elective. Complete the Yachting Australia course, �Basic Skills 1 � Getting into Small Boat Sailing�.
+    task: Yachting Australia Elective. Complete the Yachting Australia course, Basic Skills 1  Getting into Small Boat Sailing.
     task: Power Elective
       a: Learn and know the parts of the powerboat.
       b: Learn and know the parts of engines.
       c: Participate in a power boat crew for a minimum of 6 hours.
-      
+
   badge: Water safety
     To achieve the Explorer Water Safety Target the Scout must complete all of the requirements 1 to 4.
     task: Safe entry and swim.
@@ -527,23 +527,23 @@ badge: Citizenship
       b: Demonstrate the following:
         1: swim 100 metres without an APFD, including 50 metres using any of the resting strokes
 	2: remain afloat for at least four minutes without the use of an APFD
-	3: put on an APFD in deep water and swim 50 metres. Demonstrate the �HELP� position
-	4: with at least two other Scouts demonstrate the �huddle� position.
+	3: put on an APFD in deep water and swim 50 metres. Demonstrate the HELP position
+	4: with at least two other Scouts demonstrate the huddle position.
     task: Rescue. Perform a simulated rescue in one of the following situations:
       a: using an improvised flotation device, use a safety jump to enter the water and swim to a conscious patient at least ten metres from shore. Use any tow method to return the patient to the shore.
       b: perform an assisted carry with approach and tow of at least 30 metres, with a fully clothed conscious patient.
     task: Safety. Present to the Adviser a list of at least ten major safety items suggested by clubs active in one of the following: swimming, yachting, power boating, surfing, water skiing, canoeing, scuba diving, board diving.
     task: Have passed the requirements of Emergencies 1 at Explorer Level.
-    
+
 category: Adventurer
   badge: Campcraft
-    To achieve the Adventurer Campcraft Target the Scout must complete all of the requirements for No�s 1 to 8.
+    To achieve the Adventurer Campcraft Target the Scout must complete all of the requirements for Nos 1 to 8.
     task: Knots and lashings
       a: Teach and test a Scout those knots and lashings required for the Explorer Campcraft.
       b: Learn and use in a Scout activity the following:
         1: backsplice and eye splice
-	2: hunter�s bend
-	3: fisherman�s knot or prussick knot (for synthetic rope)
+	2: hunters bend
+	3: fishermans knot or prussick knot (for synthetic rope)
 	4: Japanese and Filipino lashing
 	5: alpine butterfly knot (for synthetic rope).
     task: Fire and fuel
@@ -559,7 +559,7 @@ category: Adventurer
       e: With your Patrol, discuss the natural dangers and hazards that can occur in your local area. Discuss ways to stay safe from these dangers and hazards.
     task: Navigation
       a: With another Scout, set up and run an orienteering course for your Patrol and other Scouts, either in a local park or at a camp.
-      b: Demonstrate how to plan a route for a hike from a topographic map, including an understanding of Naismith�s Rule.
+      b: Demonstrate how to plan a route for a hike from a topographic map, including an understanding of Naismiths Rule.
       c: Demonstrate how to establish your location on a map using back bearings and triangulation or resection.
       d: Help other Scouts to pass the requirements of Explorer level Navigation.
     task: Cooking
@@ -579,17 +579,17 @@ category: Adventurer
 	3: with members of your Patrol or with other Scouts, assemble the personal and Patrol equipment required for a camp held in extreme weather conditions and participate in such a camp. Prepare the menus and organise the purchase of food for this camp. The safety of the Scouts is top priority when assessing the conditions under which the camp is to be held. All government and Branch rules and regulations must be complied with.
     task: Journey. Plan and undertake a hike of at least 30 km with at least four other Scouts into unfamiliar terrain requiring two nights out-of-doors. Use lightweight equipment and foods as far as practicable. The hike must be monitored by an Adult Leader to ensure the safety of the Scouts. All government and Branch rules and regulations must be complied with. Canoes or bicycles may be used but the distance covered should be increased accordingly. If canoes or bicycles are used the team should be self sufficient, as with hikes, and carry all items required for the journey. Report on your experience through the use of an illustrated log.
     task: Camps. With your Patrol or other Scouts have camped out in tents for a minimum of 15 nights.
-    
+
   badge: Citizenship
-    To achieve the Adventurer Citizenship Target, the Scout must complete all the requirements for No�s 1 to 4, together with any three of the remaining six parts.
+    To achieve the Adventurer Citizenship Target, the Scout must complete all the requirements for Nos 1 to 4, together with any three of the remaining six parts.
     task: Values
       a: Promise and Law Assist and test a Pioneer Scout in the completion of test 1 of Pioneer Citizenship.
-      b: Spiritual development. Lead your Patrol in planning and participating in a Scouts� Own at a Camp or other Troop Activity (such as World Scouts� Day or a church service).
+      b: Spiritual development. Lead your Patrol in planning and participating in a Scouts Own at a Camp or other Troop Activity (such as World Scouts Day or a church service).
     task:First aid. Complete (a) or (b)
       a: Complete a recognized First Aid Course.
       b: Assist and test a Scout to pass the First Aid segment of the Pioneer Badge.
         1: Demonstrate how to deal with fractures to the limbs and collarbone.
-	2: With another Scout set up and run a �mock' emergency to cover at least three of the tasks required in Pioneer and Explorer level and First Aid segment.
+	2: With another Scout set up and run a mock' emergency to cover at least three of the tasks required in Pioneer and Explorer level and First Aid segment.
     task: Leadership. In the Troop Council, or with your Patrol, plan and conduct three activities which will provide opportunities for your Patrol members to learn about leadership and being a productive member of a team.
     task: Good turn. Complete one of (a), (b) or (c)
       a: Assist at a Cub Scout camp or Joey Scout sleepover.
@@ -618,9 +618,9 @@ category: Adventurer
     task: Fitness
       a: Using a game or activity instruct your Patrol in the requirements for Pioneer level.
       b: With your Patrol or other Scouts, participate in an activity and/or discussion that focuses on the negative effects of drugs, smoking and other substance abuse.
-    
+
   badge: Air activities
-    To achieve the Adventurer Air Activities Target, the Scout must complete all the requirements for No�s 1 to 5.
+    To achieve the Adventurer Air Activities Target, the Scout must complete all the requirements for Nos 1 to 5.
     task: Recognition
       a: Be able to recognise by sight twelve types of aircraft.
       b: Recognise and describe the difference between the piston engine and the turbojet engine and show that you understand how the power of these units is adapted to propel an aircraft.
@@ -630,8 +630,8 @@ category: Adventurer
     task: Theory
       a: Describe the correct procedure for radio communication with the control tower or other aircraft on the ground and in the air.
       b: Do one of the following:
-        1: give a talk to your Patrol or Troop for at least five minutes on Australia�s early aviation history
-	2: compile a report on Australia�s aviation pioneers
+        1: give a talk to your Patrol or Troop for at least five minutes on Australias early aviation history
+	2: compile a report on Australias aviation pioneers
 	3: find out, by discussion with a commercial pilot or flight instructor, what the main responsibilities are in performance of their work.
     task: Activity
       a: Arrange to visit a Scout or Air Activity Centre and/or aerodrome, and find out:
@@ -646,7 +646,7 @@ category: Adventurer
 	2: Describe cockpit checks performed by the pilot prior to takeoff and prior to the landing approach.
 	3: Describe the primary effect of aircraft controls.
 	4: Have two flights in a light aircraft.
-	5: Know and demonstrate an elementary knowledge of aircraft controls � control column, rudder pedals, throttle, flaps, trim tabs, mixture control.
+	5: Know and demonstrate an elementary knowledge of aircraft controls  control column, rudder pedals, throttle, flaps, trim tabs, mixture control.
 	6: With the use of a map, compass and protractor, show how to plot a course between two towns.
 	7: Know the procedure to adopt in the event of an emergency.
       b: GLIDING FAMILIARISATION
@@ -661,7 +661,7 @@ category: Adventurer
 	2: glider (hand launched) aerobatics
 	3: rubber powered one minute
 	4: engine powered (maximum 15 seconds motor run) two minutes.
-	
+
   badge: Construction
     To achieve the Adventurer Construction Target, the Scout must complete all of the requirements for No's 1 to 4.
     task: Planning
@@ -696,16 +696,16 @@ category: Adventurer
     task: Visit. Organise for your Patrol or other Scouts to visit one of the locations listed in Pioneer 3. This is not to be one of the same locations visited during the earning of the Pioneer and Explorer Levels.
     task: Treatment
       a: 1. Teach your Patrol or other Scouts about:
-        1: the circulation of the blood 
-	2: how to control external bleeding 
-	3: the likely cause, symptoms and treatment of internal bleeding. 
-      b: Demonstrate the use of a knapsack spray and rakes in fighting a grass fire. 
+        1: the circulation of the blood
+	2: how to control external bleeding
+	3: the likely cause, symptoms and treatment of internal bleeding.
+      b: Demonstrate the use of a knapsack spray and rakes in fighting a grass fire.
       c: Teach your Patrol:
-        1: the different types of fire extinguishers 
+        1: the different types of fire extinguishers
 	2: explain on what types of fire each should be used/not used, e.g. electrical, oil.
-      d: Lead your Patrol or other Scouts in Explorer Emergencies 4 Activity. 
-      e: Set up emergency communications between two points 500m apart and out of sight of each other. 
-      f: Teach and test a Scout at Explorer level how to deal with fractures to the limbs and collarbone. 
+      d: Lead your Patrol or other Scouts in Explorer Emergencies 4 Activity.
+      e: Set up emergency communications between two points 500m apart and out of sight of each other.
+      f: Teach and test a Scout at Explorer level how to deal with fractures to the limbs and collarbone.
       g: Demonstrate to your Patrol how to treat a sprained ankle.
       h: Demonstrate to your Patrol how to treat a patient with an eye injury.
     task: Lead your Patrol, or other Scouts, satisfactorily in dealing with two mock emergencies. Some suggestions are: traffic accident; rescue from burning building; search for lost child; near drowning in backyard pool; electrocution; bushfire.
@@ -778,7 +778,7 @@ category: Adventurer
       d: Teach an Explorer Scout to capsize and recover a small sailboat.
       e: Teach your Patrol or other Scouts about the advantages and disadvantages of lee and weather shores.
       f: Participate in an overnight sailing expedition.
-    task: Yachting Australia Elective. Complete the Yachting Australia course, �Basic Skills 1 � Getting into Small Boat Sailing�.
+    task: Yachting Australia Elective. Complete the Yachting Australia course, Basic Skills 1  Getting into Small Boat Sailing.
     task: Motor Elective. Complete the Yachting Australia TL3 Power Boat Certificate. As legislation requirements differ between States, check with your local governing body regarding these.
 
   badge: Water safety
@@ -802,8 +802,8 @@ category: Adventurer
 
 category: Proficiencies
   badge: Abseiling
-    To gain the Abseiling badge you must complete, with your Patrol or other Scouts and the appropriate qualified persons, all of the requirements for A, B and C. Participants must have attained the age of 11 years. Abseil must be single pitch, no greater than 50 metres. 
-    
+    To gain the Abseiling badge you must complete, with your Patrol or other Scouts and the appropriate qualified persons, all of the requirements for A, B and C. Participants must have attained the age of 11 years. Abseil must be single pitch, no greater than 50 metres.
+
     All abseiling activities to comply with State safety regulations.
     task: Demonstrate. Prior to abseil, demonstrate precautions applicable to abseiling including:
       a: approaching cliffs
@@ -821,12 +821,12 @@ category: Proficiencies
       h: the importance of using appropriate equipment and ropes
       i: the basic rules for the use and care of equipment.
     task: Activity. Undertake five abseils.
-    
+
   badge: Agriculture
     To gain the Agriculture badge you must complete one task from each of A, B and C.
-    
+
     Show that you have gained a broad understanding of agriculture and a more detailed knowledge of a specific interest in a field related to agriculture.
-    
+
     Range - farming, gardening, fishery, forestry, resource management, pesticide and fertilizer usage
     task: Investigate
       a: Either by discussion with your Adviser or by an illustrated talk to your Patrol or other Scouts, show that you have an understanding of:
@@ -843,9 +843,9 @@ category: Proficiencies
 
   badge: Animal Keeper
     To gain the Animal Keepers badge you must complete one task from each of section.
-    
+
     Show that you have an interest in, have learnt about and have improved your knowledge of caring for an animal.
-    
+
     Range -  Any animal can qualify for consideration in this badge BUT it must be legal to keep the animal as a domestic pet in your State.
     task: Investigate
       a: Find out the local laws and regulations that relate to how you must keep your animal.
@@ -856,12 +856,12 @@ category: Proficiencies
       b: Learn how to build a shelter adequate to protect your animal from the elements.
       c: Learn how to train your animal (e.g. dogs to be obedient, birds to talk etc). You are also required to give a presentation to your Patrol or Troop in a form selected by yourself on how to care for your animal.
     task: Activity. Care for your animal for a period of at least three months.
-    
+
   badge: Anthropology
     To gain the Anthropology badge you must complete one task from each of A, B and C.
-    
+
     Anthropology is the fascinating study of the human race. It covers the development of the human societies from prehistoric time through to the future. Your aim is to show that you have an interest in, have learned about, improved your knowledge, and have an understanding in an aspect of Anthropology.
-    
+
     Range - Prehistory and history, human race, politics, present society, culture and religion.
     task: Investigate
       a: Find out two differing views on how man developed over time.
@@ -874,12 +874,12 @@ category: Proficiencies
       a: Prepare a meal from a different culture for your Patrol.
       b: Visit a museum and find out what artifacts have been found from a particular culture. Tell you Patrol how people lived 1000 years ago.
       c: Construct and demonstrate the use of a tool or utensil from a culture more than 1000 years old.
-  
+
   badge: Art
     To gain the Art badge you must complete one task from each of A, B and C.
-    
+
     Show you have an interest in, have practised and have an improved proficiency in some form of art.
-    
+
     Range - architecture, painting, drawing, sculpture, carving, pottery, ceramics, and photography.
     task: Investigate
       a: Find out about an artist of your own choice and discuss the development of their work.
@@ -891,7 +891,7 @@ category: Proficiencies
 
   badge: Astronomer
     To gain the Astronomer badge you must complete one task from each of A, B and C.
-    
+
     Show you have an interest in, have practised and have an improved proficiency in Astronomy.
     task: Investigate
       a: Find out about two main stars and one constellation of your choice.
@@ -909,7 +909,7 @@ category: Proficiencies
 
   badge: Bushcraft
     To gain the Bushcraft badge you must complete one task from section A, two tasks from section B, and three tasks from section C.
-    
+
     Show you have an interest in, have practised and have an improved proficiency in some form of Bushcraft.
     task: Investigate
       a: Find out the origin of map making and the current method of making a map.
@@ -931,11 +931,11 @@ category: Proficiencies
 
   badge: Caving
     To complete the Caving badge you must complete, with your Patrol or other Scouts and the appropriate qualified persons, all of the requirements for A, B and C.
-    
+
     Participants must have attained the age of 11 years.
-    
+
     Caves must be considered horizontal or non-technical, and must not require the use of ladders or abseiling.
-    
+
     Duration of underground stay must not exceed 4 hours consecutively. All caving activities are to comply to State safety regulations.
     task: Demonstrate. Prior to caving, demonstrate precautions applicable to caving including:
       a: approaching drops
@@ -954,9 +954,9 @@ category: Proficiencies
 
   badge: Collector
     To gain the Collector badge you must own and develop a collection for at least four months and complete one task from each of A, B and C.
-    
+
     Show that you have an interest in, have practised and/or have an improved proficiency in collecting.
-    
+
     Range - Anything that can be collected can qualify for this badge.  E.g. stamps, signatures, coins, bottles, cards etc.
     task: Investigate
       a: Find out the history of the subject of your collection.
@@ -973,7 +973,7 @@ category: Proficiencies
 
   badge: Commerce
     To gain the Commerce badge you must complete one task from each of A, B and C.
-    
+
     Show you have an interest in, have learnt about and have an improved proficiency in some form of commerce.
     task: Investigate
       a: Choose a type of commercial product such as food, fashion, cars, electronics, etc.
@@ -985,10 +985,10 @@ category: Proficiencies
       a: Draw up a Patrol budget for a weekend activity to include food, transport, activities, etc.
       b: Design a product and make a video/computer-generated ad to sell your product. Write a script and organize props etc.
       c: Research and organize a stock market game in which your friends buy and sell false shares in a false market with real companies. Watch the news for the shares rise and fall each week.
-      
+
   badge: Communication
     To gain the Communication badge you must complete one task from each of A, B and C.
-    
+
     Show you have an interest in, have learnt about and have an improved proficiency in some form of communication.
     task: Investigate
       a: Find out about the earliest forms of non-verbal communication. e.g. sign, smoke signals, cave paintings.
@@ -1011,7 +1011,7 @@ category: Proficiencies
 
   badge: Community
     To gain the Community badge you must complete all the requirements for A, B and C.
-    
+
     Range - Meals on Wheels, charity food collection and distribution, service clubs, charitable organisations etc.
     task: Investigate. Discover ways your Group could be of assistance to your chosen organisation, or the community as a whole.
     task: Skill. Show by your active participation that you have an interest in local community needs other than emergency services.
@@ -1019,10 +1019,10 @@ category: Proficiencies
 
   badge: Craft
     To gain the Craft badge you must complete one task from each of A, B and C.
-    
+
     Show you have an interest in, have learnt about and have improved your knowledge in the craft of choice.
-    
-    Range - interior design, mosaics, lapidary, embossing, bookbinding, calligraphy, decorative metal working, leather craft, quilting, die casting, knitting, sewing, crochet. cake decorating, macram�, or any other craft approved by the Troop Council.
+
+    Range - interior design, mosaics, lapidary, embossing, bookbinding, calligraphy, decorative metal working, leather craft, quilting, die casting, knitting, sewing, crochet. cake decorating, macram, or any other craft approved by the Troop Council.
     task: Investigate
       a: Find out the history and development of your particular craft.
       b: Research the preparation methods needed to perform your particular craft.
@@ -1040,9 +1040,9 @@ category: Proficiencies
       b: Make a list of items of value in your house and explain why you should engrave them.
       c: Why is it important to report crimes to Police?
     task: Skill
-      a: Engrave all items of value in your home with your surname and parent�s licence numbers, with the assistance of one of your parents.
+      a: Engrave all items of value in your home with your surname and parents licence numbers, with the assistance of one of your parents.
       b: Design a proforma and list all items of value in your home detailing serial numbers, colours, make, models, and age of the items.
-      c: Enrol your family in Neighbourhood Watch or similar organisation as a means of improving your neighborhood�s safety.
+      c: Enrol your family in Neighbourhood Watch or similar organisation as a means of improving your neighborhoods safety.
     task: Activity
       a: Investigate and compile a list of people or organisations who can provide engravers to assist the rest of the Troop to engrave items of value at home (try Police Stations, Neighbourhood Watch etc).
       b: Arrange for a member of the executive in your local Neighbourhood Watch group (or a Police Officer) to attend to talk to a group of Scouts about preventing crime in the local area.
@@ -1050,9 +1050,9 @@ category: Proficiencies
 
   badge: Cultural Heritage
     To gain the Cultural Heritage badge you must complete one task from each of A, B and C.
-    
+
     Show you have an interest in, have learnt about and have improved your knowledge in some aspects of the past, present and future.
-    
+
     Range - history, religion, human race, politics, native culture and present society.
     task: Investigate
       a: Find some information on the background of three non-English speaking countries. Compare such things as trade, staple foods, living conditions, etc. in relation to Australia.
@@ -1067,7 +1067,7 @@ category: Proficiencies
 
   badge: Entertainer
     To gain the Entertainer badge you must complete one task from each A, B and C.
-    
+
     This badge is designed for the Scout with an interest in different aspects of entertaining other than music which is covered by the music badge. This badge covers areas such as ballet, jazz ballet, modern dance, tap dancing, ballroom dancing, poetry recitation, mime, or a part in a video production.
     task: Investigate
       a: Find out about the origins of your particular field of interest.
@@ -1083,7 +1083,7 @@ category: Proficiencies
 
   badge: Fire Awareness
     To gain the Fire Awareness badge you must complete one task from each of A, B and C.
-    
+
     Show you have an interest in, have learnt about and have improved your knowledge in fire awareness (fire safety, fire fighting, fire and the environment).
     task: Investigate
       a: Identify potential fire hazards around the home and the Scout Hall (including bushfire hazards) and explain what can be done to reduce those hazards.
@@ -1091,7 +1091,7 @@ category: Proficiencies
       c: Give an example of three different types of combustible material for each of the following properties: solids, liquids and gasses.
       d: Explain the connection between bushfires and the environment.
       e: Describe the effects of wildfire on populated areas.
-      f: Research and do a short presentation in a format of your choice to your Patrol or Troop. Write a short essay (300 words) on a major fire disaster in Australia�s history. Suggest action to be taken to ensure that such a catastrophe does not happen again.
+      f: Research and do a short presentation in a format of your choice to your Patrol or Troop. Write a short essay (300 words) on a major fire disaster in Australias history. Suggest action to be taken to ensure that such a catastrophe does not happen again.
       g: Describe three common causes of bushfires and explain how those causes can be reduced.
       h: Identify three toxic chemicals that can be produced in a house or building fire.
       i: Describe two types of bushfires and their characteristics.
@@ -1110,21 +1110,21 @@ category: Proficiencies
 
   badge: Individual Sportsman
     To gain the Individual Sportsman badge you must participate in an individual sport for one season or at least six months and complete one task from each of A, B and C.
-    
+
     Make significant progress while participating in an individual sport, or take up and become proficient in an individual sport not previously played for at least six months. Show that you know the rules of the game, the risks and safety regulations. The badge includes any activity deemed by you or your Troop Council/Adviser to be a sport other than a team sport.
     task: Investigate. Give a brief history of your chosen sport. Show that you know the rules, penalties, risks and safety precautions of this sport.
-    task: Skill. 
+    task: Skill.
       a: Develop the skills necessary to play the sport and show an improvement in a particular aspect of your sport.
       b: In conjunction with your coach develop a training program suitable for physical and mental endurance and skills to improve your performance in your chosen sport.
     task: Activity
       a: Document your progress within your chosen sport showing how your fitness and ability has improved over a period of at least four months.
       b: Run an activity for your Patrol or Troop which will help them understand the basic rules of your chosen sport
-    
+
   badge: Information Technology
     To gain the Information Technology badge you must complete one task from each of A, B and C.
-    
+
     Show you have an interest in, have learnt about and have improved your knowledge in information technology.
-    
+
     Range - computers, electronic transfer, telexed and mobile phone.
     task: Investigate
       a: Find out about the development of information technology over the last three years
@@ -1142,9 +1142,9 @@ category: Proficiencies
 
   badge: Literary Arts
     To gain the Literary Arts badge you must complete one task from each of A, B and C.
-    
+
     Show you have an interest in, have learnt about and have improved your knowledge in literary arts.
-    
+
     Range - writing, poetry, and public speaking.
     task: Investigate
       a: Choose one form of literary art to learn about. Gather information about one aspect or a period when a form was popular, e.g. poetry, playwrights, fantasy story writing.
@@ -1159,39 +1159,39 @@ category: Proficiencies
 
   badge: Modeller
     To gain the Modeller badge you must complete one task from each of A, B and C.
-    
+
     Show that you have an interest and an improved proficiency in creating models and constructional projects.
-    
+
     Range - plastics, glasswork, plaster, metal work, wood and fibreglass
     task: Investigate
       a: For static models, find out why they are used, when they came into common usage and what the components typically are.
       b: For flight models, have a working knowledge of the basic principles of flight.
       c: For wheel based models, have a working knowledge of gears, steering, and suspension.
     task: Skill. Design a model in enough detail for another person to construct the model without your assistance.
-    task: Activity  
+    task: Activity
       a: Construct a model (use of kit permitted) and fly/drive as appropriate.
       b: Construct a static model (use of kit permitted) and show to an audience.
 
   badge: Multi Media
     To gain the Multi Media badge you must complete one task from each of A, B and C.
-    
+
     Show that you have an interest in, have practised and have an improved efficiency in the field of multi media.
-    
+
     Range - pictures, animated graphics, news, websites, PowerPoint and computer programming.
     task: Investigate
       a: Find out about the earliest forms of multi media.
       b: Find out the history of one particular kind of multi media.
       c: Find out about the current developments in multi media.
-    task: Skill. 
+    task: Skill.
       a: Design an interactive CD-ROM, Website or PowerPoint presentation for your Patrol/Troop/Group. The final product is to include pictures, music, animated graphics, media player (e.g. Flash Intro), and news items. You are to include at least five different activities that your Patrol/Troop/Group has been on within your District/Region/Branch or nationally.
-    task: Activity  
+    task: Activity
       a: Create a 'Welcome' pack for new Scouts and their families to your Group. You will need to incorporate current news items, section specific information such as age groups, leaders and what they do. Include printable forms for registration.
 
   badge: Music
     To gain the Music badge you must complete one task from each of A, B and C.
-    
+
     Show that you have an interest in, and have practised and have an improved proficiency in music making. Perhaps take up and gain proficiency in an instrument not previously played.
-    
+
     Range - voice, instrument, percussion, electronic, writing music material.
     task: Investigate
       a: Investigate the requirements of your chosen field of music, e.g. read music, write music, play an instrument.
@@ -1200,15 +1200,15 @@ category: Proficiencies
       a: Write a musical piece.
       b: Study how to read music.
       c: Practise the musical instrument of your choice.
-    task: Activity  
+    task: Activity
       a: Perform individually or with a group of musicians on the instrument of your choice in front of your Troop.
       b: Provide evidence to your Troop that you are able to read and write music.
 
   badge: Outdoor
     To gain the Outdoor badge you must complete one task from each of A, B and C.
-    
+
     This badge is completed in the outdoors. Show that you have improved your existing skills and learned new skills in outdoor activities.
-    
+
     Range - camping, hiking, canoeing, sailing, and other outdoor activities of Scouts choice.
     task: Investigate. Demonstrate an understanding, appropriate to your level of experience, of the main risks, safety precautions and requirements in your chosen area of an outdoor activity.
     task: Skill
@@ -1221,7 +1221,7 @@ category: Proficiencies
 
   badge: Performing Arts
     To gain the Performing Arts badge you must complete one task from each of A, B and C.
-    
+
     Range - those areas of performance and entertainment not covered by the Music or Entertainer badges such areas as production, direction, stage design, lighting, sound, script writing, costume design.
     task: Investigate
       a: Find out the origin of the art form related to your area of interest, e.g. props, sound, lighting, stage design, backstage support, producer, director.
@@ -1244,9 +1244,9 @@ category: Proficiencies
 
   badge: Science
     To gain the Science badge you must complete one task from each of A, B and C.
-    
+
     Show you have an interest in, have learnt about and have improved your knowledge in a field of science.
-    
+
     Range - physical, chemical science, medicine, biology, botany, zoology, entomology, veterinary science, geography, and geology.
     task: Investigate
       a: Find out two harmful effects of insect sprays.
@@ -1259,7 +1259,7 @@ category: Proficiencies
       c: Find the names of and be able to identify 10 native birds and 5 native animals found in your area.
       d: Describe an experiment illustrating the use of scientific method.
       e: Understand any dangers or safety requirements associated with a chemical experiment and an experiment with laboratory animals.
-    task: Activity  
+    task: Activity
       a: Produce a game that uses or tests scientific knowledge.
       b: Construct a rain gauge and wind vane and use them to record weather observations for two weeks.
       c: Explain how stalactites and stalagmites are formed.
@@ -1267,9 +1267,9 @@ category: Proficiencies
 
   badge: Team Sport
     To gain the Team Sport badge you must participate in a team sport for at least six months or one season and complete one task from each of A, B and C.
-    
+
     To make significant progress in a team sport or take up and become proficient at a team sport not previously played by you. Show that you know the rules of the game, the penalties, risks and safety regulations.
-    
+
     Range - team sports
     task: Investigate
       a: Find out abut the history of your chosen sport.
@@ -1284,7 +1284,7 @@ category: Proficiencies
 
   badge: Technology
     To gain the Technology badge you must complete one task from each of A, B and C.
-    
+
     Range - all areas of technology not covered in the Information Technology badge such as robotics, vehicle electronics, mechanical devices, radio and tracking devices.
     task: Investigate
       a: Find out the history and development of one of the following subjects:
@@ -1306,11 +1306,11 @@ category: Proficiencies
 
   badge: Top Rope Climbing
     To complete the Top Rope Climbing badge you must complete, with your Patrol or other Scouts and the appropriate qualified persons, all of the requirements for A, B and C.
-    
+
     Participants must have attained the age of 11 years.
-    
+
     Climb must be single pitch no greater than 15 metres.
-    
+
     All top rope activities to comply with State safety regulations.
     task: Demonstrate. Prior to climb, demonstrate knowledge of precautions applicable to top rope climbing including:
       a: approaching cliffs
@@ -1331,9 +1331,9 @@ category: Proficiencies
 
   badge: Trade
     To gain the Trade badge you must complete one task from each of A, B and C.
-    
+
     Show that you have an interest and an improved proficiency in creating useful objects or constructional projects.
-    
+
     Range - metalwork, woodwork, brick, stone, carpentry, plumbing, painting, plastics, fibreglass and plastering.
     task: Investigate
       a: Investigate the types of materials used in a trade of your own choice.
@@ -1342,23 +1342,23 @@ category: Proficiencies
     task: Skill
       a: Learn how to use and care for hand and power tools.
       b: Show that you are able to conserve materials on your project.
-    task: Activity  
+    task: Activity
       a: Construct a specific project of your choice within your chosen trade. e.g. construct a dog kennel, Patrol Box.
       b: Provide materials and costings for your project.
       c: Demonstrate the use and care for hand and power tools.
 
   badge: World Scouting
     To gain the World Scouting badge you must complete one task from each of A, B and C.
-    
+
     Show you have an interest in, have learnt about and have improved your knowledge in the Worldwide Scouting Family.
-    
+
     Range - Scouting knowledge of other countries, promote Scouting spirit and knowledge of other Scout badges, badge swapping.
     task: Investigate
       a: Find out about the first five years of Scouting.
-      b: Who/what is WOSM? What is the role of WOSM and what is Australia�s role?
+      b: Who/what is WOSM? What is the role of WOSM and what is Australias role?
       c: Gather information on the Scouting activities of two other countries that may differ to our structure.
     task: Skill. Knowledge of how to research for the information required for this award.
-    task: Activity  
+    task: Activity
       a: Be in regular correspondence with a Scout from another country and discuss with your Patrol the outcomes of your discussions.
       b: Using natural materials, make a model of the world badge to display in your den.
 
