@@ -9,9 +9,11 @@ import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import javax.inject.Inject;
 import org.realityforge.replicant.client.EntityRepository;
 import scoutmgr.client.application.ApplicationPresenter;
+import scoutmgr.client.entity.BadgeCategory;
 import scoutmgr.client.entity.Person;
 import scoutmgr.client.place.NameTokens;
 import scoutmgr.client.view.model.ScoutViewModel;
@@ -37,6 +39,8 @@ public class TroopPresenter
     extends com.gwtplatform.mvp.client.View, HasUiHandlers<TroopUiHandlers>
   {
     void setScouts( Collection<ScoutViewModel> values );
+
+    void setBadgeCategories( final List<BadgeCategory> badgeCategories );
   }
 
   @Inject
@@ -52,20 +56,30 @@ public class TroopPresenter
   @Override
   protected void onReveal()
   {
-    _model2ViewModel.clear();
-    getView().setScouts( _model2ViewModel.values() );
+    initialiseViewModel();
     super.onReveal();
   }
 
   private void initialiseViewModel()
   {
+
     _model2ViewModel.clear();
     final ArrayList<Person> scouts = _entityRepository.findAll( Person.class );
     for ( final Person scout : scouts )
     {
       _model2ViewModel.put( scout, new ScoutViewModel( scout ) );
     }
+    final ArrayList<BadgeCategory> allBadgeCategories = _entityRepository.findAll( BadgeCategory.class );
+    final ArrayList<BadgeCategory> badgeCategories = new ArrayList<>();
+    for ( final BadgeCategory category : allBadgeCategories )
+    {
+      //if ( category.getScoutSection().equals( _scout.getScoutSection() ) )
+      {
+        badgeCategories.add( category );
+      }
+    }
 
+    getView().setBadgeCategories( badgeCategories );
     getView().setScouts( _model2ViewModel.values() );
   }
 }

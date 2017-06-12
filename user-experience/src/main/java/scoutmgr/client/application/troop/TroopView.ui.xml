@@ -4,8 +4,15 @@
              xmlns:c='urn:import:com.google.gwt.user.cellview.client'
              xmlns:m="urn:import:gwt.material.design.client.ui">
   <ui:with field='_bundle' type='scoutmgr.client.resource.ScoutmgrResourceBundle'/>
-  <g:LayoutPanel ui:field="_scoutsPanel" addStyleNames="{_bundle.scoutmgr.content}">
-    <g:layer top="0px" bottom="105px" left="0" right="0">
+  <g:LayoutPanel ui:field="_groupSelectionPanel" addStyleNames="{_bundle.scoutmgr.content}">
+    <g:layer top="0px" height="50px" left="0" right="0">
+      <g:HTMLPanel>
+        Scouts to view:
+        <m:MaterialButton iconType="ARROW_DROP_DOWN" iconPosition="RIGHT" textColor="WHITE" activates="group_dd"/>
+        <m:MaterialDropDown ui:field="_groupSelector" activator="group_dd"/>
+      </g:HTMLPanel>
+    </g:layer>
+    <g:layer top="50px" bottom="105px" left="0" right="0">
       <c:DataGrid ui:field="_scoutsTable"/>
     </g:layer>
     <g:layer height="30px" bottom="70px" left="0" right="0">
