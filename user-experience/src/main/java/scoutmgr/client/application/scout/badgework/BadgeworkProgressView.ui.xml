@@ -30,7 +30,7 @@
       </g:HTMLPanel>
       <m:MaterialRow addStyleNames="{style.a}">
         <m:MaterialColumn grid="s6"><g:HTML>Target</g:HTML></m:MaterialColumn>
-        <m:MaterialColumn grid="2 s1" textAlign="RIGHT"><g:HTML>Done?</g:HTML></m:MaterialColumn>
+        <m:MaterialColumn grid="2 s1"><g:HTML>Done?</g:HTML></m:MaterialColumn>
         <m:MaterialColumn grid="s2"><g:HTML>When</g:HTML></m:MaterialColumn>
         <m:MaterialColumn grid="s3"><g:HTML>Signer</g:HTML></m:MaterialColumn>
       </m:MaterialRow>
