@@ -30,7 +30,6 @@ How-to Configure
 
     $ buildr dbt:create
     $ buildr redfish:domain:create
-    
 
 How-to Build
 ------------
