@@ -16,6 +16,9 @@ Postgres as a database server.
 Installation on Ubuntu:
     $ apt-get install postgresql postgresql-contrib libpq-dev
 
+Create an appropriate user in Postgres
+    $ create role "xxx" with login superuser password 'yyy';
+
 Payara as a JEE application server.
 Installation on Ubuntu:
     Download the appropriate version from payara.co.uk
@@ -25,15 +28,9 @@ Installation on Ubuntu:
 How-to Configure
 ----------------
 
-Aim to move this to redfish, so this documentation is out of date
-
-Before the application can be developed and run it is important to configure the local environment. The easiest way is to copy the template files and customize them for local development:
-
-    $ cd ../path/to/scoutmgr
-    $ cp config/local.example.sh config/local.sh
-    $ vi config/local.sh
-    $ cp config/database.example.yml config/database.yml
-    $ vi config/database.yml
+    $ buildr dbt:create
+    $ buildr redfish:domain:create
+    
 
 How-to Build
 ------------
@@ -95,8 +92,7 @@ First you need to setup the database structure. This is done using the buildr co
 
 After creating the database structure then you need to start up the Payara/GlassFish server and configure it via;
 
-    $ alias asadmin=$PAYARA_HOME/glassfish/bin/asadmin
-    $ source config/setup.sh
+    $ bundle exec buildr redfish:domain:create
 
 You can manually deploy the already built application via a command like the following:
 
