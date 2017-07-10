@@ -17,6 +17,6 @@
   "vendor/tools/redfish": {
     "url": "https://github.com/realityforge/redfish.git",
     "branch": "master",
-    "revision": "b5ff3579977f9a902700dbb72ddc392fa90bd00e"
+    "revision": "5e6bb18009e682c09631e1234c955373735d27ab"
   }
 }

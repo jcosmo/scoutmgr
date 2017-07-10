@@ -17,7 +17,7 @@ require File.expand_path('../../../helper', __FILE__)
 class Redfish::TestPreInterpreter < Redfish::TestCase
   def test_pre_interpret_no_data
     input = {}
-    expected = {'jms_resources' => {}, 'properties' => {}}
+    expected = { 'jms_resources' => {}, 'properties' => {} }
     assert_pre_interpret(expected, input)
   end
 
@@ -90,7 +90,7 @@ class Redfish::TestPreInterpreter < Redfish::TestCase
                   {
                     'AddressListBehavior' => 'random',
                     'AddressListIterations' => '3',
-                    'BrokerStartTimeOut' => '60',
+                    'BrokerStartTimeOut' => '60000',
                     'ReconnectAttempts' => '3',
                     'ReconnectEnabled' => 'true',
                     'ReconnectInterval' => '60',
@@ -129,8 +129,8 @@ class Redfish::TestPreInterpreter < Redfish::TestCase
       'jms_resources' =>
         {
           'managed' => true,
-          'myapp/jms/MyTopic' => {'properties' => {'Name' => 'MyTopic'}, 'restype' => 'javax.jms.Topic'},
-          'myapp/jms/MyQueue' => {'properties' => {'Name' => 'MyQueue'}, 'restype' => 'javax.jms.Queue'}
+          'myapp/jms/MyTopic' => { 'properties' => { 'Name' => 'MyTopic' }, 'restype' => 'javax.jms.Topic' },
+          'myapp/jms/MyQueue' => { 'properties' => { 'Name' => 'MyQueue' }, 'restype' => 'javax.jms.Queue' }
         },
       'resource_adapters' =>
         {
@@ -138,8 +138,8 @@ class Redfish::TestPreInterpreter < Redfish::TestCase
             {
               'admin_objects' =>
                 {
-                  'myapp/jms/MyTopic' => {'restype' => 'javax.jms.Topic', 'properties' => {'Name' => 'MyTopic'}},
-                  'myapp/jms/MyQueue' => {'restype' => 'javax.jms.Queue', 'properties' => {'Name' => 'MyQueue'}}
+                  'myapp/jms/MyTopic' => { 'restype' => 'javax.jms.Topic', 'properties' => { 'Name' => 'MyTopic' } },
+                  'myapp/jms/MyQueue' => { 'restype' => 'javax.jms.Queue', 'properties' => { 'Name' => 'MyQueue' } }
                 }
             }
         },
@@ -214,7 +214,8 @@ class Redfish::TestPreInterpreter < Redfish::TestCase
                   'ReconnectAttempts' => 3,
                   'ReconnectEnabled' => true,
                   'ReconnectInterval' => 5000,
-                  'UserName' => 'MyAppUser'},
+                  'UserName' => 'MyAppUser'
+                },
               'restype' => 'javax.jms.ConnectionFactory'
             },
           'myapp/jms/TopicConnectionFactory' =>
@@ -245,7 +246,8 @@ class Redfish::TestPreInterpreter < Redfish::TestCase
                   'ReconnectAttempts' => 3,
                   'ReconnectEnabled' => true,
                   'ReconnectInterval' => 5000,
-                  'UserName' => 'MyAppUser'},
+                  'UserName' => 'MyAppUser'
+                },
               'restype' => 'javax.jms.QueueConnectionFactory'
             }
         },
@@ -258,52 +260,67 @@ class Redfish::TestPreInterpreter < Redfish::TestCase
                   'myapp/jms/ConnectionFactory-Connection-Pool' =>
                     {
                       'connection_definition_name' => 'javax.jms.ConnectionFactory',
-                      'resources' => {'myapp/jms/ConnectionFactory' => {}},
-                      'properties' =>
+                      'resources' =>
                         {
-                          'AddressList' => 'mq://mq.example.com:7676/jms',
-                          'AddressListBehavior' => 'random',
-                          'AddressListIterations' => '3',
-                          'ClientId' => 'MyApp',
-                          'Password' => 'secret',
-                          'ReconnectAttempts' => 3,
-                          'ReconnectEnabled' => true,
-                          'ReconnectInterval' => 5000,
-                          'UserName' => 'MyAppUser'
+                          'myapp/jms/ConnectionFactory' =>
+                            {
+                              'properties' =>
+                                {
+                                  'AddressList' => 'mq://mq.example.com:7676/jms',
+                                  'AddressListBehavior' => 'random',
+                                  'AddressListIterations' => '3',
+                                  'ClientId' => 'MyApp',
+                                  'Password' => 'secret',
+                                  'ReconnectAttempts' => 3,
+                                  'ReconnectEnabled' => true,
+                                  'ReconnectInterval' => 5000,
+                                  'UserName' => 'MyAppUser'
+                                }
+                            }
                         }
                     },
                   'myapp/jms/TopicConnectionFactory-Connection-Pool' =>
                     {
                       'connection_definition_name' => 'javax.jms.TopicConnectionFactory',
-                      'resources' => {'myapp/jms/TopicConnectionFactory' => {}},
-                      'properties' =>
+                      'resources' =>
                         {
-                          'AddressList' => 'mq://mq.example.com:7676/jms',
-                          'AddressListBehavior' => 'random',
-                          'AddressListIterations' => '3',
-                          'ClientId' => 'MyApp',
-                          'Password' => 'secret',
-                          'ReconnectAttempts' => 3,
-                          'ReconnectEnabled' => true,
-                          'ReconnectInterval' => 5000,
-                          'UserName' => 'MyAppUser'
+                          'myapp/jms/TopicConnectionFactory' =>
+                            {
+                              'properties' =>
+                                {
+                                  'AddressList' => 'mq://mq.example.com:7676/jms',
+                                  'AddressListBehavior' => 'random',
+                                  'AddressListIterations' => '3',
+                                  'ClientId' => 'MyApp',
+                                  'Password' => 'secret',
+                                  'ReconnectAttempts' => 3,
+                                  'ReconnectEnabled' => true,
+                                  'ReconnectInterval' => 5000,
+                                  'UserName' => 'MyAppUser'
+                                }
+                            }
                         }
                     },
                   'myapp/jms/QueueConnectionFactory-Connection-Pool' =>
                     {
                       'connection_definition_name' => 'javax.jms.QueueConnectionFactory',
-                      'resources' => {'myapp/jms/QueueConnectionFactory' => {}},
-                      'properties' =>
+                      'resources' =>
                         {
-                          'AddressList' => 'mq://mq.example.com:7676/jms',
-                          'AddressListBehavior' => 'random',
-                          'AddressListIterations' => '3',
-                          'ClientId' => 'MyApp',
-                          'Password' => 'secret',
-                          'ReconnectAttempts' => 3,
-                          'ReconnectEnabled' => true,
-                          'ReconnectInterval' => 5000,
-                          'UserName' => 'MyAppUser'
+                          'myapp/jms/QueueConnectionFactory' =>
+                            {
+                              'properties' =>
+                                {
+                                  'AddressList' => 'mq://mq.example.com:7676/jms',
+                                  'AddressListBehavior' => 'random',
+                                  'AddressListIterations' => '3',
+                                  'ClientId' => 'MyApp',
+                                  'Password' => 'secret',
+                                  'ReconnectAttempts' => 3,
+                                  'ReconnectEnabled' => true,
+                                  'ReconnectInterval' => 5000,
+                                  'UserName' => 'MyAppUser'
+                                }
+                            }
                         }
                     }
                 }
