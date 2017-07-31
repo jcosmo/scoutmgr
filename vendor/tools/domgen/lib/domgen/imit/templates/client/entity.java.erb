@@ -73,10 +73,16 @@ public <%= entity.abstract? ? 'abstract ' :'' %>class <%= entity.imit.name %>
     link<%= attribute.imit.name %>();
 <% end -%>
 <% if !attribute.primary_key? && !attribute.imit.primitive? && !attribute.nullable? && !attribute.reference? && !attribute.remote_reference? -%>
-    //TODO: This should be compiled out in non dev - perhaps via gwt-property-source
-    if( null == _<%= Reality::Naming.camelize(attribute.imit.name) %> )
+    if( <%= entity.data_module.repository.gwt.qualified_debug_config_name %>.ENTITY_OMIT_VERBOSE_NULL_CHECK )
     {
-      throw new IllegalStateException("Attempted to access nonnull <%= attribute.qualified_name %> before it has been assigned a value");
+      if( null == _<%= Reality::Naming.camelize(attribute.imit.name) %> )
+      {
+        throw new IllegalStateException("Attempted to access nonnull <%= attribute.qualified_name %> before it has been assigned a value");
+      }
+    }
+    else
+    {
+      java.util.Objects.requireNonNull( _<%= Reality::Naming.camelize(attribute.imit.name) %> );
     }
 <% end -%>
     return _<%= Reality::Naming.camelize(attribute.imit.name) %>;
@@ -126,6 +132,8 @@ public <%= entity.abstract? ? 'abstract ' :'' %>class <%= entity.imit.name %>
          "_#{Reality::Naming.camelize(attribute.imit.name)}.ordinal()"
        elsif attribute.enumeration? && attribute.enumeration.textual_values?
          "_#{Reality::Naming.camelize(attribute.imit.name)}.name()"
+       elsif attribute.date?
+         "_#{Reality::Naming.camelize(attribute.imit.name)}.toString()"
        else
          raw_value
        end
@@ -138,6 +146,9 @@ public <%= entity.abstract? ? 'abstract ' :'' %>class <%= entity.imit.name %>
 <% if attribute.reference? || attribute.remote_reference? -%>
     _<%= Reality::Naming.camelize(attribute.imit.name) %> = null;
     _<%= Reality::Naming.camelize(attribute.referencing_link_name) %> = value;
+<% elsif attribute.date? -%>
+    _<%= Reality::Naming.camelize(attribute.imit.name) %> = <%= attribute.nullable? ? 'null == value ? null : ' : '' %>org.realityforge.gwt.datatypes.client.date.RDate.parse( value );
+    if( isCreated() && null != _broker && _broker.isEnabled() ) _broker.attributeChanged( this, <%= entity.imit.name %>.<%= Reality::Naming.uppercase_constantize( attribute.name ) %>, value );
 <% elsif attribute.enumeration? -%>
 <% if !attribute.imit.primitive?(:transport) -%>
     if( null != value )
@@ -152,8 +163,8 @@ public <%= entity.abstract? ? 'abstract ' :'' %>class <%= entity.imit.name %>
     }
 <% end %>
     if( isCreated() && null != _broker && _broker.isEnabled() ) _broker.attributeChanged( this, <%= entity.imit.name %>.<%= Reality::Naming.uppercase_constantize( attribute.name ) %>, value );
-<% else
-%>    _<%= Reality::Naming.camelize(attribute.imit.name) %> = value;
+<% else -%>
+    _<%= Reality::Naming.camelize(attribute.imit.name) %> = value;
     if( isCreated() && null != _broker && _broker.isEnabled() ) _broker.attributeChanged( this, <%= entity.imit.name %>.<%= Reality::Naming.uppercase_constantize( attribute.name ) %>, value );
 <% end %>  }
 <% end %>
@@ -166,6 +177,7 @@ public <%= entity.abstract? ? 'abstract ' :'' %>class <%= entity.imit.name %>
   @javax.annotation.Nonnull
   public final java.util.List<<%= type %>> <%= getter_prefix(attribute) %><%= plural_name %>()
   {
+    checkValidity();
     return java.util.Collections.unmodifiableList( safeGet<%= plural_name %>() );
   }
 
@@ -201,9 +213,10 @@ public <%= entity.abstract? ? 'abstract ' :'' %>class <%= entity.imit.name %>
     }
     return <%= Reality::Naming.camelize(plural_name) %>;
   }
-<% else %>
+<% else -%>
   public final <%= nullability_annotation(attribute.inverse.multiplicity != :one)  %> <%= type %> <%= getter_prefix(attribute) %><%= name %>()
   {
+    checkValidity();
     return <%= Reality::Naming.camelize(name) %>;
   }
 
@@ -219,8 +232,8 @@ public <%= entity.abstract? ? 'abstract ' :'' %>class <%= entity.imit.name %>
     <%= Reality::Naming.camelize(name) %> = value;
     if( null != <%= Reality::Naming.camelize(name) %> && isCreated() && null != _broker && _broker.isEnabled() ) _broker.relatedAdded( this, <%= attribute.referenced_entity.imit.qualified_name %>.<%= Reality::Naming.uppercase_constantize( attribute.inverse.name ) %>, <%= Reality::Naming.camelize(name) %> );
   }
-<% end %>
-<% end %>
+<% end -%>
+<% end -%>
 
   public void verifySelf()
     throws Exception
@@ -229,7 +242,14 @@ public <%= entity.abstract? ? 'abstract ' :'' %>class <%= entity.imit.name %>
     final <%= entity.imit.name %> r = _repository.findByID( <%= entity.imit.name %>.class, <%= getter_prefix(entity.primary_key) %><%= entity.primary_key.name %>() );
     if( r != this )
     {
-      throw new IllegalStateException( "Registered entity does not match current entity Registered: " + r + " Current: " + this );
+      if( <%= entity.data_module.repository.gwt.qualified_debug_config_name %>.ENTITY_VERBOSE_INVARIANT_EXCEPTIONS )
+      {
+        throw new IllegalStateException( "Registered entity does not match current entity Registered: " + r + " Current: " + this );
+      }
+      else
+      {
+        throw new IllegalStateException();
+      }
     }
 <% entity.declared_attributes.select{ |a| a.imit? && (a.reference? && a.remote_reference?) && a.imit.client_side? && a.inverse.traversable? }.each do |attribute| -%>
     if( null != _<%= Reality::Naming.camelize(attribute.imit.name) %> )
@@ -244,9 +264,9 @@ public <%= entity.abstract? ? 'abstract ' :'' %>class <%= entity.imit.name %>
   public void verify()
     throws Exception
   {
-<% if entity.extends.nil? %>
+<% if entity.extends.nil? -%>
     verifySelf();
-<% else %>
+<% else -%>
     super.verify();
 <% end -%>
 <%
@@ -272,6 +292,7 @@ entity.imit.referencing_client_side_attributes.each do |attribute|
   }
 
   @java.lang.SuppressWarnings( { "PMD.UselessOverridingMethod" } )
+  @java.lang.Override
   public void invalidate()
   {
 <% if entity.extends.nil? -%>
@@ -286,24 +307,57 @@ entity.imit.referencing_client_side_attributes.each do |attribute|
     delink();
     _repository = null;
     _broker = null;
-<% else
-%>    super.invalidate();
-<% end
-%>
+<% else -%>
+    super.invalidate();
+<% end -%>
   }
 <% linkable_attributes = entity.declared_attributes.select{|attribute| !attribute.abstract? && (attribute.reference? || attribute.remote_reference?) && attribute.imit? && attribute.imit.client_side?} -%>
 
+<% if entity.extends -%>
+  @java.lang.Override
+<% end -%>
   protected void performLink()
   {
-    <%= entity.extends.nil? ? "if( !_$linking ) throw new IllegalStateException( \"performLink invoked from outside link\" )" : 'super.performLink()' %>;
+<% if entity.extends -%>
+    super.performLink();
+<% else -%>
+    if( !_$linking )
+    {
+      if( <%= entity.data_module.repository.gwt.qualified_debug_config_name %>.ENTITY_VERBOSE_INVARIANT_EXCEPTIONS )
+      {
+        throw new IllegalStateException( "performLink invoked from outside link" );
+      }
+      else
+      {
+        throw new IllegalStateException();
+      }
+    }
+<% end -%>
 <% linkable_attributes.select{|attribute| attribute.imit.eager? }.each do |attribute| -%>
     link<%= attribute.imit.name %>();
 <% end -%>
   }
 
+<% if entity.extends -%>
+  @java.lang.Override
+<% end -%>
   protected void performDelink()
   {
-    <%= entity.extends.nil? ? "if( !_$delinking ) throw new IllegalStateException( \"performDelink invoked from outside delink\" )" : 'super.performDelink()' %>;
+<% if entity.extends -%>
+    super.performDelink();
+<% else -%>
+    if( !_$delinking )
+    {
+      if( <%= entity.data_module.repository.gwt.qualified_debug_config_name %>.ENTITY_VERBOSE_INVARIANT_EXCEPTIONS )
+      {
+        throw new IllegalStateException( "performDelink invoked from outside delink" );
+      }
+      else
+      {
+        throw new IllegalStateException();
+      }
+    }
+<% end -%>
 <% linkable_attributes.each do |attribute| -%>
     delink<%= attribute.imit.name %>();
 <% end -%>
@@ -314,12 +368,20 @@ entity.imit.referencing_client_side_attributes.each do |attribute|
     @java.lang.SuppressWarnings( "deprecation" )
     private void delink<%= attribute.imit.name %>()
     {
+<% if attribute.remote_reference? || !attribute.inverse.imit.traversable? -%>
+      _<%= Reality::Naming.camelize(attribute.imit.name) %> = null;
+<% else -%>
       if( null != _<%= Reality::Naming.camelize(attribute.imit.name) %> )
       {
-<% if !attribute.remote_reference? && attribute.inverse.imit.traversable? && attribute.inverse.multiplicity == :many %>        _<%= Reality::Naming.camelize(attribute.imit.name) %>.remove<%= attribute.inverse.name %>( this );<% end -%>
-<% if !attribute.remote_reference? && attribute.inverse.imit.traversable? && attribute.inverse.multiplicity != :many%>        _<%= Reality::Naming.camelize(attribute.imit.name) %>.set<%= attribute.inverse.name %>( null );<% end -%>
+<% if attribute.inverse.multiplicity == :many -%>
+        _<%= Reality::Naming.camelize(attribute.imit.name) %>.remove<%= attribute.inverse.name %>( this );
+<% end -%>
+<% if attribute.inverse.multiplicity != :many -%>
+        _<%= Reality::Naming.camelize(attribute.imit.name) %>.set<%= attribute.inverse.name %>( null );
+<% end -%>
         _<%= Reality::Naming.camelize(attribute.imit.name) %> = null;
       }
+<% end -%>
     }
 
     @java.lang.SuppressWarnings( "deprecation" )
@@ -327,19 +389,26 @@ entity.imit.referencing_client_side_attributes.each do |attribute|
     {
       if( null == _<%= Reality::Naming.camelize(attribute.imit.name) %> <%= attribute.nullable? ? "&& null != _#{Reality::Naming.camelize(attribute.referencing_link_name)}" :'' %> )
       {
-        _<%= Reality::Naming.camelize(attribute.imit.name) %> = _repository.findByID( <%= (attribute.remote_reference? ? attribute.referenced_remote_entity : attribute.referenced_entity).imit.qualified_name %>.class, _<%= Reality::Naming.camelize(attribute.referencing_link_name) %> );
-        if( null == _<%= Reality::Naming.camelize(attribute.imit.name) %> )
+        if( <%= entity.data_module.repository.gwt.qualified_debug_config_name %>.ENTITY_VERBOSE_REFERENCE_EXCEPTIONS )
         {
-          throw new IllegalStateException( "Unable to locate entity of type '<%= (attribute.remote_reference? ? attribute.referenced_remote_entity : attribute.referenced_entity).imit.qualified_name %>' and id = '" + _<%= Reality::Naming.camelize(attribute.referencing_link_name) %> + "' via '<%= attribute.imit.name %>' attribute on " + this );
+          _<%= Reality::Naming.camelize(attribute.imit.name) %> = _repository.findByID( <%= (attribute.remote_reference? ? attribute.referenced_remote_entity : attribute.referenced_entity).imit.qualified_name %>.class, _<%= Reality::Naming.camelize(attribute.referencing_link_name) %> );
+          if( null == _<%= Reality::Naming.camelize(attribute.imit.name) %> )
+          {
+            throw new IllegalStateException( "Unable to locate entity of type '<%= (attribute.remote_reference? ? attribute.referenced_remote_entity : attribute.referenced_entity).imit.qualified_name %>' and id = '" + _<%= Reality::Naming.camelize(attribute.referencing_link_name) %> + "' via '<%= attribute.imit.name %>' attribute on " + this );
+          }
+        }
+        else
+        {
+          _<%= Reality::Naming.camelize(attribute.imit.name) %> = _repository.getByID( <%= (attribute.remote_reference? ? attribute.referenced_remote_entity : attribute.referenced_entity).imit.qualified_name %>.class, _<%= Reality::Naming.camelize(attribute.referencing_link_name) %> );
         }
         if( isCreated() && null != _broker && _broker.isEnabled() ) _broker.attributeChanged( this, <%= entity.imit.name %>.<%= Reality::Naming.uppercase_constantize( attribute.name ) %>, _<%= Reality::Naming.camelize(attribute.imit.name) %> );
 <% if !attribute.remote_reference? && attribute.inverse.imit.traversable? && attribute.inverse.multiplicity == :many %>        _<%= Reality::Naming.camelize(attribute.imit.name) %>.add<%= attribute.inverse.name %>( this );<% end -%>
 <% if !attribute.remote_reference? && attribute.inverse.imit.traversable? && attribute.inverse.multiplicity != :many %>        _<%= Reality::Naming.camelize(attribute.imit.name) %>.set<%= attribute.inverse.name %>( this );<% end -%>
       }
     }
-<% end %>
 
-<% if entity.extends.nil? %>
+<% end -%>
+<% if entity.extends.nil? -%>
   protected final boolean isCreated()
   {
     return _$created;
@@ -355,7 +424,14 @@ entity.imit.referencing_client_side_attributes.each do |attribute|
   {
     if( !isValid() )
     {
-      throw new IllegalStateException( "Method invoked on invalid imitation of type <%= entity.imit.name %>" );
+      if( <%= entity.data_module.repository.gwt.qualified_debug_config_name %>.ENTITY_VERBOSE_INVARIANT_EXCEPTIONS )
+      {
+        throw new IllegalStateException( "Method invoked on invalid imitation of type <%= entity.imit.name %>" );
+      }
+      else
+      {
+        throw new IllegalStateException();
+      }
     }
   }
 
@@ -364,7 +440,14 @@ entity.imit.referencing_client_side_attributes.each do |attribute|
     checkValidity();
     if( !_$linked )
     {
-      throw new IllegalStateException( "Method invoked on unlinked imitation of type <%= entity.imit.name %>" );
+      if( <%= entity.data_module.repository.gwt.qualified_debug_config_name %>.ENTITY_VERBOSE_INVARIANT_EXCEPTIONS )
+      {
+        throw new IllegalStateException( "Method invoked on unlinked imitation of type <%= entity.imit.name %>" );
+      }
+      else
+      {
+        throw new IllegalStateException();
+      }
     }
   }
 
@@ -409,14 +492,15 @@ entity.imit.referencing_client_side_attributes.each do |attribute|
   {
     return _$linked;
   }
-<% end %>
+
+<% end -%>
   @javax.annotation.Nonnull
   public <%= entity.imit.name %> self()
   {
     return this;
   }
 
-<% if entity.concrete? %>
+<% if entity.concrete? -%>
   @java.lang.Override
   public boolean equals( final Object o )
   {
@@ -445,13 +529,20 @@ entity.imit.referencing_client_side_attributes.each do |attribute|
   @java.lang.Override
   public String toString()
   {
-    return "<%= entity.qualified_name %>[" + <%=
+    if ( <%= entity.data_module.repository.gwt.qualified_debug_config_name %>.ENTITY_VERBOSE_TO_STRING )
+    {
+      return "<%= entity.qualified_name %>[" + <%=
       entity.attributes.select{ |a| a.imit? && a.imit.client_side? }.collect do |a|
       value = "#{getter_prefix(a)}#{a.imit.name(:transport).to_s}()"
       output = "\"#{a.name}=\" + #{value}"
       entity.primary_key == a ? output : "(isValid() ? #{output} : \"\")"
       end.join(" + \", \" + ")
     %> + "]" + (!isValid() ? "(Invalid)" : !isLinked() ? "(Unlinked)" : !isCreated() ? "(Creating)" : "");
+    }
+    else
+    {
+      return super.toString();
+    }
   }
 <% end -%>
 }

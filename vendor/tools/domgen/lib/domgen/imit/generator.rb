@@ -43,6 +43,9 @@ Domgen::Generator.define([:imit],
     template_set.erb_template(:repository,
                               'client/repository_debugger.java.erb',
                               'main/java/#{repository.imit.qualified_repository_debugger_name.gsub(".","/")}.java')
+    template_set.erb_template(:repository,
+                              'client/runtime_extension.java.erb',
+                              'main/java/#{repository.imit.qualified_runtime_extension_name.gsub(".","/")}.java')
   end
 
   g.template_set(:imit_client_dao) do |template_set|
@@ -66,14 +69,14 @@ Domgen::Generator.define([:imit],
 
   g.template_set(:imit_client_entity_gwt) do |template_set|
     template_set.erb_template(:repository,
+                              'client/gwt/gwt_runtime_extension.java.erb',
+                              'main/java/#{repository.imit.qualified_gwt_runtime_extension_name.gsub(".","/")}.java')
+    template_set.erb_template(:repository,
                               'client/gwt/gwt_data_loader_service_interface.java.erb',
                               'main/java/#{repository.imit.qualified_gwt_data_loader_service_interface_name.gsub(".","/")}.java')
     template_set.erb_template(:repository,
-                              'client/gwt/session_interface.java.erb',
-                              'main/java/#{repository.imit.qualified_gwt_client_session_interface_name.gsub(".","/")}.java')
-    template_set.erb_template(:repository,
-                              'client/gwt/session.java.erb',
-                              'main/java/#{repository.imit.qualified_gwt_client_session_name.gsub(".","/")}.java')
+                              'client/gwt/gwt_data_loader_listener.java.erb',
+                              'main/java/#{repository.imit.qualified_gwt_data_loader_listener_name.gsub(".","/")}.java')
     template_set.erb_template(:repository,
                               'client/gwt/session_context.java.erb',
                               'main/java/#{repository.imit.qualified_gwt_client_session_context_name.gsub(".","/")}.java')
@@ -93,11 +96,11 @@ Domgen::Generator.define([:imit],
 
   g.template_set(:imit_client_entity_ee) do |template_set|
     template_set.erb_template(:repository,
-                              'client/ee/session_interface.java.erb',
-                              'main/java/#{repository.imit.qualified_ee_client_session_interface_name.gsub(".","/")}.java')
+                              'client/ee/ee_runtime_extension.java.erb',
+                              'main/java/#{repository.imit.qualified_ee_runtime_extension_name.gsub(".","/")}.java')
     template_set.erb_template(:repository,
-                              'client/ee/session.java.erb',
-                              'main/java/#{repository.imit.qualified_ee_client_session_name.gsub(".","/")}.java')
+                              'client/ee/ee_data_loader_listener.java.erb',
+                              'main/java/#{repository.imit.qualified_ee_data_loader_listener_name.gsub(".","/")}.java')
     template_set.erb_template(:repository,
                               'client/ee/ee_data_loader_service_interface.java.erb',
                               'main/java/#{repository.imit.qualified_ee_data_loader_service_interface_name.gsub(".","/")}.java')
@@ -182,20 +185,8 @@ Domgen::Generator.define([:imit],
                                 'client/gwt/gwt_complete_module.java.erb',
                                 type + '/java/#{repository.imit.qualified_gwt_complete_module_name.gsub(".","/")}.java')
       template_set.erb_template(:repository,
-                                'client/gwt/abstract_gwt_client_test.java.erb',
-                                type + '/java/#{repository.imit.qualified_abstract_gwt_client_test_name.gsub(".","/")}.java',
-                                :additional_facets => [:gwt_rpc])
-      template_set.erb_template(:repository,
                                 'client/mock_services_module.java.erb',
                                 type + '/java/#{repository.imit.qualified_mock_services_module_name.gsub(".","/")}.java',
-                                :additional_facets => [:gwt_rpc])
-      template_set.erb_template(:repository,
-                                'client/callback_success_answer.java.erb',
-                                type + '/java/#{repository.imit.qualified_callback_success_answer_name.gsub(".","/")}.java',
-                                :additional_facets => [:gwt_rpc])
-      template_set.erb_template(:repository,
-                                'client/callback_failure_answer.java.erb',
-                                type + '/java/#{repository.imit.qualified_callback_failure_answer_name.gsub(".","/")}.java',
                                 :additional_facets => [:gwt_rpc])
     end
 
@@ -204,6 +195,21 @@ Domgen::Generator.define([:imit],
                                 'client/ee/ee_complete_module.java.erb',
                                 type + '/java/#{repository.imit.qualified_ee_complete_module_name.gsub(".","/")}.java')
     end
+  end
+
+  g.template_set(:imit_server_ee_client) do |template_set|
+    template_set.erb_template(:repository,
+                              'client/ee/abstract_ee_client_system_implementation.java.erb',
+                              'main/java/#{repository.imit.qualified_abstract_ee_client_system_implementation_name.gsub(".","/")}.java',
+                              :guard => 'repository.imit.remote_datasources?')
+    template_set.erb_template(:repository,
+                              'client/ee/ee_client_system_implementation.java.erb',
+                              'main/java/#{repository.imit.qualified_ee_client_system_implementation_name.gsub(".","/")}.java',
+                              :guard => 'repository.imit.remote_datasources? && !repository.imit.custom_client_system?')
+    template_set.erb_template(:repository,
+                              'client/ee/ee_context_converger_implementation.java.erb',
+                              'main/java/#{repository.imit.qualified_ee_context_converger_implementation_name.gsub(".","/")}.java',
+                              :guard => 'repository.imit.remote_datasources?')
   end
 end
 
@@ -263,6 +269,9 @@ Domgen::Generator.define([:imit, :jpa],
                               'poll_service.java.erb',
                               'main/java/#{repository.imit.qualified_poll_service_name.gsub(".","/")}.java')
     template_set.erb_template(:repository,
+                              'system_metadata.java.erb',
+                              'main/java/#{repository.imit.qualified_system_metadata_name.gsub(".","/")}.java')
+    template_set.erb_template(:repository,
                               'session_manager.java.erb',
                               'main/java/#{repository.imit.qualified_session_manager_name.gsub(".","/")}.java')
     template_set.erb_template(:repository,
@@ -271,6 +280,16 @@ Domgen::Generator.define([:imit, :jpa],
     template_set.erb_template(:repository,
                               'poll_rest_service.java.erb',
                               'main/java/#{repository.imit.qualified_poll_rest_service_name.gsub(".","/")}.java')
+    template_set.erb_template('imit.remote_datasource',
+                              'ee_data_loader_service_implementation.java.erb',
+                              'main/java/#{remote_datasource.qualified_ee_data_loader_service_implementation_name.gsub(".","/")}.java')
+    template_set.erb_template('imit.remote_datasource',
+                              'ee_data_loader_rest_service.java.erb',
+                              'main/java/#{remote_datasource.qualified_ee_data_loader_rest_service_name.gsub(".","/")}.java')
+    template_set.erb_template(:repository,
+                              'ee_client_resources.java.erb',
+                              'main/java/#{repository.imit.qualified_ee_client_resources_name.gsub(".","/")}.java',
+                              :guard => 'repository.imit.remote_datasources.size > 0')
   end
 
   g.template_set(:imit_server_qa) do |template_set|

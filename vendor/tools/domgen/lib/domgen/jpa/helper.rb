@@ -141,7 +141,8 @@ module Domgen
         declared_immutable_attributes = immutable_attributes.select{ |a| declared_attribute_names.include?(a.name) }
         undeclared_immutable_attributes = immutable_attributes.select{ |a| !declared_attribute_names.include?(a.name) }
         java = <<JAVA
-  @edu.umd.cs.findbugs.annotations.SuppressFBWarnings({"NP_NONNULL_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR"})
+  @java.lang.SuppressWarnings( { "PMD.UnnecessaryConstructor" } )
+  @edu.umd.cs.findbugs.annotations.SuppressFBWarnings( { "NP_NONNULL_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR" } )
   #{immutable_attributes.empty? ? 'public' : 'protected'} #{entity.jpa.name}()
   {
   }
@@ -533,6 +534,7 @@ JAVA
         s += <<JAVA
   @java.lang.Override
   @edu.umd.cs.findbugs.annotations.SuppressFBWarnings({"RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE"})
+  @java.lang.SuppressWarnings( { "PMD.UnnecessaryLocalBeforeReturn" } )
   public int hashCode()
   {
     final #{pk_type} key = #{pk_getter};

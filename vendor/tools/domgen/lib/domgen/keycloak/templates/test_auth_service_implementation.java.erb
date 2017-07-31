@@ -9,18 +9,22 @@ public class <%= repository.keycloak.test_auth_service_implementation_name %>
   private final java.security.Principal _principal = new TestPrincipal( org.realityforge.guiceyloops.shared.ValueUtil.randomString() );
   private org.keycloak.adapters.OidcKeycloakAccount _account;
 
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @java.lang.Override
-  public org.keycloak.adapters.OidcKeycloakAccount findAccount()
+  public org.keycloak.adapters.OidcKeycloakAccount getAccount()
   {
     return _account;
   }
 
-  public void setupAccount( <%= repository.keycloak.default_client.claims.collect {|claim| "@javax.annotation.Nonnull final String #{Reality::Naming.camelize(claim.java_accessor_key)}"}.join(', ') -%> )
+  public void setupAccount( <%= repository.keycloak.default_client.claims.collect {|claim| "@javax.annotation.Nonnull final #{claim.java_type} #{Reality::Naming.camelize(claim.java_accessor_key)}"}.join(', ') -%> )
   {
     _account = new Account();
 <% repository.keycloak.default_client.claims.each do |claim| -%>
+<% if claim.standard_claim? -%>
     _token.set<%= claim.token_accessor_key %>( <%= Reality::Naming.camelize(claim.java_accessor_key) %> );
+<% else -%>
+    _token.setOtherClaims( "<%= Reality::Naming.camelize(claim.token_accessor_key) %>", <%= Reality::Naming.camelize(claim.java_accessor_key) %> );
+<% end -%>
 <% end -%>
   }
 

@@ -75,12 +75,56 @@ module Domgen
         @custom_base_service_test.nil? ? false : !!@custom_base_service_test
       end
 
-      def extra_test_modules
-        @extra_test_modules ||= []
+      def test_modules
+        test_modules_map.dup
+      end
+
+      def add_test_module(name, classname)
+        Domgen.error("Attempting to define duplicate test module for ejb facet. Name = '#{name}', Classname = '#{classname}'") if test_modules_map[name.to_s]
+        test_modules_map[name.to_s] = classname
+      end
+
+      def flushable_test_modules
+        flushable_test_modules_map.dup
+      end
+
+      def add_flushable_test_module(name, classname)
+        Domgen.error("Attempting to define duplicate flushable test module for ejb facet. Name = '#{name}', Classname = '#{classname}'") if flushable_test_modules_map[name.to_s]
+        flushable_test_modules_map[name.to_s] = classname
+      end
+
+      def test_class_contents
+        test_class_content_list.dup
+      end
+
+      def add_test_class_content(content)
+        self.test_class_content_list << content
       end
 
       def implementation_suffix
         repository.ee.use_cdi? ? 'Impl' : 'EJB'
+      end
+
+      def pre_verify
+        if self.include_server_test_module?
+          add_test_module(self.server_test_module_name, self.qualified_server_test_module_name)
+        end
+        add_test_module(repository.ee.message_module_name, repository.ee.qualified_message_module_name)
+        add_flushable_test_module(self.services_module_name, self.qualified_services_module_name)
+      end
+
+      protected
+
+      def test_class_content_list
+        @test_class_content ||= []
+      end
+
+      def flushable_test_modules_map
+        @flushable_test_modules_map ||= {}
+      end
+
+      def test_modules_map
+        @test_modules_map ||= {}
       end
     end
 
@@ -177,6 +221,12 @@ module Domgen
 
       def generate_base_test=(generate_base_test)
         @generate_base_test = generate_base_test
+      end
+
+      def post_verify
+        if generate_base_test? && !service.methods.any?{|m| m.ejb? && m.ejb.generate_base_test?}
+          self.generate_base_test = false
+        end
       end
     end
 

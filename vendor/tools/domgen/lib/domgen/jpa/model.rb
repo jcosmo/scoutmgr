@@ -171,6 +171,7 @@ module Domgen
       def initialize(jpa_repository, options = {}, &block)
         super(jpa_repository, options, &block)
       end
+
       include Domgen::Java::BaseJavaGenerator
       include Domgen::Java::JavaClientServerApplication
 
@@ -245,7 +246,7 @@ module Domgen
       end
 
       def related_database_jndi(key)
-        prefix = jpa_repository.repository.name == short_name ? '' : "#{short_name}/"
+        prefix = jpa_repository.repository.name == short_name ? '' : "#{Reality::Naming.underscore(short_name)}/"
         "#{application_scope}/env/#{prefix}#{key}_database_name"
       end
 
@@ -362,10 +363,6 @@ module Domgen
       java_artifact :dao_module, :test, :server, :jpa, '#{repository.name}RepositoryModule', :sub_package => 'util'
       java_artifact :test_factory_module, :test, :server, :jpa, '#{repository.name}FactorySetModule', :sub_package => 'util'
 
-      def extra_test_modules
-        @extra_test_modules ||= []
-      end
-
       attr_writer :custom_base_entity_test
 
       def test_factories
@@ -375,6 +372,27 @@ module Domgen
       def add_test_factory(short_code, classname)
         raise "Attempting to add a test factory '#{classname}' with short_code #{short_code} but one already exists. ('#{test_factory_map[short_code.to_s]}')" if test_factory_map[short_code.to_s]
         test_factory_map[short_code.to_s] = classname
+      end
+
+      def test_modules
+        test_modules_map.dup
+      end
+
+      def add_test_module(name, classname)
+        Domgen.error("Attempting to define duplicate test module for jpa facet. Name = '#{name}', Classname = '#{classname}'") if test_modules_map[name.to_s]
+        test_modules_map[name.to_s] = classname
+      end
+
+      def add_flushable_test_module(name, classname)
+        add_test_module(name, "#{classname}( this )")
+      end
+
+      def test_class_contents
+        test_class_content_list.dup
+      end
+
+      def add_test_class_content(content)
+        self.test_class_content_list << content
       end
 
       def custom_base_entity_test?
@@ -614,6 +632,22 @@ FRAGMENT
 FRAGMENT
           repository.jpa.persistence_file_content_fragments << fragment
         end
+
+        if repository.redfish?
+          self.persistence_units.each do |unit|
+            repository.redfish.persistence_unit(unit.short_name,
+                                                unit.resolved_data_source,
+                                                :xa_data_source => unit.xa_data_source?,
+                                                :socket_timeout => unit.socket_timeout,
+                                                :login_timeout => unit.login_timeout)
+
+            unit.related_database_keys.each do |key|
+              env_key = "#{Reality::Naming.uppercase_constantize(repository.name)}_#{repository.name == unit.short_name ? '' : "#{Reality::Naming.uppercase_constantize(unit.short_name)}_"}#{Reality::Naming.uppercase_constantize(key)}_DATABASE_NAME"
+              repository.redfish.environment_variable(env_key)
+              repository.redfish.custom_resource(unit.related_database_jndi(key), "${#{env_key}}")
+            end
+          end
+        end
       end
 
       def perform_verify
@@ -626,13 +660,57 @@ FRAGMENT
         end
       end
 
-      def post_verify
-        repository.data_modules.select { |data_module| data_module.jpa? }.each do |data_module|
+      def pre_verify
+        add_test_module(persistent_test_module_name, qualified_persistent_test_module_name) if repository.jpa.include_default_unit?
+        add_test_module(test_factory_module_name, qualified_test_factory_module_name)
+        add_test_module(dao_module_name, qualified_dao_module_name)
+        if repository.application.remote_references_included?
+          add_test_module('ReplicantClientTestModule', 'org.realityforge.replicant.client.test.ReplicantClientTestModule')
+        end
+        standalone_persistence_units.select { |unit| unit.mock_test_mode? }.each do |unit|
+          add_test_module("#{unit.unit_name}PersistenceModule",
+                          "org.realityforge.guiceyloops.server.MockPersistenceTestModule( #{qualified_unit_descriptor_name }.#{Reality::Naming.uppercase_constantize(unit.short_name)}_NAME )")
+        end
+        standalone_persistence_units.select { |unit| unit.raw_test_mode? }.each do |unit|
+          add_test_module(unit.raw_test_module_name, unit.qualified_raw_test_module_name)
+        end
+        repository.jpa.persistence_units.select { |persistence_unit| persistence_unit.generate_test_util? }.each do |persistence_unit|
+          add_test_module(persistence_unit.persistence_unit_module_name, persistence_unit.qualified_persistence_unit_module_name)
+        end
+        repository.data_modules.select { |data_module| data_module.jpa? && data_module.jpa.generate_test_factory? }.each do |data_module|
           add_test_factory(data_module.jpa.short_test_code, data_module.jpa.qualified_test_factory_name)
+        end
+        if include_default_unit?
+          add_test_class_content(<<-JAVA)
+
+  @javax.annotation.Nullable
+  @java.lang.Override
+  protected String getPrimaryPersistenceUnitName()
+  {
+    return #{qualified_unit_descriptor_name}.NAME;
+  }
+          JAVA
+        else
+          add_test_class_content(<<-JAVA)
+
+  @Override
+  public void flush()
+  {
+    //No default persistence unit so no need to flush
+  }
+          JAVA
         end
       end
 
       protected
+
+      def test_class_content_list
+        @test_class_content ||= []
+      end
+
+      def test_modules_map
+        @test_modules_map ||= {}
+      end
 
       def test_factory_map
         @test_factory_map ||= {}
@@ -677,6 +755,10 @@ FRAGMENT
 
       def default_jpql_criterion
         @default_jpql_criterion.nil? ? data_module.repository.jpa.default_jpql_criterion : @default_jpql_criterion
+      end
+
+      def generate_test_factory?
+        data_module.entities.any?{|e|e.jpa?}
       end
     end
 
@@ -864,16 +946,22 @@ FRAGMENT
               if entity.attribute_by_name?(parameter_name)
                 a = entity.attribute_by_name(parameter_name)
                 jpql_name = a.remote_reference? ? a.referencing_link_name : parameter_name
-                jpql = "#{operation} #{entity_prefix}#{Reality::Naming.camelize(jpql_name)} = :#{parameter_name} #{jpql}"
+                field = "#{entity_prefix}#{Reality::Naming.camelize(jpql_name)}"
+                comparison = "#{field} = :#{parameter_name}"
+                jpql = "#{operation} #{comparison} #{jpql}"
               else
                 # Handle parameters that are the primary keys of related entities
                 found = false
                 entity.attributes.select { |a| a.reference? && a.referencing_link_name == parameter_name }.each do |a|
-                  jpql = "#{operation} #{entity_prefix}#{Reality::Naming.camelize(a.name)}.#{Reality::Naming.camelize(a.referenced_entity.primary_key.name)} = :#{parameter_name} #{jpql}"
+                  field = "#{entity_prefix}#{Reality::Naming.camelize(a.name)}.#{Reality::Naming.camelize(a.referenced_entity.primary_key.name)}"
+                  comparison = "#{field} = :#{parameter_name}"
+                  jpql = "#{operation} #{comparison} #{jpql}"
                   found = true
                 end
                 entity.attributes.select { |a| a.remote_reference? && a.referencing_link_name == parameter_name }.each do |a|
-                  jpql = "#{operation} #{entity_prefix}#{Reality::Naming.camelize(a.referencing_link_name)} = :#{parameter_name} #{jpql}"
+                field = "#{entity_prefix}#{Reality::Naming.camelize(a.referencing_link_name)}"
+                comparison = "#{field} = :#{parameter_name}"
+                jpql = "#{operation} #{comparison} #{jpql}"
                   found = true
                 end
                 unless found
@@ -886,16 +974,22 @@ FRAGMENT
               if entity.attribute_by_name?(parameter_name)
                 a = entity.attribute_by_name(parameter_name)
                 jpql_name = a.remote_reference? ? a.referencing_link_name : parameter_name
-                jpql = "#{entity_prefix}#{Reality::Naming.camelize(jpql_name)} = :#{parameter_name} #{jpql}"
+                field = "#{entity_prefix}#{Reality::Naming.camelize(jpql_name)}"
+                comparison = "#{field} = :#{parameter_name}"
+                jpql = "#{comparison} #{jpql}"
               else
                 # Handle parameters that are the primary keys of related entities
                 found = false
                 entity.attributes.select { |a| a.reference? && a.referencing_link_name == parameter_name }.each do |a|
-                  jpql = "#{entity_prefix}#{Reality::Naming.camelize(a.name)}.#{Reality::Naming.camelize(a.referenced_entity.primary_key.name)} = :#{parameter_name} #{jpql}"
+                  field = "#{entity_prefix}#{Reality::Naming.camelize(a.name)}.#{Reality::Naming.camelize(a.referenced_entity.primary_key.name)}"
+                  comparison = "#{field} = :#{parameter_name}"
+                  jpql = "#{comparison} #{jpql}"
                   found = true
                 end
                 entity.attributes.select { |a| a.remote_reference? && a.referencing_link_name == parameter_name }.each do |a|
-                  jpql = "#{operation} #{entity_prefix}#{Reality::Naming.camelize(a.referencing_link_name)} = :#{parameter_name} #{jpql}"
+                  field = "#{operation} #{entity_prefix}#{Reality::Naming.camelize(a.referencing_link_name)}"
+                  comparison = "#{field} = :#{parameter_name}"
+                  jpql = "#{comparison} #{jpql}"
                   found = true
                 end
                 jpql = nil unless found
@@ -913,6 +1007,8 @@ FRAGMENT
             else
               query.standard_query = true
             end
+          else
+            Domgen.error("Query #{query.qualified_name} is jpa enabled but defines no jpql or sql but is not a standard query.")
           end
         end
         entity.queries.select { |query| query.jpa? && query.jpa.ignore_default_criteria? }.each do |query|
@@ -1073,7 +1169,7 @@ FRAGMENT
               characteristic_options = {}
               characteristic_options[:enumeration] = attribute.enumeration if attribute.enumeration?
               characteristic_options[:referenced_entity] = attribute.referenced_entity if attribute.reference?
-                characteristic_options[:referenced_remote_entity] = attribute.referenced_remote_entity if attribute.remote_reference?
+              characteristic_options[:referenced_remote_entity] = attribute.referenced_remote_entity if attribute.remote_reference?
               p = query.parameter(attribute.name, attribute.attribute_type, characteristic_options)
               p.disable_facets_not_in(attribute.enabled_facets)
             else
@@ -1093,7 +1189,7 @@ FRAGMENT
 
         actual_parameters = query.parameters.collect { |p| p.name.to_s }
         if expected_parameters.sort != actual_parameters.sort
-          Domgen.error("Actual parameters for query #{query.qualified_name} (#{actual_parameters.inspect}) do not match expected parameters #{expected_parameters.inspect}")
+          Domgen.error("Actual parameters for query #{query.qualified_name} [ql=#{self.ql}] (#{actual_parameters.inspect}) do not match expected parameters #{expected_parameters.inspect}")
         end
       end
 
@@ -1240,7 +1336,13 @@ FRAGMENT
 
       def ql=(ql)
         @ql = ql
-        self.query_spec = (ql =~ /\sFROM\s/ix) ? :statement : :criteria unless @query_spec
+        unless @query_spec
+          statement = false
+          statement = true if ql =~ /\sFROM\s/ix
+          statement = true if ql =~ /^UPDATE\s/ix
+          statement = true if ql =~ /\sUPDATE\s/ix
+          self.query_spec = statement ? :statement : :criteria
+        end
       end
     end
 

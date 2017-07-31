@@ -47,16 +47,20 @@ public class <%= repository.imit.ee_data_loader_service_name %>
 }
 </code>
  */
+@javax.annotation.Generated( "Domgen" )
 @java.lang.SuppressWarnings( { "unchecked", "PMD.UnusedPrivateField", "PMD.UnusedLocalVariable" } )
 public abstract class <%= repository.imit.abstract_ee_data_loader_service_name %>
-  extends org.realityforge.replicant.client.ee.<%= repository.imit.poll_replicate_mode? ? 'EeWebPoller' : 'Ee' %>DataLoaderService<<%= repository.imit.qualified_ee_client_session_name %>, <%= repository.imit.qualified_graph_enum_name %>>
+  extends org.realityforge.replicant.client.ee.<%= repository.imit.poll_replicate_mode? ? 'EeWebPoller' : 'Ee' %>DataLoaderService
   implements <%= repository.imit.qualified_ee_data_loader_service_interface_name %>
 {
   public static final String APPLICATION_URL_JNDI_SUFFIX = "/replicant/client/<%= Reality::Naming.camelize(repository.name) %>/url";
-  public static final String EXECUTOR_SERVICE_JNDI_SUFFIX = "/replicant/client/<%= Reality::Naming.camelize(repository.name) %>/ManagedScheduledExecutorService";
-  public static final String CONTEXT_SERVICE_JNDI_SUFFIX = "/replicant/client/<%= Reality::Naming.camelize(repository.name) %>/ContextService";
-
-  private <%= repository.service_by_name(repository.imit.subscription_manager).jws.qualified_api_interface_name %> _remoteSubscriptionService;
+<% if repository.keycloak? -%>
+  public static final String KEYCLOAK_SERVER_URL_JNDI_SUFFIX = "/replicant/client/<%= Reality::Naming.camelize(repository.name) %>/keycloak/server_url";
+  public static final String KEYCLOAK_REALM_JNDI_SUFFIX = "/replicant/client/<%= Reality::Naming.camelize(repository.name) %>/keycloak/realm";
+  public static final String KEYCLOAK_CLIENT_JNDI_SUFFIX = "/replicant/client/<%= Reality::Naming.camelize(repository.name) %>/keycloak/client";
+  public static final String KEYCLOAK_USERNAME_JNDI_SUFFIX = "/replicant/client/<%= Reality::Naming.camelize(repository.name) %>/keycloak/username";
+  public static final String KEYCLOAK_PASSWORD_JNDI_SUFFIX = "/replicant/client/<%= Reality::Naming.camelize(repository.name) %>/keycloak/password";
+<% end -%>
 
   @javax.inject.Inject
   private <%= repository.imit.qualified_ee_client_session_context_name %> _context;
@@ -64,6 +68,9 @@ public abstract class <%= repository.imit.abstract_ee_data_loader_service_name %
   private final <%= repository.imit.qualified_client_router_interface_name %> _router = new <%= repository.imit.qualified_client_router_impl_name %>();
   private final org.realityforge.replicant.client.transport.SessionContext _sessionContext = new org.realityforge.replicant.client.transport.SessionContext( "<%= repository.name %>" );
   private <%= repository.imit.qualified_change_mapper_name %> _changeMapper;
+<% if repository.keycloak? -%>
+  private org.realityforge.keycloak.client.authfilter.Keycloak _keycloak;
+<% end -%>
 
   @javax.annotation.Nonnull
   @java.lang.Override
@@ -73,15 +80,35 @@ public abstract class <%= repository.imit.abstract_ee_data_loader_service_name %
   }
 
   @javax.annotation.PostConstruct
-  public void setupEndpoint()
+  @java.lang.Override
+  public void postConstruct()
   {
+    super.postConstruct();
     _changeMapper = new <%= repository.imit.qualified_change_mapper_name %>( <%= repository.data_modules.select{|data_module| data_module.imit? }.collect { |data_module| "new #{data_module.imit.qualified_mapper_name}( getRepository(), getChangeBroker(), getSubscriptionManager() )" }.join(', ') %> );
-    _remoteSubscriptionService = new iris.rose.api.rose_subscription.RoseSubscriptionServiceService().getRoseSubscriptionServicePort();
-    ( (javax.xml.ws.BindingProvider) _remoteSubscriptionService ).getRequestContext().
-      put( javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, getSubscriptionServerAddress() );
-    getSessionContext().setBaseURL( getWebEndpointAddress() );
+    getSessionContext().setBaseURL( get<%= repository.name %>ApplicationURL() );
+<% if repository.keycloak? -%>
+    _keycloak = new org.realityforge.keycloak.client.authfilter.Keycloak( getKeycloakConfig() );
+<% end -%>
   }
 
+<% if repository.keycloak? -%>
+  @javax.annotation.Nonnull
+  @java.lang.Override
+  protected javax.ws.rs.client.Client newClient()
+  {
+    return super.newClient().register( new org.realityforge.keycloak.client.authfilter.BearerAuthFilter( _keycloak ) );
+  }
+
+  @javax.annotation.Nonnull
+  protected abstract org.realityforge.keycloak.client.authfilter.KeycloakConfig getKeycloakConfig();
+
+  @javax.annotation.Nonnull
+  protected org.realityforge.keycloak.client.authfilter.Keycloak getKeycloak()
+  {
+    return _keycloak;
+  }
+
+<% end -%>
   @javax.annotation.Nonnull
   protected abstract String get<%= repository.name %>ApplicationURL();
 
@@ -90,25 +117,6 @@ public abstract class <%= repository.imit.abstract_ee_data_loader_service_name %
    */
   @javax.annotation.Nonnull
   protected abstract String getHostApplicationKey();
-
-  @javax.annotation.Nonnull
-  protected String getWebEndpointAddress()
-  {
-    return get<%= repository.name %>ApplicationURL();
-  }
-
-  @javax.annotation.Nonnull
-  protected String getSubscriptionServerAddress()
-  {
-    return get<%= repository.name %>ApplicationURL() + <%= repository.jws.qualified_constants_container_name %>.<%= Reality::Naming.uppercase_constantize(repository.service_by_name(repository.imit.subscription_manager).qualified_name.gsub('.','_')) %>_WSDL_URL;
-  }
-
-  @javax.annotation.Nonnull
-  @java.lang.Override
-  protected java.lang.annotation.Annotation[] getEventQualifiers()
-  {
-    return new java.lang.annotation.Annotation[]{ new <%= repository.ee.qualified_cdi_qualifier_literal_name %>() };
-  }
 
   @javax.annotation.Nonnull
   @java.lang.Override
@@ -134,10 +142,10 @@ public abstract class <%= repository.imit.abstract_ee_data_loader_service_name %
 
   @javax.annotation.Nonnull
   @java.lang.Override
-  protected  <%= repository.imit.ee_client_session_name %> ensureSession()
+  public org.realityforge.replicant.client.transport.ClientSession ensureSession()
     throws <%= repository.exception_by_name(repository.imit.invalid_session_exception).ee.qualified_name %>
   {
-    final <%= repository.imit.ee_client_session_name %> session = getSession();
+    final org.realityforge.replicant.client.transport.ClientSession session = getSession();
     if ( null == session )
     {
       throw new <%= repository.exception_by_name(repository.imit.invalid_session_exception).ee.qualified_name %>( "Missing session." );
@@ -147,9 +155,9 @@ public abstract class <%= repository.imit.abstract_ee_data_loader_service_name %
 
   @javax.annotation.Nonnull
   @java.lang.Override
-  protected Class<<%= repository.imit.qualified_graph_enum_name %>> getGraphType()
+  public Class<java.lang.Enum> getGraphType()
   {
-    return <%= repository.imit.qualified_graph_enum_name %>.class;
+    return (Class<java.lang.Enum>) (Class)<%= repository.imit.qualified_graph_enum_name %>.class;
   }
 
   @java.lang.SuppressWarnings( { "ConstantConditions", "unchecked" } )
@@ -206,25 +214,6 @@ if ( <%= repository.imit.qualified_graph_enum_name %>.<%= Reality::Naming.upperc
     }
   }
 
-  @javax.annotation.Nonnull
-  protected <%= repository.imit.qualified_ee_client_session_name %> createSession( @javax.annotation.Nonnull final String sessionID )
-  {
-    return new <%= repository.imit.qualified_ee_client_session_name %>( getContextService().createContextualProxy( this, org.realityforge.replicant.client.transport.DataLoaderService.class ), sessionID );
-  }
-
-  protected <%= repository.service_by_name(repository.imit.subscription_manager).jws.qualified_api_interface_name %> getRemoteSubscriptionService()
-  {
-    return _remoteSubscriptionService;
-  }
-
-  @javax.annotation.Nonnull
-  @java.lang.Override
-  protected <%= repository.imit.qualified_graph_enum_name %> channelToGraph( final int channel )
-    throws IllegalArgumentException
-  {
-    return <%= repository.imit.qualified_graph_enum_name %>.values()[ channel ];
-  }
-
   @java.lang.Override
   protected int updateSubscriptionForFilteredEntities( @javax.annotation.Nonnull final org.realityforge.replicant.client.ChannelSubscriptionEntry entry, @javax.annotation.Nullable final Object filter )
   {
@@ -256,119 +245,5 @@ if ( <%= repository.imit.qualified_graph_enum_name %>.<%= Reality::Naming.upperc
   protected <%= repository.imit.qualified_repository_debugger_name %> getEntityRepositoryDebugger()
   {
     return new <%= repository.imit.qualified_repository_debugger_name %>();
-  }
-
-  @java.lang.Override
-  protected void requestSubscribeToGraph( @javax.annotation.Nonnull final <%= repository.imit.qualified_graph_enum_name %> graph,
-                                          @javax.annotation.Nullable final Object id,
-                                          @javax.annotation.Nullable final Object filterParameter,
-                                          @javax.annotation.Nullable final String eTag,
-                                          @javax.annotation.Nullable final org.realityforge.replicant.client.transport.ChainedAction cacheAction,
-                                          @javax.annotation.Nonnull final java.lang.Runnable completionAction )
-  {
-    <% repository.imit.graphs.each do |graph|
--%>if ( <%= repository.imit.qualified_graph_enum_name %>.<%= Reality::Naming.uppercase_constantize(graph.name) %> == graph )
-    {
-<% if graph.instance_root? -%>
-      assert null != id;
-      <%= jws_wrap_characteristic(repository.service_by_name(repository.imit.subscription_manager), repository.entity_by_name(graph.instance_root).primary_key, "(#{repository.entity_by_name(graph.instance_root).primary_key.imit.java_type}) id", '$id') %>
-<% end -%>
-<% if graph.filtered? -%>
-      assert null != filterParameter;
-<% end -%>
-      fireEvent( new <%= graph.subscribe_started_message.ee.qualified_name %>(<% if graph.instance_root? -%> (<%= repository.entity_by_name(graph.instance_root).primary_key.imit.java_type %>) id <% end %>) );
-      try
-      {
-        <% if graph.cacheable? -%>final java.lang.Boolean $result = <% end %>_remoteSubscriptionService.subscribeTo<%= graph.name %>( getSessionID()<% if graph.cacheable? -%>, eTag<% end -%><% if graph.instance_root? -%>, $id<% end -%><% if graph.filtered? %>,<% if graph.filter_parameter.struct? %> <%= repository.service_by_name(repository.imit.subscription_manager).jws.qualified_type_converter_name %>.convert(<% end %> (<%= Domgen::Java.java_type(graph.filter_parameter, :ee, :default) %>) filterParameter<% if graph.filter_parameter.struct? %> )<% end %><% end -%> );
-<% if graph.cacheable? -%>
-        if ( $result )
-        {
-          completionAction.run();
-          fireEvent( new <%= graph.subscribe_completed_message.ee.qualified_name %>(<% if graph.instance_root? -%> getRepository().getByID( <%= repository.entity_by_name(graph.instance_root).imit.qualified_name %>.class, (<%= repository.entity_by_name(graph.instance_root).primary_key.imit.java_type %>) id ) <% end %>) );
-        }
-        else
-        {
-          if ( null != cacheAction )
-          {
-            cacheAction.run();
-          }
-          fireEvent( new <%= graph.subscribe_completed_message.ee.qualified_name %>(<% if graph.instance_root? -%> getRepository().getByID( <%= repository.entity_by_name(graph.instance_root).imit.qualified_name %>.class, (<%= repository.entity_by_name(graph.instance_root).primary_key.imit.java_type %>) id ) <% end %>) );
-        }
-<% else -%>
-        completionAction.run();
-        fireEvent( new <%= graph.subscribe_completed_message.ee.qualified_name %>(<% if graph.instance_root? -%> getRepository().getByID( <%= repository.entity_by_name(graph.instance_root).imit.qualified_name %>.class, (<%= repository.entity_by_name(graph.instance_root).primary_key.imit.java_type %>) id ) <% end %>) );
-<% end -%>
-      }
-      catch ( final Throwable error )
-      {
-        fireEvent( new <%= graph.subscribe_failed_message.ee.qualified_name %>(<% if graph.instance_root? -%> (<%= repository.entity_by_name(graph.instance_root).primary_key.imit.java_type %>) id ,<% end %> error ) );
-      }
-    }
-    else <% end %>
-    {
-      throw new IllegalStateException();
-    }
-  }
-
-  @edu.umd.cs.findbugs.annotations.SuppressFBWarnings( { "DLS_DEAD_LOCAL_STORE" } )
-  @java.lang.Override
-  protected void requestUpdateSubscription( @javax.annotation.Nonnull final <%= repository.imit.qualified_graph_enum_name %> graph,
-                                            @javax.annotation.Nullable final Object id,
-                                            @javax.annotation.Nonnull final Object filterParameter,
-                                            @javax.annotation.Nonnull final java.lang.Runnable completionAction )
-  {
-    <% repository.imit.graphs.select{|g|!g.filter_parameter.nil? && !g.filter_parameter.immutable? }.each do |graph|
--%>if ( <%= repository.imit.qualified_graph_enum_name %>.<%= Reality::Naming.uppercase_constantize(graph.name) %> == graph )
-    {
-<% if graph.instance_root? -%>
-      assert null != id;
-        <%= jws_wrap_characteristic(repository.service_by_name(repository.imit.subscription_manager), repository.entity_by_name(graph.instance_root).primary_key, "(#{repository.entity_by_name(graph.instance_root).primary_key.imit.java_type}) id", '$id') %>
-<% end -%>
-      fireEvent( new <%= graph.update_started_message.ee.qualified_name %>(<% if graph.instance_root? -%> getRepository().getByID( <%= repository.entity_by_name(graph.instance_root).imit.qualified_name %>.class, (<%= repository.entity_by_name(graph.instance_root).primary_key.imit.java_type %>) id ) <% end %>) );
-      try
-      {
-        _remoteSubscriptionService.update<%= graph.name %>Subscription( getSessionID()<% if graph.instance_root? -%>, $id<% end -%>,<% if graph.filter_parameter.struct? %> <%= repository.service_by_name(repository.imit.subscription_manager).jws.qualified_type_converter_name %>.convert(<% end %> (<%= Domgen::Java.java_type(graph.filter_parameter, :ee, :default) %>) filterParameter<% if graph.filter_parameter.struct? %> )<% end %> );
-        completionAction.run();
-        fireEvent( new <%= graph.update_completed_message.ee.qualified_name %>(<% if graph.instance_root? -%> getRepository().getByID( <%= repository.entity_by_name(graph.instance_root).imit.qualified_name %>.class, (<%= repository.entity_by_name(graph.instance_root).primary_key.imit.java_type %>) id ) <% end %>) );
-      }
-      catch ( final Throwable error )
-      {
-        fireEvent( new <%= graph.update_failed_message.ee.qualified_name %>(<% if graph.instance_root? -%> (<%= repository.entity_by_name(graph.instance_root).primary_key.imit.java_type %>) id ,<% end %> error ) );
-      }
-    }
-    else <% end %>
-    {
-      throw new IllegalStateException();
-    }
-  }
-
-  @java.lang.Override
-  protected void requestUnsubscribeFromGraph( @javax.annotation.Nonnull final <%= repository.imit.qualified_graph_enum_name %> graph,
-                                              @javax.annotation.Nullable final Object id,
-                                              @javax.annotation.Nonnull final java.lang.Runnable completionAction )
-  {
-    <% repository.imit.graphs.each do |graph|
--%>if ( <%= repository.imit.qualified_graph_enum_name %>.<%= Reality::Naming.uppercase_constantize(graph.name) %> == graph )
-    {
-<% if graph.instance_root? -%>
-      assert null != id;
-      <%= jws_wrap_characteristic(repository.service_by_name(repository.imit.subscription_manager), repository.entity_by_name(graph.instance_root).primary_key, "(#{repository.entity_by_name(graph.instance_root).primary_key.imit.java_type}) id", '$id') %>
-<% end -%>
-      fireEvent( new <%= graph.unsubscribe_started_message.ee.qualified_name %>(<% if graph.instance_root? -%> (<%= repository.entity_by_name(graph.instance_root).primary_key.imit.java_type %>) id <% end %>) );
-      try
-      {
-        _remoteSubscriptionService.unsubscribeFrom<%= graph.name %>( getSessionID()<% if graph.instance_root? -%>, $id<% end -%> );
-        completionAction.run();
-        fireEvent( new <%= graph.unsubscribe_completed_message.ee.qualified_name %>(<% if graph.instance_root? -%> (<%= repository.entity_by_name(graph.instance_root).primary_key.imit.java_type %>) id <% end %>) );
-      }
-      catch ( final Throwable error )
-      {
-        fireEvent( new <%= graph.unsubscribe_failed_message.ee.qualified_name %>(<% if graph.instance_root? -%> (<%= repository.entity_by_name(graph.instance_root).primary_key.imit.java_type %>) id ,<% end %> error ) );
-      }
-    }
-    else <% end %>
-    {
-      throw new IllegalStateException();
-    }
   }
 }

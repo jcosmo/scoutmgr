@@ -41,17 +41,20 @@ Domgen::Generator.define([:ee],
                               'main/java/#{message.ee.qualified_name.gsub(".","/")}.java')
   end
 
+  g.template_set(:ee_messages_qa) do |template_set|
+    template_set.erb_template(:repository,
+                              'message_module.java.erb',
+                              'test/java/#{repository.ee.qualified_message_module_name.gsub(".","/")}.java')
+    template_set.erb_template(:message,
+                              'message_literal.java.erb',
+                              'test/java/#{message.ee.qualified_message_literal_name.gsub(".","/")}.java',
+                              :guard => 'message.ee.generate_test_literal?')
+  end
+
   g.template_set(:ee_exceptions) do |template_set|
     template_set.erb_template(:exception,
                               'exception.java.erb',
                               'main/java/#{exception.ee.qualified_name.gsub(".","/")}.java')
-  end
-
-  g.template_set(:ee_redfish) do |template_set|
-    template_set.ruby_template(:repository,
-                               'redfish.rb',
-                               'main/etc/#{repository.name}.redfish.fragment.json',
-                               :guard => 'repository.application.code_deployable?')
   end
 
   g.template_set(:ee_web_xml) do |template_set|

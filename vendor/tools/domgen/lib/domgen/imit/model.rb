@@ -46,6 +46,65 @@ module Domgen
       end
     end
 
+    class RemoteDatasource < Domgen.ParentedElement(:application)
+      include Domgen::Java::BaseJavaGenerator
+
+      def initialize(application, name, options, &block)
+        @name = name
+        application.send :register_remote_datasource, name, self
+        super(application, options, &block)
+      end
+
+      attr_reader :application
+
+      attr_reader :name
+
+      attr_writer :gwt_rpc_enabled
+
+      def gwt_rpc_enabled?
+        @gwt_rpc_enabled.nil? ? true : !!@gwt_rpc_enabled
+      end
+
+      attr_writer :imit_enabled
+
+      def imit_enabled?
+        @imit_enabled.nil? ? true : !!@imit_enabled
+      end
+
+      attr_writer :keycloak_enabled
+
+      def keycloak_enabled?
+        @keycloak_enabled.nil? ? true : !!@keycloak_enabled
+      end
+
+      attr_writer :base_package
+
+      def base_package
+        @base_package || Reality::Naming.underscore(self.name)
+      end
+
+      attr_writer :abstract_ee_data_loader_service_implementation
+
+      def abstract_ee_data_loader_service_implementation
+        @abstract_ee_data_loader_service_implementation || "#{base_package}.client.net.ee.Abstract#{self.name}EeDataLoaderServiceImpl"
+      end
+
+      attr_writer :ee_data_loader_service_interface
+
+      def ee_data_loader_service_interface
+        @ee_data_loader_service_interface || "#{base_package}.client.net.ee.#{self.name}EeDataLoaderService"
+      end
+
+      attr_writer :ee_data_loader_listener_impl
+
+      def ee_data_loader_listener_impl
+        @ee_data_loader_listener_impl || "#{base_package}.client.net.ee.#{self.name}EeDataLoaderListener"
+      end
+
+      java_artifact :ee_data_loader_service_implementation, :comm, :server, :imit, '#{application.repository.name}#{name}DataLoaderServiceImpl'
+      java_artifact :ee_data_loader_rest_service, :rest, :server, :imit, '#{application.repository.name}#{name}DataLoaderServiceRestService'
+    end
+
     class ReplicationGraph < Domgen.ParentedElement(:application)
       def initialize(application, name, options, &block)
         @name = name
@@ -227,6 +286,7 @@ module Domgen
         name = :"#{self.name}#{suffix}"
         message = create ? data_module.message(name) : data_module.message_by_name(name)
         message.imit.subscription_message = true
+        message.ee.generate_test_literal = false
         message
       end
 
@@ -381,7 +441,7 @@ module Domgen
         end
         @name = name
         @graph = repository.imit.graph_by_name(graph)
-        Domgen.error("Routing key '#{name}' on #{imit_attribute.attribute.name} is not immutable") unless imit_attribute.attribute.immutable?
+        #Domgen.error("Routing key '#{name}' on #{imit_attribute.attribute.name} is not immutable") unless imit_attribute.attribute.immutable?
         super(imit_attribute, options, &block)
         repository.imit.graph_by_name(graph).send :register_routing_key, self
       end
@@ -546,6 +606,12 @@ module Domgen
       include Domgen::Java::BaseJavaGenerator
       include Domgen::Java::JavaClientServerApplication
 
+      def secured?
+        @secured.nil? ? repository.keycloak? : !!@secured
+      end
+
+      attr_writer :secured
+
       def client_ioc_package
         repository.gwt.client_ioc_package
       end
@@ -578,6 +644,12 @@ module Domgen
         repository.gwt.modules_package
       end
 
+      java_artifact :abstract_ee_client_system_implementation, :comm, :server, :imit, 'Abstract#{repository.name}ReplicantClientSystemImpl'
+      java_artifact :ee_client_system_implementation, :comm, :server, :imit, '#{repository.name}ReplicantClientSystemImpl'
+      java_artifact :ee_context_converger_implementation, :comm, :server, :imit, '#{repository.name}ContextConvergerImpl'
+      java_artifact :runtime_extension, :comm, :client, :imit, '#{repository.name}RuntimeExtension'
+      java_artifact :gwt_runtime_extension, :comm, :client, :imit, '#{repository.name}GwtRuntimeExtension'
+      java_artifact :ee_runtime_extension, :comm, :client, :imit, '#{repository.name}EeRuntimeExtension'
       java_artifact :dao_module, :ioc, :client, :imit, '#{repository.name}ReplicantRepositoryModule'
       java_artifact :entity_complete_module, :test, :client, :imit, '#{repository.name}EntityModule', :sub_package => 'util'
       java_artifact :ee_complete_module, :test, :client, :imit, '#{repository.name}EeModule', :sub_package => 'util'
@@ -588,20 +660,19 @@ module Domgen
       java_artifact :repository_debugger, :comm, :client, :imit, '#{repository.name}RepositoryDebugger'
       java_artifact :change_mapper, :comm, :client, :imit, '#{repository.name}ChangeMapperImpl'
       java_artifact :ee_data_loader_service_interface, :comm, :client, :imit, '#{repository.name}EeDataLoaderService', :sub_package => 'ee'
+      java_artifact :ee_data_loader_listener, :comm, :client, :imit, '#{repository.name}EeDataLoaderListener', :sub_package => 'ee'
       java_artifact :ee_data_loader_service, :comm, :client, :imit, '#{ee_data_loader_service_interface_name}Impl', :sub_package => 'ee'
       java_artifact :abstract_ee_data_loader_service, :comm, :client, :imit, 'Abstract#{ee_data_loader_service_name}', :sub_package => 'ee'
       java_artifact :ee_client_session_context, :comm, :client, :imit, '#{repository.name}EeSessionContext', :sub_package => 'ee'
-      java_artifact :ee_client_session_interface, :comm, :client, :imit, '#{repository.name}EeClientSession', :sub_package => 'ee'
-      java_artifact :ee_client_session, :comm, :client, :imit, '#{ee_client_session_interface_name}Impl', :sub_package => 'ee'
       java_artifact :gwt_client_session_context, :comm, :client, :imit, '#{repository.name}GwtSessionContext'
       java_artifact :gwt_client_session_context_impl, :comm, :client, :imit, '#{gwt_client_session_context_name}Impl'
       java_artifact :gwt_data_loader_service_interface, :comm, :client, :imit, '#{repository.name}GwtDataLoaderService'
       java_artifact :gwt_data_loader_service, :comm, :client, :imit, '#{gwt_data_loader_service_interface_name}Impl'
-      java_artifact :gwt_client_session_interface, :comm, :client, :imit, '#{repository.name}GwtClientSession'
-      java_artifact :gwt_client_session, :comm, :client, :imit, '#{gwt_client_session_interface_name}Impl'
+      java_artifact :gwt_data_loader_listener, :comm, :client, :imit, '#{repository.name}GwtDataLoaderListener'
       java_artifact :client_router_interface, :comm, :client, :imit, '#{repository.name}ClientRouter'
       java_artifact :client_router_impl, :comm, :client, :imit, '#{client_router_interface_name}Impl'
       java_artifact :graph_enum, :comm, :shared, :imit, '#{repository.name}ReplicationGraph'
+      java_artifact :system_metadata, :comm, :server, :imit, '#{repository.name}MetaData'
       java_artifact :session_manager, :comm, :server, :imit, '#{repository.name}SessionManager#{repository.ejb.implementation_suffix}'
       java_artifact :session_rest_service, :rest, :server, :imit, '#{repository.name}SessionRestService'
       java_artifact :poll_rest_service, :rest, :server, :imit, '#{repository.name}ReplicantPollRestService'
@@ -618,16 +689,20 @@ module Domgen
       java_artifact :replication_interceptor, :comm, :server, :imit, '#{repository.name}ReplicationInterceptor'
       java_artifact :graph_encoder, :comm, :server, :imit, '#{repository.name}GraphEncoder'
       java_artifact :graph_encoder_impl, :comm, :server, :imit, '#{graph_encoder_name}Impl'
+      java_artifact :ee_client_resources, :comm, :server, :imit, '#{repository.name}ReplicantClientResources'
       java_artifact :services_module, :ioc, :client, :imit, '#{repository.name}ImitServicesModule'
       java_artifact :mock_services_module, :test, :client, :imit, '#{repository.name}MockImitServicesModule', :sub_package => 'util'
-      java_artifact :callback_success_answer, :test, :client, :imit, '#{repository.name}CallbackSuccessAnswer', :sub_package => 'util'
-      java_artifact :callback_failure_answer, :test, :client, :imit, '#{repository.name}CallbackFailureAnswer', :sub_package => 'util'
-      java_artifact :abstract_gwt_client_test, :test, :client, :imit, 'Abstract#{repository.name}GwtClientTest', :sub_package => 'util'
-      java_artifact :abstract_client_test, :test, :client, :imit, 'Abstract#{repository.name}ClientTest', :sub_package => 'util'
-      java_artifact :client_test, :test, :client, :imit, '#{repository.name}ClientTest', :sub_package => 'util'
+      java_artifact :abstract_client_test, :test, :client, :imit, 'Abstract#{repository.name}ReplicantClientTest', :sub_package => 'util'
+      java_artifact :client_test, :test, :client, :imit, '#{repository.name}ReplicantClientTest', :sub_package => 'util'
       java_artifact :server_net_module, :test, :server, :imit, '#{repository.name}ImitNetModule', :sub_package => 'util'
       java_artifact :test_factory_module, :test, :client, :imit, '#{repository.name}FactorySetModule', :sub_package => 'util'
       java_artifact :integration_module, :test, :server, :imit, '#{repository.name}IntegrationModule', :sub_package => 'util'
+
+      attr_writer :custom_client_system
+
+      def custom_client_system?
+        @custom_client_system.nil? ? false : !!@custom_client_system
+      end
 
       attr_writer :custom_base_client_test
 
@@ -694,6 +769,30 @@ module Domgen
         !!graph_map[name.to_s]
       end
 
+      def remote_datasources?
+        !remote_datasource_map.empty?
+      end
+
+      def remote_datasources
+        remote_datasource_map.values
+      end
+
+      def remote_datasource(name, options = {}, &block)
+        Domgen::Imit::RemoteDatasource.new(self, name, options, &block)
+      end
+
+      def remote_datasource_by_name(name)
+        remote_datasource = remote_datasource_map[name.to_s]
+        Domgen.error("Unable to locate remote datasource #{name}") unless remote_datasource
+        remote_datasource
+      end
+
+      def remote_datasource_by_name?(name)
+        !!remote_datasource_map[name.to_s]
+      end
+
+      Domgen.target_manager.target(:remote_datasource, :repository, :facet_key => :imit)
+
       def subscription_manager=(subscription_manager)
         Domgen.error('subscription_manager invalid. Expected to be in format DataModule.ServiceName') if self.subscription_manager.to_s.split('.').length != 2
         @subscription_manager = subscription_manager
@@ -719,6 +818,24 @@ module Domgen
 
       def session_context_service
         @session_context_service || "#{self.imit_control_data_module}.#{repository.name}SessionContext"
+      end
+
+      def client_system_service=(client_system_service)
+        Domgen.error('invalid_session_exception invalid. Expected to be in format DataModule.SessionContext') if client_system_service.to_s.split('.').length != 2
+        @client_system_service = client_system_service
+      end
+
+      def client_system_service
+        @client_system_service || "#{self.imit_control_data_module}.#{repository.name}EeReplicantClientSystem"
+      end
+
+      def client_converger_service=(client_converger_service)
+        Domgen.error('invalid_session_exception invalid. Expected to be in format DataModule.SessionContext') if client_converger_service.to_s.split('.').length != 2
+        @client_converger_service = client_converger_service
+      end
+
+      def client_converger_service
+        @client_converger_service || "#{self.imit_control_data_module}.#{repository.name}ContextConvergerService"
       end
 
       def imit_control_data_module=(imit_control_data_module)
@@ -748,13 +865,13 @@ module Domgen
       attr_writer :executor_service_jndi
 
       def executor_service_jndi
-        @executor_service_jndi || "#{Reality::Naming.underscore(repository.name)}/concurrent/replicant/#{Reality::Naming.underscore(repository.name)}/ManagedScheduledExecutorService"
+        @executor_service_jndi || "#{Reality::Naming.underscore(repository.name)}/concurrent/replicant/ManagedScheduledExecutorService"
       end
 
       attr_writer :context_service_jndi
 
       def context_service_jndi
-        @context_service_jndi || "#{Reality::Naming.underscore(repository.name)}/concurrent/replicant/#{Reality::Naming.underscore(repository.name)}/ContextService"
+        @context_service_jndi || "#{Reality::Naming.underscore(repository.name)}/concurrent/replicant/ContextService"
       end
 
       def test_factories
@@ -766,19 +883,34 @@ module Domgen
         test_factory_map[short_code.to_s] = classname
       end
 
-      def gwt_test_factories
-        gwt_test_factory_map.dup
+      def test_modules
+        test_modules_map.dup
       end
 
-      def add_gwt_test_factory(short_code, classname)
-        raise "Attempting to add a gwt test factory '#{classname}' with short_code #{short_code} but one already exists. ('#{test_factory_map[short_code.to_s]}')" if gwt_test_factory_map[short_code.to_s]
-        gwt_test_factory_map[short_code.to_s] = classname
+      def add_test_module(name, classname)
+        Domgen.error("Attempting to define duplicate test module for imit facet. Name = '#{name}', Classname = '#{classname}'") if test_modules_map[name.to_s]
+        test_modules_map[name.to_s] = classname
+      end
+
+      def test_class_contents
+        test_class_content_list.dup
+      end
+
+      def add_test_class_content(content)
+        self.test_class_content_list << content
       end
 
       def pre_complete
+        repository.gwt.debug_config['entity_omit_verbose_null_check'] = {:production_value => true}
+        repository.gwt.debug_config['entity_verbose_invariant_exceptions'] = {:default_value => true, :production_value => false}
+        repository.gwt.debug_config['entity_verbose_reference_exceptions'] = {:default_value => true, :production_value => false}
+        repository.gwt.debug_config['entity_verbose_to_string'] = {:default_value => true, :production_value => false}
         if repository.jaxrs?
           repository.jaxrs.extensions << self.qualified_session_rest_service_name
           repository.jaxrs.extensions << self.qualified_poll_rest_service_name
+          repository.imit.remote_datasources.each do |rd|
+            repository.jaxrs.extensions << rd.qualified_ee_data_loader_rest_service_name
+          end
         end
         if repository.ee?
           repository.ee.cdi_scan_excludes << 'org.realityforge.replicant.**'
@@ -796,9 +928,12 @@ module Domgen
           subscribe_started_message = graph.subscribe_started_message(true)
           subscribe_completed_message = graph.subscribe_completed_message(true)
           subscribe_failed_message = graph.subscribe_failed_message(true)
-          update_started_message = graph.update_started_message(true)
-          update_completed_message = graph.update_completed_message(true)
-          update_failed_message = graph.update_failed_message(true)
+
+          if !graph.filter_parameter.nil? && !graph.filter_parameter.immutable?
+            update_started_message = graph.update_started_message(true)
+            update_completed_message = graph.update_completed_message(true)
+            update_failed_message = graph.update_failed_message(true)
+          end
           unsubscribe_started_message = graph.unsubscribe_started_message(true)
           unsubscribe_completed_message = graph.unsubscribe_completed_message(true)
           unsubscribe_failed_message = graph.unsubscribe_failed_message(true)
@@ -810,16 +945,20 @@ module Domgen
             subscribe_started_message.parameter(:ID, attribute_type)
             subscribe_completed_message.parameter(root.name, root.imit.qualified_name)
             subscribe_failed_message.parameter(:ID, attribute_type)
-            update_started_message.parameter(root.name, root.imit.qualified_name)
-            update_completed_message.parameter(root.name, root.imit.qualified_name)
-            update_failed_message.parameter(root.name, root.imit.qualified_name)
+            if !graph.filter_parameter.nil? && !graph.filter_parameter.immutable?
+              update_started_message.parameter(root.name, root.imit.qualified_name)
+              update_completed_message.parameter(root.name, root.imit.qualified_name)
+              update_failed_message.parameter(root.name, root.imit.qualified_name)
+            end
             unsubscribe_started_message.parameter(:ID, attribute_type)
             unsubscribe_completed_message.parameter(:ID, attribute_type)
             unsubscribe_failed_message.parameter(:ID, attribute_type)
           end
 
           subscribe_failed_message.parameter(:Error, 'java.lang.Throwable')
-          update_failed_message.parameter(:Error, 'java.lang.Throwable')
+          if !graph.filter_parameter.nil? && !graph.filter_parameter.immutable?
+            update_failed_message.parameter(:Error, 'java.lang.Throwable')
+          end
           unsubscribe_failed_message.parameter(:Error, 'java.lang.Throwable')
         end
 
@@ -857,8 +996,44 @@ module Domgen
           client.protected_url_patterns << prefix + '/replicant/*'
           client.protected_url_patterns << prefix + '/session/*'
         end
+           test_content = <<CONTENT
+  @javax.annotation.Nonnull
+  protected final org.realityforge.replicant.client.EntityRepository repository()
+  {
+    return s( org.realityforge.replicant.client.EntityRepository.class );
+  }
 
-        repository.ejb.extra_test_modules << self.qualified_server_net_module_name if repository.ejb?
+  @javax.annotation.Nonnull
+  protected final org.realityforge.replicant.client.EntityChangeBroker broker()
+  {
+    return s( org.realityforge.replicant.client.EntityChangeBroker.class );
+  }
+
+  protected void resumeBroker()
+  {
+    broker().resume( "TEST" );
+  }
+
+  protected void pauseBroker()
+  {
+    broker().pause( "TEST" );
+  }
+CONTENT
+        add_test_class_content(test_content)
+        add_test_module('ReplicantClientTestModule', 'org.realityforge.replicant.client.test.ReplicantClientTestModule')
+        add_test_module(repository.imit.dao_test_module_name, repository.imit.qualified_dao_test_module_name)
+        add_test_module(repository.imit.test_factory_module_name, repository.imit.qualified_test_factory_module_name)
+        repository.gwt.add_test_module(repository.imit.mock_services_module_name, repository.imit.qualified_mock_services_module_name) if repository.gwt?
+         if repository.gwt?
+           repository.gwt.add_gin_module(repository.imit.services_module_name, repository.imit.qualified_services_module_name)
+           repository.gwt.add_gin_module(repository.imit.dao_module_name, repository.imit.qualified_dao_module_name)
+           repository.gwt.add_test_module(repository.imit.dao_test_module_name, repository.imit.qualified_dao_test_module_name)
+           repository.gwt.add_test_module(repository.imit.test_factory_module_name, repository.imit.qualified_test_factory_module_name)
+           repository.gwt.add_test_module('ReplicantClientTestModule', 'org.realityforge.replicant.client.test.ReplicantClientTestModule')
+           repository.gwt.add_test_class_content(test_content)
+         end
+
+        repository.ejb.add_test_module(self.server_net_module_name, self.qualified_server_net_module_name) if repository.ejb?
         if self.graphs.size == 0
           Domgen.error('imit facet enabled but no graphs defined')
         end
@@ -870,11 +1045,29 @@ module Domgen
           e.disable_facets_not_in(*self.component_facets + [:jaxrs])
         end
 
+        if repository.imit.remote_datasources?
+          self.repository.service(self.client_converger_service) unless self.repository.service_by_name?(self.client_converger_service)
+          self.repository.service_by_name(self.client_converger_service).tap do |s|
+            s.ejb.generate_base_test = false
+            s.ejb.bind_in_tests = false
+            s.disable_facets_not_in(:ejb)
+            s.method(:Converge, 'ejb.schedule.hour' => '*', 'ejb.schedule.minute' => '*', 'ejb.schedule.second' => '*/1')
+          end
+          self.repository.service(self.client_system_service) unless self.repository.service_by_name?(self.client_system_service)
+          self.repository.service_by_name(self.client_system_service).tap do |s|
+            s.ejb.generate_base_test = false
+            s.ejb.bind_in_tests = false
+            s.disable_facets_not_in(:ejb)
+            s.method(:Converge, 'ejb.schedule.hour' => '*', 'ejb.schedule.minute' => '*', 'ejb.schedule.second' => '*/2')
+          end
+        end
+
         self.repository.service(self.session_context_service) unless self.repository.service_by_name?(self.session_context_service)
         self.repository.service_by_name(self.session_context_service).tap do |s|
           s.disable_facets_not_in(:ejb)
           repository.imit.graphs.each do |graph|
             s.method("FilterMessageOfInterestIn#{graph.name}Graph") do |m|
+              m.ejb.generate_base_test = false
               m.parameter(:Message, 'org.realityforge.replicant.server.EntityMessage')
               m.parameter(:Session, 'org.realityforge.replicant.server.transport.ReplicantSession')
               if graph.instance_root?
@@ -906,12 +1099,15 @@ module Domgen
             if !graph.instance_root?
               if graph.cacheable? && graph.external_cache_management?
                 s.method("Get#{graph.name}CacheKey") do |m|
+                  m.ejb.generate_base_test = false
                   m.returns(:text)
                 end
               end
               if graph.filter_parameter? && !graph.filter_parameter.immutable?
                 s.method("CollectForFilterChange#{graph.name}") do |m|
-                  m.parameter(:Messages, 'org.realityforge.replicant.server.EntityMessageSet')
+                  m.parameter(:Session, 'org.realityforge.replicant.server.transport.ReplicantSession')
+                  m.parameter(:ChangeSet, 'org.realityforge.replicant.server.ChangeSet')
+                  m.parameter(:Descriptor, 'org.realityforge.replicant.server.ChannelDescriptor')
                   m.parameter(:OriginalFilter, graph.filter_parameter.filter_type, filter_options(graph))
                   m.parameter(:CurrentFilter, graph.filter_parameter.filter_type, filter_options(graph))
                 end
@@ -925,6 +1121,7 @@ module Domgen
               end
             else
               s.method("BulkCollectDataFor#{graph.name}") do |m|
+                m.ejb.generate_base_test = false
                 m.parameter(:Session, 'org.realityforge.replicant.server.transport.ReplicantSession')
                 m.parameter(:Descriptor, 'org.realityforge.replicant.server.ChannelDescriptor', :collection_type => :sequence)
                 m.parameter(:ChangeSet, 'org.realityforge.replicant.server.ChangeSet')
@@ -935,12 +1132,15 @@ module Domgen
               if graph.filter_parameter?
                 unless graph.filter_parameter.immutable?
                   s.method("CollectForFilterChange#{graph.name}") do |m|
-                    m.parameter(:Messages, 'org.realityforge.replicant.server.EntityMessageSet')
+                    m.parameter(:Session, 'org.realityforge.replicant.server.transport.ReplicantSession')
+                    m.parameter(:ChangeSet, 'org.realityforge.replicant.server.ChangeSet')
+                    m.parameter(:Descriptor, 'org.realityforge.replicant.server.ChannelDescriptor')
                     m.reference(graph.instance_root, :name => :Entity)
                     m.parameter(:OriginalFilter, graph.filter_parameter.filter_type, filter_options(graph))
                     m.parameter(:CurrentFilter, graph.filter_parameter.filter_type, filter_options(graph))
                   end
                   s.method("BulkCollectDataFor#{graph.name}Update") do |m|
+                    m.ejb.generate_base_test = false
                     m.parameter(:Session, 'org.realityforge.replicant.server.transport.ReplicantSession')
                     m.parameter(:Descriptor, 'org.realityforge.replicant.server.ChannelDescriptor', :collection_type => :sequence)
                     m.parameter(:ChangeSet, 'org.realityforge.replicant.server.ChangeSet')
@@ -955,12 +1155,14 @@ module Domgen
                   outgoing_links.each do |a|
                     if a.inverse.multiplicity == :many
                       s.method("Get#{a.inverse.attribute.qualified_name.gsub('.', '')}In#{graph.name}Graph") do |m|
+                        m.ejb.generate_base_test = false
                         m.reference(a.referenced_entity.qualified_name, :name => :Entity)
                         m.parameter(:Filter, graph.filter_parameter.filter_type, filter_options(graph))
                         m.returns(:reference, :referenced_entity => a.entity.qualified_name, :collection_type => :sequence)
                       end
                     elsif a.inverse.multiplicity == :one || a.inverse.multiplicity == :zero_or_one
                       s.method("Get#{a.inverse.attribute.qualified_name.gsub('.', '')}In#{graph.name}Graph") do |m|
+                        m.ejb.generate_base_test = false
                         m.reference(a.referenced_entity.qualified_name, :name => :Entity)
                         m.parameter(:Filter, graph.filter_parameter.filter_type, filter_options(graph))
                         m.returns(:reference, :referenced_entity => a.entity.qualified_name, :nullable => (a.inverse.multiplicity == :zero_or_one))
@@ -1001,107 +1203,11 @@ module Domgen
           s.disable_facets_not_in(*self.component_facets)
           s.ejb.bind_in_tests = false
           s.ejb.generate_base_test = false
+          s.gwt_rpc.default_callback = false
 
           s.method(:RemoveIdleSessions, 'ejb.schedule.hour' => '*', 'ejb.schedule.minute' => '*', 'ejb.schedule.second' => '30') do |m|
             m.disable_facet(:jws) if m.jws?
-          end
-
-          repository.imit.graphs.each do |graph|
-            s.method(:"SubscribeTo#{graph.name}") do |m|
-              m.string(:ClientID, 50)
-              if graph.cacheable?
-                m.imit.graph_to_subscribe = graph.name
-                m.text(:ETag, :nullable => true)
-                m.returns(:boolean)
-              end
-              m.reference(graph.instance_root) if graph.instance_root?
-              m.parameter(:Filter, graph.filter_parameter.filter_type, filter_options(graph)) if graph.filtered?
-              m.exception(self.invalid_session_exception)
-            end
-            if graph.instance_root?
-              s.method(:"SubscribeToMultiple#{Reality::Naming.pluralize(graph.name)}") do |m|
-                m.string(:ClientID, 50)
-                options = {}
-                pk = repository.entity_by_name(graph.instance_root).primary_key
-                if pk.enumeration?
-                  options[:enumeration] = pk.enumeration
-                  options[:length] = pk.length
-                end
-                if pk.text?
-                  options[:length] = pk.length
-                  options[:min_length] = pk.min_length
-                  options[:allow_blank] = pk.allow_blank?
-                end
-                options[:collection_type] = :sequence
-                options[:nullable] = pk.nullable?
-                m.parameter(pk.name, pk.attribute_type, options)
-                m.parameter(:Filter, graph.filter_parameter.filter_type, filter_options(graph)) if graph.filtered?
-                m.exception(self.invalid_session_exception)
-              end
-
-              s.method(:"UnsubscribeFromMultiple#{Reality::Naming.pluralize(graph.name)}") do |m|
-                m.string(:ClientID, 50)
-                options = {}
-                pk = repository.entity_by_name(graph.instance_root).primary_key
-                if pk.enumeration?
-                  options[:enumeration] = pk.enumeration
-                  options[:length] = pk.length
-                end
-                if pk.text?
-                  options[:length] = pk.length
-                  options[:min_length] = pk.min_length
-                  options[:allow_blank] = pk.allow_blank?
-                end
-                options[:collection_type] = :sequence
-                options[:nullable] = pk.nullable?
-                m.parameter(pk.name, pk.attribute_type, options)
-                m.exception(self.invalid_session_exception)
-              end
-            end
-            if graph.filtered? && !graph.filter_parameter.immutable?
-              s.method(:"Update#{graph.name}Subscription") do |m|
-                m.string(:ClientID, 50)
-                m.reference(graph.instance_root) if graph.instance_root?
-                m.parameter(:Filter, graph.filter_parameter.filter_type, filter_options(graph))
-                m.exception(self.invalid_session_exception)
-              end
-              if graph.instance_root?
-                s.method(:"UpdateMultiple#{graph.name}Subscriptions") do |m|
-                  m.string(:ClientID, 50)
-                  options = {}
-                  pk = repository.entity_by_name(graph.instance_root).primary_key
-                  if pk.enumeration?
-                    options[:enumeration] = pk.enumeration
-                    options[:length] = pk.length
-                  end
-                  if pk.text?
-                    options[:length] = pk.length
-                    options[:min_length] = pk.min_length
-                    options[:allow_blank] = pk.allow_blank?
-                  end
-                  options[:collection_type] = :sequence
-                  options[:nullable] = pk.nullable?
-                  m.parameter(pk.name, pk.attribute_type, options)
-                  m.parameter(:Filter, graph.filter_parameter.filter_type, filter_options(graph))
-                  m.exception(self.invalid_session_exception)
-                end
-              end
-            end
-            s.method(:"UnsubscribeFrom#{graph.name}") do |m|
-              m.string(:ClientID, 50)
-              m.reference(graph.instance_root) if graph.instance_root?
-              m.exception(self.invalid_session_exception)
-            end
-          end
-          if self.poll_replicate_mode?
-            s.method(:Poll) do |m|
-              m.string(:ClientID, 50)
-              m.integer(:LastSequenceAcked)
-              m.returns(:text, :nullable => true) do |a|
-                a.description('A change set represented as json or null if no change set outstanding.')
-              end
-              m.exception(self.invalid_session_exception)
-            end
+            m.disable_facet(:gwt) if m.gwt?
           end
         end
 
@@ -1147,13 +1253,18 @@ module Domgen
       def post_verify
         repository.data_modules.select { |data_module| data_module.imit? }.each do |data_module|
           add_test_factory(data_module.imit.short_test_code, data_module.imit.qualified_test_factory_name)
+          repository.gwt.add_test_factory(data_module.imit.short_test_code, data_module.imit.qualified_test_factory_name) if repository.gwt?
         end
       end
 
       protected
 
-      def gwt_test_factory_map
-        @gwt_test_factory_map ||= {}
+      def test_class_content_list
+        @test_class_content ||= []
+      end
+
+      def test_modules_map
+        @test_modules_map ||= {}
       end
 
       def test_factory_map
@@ -1174,6 +1285,14 @@ module Domgen
           filter_options[:referenced_struct] = graph.filter_parameter.referenced_struct if graph.filter_parameter.struct?
         end
         filter_options
+      end
+
+      def register_remote_datasource(name, remote_datasource)
+        remote_datasource_map[name.to_s] = remote_datasource
+      end
+
+      def remote_datasource_map
+        @remote_datasources ||= Reality::OrderedHash.new
       end
 
       def register_graph(name, graph)
@@ -1233,7 +1352,7 @@ module Domgen
         dao.disable_facet(:imit) if !dao.repository? || !dao.entity.imit?
       end
 
-      def post_complete
+      def post_verify
         dao.disable_facet(:imit) if dao.imit? && dao.queries.select { |q| q.imit? }.empty?
       end
     end
@@ -1301,19 +1420,6 @@ module Domgen
       java_artifact :proxy, :service, :client, :imit, '#{name}Impl', :sub_package => 'internal'
     end
 
-    facet.enhance(Method) do
-      def bulk_load=(bulk_load)
-        @bulk_load = !!bulk_load
-      end
-
-      def bulk_load?
-        @bulk_load.nil? ? false : @bulk_load
-      end
-
-      # TODO: Remove this ugly hack!
-      attr_accessor :graph_to_subscribe
-    end
-
     facet.enhance(Parameter) do
       include Domgen::Java::ImitJavaCharacteristic
 
@@ -1347,11 +1453,19 @@ module Domgen
     facet.enhance(RemoteEntity) do
       include Domgen::Java::BaseJavaGenerator
 
+      def remote_datasource
+        Domgen.error("Invoked remote_datasource on #{remote_entity.qualified_name} when value not set") unless @remote_datasource
+        @remote_datasource
+      end
+
+      def remote_datasource=(remote_datasource)
+        @remote_datasource = (remote_datasource.is_a?(Domgen::Imit::RemoteDatasource) ? remote_datasource : remote_entity.data_module.repository.imit.remote_datasource_by_name(remote_datasource))
+      end
+
       attr_writer :qualified_name
 
       def qualified_name
-        Domgen.error("Invoked qualified_name on #{remote_entity.qualified_name} when value not set") unless @qualified_name
-        @qualified_name
+        @qualified_name || "#{remote_datasource.base_package}.client.entity.#{remote_entity.name}"
       end
     end
 

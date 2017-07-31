@@ -308,6 +308,7 @@ public abstract class <%= data_module.sync.sync_context_impl_name %>
   }
 
   @java.lang.Override
+  @java.lang.SuppressWarnings( "deprecated" )
   public boolean remove<%= entity.data_module.name %><%= entity.name %>( final int mappingID, @javax.annotation.Nullable final <%= entity.primary_key.jpa.java_type(:boundary) %> id )
   {
     boolean deleted = false;
@@ -319,6 +320,7 @@ public abstract class <%= data_module.sync.sync_context_impl_name %>
         deleted = true;
 <% if entity.sync.transaction_time? -%>
         entity.setDeletedAt( new java.util.Date() );
+        entity.delinkDuringPreRemove();
 <% end -%>
 <% entity.sync.references_requiring_manual_sync.each do |a| -%>
         remove<%= a.entity.qualified_name.gsub('.','') %>RelatedTo<%= a.referenced_entity.qualified_name.gsub('.','') %>Via<%= a.name %>( entity );

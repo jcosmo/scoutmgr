@@ -80,6 +80,14 @@ def generate(repository)
       }
   end
 
+  if repository.gwt_rpc? && repository.application.code_deployable?
+    data['environment_vars']["#{constant_prefix}_CODE_SERVER_HOST"] = 'localhost'
+    data['environment_vars']["#{constant_prefix}_CODE_SERVER_PORT"] = '0'
+
+    define_custom_resource(data, "#{application}/env/code_server/host", "${#{constant_prefix}_CODE_SERVER_HOST}")
+    define_custom_resource(data, "#{application}/env/code_server/port", "${#{constant_prefix}_CODE_SERVER_PORT}", 'java.lang.Integer')
+  end
+
   if repository.imit?
     data['managed_scheduled_executor_services'] = {}
 
@@ -99,6 +107,35 @@ def generate(repository)
       'context_info' => 'Classloader,JNDI,Security,WorkArea',
       'deployment_order' => 100
     }
+
+    repository.imit.remote_datasources.each do |rd|
+      prefix = "#{application}/replicant/client/#{Reality::Naming.underscore(rd.name)}"
+      env_prefix = "#{constant_prefix}_REPLICANT_CLIENT_#{Reality::Naming.uppercase_constantize(rd.name)}"
+      data['environment_vars']["#{env_prefix}_URL"] = ''
+      data['environment_vars']["#{env_prefix}_REPOSITORYDEBUGOUTPUTENABLED"] = 'false'
+      data['environment_vars']["#{env_prefix}_SUBSCRIPTIONSDEBUGOUTPUTENABLED"] = 'false'
+      data['environment_vars']["#{env_prefix}_SHOULDVALIDATEREPOSITORYONLOAD"] = 'false'
+      data['environment_vars']["#{env_prefix}_REQUESTDEBUGOUTPUTENABLED"] = 'false'
+
+      define_custom_resource(data, "#{prefix}/url", "${#{env_prefix}_URL}")
+      define_custom_resource(data, "#{prefix}/repositoryDebugOutputEnabled", "${#{env_prefix}_REPOSITORYDEBUGOUTPUTENABLED}", 'java.lang.Boolean')
+      define_custom_resource(data, "#{prefix}/subscriptionsDebugOutputEnabled", "${#{env_prefix}_SUBSCRIPTIONSDEBUGOUTPUTENABLED}", 'java.lang.Boolean')
+      define_custom_resource(data, "#{prefix}/shouldValidateRepositoryOnLoad", "${#{env_prefix}_SHOULDVALIDATEREPOSITORYONLOAD}", 'java.lang.Boolean')
+      define_custom_resource(data, "#{prefix}/requestDebugOutputEnabled", "${#{env_prefix}_REQUESTDEBUGOUTPUTENABLED}", 'java.lang.Boolean')
+      if repository.keycloak?
+        data['environment_vars']["#{env_prefix}_KEYCLOAK_SERVER_URL"] = ''
+        data['environment_vars']["#{env_prefix}_KEYCLOAK_REALM"] = ''
+        data['environment_vars']["#{env_prefix}_KEYCLOAK_CLIENT"] = ''
+        data['environment_vars']["#{env_prefix}_KEYCLOAK_USERNAME"] = ''
+        data['environment_vars']["#{env_prefix}_KEYCLOAK_PASSWORD"] = ''
+
+        define_custom_resource(data, "#{prefix}/keycloak/server_url", "${#{env_prefix}_KEYCLOAK_SERVER_URL}")
+        define_custom_resource(data, "#{prefix}/keycloak/realm", "${#{env_prefix}_KEYCLOAK_REALM}")
+        define_custom_resource(data, "#{prefix}/keycloak/client", "${#{env_prefix}_KEYCLOAK_CLIENT}")
+        define_custom_resource(data, "#{prefix}/keycloak/username", "${#{env_prefix}_KEYCLOAK_USERNAME}")
+        define_custom_resource(data, "#{prefix}/keycloak/password", "${#{env_prefix}_KEYCLOAK_PASSWORD}")
+      end
+    end
   end
 
   if repository.keycloak?
@@ -151,10 +188,14 @@ def generate(repository)
                               :login_timeout => unit.login_timeout)
 
       unit.related_database_keys.each do |key|
-        env_key = "#{Reality::Naming.uppercase_constantize(repository.name)}_#{repository.name == unit.short_name ? '' : "#{unit.short_name}_"}#{Reality::Naming.uppercase_constantize(key)}_DATABASE_NAME"
+        env_key = "#{Reality::Naming.uppercase_constantize(repository.name)}_#{repository.name == unit.short_name ? '' : "#{Reality::Naming.uppercase_constantize(unit.short_name)}_"}#{Reality::Naming.uppercase_constantize(key)}_DATABASE_NAME"
         data['environment_vars'][env_key] = ''
         define_custom_resource(data, unit.related_database_jndi(key), "${#{env_key}}")
       end
+    end
+    if repository.iris_audit?
+      resource_name = "#{Reality::Naming.underscore(repository.name)}/jdbc/Audit"
+      define_persistence_unit(data, repository, 'Audit', resource_name)
     end
   end
 

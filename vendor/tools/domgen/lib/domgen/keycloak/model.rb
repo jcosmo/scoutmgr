@@ -27,14 +27,30 @@ module Domgen
 
       attr_writer :java_accessor_key
 
+      attr_writer :java_type
+
+      attr_writer :js_type
+
       def java_accessor_key
         @java_accessor_key || Reality::Naming.pascal_case(self.name.to_s.gsub(' ', '_'))
+      end
+
+      def java_type
+        @java_type || 'java.lang.String'
+      end
+
+      def js_type
+        @js_type || self.java_type
       end
 
       attr_writer :token_accessor_key
 
       def token_accessor_key
         @token_accessor_key || Reality::Naming.pascal_case(self.config['claim.name'] || self.name.to_s.gsub(' ', '_'))
+      end
+
+      def standard_claim?
+        %w(Name FamilyName GivenName MiddleName NickName Profile Picture Website Email EmailVerified Gender Birthdate Zoneinfo Locale PhoneNumber PhoneNumberVerified PreferredUsername).include?(self.token_accessor_key)
       end
 
       def protocol
@@ -50,7 +66,7 @@ module Domgen
       attr_writer :consent_required
 
       def consent_required?
-        @consent_required.nil? ? true : !!@consent_required
+        @consent_required.nil? ? false : !!@consent_required
       end
 
       attr_writer :consent_text
@@ -76,7 +92,8 @@ module Domgen
 
       java_artifact :keycloak_filter, :filter, :server, :keycloak, '#{qualified_class_name}KeycloakFilter'
       java_artifact :keycloak_filter_interface, :filter, :server, :keycloak, '#{qualified_class_name}KeycloakUrlFilter'
-      java_artifact :abstract_keycloak_filter, :filter, :server, :keycloak, 'Abstract#{qualified_class_name}KeycloakUrlFilter'
+      java_artifact :abstract_keycloak_filter, :filter, :server, :keycloak, 'Abstract#{qualified_class_name}KeycloakUrlFilterImpl'
+      java_artifact :standard_keycloak_filter, :filter, :server, :keycloak, '#{qualified_class_name}KeycloakUrlFilterImpl'
       java_artifact :keycloak_config_resolver, :filter, :server, :keycloak, '#{qualified_class_name}KeycloakConfigResolver'
       java_artifact :config_service, :servlet, :server, :keycloak, '#{qualified_class_name}KeycloakConfigServlet'
       java_artifact :js_service, :servlet, :server, :keycloak, '#{qualified_class_name}KeycloakJsServlet'
@@ -90,6 +107,12 @@ module Domgen
 
       def qualified_class_name
         "#{qualified_type_name}Client"
+      end
+
+      attr_writer :custom_filter
+
+      def custom_filter?
+        @custom_filter.nil? ? false : !!@custom_filter
       end
 
       attr_writer :protected_url_patterns
@@ -207,7 +230,7 @@ module Domgen
       attr_writer :direct_access_grants
 
       def direct_access_grants?
-        @direct_access_grants.nil? ? true : !!@direct_access_grants
+        @direct_access_grants.nil? ? false : !!@direct_access_grants
       end
 
       attr_writer :public_client
@@ -357,6 +380,21 @@ module Domgen
                 })
       end
 
+      def add_groups_claim
+        c = claim('groups',
+                  :config =>
+                    {
+                      'id.token.claim' => 'false',
+                      'access.token.claim' => 'true',
+                      'claim.name' => 'groups'
+                    })
+
+        c.protocol_mapper = 'oidc-group-membership-mapper'
+        c.java_type = 'java.util.ArrayList<String>'
+        c.js_type = 'com.google.gwt.core.client.JsArray'
+        c
+      end
+
       private
 
       def claim_map
@@ -370,9 +408,16 @@ module Domgen
       include Domgen::Java::BaseJavaGenerator
       include Domgen::Java::JavaClientServerApplication
 
+      java_artifact :services_module, :ioc, :client, :keycloak, '#{repository.name}KeycloakServicesModule'
+      java_artifact :gwt_token_service, :service, :client, :keycloak, '#{repository.name}KeycloakTokenService'
+      java_artifact :gwt_token_service_impl, :service, :client, :keycloak, '#{gwt_token_service_name}Impl', :sub_package => 'internal'
       java_artifact :client_definitions, nil, :shared, :keycloak, '#{repository.name}KeycloakClients'
       java_artifact :test_module, :test, :server, :keycloak, '#{repository.name}KeycloakServicesModule', :sub_package => 'util'
       java_artifact :test_auth_service_implementation, :test, :server, :keycloak, 'Test#{repository.keycloak.auth_service_implementation_name}', :sub_package => 'util'
+
+      def client_ioc_package
+        repository.gwt.client_ioc_package
+      end
 
       def auth_service_implementation_name
         self.repository.service_by_name(self.auth_service_name).ejb.service_implementation_name
@@ -411,7 +456,19 @@ module Domgen
         @base_keycloak_client_url || '.keycloak'
       end
 
+      def has_local_auth_service?
+        repository.application.code_deployable?
+      end
+
+      # Does this application generate any tokens as part of it's operation?
+      # or does it rely on other applications to generate tokens and then
+      # will accept their tokens.
+      def generates_tokens?
+        has_local_auth_service? && self.clients.any?{|c| !c.bearer_only?}
+      end
+
       def default_client
+        Domgen.error('default_client called when local auth service is not enabled.') unless has_local_auth_service?
         key = Reality::Naming.underscore(repository.name.to_s)
         client(key) unless client_by_key?(key)
         client_by_key(key)
@@ -449,23 +506,34 @@ module Domgen
           repository.ee.cdi_scan_excludes << 'org.apache.commons.logging.**'
           repository.ee.cdi_scan_excludes << 'org.apache.http.**'
         end
-        if repository.ejb?
+        if repository.ejb? && has_local_auth_service?
           self.repository.service(self.auth_service_name) unless self.repository.service_by_name?(self.auth_service_name)
           self.repository.service_by_name(self.auth_service_name).tap do |s|
             s.ejb.bind_in_tests = false
+            s.ejb.generate_base_test = false
             s.disable_facets_not_in(:ejb)
-            s.method(:FindAccount) do |m|
-              m.returns('org.keycloak.adapters.OidcKeycloakAccount', :nullable => true)
-            end
-            s.method(:GetAccount) do |m|
-              m.returns('org.keycloak.adapters.OidcKeycloakAccount')
-            end
             self.default_client.claims.each do |claim|
               s.method("Get#{claim.java_accessor_key}") do |m|
-                m.returns(:text)
+                m.returns(claim.java_type)
               end
             end
           end
+        end
+      end
+
+      def pre_verify
+        if repository.gwt? && self.generates_tokens?
+          repository.gwt.add_gin_module(self.services_module_name, self.qualified_services_module_name)
+        end
+        if repository.ejb? && self.has_local_auth_service?
+          repository.ejb.add_flushable_test_module(self.test_module_name, self.qualified_test_module_name)
+          repository.ejb.add_test_class_content(<<-JAVA)
+
+  public void setupAccount( #{self.default_client.claims.collect {|claim| "@javax.annotation.Nonnull final #{claim.java_type} #{Reality::Naming.camelize(claim.java_accessor_key)}"}.join(', ') } )
+  {
+    toObject( #{self.qualified_test_auth_service_implementation_name }.class, s( #{repository.service_by_name(self.auth_service_name).ejb.qualified_service_name }.class ) ).setupAccount( #{self.default_client.claims.collect {|claim| Reality::Naming.camelize(claim.java_accessor_key)}.join(', ') } );
+  }
+          JAVA
         end
       end
 
@@ -474,7 +542,7 @@ module Domgen
       def client_map
         unless @clients
           @clients = {}
-          default_client
+          default_client if has_local_auth_service?
         end
         @clients
       end

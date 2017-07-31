@@ -45,6 +45,9 @@ public abstract class <%= repository.ee.abstract_app_server_name %>
     glassfish.createCustomResource( "<%= unit.related_database_jndi(key) %>", <%= unit.qualified_persistence_unit_test_util_name %>.get<%= Reality::Naming.pascal_case(key) %>DatabaseName() );
 <% end -%>
 <% end -%>
+<% if repository.iris_audit?  -%>
+    glassfish.create<%= repository.mssql? ? 'SqlServer' : 'Postgres' -%>JdbcResource( "<%= Reality::Naming.underscore(repository.name) %>/jdbc/Audit", glassfish.toGlassFishPropertiesString( org.realityforge.guiceyloops.server.DatabaseUtil.getGlassFishDataSourceProperties( "audit" ) ) );
+<% end -%>
     // Database Configuration Ende
 
 <% end -%>
@@ -70,6 +73,31 @@ public abstract class <%= repository.ee.abstract_app_server_name %>
     // TODO: Consider sending mail to greenmail
     glassfish.createJavamailResource( "<%= repository.mail.resource_name %>", "mail.example.com", "bob", "bob@example.com" );
     // Mail Configuration Ende
+
+<% end -%>
+<% if repository.imit? -%>
+    // Replication configuration
+    glassfish.createManagedScheduledExecutorService( "<%= repository.imit.executor_service_jndi %>" );
+    glassfish.createContextService( "<%= repository.imit.context_service_jndi %>" );
+
+<% repository.imit.remote_datasources.each do |rd|
+      prefix = "#{Reality::Naming.underscore(repository.name)}/replicant/client/#{Reality::Naming.underscore(rd.name)}"
+-%>
+    // Remote Replication Datasource <%= rd.name %>
+    glassfish.createCustomResource( "<%= prefix %>/url", "http://example.com/<%= Reality::Naming.underscore(rd.name) %>" );
+    glassfish.createCustomResource( "<%= prefix %>/repositoryDebugOutputEnabled", false );
+    glassfish.createCustomResource( "<%= prefix %>/subscriptionsDebugOutputEnabled", false );
+    glassfish.createCustomResource( "<%= prefix %>/shouldValidateRepositoryOnLoad", true );
+    glassfish.createCustomResource( "<%= prefix %>/requestDebugOutputEnabled", false );
+<% if repository.keycloak? -%>
+    glassfish.createCustomResource( "<%= prefix %>/keycloak/server_url", "http://example.com/" );
+    glassfish.createCustomResource( "<%= prefix %>/keycloak/client", "keycloak_client" );
+    glassfish.createCustomResource( "<%= prefix %>/keycloak/realm", "keycloak_realm" );
+    glassfish.createCustomResource( "<%= prefix %>/keycloak/username", "keycloak_svc_acct" );
+    glassfish.createCustomResource( "<%= prefix %>/keycloak/password", "keycloak_password" );
+<% end -%>
+
+<% end -%>
 
 <% end -%>
 <% if repository.keycloak? -%>

@@ -12,7 +12,7 @@
   "vendor/tools/domgen": {
     "url": "https://github.com/realityforge/domgen.git",
     "branch": "master",
-    "revision": "edee0a5eec2a462b07088e6f523ae42b3fcccee5"
+    "revision": "cfce79179f6a9402a07d1b878102e05cb144a47b"
   },
   "vendor/tools/redfish": {
     "url": "https://github.com/realityforge/redfish.git",
