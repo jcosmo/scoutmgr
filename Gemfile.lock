@@ -2,8 +2,8 @@ PATH
   remote: vendor/tools/buildr_plus
   specs:
     buildr_plus (1.0.0)
-      reality-core (>= 1.6.0)
-      reality-naming (>= 1.8.0)
+      reality-core (>= 1.8.0)
+      reality-naming (>= 1.9.0)
 
 PATH
   remote: vendor/tools/dbt
@@ -40,7 +40,7 @@ GEM
       main (>= 4.7.3)
       open4 (>= 1.0.1)
     builder (3.2.2)
-    buildr (1.5.2)
+    buildr (1.5.3)
       atoulme-Antwrap (= 0.7.5)
       builder (= 3.2.2)
       bundler
@@ -100,7 +100,7 @@ PLATFORMS
 
 DEPENDENCIES
   braid (= 1.0.18)
-  buildr (= 1.5.2)
+  buildr (= 1.5.3)
   buildr_plus (= 1.0.0)!
   dbt (= 0.10.0.dev)!
   domgen (= 0.19.0.dev)!
@@ -113,4 +113,4 @@ DEPENDENCIES
   rspec-mocks (= 2.14.3)
 
 BUNDLED WITH
-   1.15.1
+   1.15.3
