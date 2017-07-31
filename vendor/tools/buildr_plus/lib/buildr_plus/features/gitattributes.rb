@@ -24,14 +24,16 @@ module BuildrPlus::Gitattributes
     attr_accessor :text
     attr_accessor :binary
     attr_accessor :crlf
+    attr_accessor :eofnl
     attr_accessor :flags
 
     def to_s
       text = self.text.nil? ? '' : " #{!!self.text ? '' : '-'}text"
       crlf = self.crlf.nil? ? '' : " #{!!self.crlf ? '' : '-'}crlf"
       binary = self.binary.nil? ? '' : " #{!!self.binary ? '' : '-'}binary"
+      eofnl = self.eofnl.nil? ? '' : " #{!!self.eofnl ? '' : '-'}eofnl"
 
-      "#{pattern}#{text}#{crlf}#{binary}#{self.flags}\n"
+      "#{pattern}#{text}#{crlf}#{binary}#{eofnl}#{self.flags}\n"
     end
 
     def <=>(other)
@@ -60,6 +62,10 @@ BuildrPlus::FeatureManager.feature(:gitattributes) do |f|
       rule(pattern, {:binary => true}.merge(options))
     end
 
+    def additional_rules
+      @additional_rules ||= []
+    end
+
     def process_gitattributes_file(apply_fix)
       base_directory = File.dirname(Buildr.application.buildfile.to_s)
       filename = "#{base_directory}/.gitattributes"
@@ -68,17 +74,7 @@ BuildrPlus::FeatureManager.feature(:gitattributes) do |f|
 
         original_content = content.dup
 
-        additional_invalid_patterns = []
-        gitattributes = build_gitattributes(additional_invalid_patterns)
-        (invalid_patterns + additional_invalid_patterns).each do |v|
-          content = content.gsub(/^#{Regexp.escape(v)}.*$/, '')
-        end
-
-        # Ignores known to be required
-        content += "\n" + gitattributes
-
-        # Normalize new lines, order libs and strip duplicates
-        content = content.split("\n").collect { |f| f.strip }.select { |f| f.size > 0 }.sort.uniq.join("\n") + "\n"
+        content = build_gitattributes
 
         if content != original_content
           BuildrPlus::Gitattributes.gitattributes_needs_update = true
@@ -100,14 +96,7 @@ BuildrPlus::FeatureManager.feature(:gitattributes) do |f|
       map[rule.pattern] = rule
     end
 
-    def invalid_patterns
-      [
-        '#',
-        '*.axl' # Mapping projects
-      ]
-    end
-
-    def build_gitattributes(invalid_patterns)
+    def build_gitattributes
       gitattributes = {}
 
       # Default
@@ -158,74 +147,46 @@ BuildrPlus::FeatureManager.feature(:gitattributes) do |f|
       if BuildrPlus::FeatureManager.activated?(:jenkins)
         add(gitattributes, text_rule('Jenkinsfile'))
         add(gitattributes, text_rule('*.groovy'))
-      else
-        invalid_patterns << 'Jenkinsfile'
-        invalid_patterns << '*.groovy'
       end
 
       if BuildrPlus::FeatureManager.activated?(:rptman)
-        add(gitattributes, rule('*.rdl', :text => false, :crlf => true))
-      else
-        invalid_patterns << '*.rdl'
+        add(gitattributes, rule('*.rdl', :text => true, :crlf => true, :eofnl => false))
       end
-
-      invalid_patterns << '*.rhtml'
-      invalid_patterns << '*.haml'
 
       if BuildrPlus::FeatureManager.activated?(:domgen)
         add(gitattributes, text_rule('*.erb'))
-      else
-        invalid_patterns << '*.erb'
       end
 
       if BuildrPlus::FeatureManager.activated?(:sass)
         add(gitattributes, text_rule('*.sass'))
         add(gitattributes, text_rule('*.scss'))
-      else
-        invalid_patterns << '*.sass'
-        invalid_patterns << '*.scss'
       end
 
       if BuildrPlus::FeatureManager.activated?(:less)
         add(gitattributes, text_rule('*.less'))
-      else
-        invalid_patterns << '*.less'
       end
 
-      if BuildrPlus::FeatureManager.activated?(:less)
+      if BuildrPlus::FeatureManager.activated?(:db)
         add(gitattributes, text_rule('*.sql'))
-      else
-        invalid_patterns << '*.sql'
       end
 
       if BuildrPlus::FeatureManager.activated?(:java)
         add(gitattributes, text_rule('*.java'))
         add(gitattributes, text_rule('*.jsp'))
-      else
-        invalid_patterns << '*.java'
-        invalid_patterns << '*.jsp'
       end
 
       if BuildrPlus::FeatureManager.activated?(:java)
         add(gitattributes, text_rule('*.properties'))
         add(gitattributes, rule('*.jar', :binary => true))
-      else
-        invalid_patterns << '*.properties'
-        invalid_patterns << '*.jar'
       end
 
       if BuildrPlus::FeatureManager.activated?(:docker)
         add(gitattributes, text_rule('Dockerfile'))
-      else
-        invalid_patterns << 'Dockerfile'
       end
 
       if BuildrPlus::FeatureManager.activated?(:oss)
         add(gitattributes, text_rule('LICENSE'))
         add(gitattributes, text_rule('CHANGELOG'))
-      else
-        invalid_patterns << 'CHANGELOG'
-        invalid_patterns << 'LICENSE'
       end
 
       # Shell scripts
@@ -238,7 +199,11 @@ BuildrPlus::FeatureManager.feature(:gitattributes) do |f|
       add(gitattributes, binary_rule('*.dll'))
       add(gitattributes, binary_rule('*.so'))
 
-      gitattributes.values.collect { |r| r.to_s }.sort.uniq.join
+      additional_rules.each do |r|
+        add(gitattributes, r)
+      end
+
+      "# DO NOT EDIT: File is auto-generated\n" + gitattributes.values.collect { |r| r.to_s }.sort.uniq.join
     end
   end
 

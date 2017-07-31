@@ -29,7 +29,7 @@ BuildrPlus::FeatureManager.feature(:gems) do |f|
 
       def to_s
         version_spec = version.nil? ? '' : ", '= #{version}'"
-        options_spec = options.nil? ? '' : ", #{options.collect { |k, v| "#{k.inspect} => #{v.inspect}" }.join(', ')}"
+        options_spec = options.nil? ? '' : ", #{options.collect { |k, v| "#{k.inspect} => #{v.inspect.gsub('"',"'")}" }.join(', ')}"
         "gem '#{name}'#{version_spec}#{options_spec}"
       end
     end
@@ -62,13 +62,8 @@ BuildrPlus::FeatureManager.feature(:gems) do |f|
 
       gems = {}
 
-      gem(gems, 'buildr', '1.5.2')
-      gem(gems, 'braid', '1.0.18')
-      # Rspec required for buildr
-      gem(gems, 'rspec-expectations', '2.14.3')
-      gem(gems, 'rspec-mocks', '2.14.3')
-      gem(gems, 'rspec-core', '2.14.5')
-      gem(gems, 'rspec', '2.14.1')
+      gem(gems, 'buildr', '1.5.3')
+      gem(gems, 'braid', '1.0.21')
 
       gem(gems, 'buildr_plus', '1.0.0', :path => 'vendor/tools/buildr_plus')
 
@@ -93,6 +88,10 @@ BuildrPlus::FeatureManager.feature(:gems) do |f|
       end
       if BuildrPlus::FeatureManager.activated?(:resgen)
         gem(gems, 'resgen', '1.0.0', :path => 'vendor/tools/resgen')
+        gem(gems, 'nokogiri', '1.7.2')
+      end
+      if BuildrPlus::FeatureManager.activated?(:sass)
+        gem(gems, 'sass', '3.4.24')
       end
 
       gems.merge!(additional_gems)

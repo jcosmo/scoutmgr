@@ -55,6 +55,10 @@ BuildrPlus::FeatureManager.feature(:config) do |f|
         default_value
     end
 
+    def env(key, default_value = nil)
+      environment_var(key, default_value) || BuildrPlus.error("Unable to locate expected environment variable #{key}")
+    end
+
     def environment_var(key, default_value = nil)
       scope = self.app_scope
       code = self.env_code
@@ -72,8 +76,12 @@ BuildrPlus::FeatureManager.feature(:config) do |f|
 
     def app_scope
       return ENV['APP_SCOPE'] if ENV['APP_SCOPE']
-      return "#{ENV['JOB_NAME']}_#{ENV['BUILD_NUMBER']}".gsub(/[\/-]/, '_') if ENV['JOB_NAME']
+      return ENV['PRODUCT_VERSION'] if running_in_jenkins?
       nil
+    end
+
+    def running_in_jenkins?
+      !!ENV['JOB_NAME']
     end
 
     def env_code(environment = self.environment)
@@ -95,7 +103,11 @@ BuildrPlus::FeatureManager.feature(:config) do |f|
     end
 
     def db_scope
-      "#{user || 'NOBODY'}#{self.app_scope.nil? ? '' : "_#{self.app_scope}"}_"
+      if running_in_jenkins?
+        "#{self.app_scope}_"
+      else
+        "#{user || 'NOBODY'}#{self.app_scope.nil? ? '' : "_#{self.app_scope}"}_"
+      end
     end
 
     def load_application_config!
@@ -214,7 +226,39 @@ BuildrPlus::FeatureManager.feature(:config) do |f|
         BuildrPlus::Keycloak.external_client_types.keys.each do |client_type|
           populate_keycloak_client_settings(environment, client_type, true)
         end
+        BuildrPlus::RemoteReferences.remote_datasources.each do |remote_datasource|
+          populate_keycloak_remote_datasource_settings(environment, remote_datasource)
+        end
       end
+      if BuildrPlus::FeatureManager.activated?(:remote_references)
+        BuildrPlus::RemoteReferences.remote_datasources.each do |remote_datasource|
+          key = "#{Reality::Naming.uppercase_constantize(root_project.name)}_REPLICANT_CLIENT_#{Reality::Naming.uppercase_constantize(remote_datasource.name)}_URL"
+          environment.setting(key, "http://127.0.0.1:8080/#{Reality::Naming.underscore(remote_datasource.name)}") unless environment.setting?(key)
+        end
+      end
+      if BuildrPlus::FeatureManager.activated?(:remote_references)
+        BuildrPlus::RemoteReferences.remote_datasources.each do |remote_datasource|
+          key = "#{Reality::Naming.uppercase_constantize(root_project.name)}_REPLICANT_CLIENT_#{Reality::Naming.uppercase_constantize(remote_datasource.name)}_URL"
+          environment.setting(key, "http://127.0.0.1:8080/#{Reality::Naming.underscore(remote_datasource.name)}") unless environment.setting?(key)
+        end
+      end
+      if BuildrPlus::FeatureManager.activated?(:gwt)
+        prefix = "#{Reality::Naming.uppercase_constantize(root_project.name)}_CODE_SERVER_"
+        environment.setting("#{prefix}HOST", 'localhost')
+        environment.setting("#{prefix}PORT", '8889')
+      end
+    end
+
+    def populate_keycloak_remote_datasource_settings(environment, remote_datasource)
+      prefix = "#{Reality::Naming.uppercase_constantize(root_project.name)}_REPLICANT_CLIENT_#{Reality::Naming.uppercase_constantize(remote_datasource.name)}_KEYCLOAK_"
+      environment.setting("#{prefix}SERVER_URL", environment.keycloak.base_url) unless environment.setting?("#{prefix}SERVER_URL")
+      environment.setting("#{prefix}REALM", environment.keycloak.realm) unless environment.setting?("#{prefix}REALM")
+
+      # Assume that by default the remote data source uses same keycloak realm but uses this
+      # apps client as the remote app is often configured with a bearer only client
+      environment.setting("#{prefix}CLIENT", BuildrPlus::Keycloak.client_name_for(root_project.name, false)) unless environment.setting?("#{prefix}CLIENT")
+      environment.setting("#{prefix}USERNAME", environment.keycloak.service_username) unless environment.setting?("#{prefix}USERNAME")
+      environment.setting("#{prefix}PASSWORD", environment.keycloak.service_password) unless environment.setting?("#{prefix}PASSWORD")
     end
 
     def populate_keycloak_client_settings(environment, client_type, external)
@@ -271,31 +315,33 @@ BuildrPlus::FeatureManager.feature(:config) do |f|
             end
           end unless dbt_imports
 
+          is_sql_server = database.is_a?(BuildrPlus::Config::MssqlDatabaseConfig)
           short_name = Reality::Naming.uppercase_constantize(database.key.to_s == 'default' ? buildr_project.root_project.name : database.key.to_s)
           database.database = "#{BuildrPlus::Config.db_scope}#{short_name}_#{self.env_code(environment.key)}" unless database.database
           database.import_from = "PROD_CLONE_#{short_name}" unless database.import_from || !dbt_imports
-          database.host = environment_var('DB_SERVER_HOST') unless database.host
+          type_prefix = is_sql_server ? 'MS' : 'PG'
+          database.host = environment_var("#{type_prefix}_DB_SERVER_HOST") unless database.host
           unless database.port_set?
-            port = environment_var('DB_SERVER_PORT', database.port)
+            port = environment_var("#{type_prefix}_DB_SERVER_PORT", database.port)
             database.port = port.to_i if port
           end
-          database.admin_username = environment_var('DB_SERVER_USERNAME') unless database.admin_username
-          database.admin_password = environment_var('DB_SERVER_PASSWORD') unless database.admin_password
+          database.admin_username = environment_var("#{type_prefix}_DB_SERVER_USERNAME") unless database.admin_username
+          database.admin_password = environment_var("#{type_prefix}_DB_SERVER_PASSWORD") unless database.admin_password
 
-          if database.is_a?(BuildrPlus::Config::MssqlDatabaseConfig)
+          if is_sql_server
             database.restore_name = short_name unless database.restore_name
             database.backup_name = short_name unless database.backup_name
-            database.backup_location = environment_var('DB_BACKUPS_LOCATION') unless database.backup_location
-            database.delete_backup_history = (environment_var('DB_SERVER_DELETE_BACKUP_HISTORY', 'true') == 'true') unless database.delete_backup_history_set?
+            database.backup_location = environment_var("#{type_prefix}_DB_BACKUPS_LOCATION") unless database.backup_location
+            database.delete_backup_history = (environment_var("#{type_prefix}_DB_SERVER_DELETE_BACKUP_HISTORY", 'true') == 'true') unless database.delete_backup_history_set?
             unless database.instance
-              instance = environment_var('DB_SERVER_INSTANCE', '')
+              instance = environment_var("#{type_prefix}_DB_SERVER_INSTANCE", '')
               database.instance = instance unless instance == ''
             end
           end
 
-          raise "Configuration for database key #{database.key} is missing host attribute and can not be derived from environment variable DB_SERVER_HOST" unless database.host
-          raise "Configuration for database key #{database.key} is missing admin_username attribute and can not be derived from environment variable DB_SERVER_USERNAME" unless database.admin_username
-          raise "Configuration for database key #{database.key} is missing admin_password attribute and can not be derived from environment variable DB_SERVER_PASSWORD" unless database.admin_password
+          raise "Configuration for database key #{database.key} is missing host attribute and can not be derived from environment variable #{type_prefix}_DB_SERVER_HOST" unless database.host
+          raise "Configuration for database key #{database.key} is missing admin_username attribute and can not be derived from environment variable #{type_prefix}_DB_SERVER_USERNAME" unless database.admin_username
+          raise "Configuration for database key #{database.key} is missing admin_password attribute and can not be derived from environment variable #{type_prefix}_DB_SERVER_PASSWORD" unless database.admin_password
           raise "Configuration for database key #{database.key} specifies import_from but dbt defines no import for database" if database.import_from && !dbt_imports
         end
       end
@@ -360,12 +406,16 @@ BuildrPlus::FeatureManager.feature(:config) do |f|
         realm = BuildrPlus::Config.environment_var('KEYCLOAK_REALM')
         username = BuildrPlus::Config.environment_var('KEYCLOAK_ADMIN_USERNAME')
         password = BuildrPlus::Config.environment_var('KEYCLOAK_ADMIN_PASSWORD')
+        service_username = BuildrPlus::Config.environment_var('KEYCLOAK_SERVICE_USERNAME')
+        service_password = BuildrPlus::Config.environment_var('KEYCLOAK_SERVICE_PASSWORD')
 
         environment.keycloak.base_url = base_url if environment.keycloak.base_url.nil?
         environment.keycloak.public_key = public_key if environment.keycloak.public_key.nil?
         environment.keycloak.realm = realm if environment.keycloak.realm.nil?
         environment.keycloak.admin_username = username if environment.keycloak.admin_username.nil?
         environment.keycloak.admin_password = password if environment.keycloak.admin_password.nil?
+        environment.keycloak.service_username = service_username if environment.keycloak.service_username.nil?
+        environment.keycloak.service_password = service_password if environment.keycloak.service_password.nil?
 
         raise 'Configuration for keycloak is missing base_url attribute and can not be derived from environment variable KEYCLOAK_AUTH_SERVER_URL' unless environment.keycloak.base_url
         raise 'Configuration for keycloak is missing public_key attribute and can not be derived from environment variable KEYCLOAK_REALM_PUBLIC_KEY' unless environment.keycloak.public_key

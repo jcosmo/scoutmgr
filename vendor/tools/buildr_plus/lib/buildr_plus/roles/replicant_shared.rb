@@ -21,7 +21,7 @@ BuildrPlus::Roles.role(:replicant_shared, :requires => [:replicant]) do
     Domgen::Build.define_generate_task(generators, :buildr_project => project)
   end
 
-  compile.with BuildrPlus::Deps.gwt_deps
+  compile.with BuildrPlus::Deps.replicant_shared_deps
 
   BuildrPlus::Roles.merge_projects_with_role(project.compile, :shared)
 
@@ -32,14 +32,6 @@ BuildrPlus::Roles.role(:replicant_shared, :requires => [:replicant]) do
 
   if BuildrPlus::FeatureManager.activated?(:gwt)
     BuildrPlus::Gwt.add_source_to_jar(project)
-
-    p = project.root_project
-
     BuildrPlus::Gwt.define_gwt_idea_facet(project)
   end
-
-  check package(:jar), 'should contain generated source files' do
-    it.should contain("#{p.group_as_path}/shared/net/#{p.name_as_class}ReplicationGraph.class")
-    it.should contain("#{p.group_as_path}/shared/net/#{p.name_as_class}ReplicationGraph.java")
-  end if BuildrPlus::Domgen.enforce_package_name?
 end

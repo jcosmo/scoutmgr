@@ -14,10 +14,24 @@
 
 BuildrPlus::FeatureManager.feature(:redfish => [:config]) do |f|
   f.enhance(:Config) do
+    def customize_domain(&block)
+      (@domain_customizations ||= []) << block
+    end
+
+    def domain_customizations
+      (@domain_customizations ||= []).dup
+    end
+
     attr_writer :local_domain
 
     def local_domain?
       @local_domain.nil? ? true : @local_domain
+    end
+
+    attr_writer :local_domain_update_only
+
+    def local_domain_update_only?
+      @local_domain_update_only.nil? ? false : @local_domain_update_only
     end
 
     def customize_local_domain(&block)
@@ -60,13 +74,12 @@ BuildrPlus::FeatureManager.feature(:redfish => [:config]) do |f|
       if @features.nil?
         @features = []
         @features << :jms if BuildrPlus::FeatureManager.activated?(:jms)
-        @features << :jdbc if BuildrPlus::FeatureManager.activated?(:db)
+        @features << :jdbc if BuildrPlus::FeatureManager.activated?(:dbt)
       end
       @features
     end
 
     def configure_system_settings(domain, environment)
-      domain.checkpoint_data!
       properties = build_property_set(domain, environment)
       domain.environment_vars.each_pair do |key, default_value|
         value = properties[key] || default_value
@@ -82,6 +95,7 @@ BuildrPlus::FeatureManager.feature(:redfish => [:config]) do |f|
     end
 
     def configure_domain_for_environment(domain, environment)
+      domain.checkpoint_data!
       configure_system_settings(domain, environment)
 
       unless domain.docker_dns
@@ -102,6 +116,14 @@ BuildrPlus::FeatureManager.feature(:redfish => [:config]) do |f|
         properties['OPENMQ_ADMIN_PASSWORD'] = environment.broker.admin_password.to_s
         properties["#{constant_prefix}_BROKER_USERNAME"] = environment.broker.admin_username.to_s
         properties["#{constant_prefix}_BROKER_PASSWORD"] = environment.broker.admin_password.to_s
+        domain.environment_vars.keys.each do |key|
+          if (key =~ /_BROKER_USERNAME$/) && !properties.include?(key)
+            properties[key] = environment.broker.admin_username.to_s
+          elsif (key =~ /_BROKER_PASSWORD$/) && !properties.include?(key)
+            properties[key] = environment.broker.admin_password.to_s
+          end
+        end
+
       end
 
       if BuildrPlus::FeatureManager.activated?(:mail)
@@ -125,6 +147,14 @@ BuildrPlus::FeatureManager.feature(:redfish => [:config]) do |f|
         end
       end
 
+      domain.environment_vars.keys.each do |key|
+        if (key =~ /_PUBLIC_HOST_URL$/ || key =~ /_INTERNAL_HOST_URL$/) && !properties.include?(key)
+          properties[key] = 'http://127.0.0.1:8080'
+        elsif (key =~ /^(.*)_PUBLIC_URL$/ || key =~ /^(.*)_INTERNAL_URL$/) && !properties.include?(key)
+          properties[key] = "http://127.0.0.1:8080/#{Reality::Naming.underscore($1)}"
+        end
+      end
+
       properties.merge!(environment.settings)
 
       properties
@@ -135,14 +165,14 @@ BuildrPlus::FeatureManager.feature(:redfish => [:config]) do |f|
       return name if ENV['CONFIG_ALLOW_HOSTNAME'] == 'true'
 
       # First collect all the entries from local resolve.conf
-      addresses = Resolv.getaddresses(name).select { |a| valid_v4?(a) }.collect { |a| a == '127.0.0.1' ? host_ip : a }
+      addresses = Resolv.getaddresses(name).select {|a| valid_v4?(a)}.collect {|a| a == '127.0.0.1' ? host_ip : a}
 
       # Then use configured DNS server if any
 
       if ENV['DOCKER_DNS']
         addresses += Resolv::DNS.new(:nameserver => [ENV['DOCKER_DNS']]).
           getaddresses(name).
-          collect { |a| a.address.unpack('CCCC').join('.') }
+          collect {|a| a.address.unpack('CCCC').join('.')}
       end
 
       return addresses[0] unless addresses.empty?
@@ -162,7 +192,7 @@ BuildrPlus::FeatureManager.feature(:redfish => [:config]) do |f|
 
       # Old versions of jruby do not support this method on Socket
       if Socket.respond_to?(:ip_address_list)
-        address_list = Socket.ip_address_list.select { |a| a.ipv4? && a.inspect_sockaddr != '127.0.0.1' }.collect { |a| a.inspect_sockaddr }
+        address_list = Socket.ip_address_list.select {|a| a.ipv4? && a.inspect_sockaddr != '127.0.0.1'}.collect {|a| a.inspect_sockaddr}
 
         return address_list[0] unless address_list.empty?
       end
@@ -172,7 +202,7 @@ BuildrPlus::FeatureManager.feature(:redfish => [:config]) do |f|
 
     def valid_v4?(addr)
       if /\A(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})\Z/ =~ addr
-        return $~.captures.all? { |i| i.to_i < 256 }
+        return $~.captures.all? {|i| i.to_i < 256}
       end
       return false
     end
@@ -186,42 +216,59 @@ BuildrPlus::FeatureManager.feature(:redfish => [:config]) do |f|
 
     before_define do |buildr_project|
       if buildr_project.ipr?
-        Redfish.domain(buildr_project.name) unless Redfish.domain_by_key?(buildr_project.name)
-        domain = Redfish.domain_by_key(buildr_project.name)
-        domain.complete = false
-        if BuildrPlus::FeatureManager.activated?(:db)
-          if BuildrPlus::Db.mssql?
-            library = ::Buildr.artifact(BuildrPlus::Libs.jtds[0])
-            RedfishPlus.add_library_from_path(domain, 'jtds', library.to_s, true)
-            buildr_project.task(":#{domain.task_prefix}:pre_build" => [library])
+        begin
+          # Setup application domain
+          Redfish.domain(buildr_project.name) unless Redfish.domain_by_key?(buildr_project.name)
+          domain = Redfish.domain_by_key(buildr_project.name)
+          domain.complete = false
+          domain.local = false
+          if BuildrPlus::FeatureManager.activated?(:domgen)
+            file = buildr_project._("generated/domgen/#{buildr_project.name}/main/etc/#{buildr_project.name_as_class}.redfish.fragment.json")
+            domain.pre_artifacts << file
+            buildr_project.task(":#{domain.task_prefix}:pre_build" => ["#{buildr_project.name}:domgen:#{buildr_project.name}"])
+            buildr_project.file(file => ["#{buildr_project.name}:domgen:#{buildr_project.name}"])
           end
-          if BuildrPlus::Db.pgsql?
-            library = ::Buildr.artifact(BuildrPlus::Libs.postgresql[0])
-            RedfishPlus.add_library_from_path(domain, 'postgresql', library.to_s, true)
-            buildr_project.task(":#{domain.task_prefix}:pre_build" => [library])
-            if BuildrPlus::FeatureManager.activated?(:geolatte)
-              library = ::Buildr.artifact(BuildrPlus::Libs.postgis[0])
-              RedfishPlus.add_library_from_path(domain, 'postgis', library.to_s, true)
-              buildr_project.task(":#{domain.task_prefix}:pre_build" => [library])
-            end
+          BuildrPlus::Redfish.domain_customizations.each do |customization|
+            customization.call(domain)
           end
-        end
-        if BuildrPlus::FeatureManager.activated?(:timerstatus)
-          domain.add_pre_artifacts(BuildrPlus::Libs.glassfish_timers_domain)
-          BuildrPlus::Redfish.define_database_config_prefixes(:timers, nil)
-        end
-        if BuildrPlus::FeatureManager.activated?(:domgen)
-          file = buildr_project._("generated/domgen/#{buildr_project.name}/main/etc/#{buildr_project.name_as_class}.redfish.fragment.json")
-          domain.pre_artifacts << file
-          buildr_project.task(":#{domain.task_prefix}:pre_build" => ["#{buildr_project.name}:domgen:#{buildr_project.name}"])
-          buildr_project.file(file => ["#{buildr_project.name}:domgen:#{buildr_project.name}"])
+          domain.checkpoint_data!
         end
 
         if BuildrPlus::Redfish.local_domain? && !Redfish.domain_by_key?('local')
           Redfish.domain('local', :extends => buildr_project.name) do |domain|
-            RedfishPlus.setup_for_local_development(domain, :features => BuildrPlus::Redfish.features)
+            RedfishPlus.setup_for_local_development(domain, :features => [:jms, :jdbc])
+            if BuildrPlus::FeatureManager.activated?(:timerstatus)
+              domain.add_pre_artifacts(BuildrPlus::Libs.glassfish_timers_domain)
+              BuildrPlus::Redfish.define_database_config_prefixes(:timers, nil)
+            end
+            if BuildrPlus::FeatureManager.activated?(:db)
+              if BuildrPlus::Db.mssql?
+                library = ::Buildr.artifact(BuildrPlus::Libs.jtds[0])
+                RedfishPlus.add_library_from_path(domain, 'jtds', library.to_s, true)
+                buildr_project.task(":#{domain.task_prefix}:pre_build" => [library])
+              end
+              if BuildrPlus::Db.pgsql?
+                library = ::Buildr.artifact(BuildrPlus::Libs.postgresql[0])
+                RedfishPlus.add_library_from_path(domain, 'postgresql', library.to_s, true)
+                buildr_project.task(":#{domain.task_prefix}:pre_build" => [library])
+                if BuildrPlus::FeatureManager.activated?(:geolatte)
+                  library = ::Buildr.artifact(BuildrPlus::Libs.postgis[0])
+                  RedfishPlus.add_library_from_path(domain, 'postgis', library.to_s, true)
+                  buildr_project.task(":#{domain.task_prefix}:pre_build" => [library])
+                end
+              end
+            end
+            if BuildrPlus::Redfish.local_domain_update_only?
+              domain.complete = false
+            end
             if BuildrPlus::FeatureManager.activated?(:mail)
               RedfishPlus.configure_local_mail_port(domain)
+            end
+            if BuildrPlus::FeatureManager.activated?(:keycloak)
+              RedfishPlus.custom_resource(domain, "#{buildr_project.name}/env/disable_session_service_protection", true, 'java.lang.Boolean')
+            end
+            if BuildrPlus::FeatureManager.activated?(:syncrecord)
+              RedfishPlus.custom_resource(domain, "#{buildr_project.name}/env/disable_sync_service_protection", true, 'java.lang.Boolean')
             end
             BuildrPlus::Redfish.local_domain_customizations.each do |customization|
               customization.call(domain)
@@ -275,7 +322,7 @@ BuildrPlus::FeatureManager.feature(:redfish => [:config]) do |f|
           end
         end
 
-        unless BuildrPlus::Util.subprojects(buildr_project).any? { |p| p == "#{buildr_project.name}:domains" }
+        unless BuildrPlus::Util.subprojects(buildr_project).any? {|p| p == "#{buildr_project.name}:domains"}
           buildr_project.instance_eval do
             desc 'Redfish Domain Definitions'
             define 'domains' do

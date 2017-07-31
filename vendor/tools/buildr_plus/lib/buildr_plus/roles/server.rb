@@ -40,8 +40,9 @@ BuildrPlus::Roles.role(:server) do
   package(:war).tap do |war|
     war.libs.clear
     war.libs << artifacts(Object.const_get(:PACKAGED_DEPS)) if Object.const_defined?(:PACKAGED_DEPS)
-    # Findbugs libs added otherwise CDI scanning slows down due to massive number of ClassNotFoundExceptions
+    # Findbugs+jetbrains libs added otherwise CDI scanning slows down due to massive number of ClassNotFoundExceptions
     war.libs << BuildrPlus::Deps.findbugs_provided
+    war.libs << BuildrPlus::Deps.jetbrains_annotations
     war.libs << BuildrPlus::Deps.model_compile_deps
     war.libs << BuildrPlus::Deps.server_compile_deps
     BuildrPlus::Roles.buildr_projects_with_role(:shared).each do |dep|
@@ -58,23 +59,6 @@ BuildrPlus::Roles.role(:server) do
     end
     war.include assets.to_s, :as => '.' if BuildrPlus::FeatureManager.activated?(:gwt) || BuildrPlus::FeatureManager.activated?(:less) || BuildrPlus::FeatureManager.activated?(:sass)
   end
-
-  check package(:war), 'should contain generated gwt artifacts' do
-    it.should contain("#{project.root_project.name}/#{project.root_project.name}.nocache.js")
-  end if BuildrPlus::FeatureManager.activated?(:gwt) && BuildrPlus::FeatureManager.activated?(:role_user_experience)
-  check package(:war), 'should contain web.xml' do
-    it.should contain('WEB-INF/web.xml')
-  end
-  check package(:war), 'should contain orm.xml and persistence.xml' do
-    it.should contain('WEB-INF/classes/META-INF/orm.xml')
-    it.should contain('WEB-INF/classes/META-INF/persistence.xml')
-  end if BuildrPlus::FeatureManager.activated?(:db)
-  check package(:war), 'should not contain less files' do
-    it.should_not contain('**/*.less')
-  end if BuildrPlus::FeatureManager.activated?(:less)
-  check package(:war), 'should not contain sass files' do
-    it.should_not contain('**/*.sass')
-  end if BuildrPlus::FeatureManager.activated?(:sass)
 
   project.iml.add_ejb_facet if BuildrPlus::FeatureManager.activated?(:ejb)
   webroots = {}
@@ -93,8 +77,6 @@ BuildrPlus::Roles.role(:server) do
 
   project.assets.paths.each do |path|
     next if path.to_s =~ /generated\/gwt\// && BuildrPlus::FeatureManager.activated?(:gwt)
-    next if path.to_s =~ /generated\/less\// && BuildrPlus::FeatureManager.activated?(:less)
-    next if path.to_s =~ /generated\/sass\// && BuildrPlus::FeatureManager.activated?(:sass)
     webroots[path.to_s] = '/'
   end
 

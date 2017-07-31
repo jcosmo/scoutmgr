@@ -128,8 +128,8 @@ BuildrPlus::FeatureManager.feature(:jenkins => [:kinjen]) do |f|
     end
 
     def publish_content(oss)
-      content = "#{prepare_content(false)}\n        kinjen.publish_stage( this#{oss ? ", 'OSS_'" : ''} )"
-      task_content(content, options)
+      content = "#{prepare_content(:exclude_artifacts => true)}\n        kinjen.publish_stage( this#{oss ? ", 'OSS_'" : ''} )\n"
+      task_content(content, :always_run => true)
     end
 
     def buildr_task_content(label, task, options = {})
@@ -139,10 +139,11 @@ BuildrPlus::FeatureManager.feature(:jenkins => [:kinjen]) do |f|
 
       artifacts = options[:artifacts].nil? ? false : !!options[:artifacts]
       docker = options[:docker].nil? ? false : !!options[:docker]
+      suffix = options[:additional_steps].nil? ? '' : "\n          #{options[:additional_steps]}"
       content = <<CONTENT
-#{prepare_content(artifacts)}
+#{prepare_content(:exclude_artifacts => !artifacts)}
         stage('#{label}') {
-          sh #{quote}#{pre_script}#{separator}#{docker ? docker_setup : ''}#{buildr_command(task, options)}#{quote}
+          sh #{quote}#{pre_script}#{separator}#{docker ? docker_setup : ''}#{buildr_command(task, options)}#{quote}#{suffix}
         }
 CONTENT
 
@@ -155,7 +156,8 @@ CONTENT
 
     def task_content(content, options = {})
       email = options[:email].nil? ? true : !!options[:email]
-      hash_bang(inside_node(inside_docker_image(config_git + inside_try_catch(content, false, email, false))))
+      always_run = options[:always_run].nil? ? false : !!options[:always_run]
+      hash_bang(inside_node(inside_docker_image(config_git + inside_try_catch(content, false, email, false, always_run))))
     end
 
     def automerge_prelude
@@ -179,14 +181,19 @@ CONTENT
 CONTENT
     end
 
-    def prepare_content(include_artifacts)
-      "        kinjen.prepare_stage( this#{include_artifacts ? '' : ', [buildr: false]'} )\n"
+    def prepare_content(options = {})
+      params = {}
+      params['buildr'] = 'false' if options[:exclude_artifacts]
+      params['node'] = 'true' if options[:include_node]
+      params['yarn'] = 'false' if options[:include_node] && options[:exclude_yarn]
+      "        kinjen.prepare_stage( this#{params.empty? ? '' : ", [#{params.collect{|k,v| "#{k}: #{v}"}.join(', ')}]"} )\n"
     end
 
     def main_content(root_project)
       content = automerge_prepare
 
-      content += prepare_content(true)
+      content += prepare_content(:include_node => BuildrPlus::FeatureManager.activated?(:node),
+                                 :exclude_yarn => !BuildrPlus::Node.root_package_json_present?)
 
       content += commit_stage(root_project)
 
@@ -215,22 +222,15 @@ CONTENT
         content += stage_content
       end
 
-      content = automerge_prelude + inside_try_catch(content, true, true, true)
+      content = automerge_prelude + inside_try_catch(content, true, true, true, false)
 
-      content += <<CONTENT
-      if ( currentBuild.result == 'SUCCESS' )
-      {
-CONTENT
-      content += <<CONTENT
-        if ( '' != env.AUTO_MERGE_TARGET_BRANCH )
-        {
-          kinjen.complete_auto_merge( this, env.AUTO_MERGE_TARGET_BRANCH )
-        }
-CONTENT
       if BuildrPlus::Jenkins.auto_deploy? || BuildrPlus::Jenkins.auto_zim?
         content += <<-CONTENT
-        if ( env.BRANCH_NAME == 'master' )
-        {
+      kinjen.complete_build( this ) {
+        CONTENT
+      else
+        content += <<-CONTENT
+      kinjen.complete_build( this )
         CONTENT
       end
       if BuildrPlus::Jenkins.auto_deploy?
@@ -242,18 +242,15 @@ CONTENT
       end
       if BuildrPlus::Jenkins.auto_deploy? || BuildrPlus::Jenkins.auto_zim?
         content += <<-CONTENT
-        }
+      }
         CONTENT
       end
-      content += <<CONTENT
-      }
-CONTENT
       inside_docker_image(config_git + content)
     end
 
     def deploy_stage(root_project)
       <<-DEPLOY_STEP
-          kinjen.deploy_stage( this, '#{root_project.name}' )
+        kinjen.deploy_stage( this, '#{root_project.name}', '#{deployment_environment}' )
       DEPLOY_STEP
     end
 
@@ -278,8 +275,10 @@ CONTENT
 
       dependencies = dependencies.sort.uniq.join(',')
 
+      name = root_project.group.to_s.gsub(/\.pg$/, '')
+
       <<-ZIM_STEP
-          kinjen.zim_stage( this, '#{dependencies}' )
+        kinjen.zim_stage( this, '#{name}', '#{dependencies}' )
       ZIM_STEP
     end
 
@@ -336,10 +335,11 @@ timestamps {
 CONTENT
     end
 
-    def inside_try_catch(content, update_status, send_email, auto_merge)
+    def inside_try_catch(content, update_status, send_email, auto_merge, always_run)
       options = {}
       options[:notify_github] = false unless update_status
       options[:email] = false unless send_email
+      options[:always_run] = true if always_run
       options[:lock_name] = 'env.AUTO_MERGE_TARGET_BRANCH' if auto_merge
       option_string = options.empty? ? '' : ", [#{options.collect { |k, v| "#{k}: #{v}" }.join(', ')}]"
       <<CONTENT
@@ -353,9 +353,6 @@ CONTENT
     end
 
     def inside_docker_image(content)
-      java_version = BuildrPlus::Java.version == 7 ? 'java-7.80.15' : 'java-8.121.13'
-      ruby_version = "ruby-#{BuildrPlus::Ruby.ruby_version}"
-
       c = content
       if BuildrPlus::FeatureManager.activated?(:docker)
         c = <<CONTENT
@@ -365,7 +362,7 @@ CONTENT
       end
 
       result = <<CONTENT
-    kinjen.run_in_container( this, 'stocksoftware/build:#{java_version}_#{ruby_version}' ) {
+    kinjen.run_in_container( this, 'stocksoftware/build' ) {
 #{c}
     }
 CONTENT
