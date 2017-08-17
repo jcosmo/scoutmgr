@@ -3,7 +3,6 @@ package scoutmgr.client;
 import com.gwtplatform.mvp.client.PreBootstrapper;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import scoutmgr.client.ioc.ScoutmgrGwtRpcServicesModule;
 
 public final class Prebootstrap
   implements PreBootstrapper
@@ -14,6 +13,14 @@ public final class Prebootstrap
   public void onPreBootstrap()
   {
     LOG.log( Level.FINE, "Pre Bootstrapping application" );
-    ScoutmgrGwtRpcServicesModule.initialize();
+    try
+    {
+      new ScoutmgrApp().init();
+    }
+    catch ( final Exception e )
+    {
+      LOG.log( java.util.logging.Level.SEVERE, "Unexpected problem preparing to bootstrap the application", e );
+      com.google.gwt.user.client.Window.alert( "Error: " + e.getMessage() );
+    }
   }
 }

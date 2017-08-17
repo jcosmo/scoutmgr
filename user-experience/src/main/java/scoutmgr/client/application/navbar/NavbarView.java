@@ -13,6 +13,7 @@ import gwt.material.design.client.ui.MaterialDropDown;
 import gwt.material.design.client.ui.MaterialLink;
 import gwt.material.design.client.ui.MaterialNavSection;
 import javax.inject.Inject;
+import scoutmgr.client.ScoutmgrApp;
 import scoutmgr.client.entity.Person;
 import scoutmgr.client.ioc.FrontendContext;
 import scoutmgr.client.place.NameTokens;
@@ -52,6 +53,9 @@ public class NavbarView
   MaterialNavSection _accountSection;
 
   private MaterialLink _currentLink;
+
+  @Inject
+  private ScoutmgrApp _app;
 
   @Inject
   private FrontendContext _frontendContext;
@@ -98,7 +102,7 @@ public class NavbarView
 
       case NameTokens.SCOUT:
         final String scoutID = placeRequest.getParameter( "id", "" );
-        if ( _frontendContext.isLoggedIn() && scoutID.equals( _frontendContext.getLoggedInUserID().toString() ) )
+        if ( _app.isLoggedIn() && scoutID.equals( _app.getLoggedInUserID().toString() ) )
         {
           newLink = _myRecordLink;
         }
@@ -195,7 +199,7 @@ public class NavbarView
   @UiHandler( "_logoutLink" )
   public void onLogout( final ClickEvent e )
   {
-    _frontendContext.logout();
+    _app.logout();
   }
 
   @UiHandler( "_myRecordLink" )

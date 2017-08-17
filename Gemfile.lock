@@ -16,10 +16,11 @@ PATH
   remote: vendor/tools/domgen
   specs:
     domgen (0.19.0.dev)
-      reality-core (>= 1.6.0)
-      reality-facets (>= 1.7.0)
+      reality-core (>= 1.8.0)
+      reality-facets (>= 1.9.0)
       reality-generators (>= 1.6.0)
-      reality-naming (>= 1.8.0)
+      reality-mash (>= 1.0.0)
+      reality-naming (>= 1.9.0)
       reality-orderedhash (>= 1.0.0)
 
 PATH

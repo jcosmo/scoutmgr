@@ -1,0 +1,45 @@
+ScoutmgrApp.gwt.xml
+  <inherits name='scoutmgr.Scoutmgr'/>
+    <inherits name="scoutmgr.ScoutmgrShared"/>
+      <inherits name="com.google.gwt.core.Core"/>
+    <inherits name="scoutmgr.modules.ScoutmgrReplicant"/>
+      <inherits name='scoutmgr.modules.ScoutmgrReplicantSupport'/>
+        <inherits name='org.realityforge.gwt.datatypes.Datatypes'/>
+        <inherits name="com.google.gwt.json.JSON"/>
+        <inherits name="org.realityforge.replicant.Replicant"/>
+    <inherits name="scoutmgr.modules.ScoutmgrModelSupport"/>
+      <inherits name='org.realityforge.gwt.datatypes.Datatypes'/>
+      <inherits name="scoutmgr.modules.ScoutmgrReplicantSupport"/>
+        <inherits name='org.realityforge.gwt.datatypes.Datatypes'/>
+        <inherits name="com.google.gwt.json.JSON"/>
+        <inherits name="org.realityforge.replicant.Replicant"/>
+
+  <inherits name='scoutmgr.modules.ScoutmgrAppSupport'/>
+    <inherits name="com.google.gwt.inject.Inject"/>
+    <inherits name="org.realityforge.gwt.lognice.BrowserExceptionUtil"/>
+    <inherits name="org.realityforge.gwt.lognice.LogniceEventBus"/>
+    <inherits name="org.realityforge.gwt.appcache.Appcache"/>
+
+Ginjector Modules
+scoutmgr.client.ioc.ScoutmgrClientModule
+  ReplicantGinModule
+    bind EntitySystem
+    bind CacheService
+    provides EntityRepository
+    provides EntityChangeBroker
+    provides EntitySubscriptionManager
+  ReplicantNetworkModule
+    bind AreaOfInterestService
+    bind ReplicantClientSystem
+    bind ContextConverger
+  ScoutmgrImitServicesModule
+    bind ScoutmgrClientRouter
+    bind ScoutmgrGwtDataLoaderService
+    bind ScoutmgrGwtSessionContext
+    bind all Scoutmgr specific server services
+  ScoutmgrGwtRpcServicesModule
+    bind all Scoutmgr specific gwt server services
+    provides all Scoutmgr specific gwt async server services
+  ... app modules ...
+
+

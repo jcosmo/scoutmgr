@@ -1,13 +1,10 @@
 package scoutmgr.client;
 
-import com.google.gwt.dom.client.Element;
-import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.Window;
 import com.gwtplatform.mvp.client.Bootstrapper;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.inject.Inject;
-import scoutmgr.client.ioc.FrontendContext;
+import scoutmgr.client.ioc.ScoutmgrGinjector;
 
 public final class Bootstrap
   implements Bootstrapper
@@ -15,27 +12,16 @@ public final class Bootstrap
   private static final Logger LOG = Logger.getLogger( Bootstrap.class.getName() );
 
   @Inject
-  private FrontendContext _frontendContext;
+  private ScoutmgrApp _scoutmgrApp;
+  //@Inject
+  //private ScoutmgrGinjector _injector;
 
   @Override
   public void onBootstrap()
   {
     LOG.log( Level.FINE, "Bootstrapping application" );
-
-    try
-    {
-      final Element element = DOM.getElementById( "loading-message" );
-      if ( null != element )
-      {
-        element.removeFromParent();
-      }
-
-      _frontendContext.initialArrival();
-    }
-    catch ( final Exception e )
-    {
-      LOG.log( Level.SEVERE, "Unexpected problem initializing the application", e );
-      Window.alert( "Error: " + e.getMessage() );
-    }
+    //_scoutmgrApp.setInjector( _injector );
+    _scoutmgrApp.start();
+    LOG.log( Level.FINE, "Application started" );
   }
 }

@@ -1,82 +1,59 @@
 package scoutmgr.client.ioc;
 
-import com.google.web.bindery.event.shared.EventBus;
-import com.gwtplatform.mvp.client.proxy.PlaceManager;
 import java.util.logging.Logger;
+import javax.annotation.Nonnull;
 import javax.inject.Inject;
 import org.realityforge.replicant.client.EntityRepository;
+import org.realityforge.replicant.client.EntitySubscriptionManager;
+import org.realityforge.replicant.client.net.gwt.AbstractFrontendContextImpl;
+import org.realityforge.replicant.client.runtime.AreaOfInterestService;
+import org.realityforge.replicant.client.runtime.ContextConverger;
+import org.realityforge.replicant.client.runtime.ReplicantClientSystem;
 import scoutmgr.client.entity.Person;
 import scoutmgr.client.entity.security.User;
-import scoutmgr.client.event.MetadataLoadedEvent;
-import scoutmgr.client.event.security.UserLoadedEvent;
-import scoutmgr.client.event.security.UserLoggedOutEvent;
 import scoutmgr.client.net.ScoutmgrGwtDataLoaderService;
+import scoutmgr.client.net.ScoutmgrGwtRuntimeExtension;
 import scoutmgr.client.service.DataSubscriptionService;
 
 public class FrontendContextImpl
-  implements FrontendContext
+  extends AbstractFrontendContextImpl
+  implements ScoutmgrGwtRuntimeExtension, FrontendContext
 {
   final static Logger LOG = Logger.getLogger( FrontendContextImpl.class.getName() );
 
-  @Inject
-  EventBus _eventBus;
-
-  @Inject
-  PlaceManager _placeManager;
-
-  @Inject
-  ScoutmgrGwtDataLoaderService _dataloader;
-
-  @Inject
-  LoginManager _loginManager;
-
-  @Inject
-  EntityRepository _entityRepository;
-
-  @Inject
-  DataSubscriptionService _dataSubscriptionService;
+  private final ScoutmgrGwtDataLoaderService _dataloader;
+  private final EntityRepository _entityRepository;
+  private final DataSubscriptionService _dataSubscriptionService;
 
   private User _user;
   private Person _person;
 
-  @Override
-  public void initialArrival()
+  @Inject
+  public FrontendContextImpl( @Nonnull final ContextConverger converger,
+                              @Nonnull final EntityRepository repository,
+                              @Nonnull final EntitySubscriptionManager subscriptionManager,
+                              @Nonnull final ReplicantClientSystem replicantClientSystem,
+                              @Nonnull final AreaOfInterestService areaOfInterestService,
+                              @Nonnull final ScoutmgrGwtDataLoaderService dataloader,
+                              @Nonnull final EntityRepository entityRepository,
+                              @Nonnull final DataSubscriptionService dataSubscriptionService )
   {
-    _loginManager.initialArrival( this::onLogin, this::onAutoLoginFail,
-                                  ( error ) -> _placeManager.revealErrorPlace( "Error on startup: " + error ) );
+    super( converger, repository, subscriptionManager, replicantClientSystem, areaOfInterestService );
+    _dataloader = dataloader;
+    _entityRepository = entityRepository;
+    _dataSubscriptionService = dataSubscriptionService;
   }
 
   @Override
-  public void login( final String username,
-                     final String password,
-                     final Runnable successfulLoginAction,
-                     final Runnable unsuccessfulLoginAction )
+  protected void initialSubscriptionSetup()
   {
-    _loginManager.login( username,
-                         password,
-                         () ->
-                         {
-                           onLogin();
-                           runIfPresent( successfulLoginAction );
-                         },
-                         unsuccessfulLoginAction,
-                         null );
+    // Nothing to subscribe to until there is a login
   }
 
-  private void onLogin()
-  {
-    connectAndLoadMetadata( this::postLogin );
-  }
-
-  private void onAutoLoginFail()
-  {
-    // Assume that the place requires no data loaded!
-    _placeManager.revealCurrentPlace();
-  }
 
   private void connectAndLoadMetadata( final Runnable postLoad )
   {
-    _dataloader.connect(
+/*    _dataloader.connect(
       () ->
       {
         final String sessionID = _dataloader.getSession().getSessionID();
@@ -110,53 +87,7 @@ public class FrontendContextImpl
           }
         );
       } );
-  }
-
-  protected void postLogin()
-  {
-    _placeManager.revealCurrentPlace();
-  }
-
-  private void runIfPresent( final Runnable successfulLoginAction )
-  {
-    if ( null != successfulLoginAction )
-    {
-      successfulLoginAction.run();
-    }
-  }
-
-  @Override
-  public void logout()
-  {
-    _loginManager.completeLogout( this::postLogout );
-  }
-
-  private void postLogout()
-  {
-    if ( null != _user )
-    {
-      final String sessionID = _dataloader.getSession().getSessionID();
-      _dataSubscriptionService.unsubscribeFromUser( sessionID, _user.getID()  );
-    }
-    _user = null;
-    _person = null;
-    _eventBus.fireEvent( new UserLoggedOutEvent() );
-    _placeManager.revealCurrentPlace();
-  }
-
-  public boolean isLoggedIn()
-  {
-    return _loginManager.isLoggedOn() && _user != null;
-  }
-
-  @Override
-  public Integer getLoggedInUserID()
-  {
-    if ( !isLoggedIn() )
-    {
-      throw new RuntimeException( "Accessing user when not logged in" );
-    }
-    return _loginManager.getUserID();
+*/
   }
 
   @Override

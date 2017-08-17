@@ -4,9 +4,9 @@ import com.google.gwt.user.client.Cookies;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
-import scoutmgr.shared.Constants;
-import scoutmgr.client.service.ScoutmgrAsyncErrorCallback;
+import scoutmgr.client.ScoutmgrApp;
 import scoutmgr.client.service.security.AuthenticationService;
+import scoutmgr.shared.Constants;
 
 public class LoginManager
 {
@@ -18,17 +18,29 @@ public class LoginManager
    */
   @Nullable
   private Integer _userID;
+  private ScoutmgrApp _listener;
 
   public final boolean isLoggedOn()
   {
     return null != _userID;
   }
 
+  public void initialArrival()
+  {
+    final String token = getAuthToken();
+    if ( null == token )
+    {
+      unauthenticatedFlow();
+    }
+    else
+    {
+      _authenticationService.reAuthenticate( token,
+                                             userID -> onReAuthenticateResponse( userID, token ) );
+    }
+  }
+
   public void login( @Nonnull final String username,
-                     @Nonnull final String password,
-                     @Nullable final Runnable onLoginAction,
-                     @Nullable final Runnable onUnsuccessfulLoginAction,
-                     @Nullable final ScoutmgrAsyncErrorCallback onError )
+                     @Nonnull final String password )
   {
     _authenticationService.authenticate( username,
                                          password,
@@ -36,14 +48,14 @@ public class LoginManager
                                            if ( null != token )
                                            {
                                              completeLogin( token.getUserID(), token.getToken() );
-                                             runIfPresent( onLoginAction );
+                                             _listener.onAuthSuccess( this, true );
                                            }
                                            else
                                            {
-                                             runIfPresent( onUnsuccessfulLoginAction );
+                                             _listener.onAuthSuccess( this, false );
                                            }
                                          },
-                                         onError );
+                                         error -> _listener.onAuthError( this, error ) );
   }
 
   private void completeLogin( final int userID, @Nonnull final String token )
@@ -63,13 +75,13 @@ public class LoginManager
     Cookies.removeCookie( Constants.AUTH_COOKIE_NAME );
   }
 
-  public void completeLogout( @Nullable final Runnable runnable )
+  public void completeLogout()
   {
     _userID = null;
-    performDisconnect( runnable );
+    performDisconnect();
   }
 
-  private void performDisconnect( final Runnable runnable )
+  private void performDisconnect()
   {
     final String authToken = getAuthToken();
     if ( null != authToken )
@@ -77,68 +89,42 @@ public class LoginManager
       _authenticationService.logout( authToken );
     }
     resetAuthState();
-    runIfPresent( runnable );
-  }
-
-  public void initialArrival( @Nullable final Runnable onAuthenticatedAction,
-                              @Nullable final Runnable onUnauthenticatedAction,
-                              @Nullable final ScoutmgrAsyncErrorCallback onErrorAction )
-  {
-    final String token = getAuthToken();
-    if ( null == token )
-    {
-      resetAuthState();
-      unauthenticatedFlow( onUnauthenticatedAction );
-    }
-    else
-    {
-      _authenticationService.reAuthenticate( token,
-                                             userID -> onReAuthenticateResponse( userID,
-                                                                                 token,
-                                                                                 onAuthenticatedAction,
-                                                                                 onUnauthenticatedAction ),
-                                             onErrorAction );
-    }
+    _listener.onAuthLogout( this );
   }
 
   private void onReAuthenticateResponse( @Nullable final Integer userID,
-                                         @Nonnull final String token,
-                                         @Nullable final Runnable onAuthenticatedAction,
-                                         @Nullable final Runnable onUnauthenticatedAction )
+                                         @Nonnull final String token )
   {
     if ( null != userID )
     {
-      authenticatedFlow( userID, token, onAuthenticatedAction );
+      authenticatedFlow( userID, token );
     }
     else
     {
-      unauthenticatedFlow( onUnauthenticatedAction );
+      unauthenticatedFlow();
     }
   }
 
-  private void authenticatedFlow( final int userID, final String token, @Nullable final Runnable action )
+  private void authenticatedFlow( final int userID, final String token )
   {
     completeLogin( userID, token );
-    runIfPresent( action );
+    _listener.onAuthSuccess( this, true );
   }
 
-  private void unauthenticatedFlow( @Nullable final Runnable action )
+  private void unauthenticatedFlow()
   {
     resetAuthState();
-    runIfPresent( action );
+    _listener.onAuthSuccess( this, false );
   }
 
   @Nullable
-  protected final Integer getUserID()
+  public Integer getUserID()
   {
     return _userID;
   }
 
-  private void runIfPresent( @Nullable final Runnable runnable )
+  public void setListener( final ScoutmgrApp listener )
   {
-    if ( null != runnable )
-    {
-      runnable.run();
-    }
+    _listener = listener;
   }
 }

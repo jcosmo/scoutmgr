@@ -3,18 +3,18 @@ package scoutmgr.client.security;
 import com.gwtplatform.mvp.client.annotations.DefaultGatekeeper;
 import com.gwtplatform.mvp.client.proxy.Gatekeeper;
 import javax.inject.Inject;
-import scoutmgr.client.ioc.FrontendContext;
+import scoutmgr.client.ScoutmgrApp;
 
 @DefaultGatekeeper
 public class LoggedInGatekeeper
   implements Gatekeeper
 {
   @Inject
-  private FrontendContext _frontendContext;
+  private ScoutmgrApp _app;
 
   @Override
   public boolean canReveal()
   {
-    return _frontendContext.isLoggedIn();
+    return _app.isLoggedIn();
   }
 }

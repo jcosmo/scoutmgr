@@ -13,6 +13,7 @@ import com.gwtplatform.mvp.shared.proxy.PlaceRequest;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.logging.Logger;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 import org.realityforge.replicant.client.EntityChangeBroker;
@@ -33,6 +34,7 @@ public class UsersPresenter
   extends Presenter<UsersPresenter.View, UsersPresenter.Proxy>
   implements UsersUiHandlers
 {
+  private static final Logger LOG = Logger.getLogger( UsersPresenter.class.getName() );
 
   @ProxyStandard
   @NameToken( { NameTokens.ADMIN_USERS } )
@@ -117,7 +119,7 @@ public class UsersPresenter
   {
     _model2ViewModel.clear();
     getView().setUsers( _model2ViewModel.values() );
-    _dataloader.getSession().subscribeToUsers( this::initialiseViewModel );
+    // TPODO _dataloader.getSession().subscribeToUsers( this::initialiseViewModel );
 
     super.onReveal();
   }
@@ -140,7 +142,8 @@ public class UsersPresenter
   {
     super.onHide();
     _changeBroker.removeChangeListener( User.class, _entityChangeListener );
-    _dataloader.getSession().unsubscribeFromUsers( null );
+
+    //_dataloader.getSession().unsubscribeFromUsers( );
   }
 
   @Override

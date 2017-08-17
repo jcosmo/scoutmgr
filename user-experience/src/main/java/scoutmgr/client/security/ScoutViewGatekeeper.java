@@ -4,6 +4,7 @@ import com.gwtplatform.mvp.client.proxy.Gatekeeper;
 import com.gwtplatform.mvp.client.proxy.PlaceManager;
 import com.gwtplatform.mvp.shared.proxy.PlaceRequest;
 import javax.inject.Inject;
+import scoutmgr.client.ScoutmgrApp;
 import scoutmgr.client.entity.Person;
 import scoutmgr.client.ioc.FrontendContext;
 
@@ -14,12 +15,14 @@ public class ScoutViewGatekeeper
   @Inject
   private FrontendContext _frontendContext;
   @Inject
+  private ScoutmgrApp _app;
+  @Inject
   private PlaceManager _placeManager;
 
   @Override
   public boolean canReveal()
   {
-    if ( !_frontendContext.isLoggedIn() )
+    if ( !_app.isLoggedIn() )
     {
       return false;
     }

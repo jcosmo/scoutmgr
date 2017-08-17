@@ -7,6 +7,7 @@ import com.gwtplatform.mvp.client.proxy.NavigationHandler;
 import com.gwtplatform.mvp.client.proxy.PlaceManager;
 import com.gwtplatform.mvp.shared.proxy.PlaceRequest;
 import javax.inject.Inject;
+import scoutmgr.client.ScoutmgrApp;
 import scoutmgr.client.entity.security.User;
 import scoutmgr.client.event.security.UserLoadedEvent;
 import scoutmgr.client.event.security.UserLoggedOutEvent;
@@ -38,6 +39,9 @@ public class NavbarPresenter
   private FrontendContext _frontendContext;
 
   @Inject
+  private ScoutmgrApp _app;
+
+  @Inject
   NavbarPresenter( final EventBus eventBus,
                    final View view )
   {
@@ -48,7 +52,7 @@ public class NavbarPresenter
 
   private void configureMenus()
   {
-    if ( !_frontendContext.isLoggedIn() )
+    if ( !_app.isLoggedIn() )
     {
       getView().disableAllAccess( true );
     }

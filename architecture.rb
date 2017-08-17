@@ -233,7 +233,6 @@ Domgen.repository(:Scoutmgr) do |repository|
       t.string(:Token, 50, :immutable => true)
 
       t.query(:FindByUser)
-      t.query(:FindByUserName, '-facets' => [:imit])
       t.query(:FindByToken)
 
       t.query(:DeleteIdleSessions,

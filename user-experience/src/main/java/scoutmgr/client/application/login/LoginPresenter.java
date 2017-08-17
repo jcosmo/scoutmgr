@@ -10,8 +10,8 @@ import com.gwtplatform.mvp.client.proxy.PlaceManager;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 import com.gwtplatform.mvp.shared.proxy.PlaceRequest;
 import javax.inject.Inject;
+import scoutmgr.client.ScoutmgrApp;
 import scoutmgr.client.application.ApplicationPresenter;
-import scoutmgr.client.ioc.FrontendContext;
 import scoutmgr.client.place.NameTokens;
 
 public class LoginPresenter
@@ -19,10 +19,10 @@ public class LoginPresenter
   implements LoginUiHandlers
 {
   @Inject
-  FrontendContext _frontendContext;
+  private ScoutmgrApp _app;
 
   @Inject
-  PlaceManager _placeManager;
+  private PlaceManager _placeManager;
 
   @ProxyStandard
   @NameToken( NameTokens.LOGIN )
@@ -52,7 +52,7 @@ public class LoginPresenter
   @Override
   public void prepareFromRequest( final PlaceRequest request )
   {
-    if ( _frontendContext.isLoggedIn() )
+    if ( _app.isLoggedIn() )
     {
       _placeManager.revealPlace( new PlaceRequest.Builder().nameToken( NameTokens.UNAUTHORISED ).build(), false );
     }
@@ -63,8 +63,8 @@ public class LoginPresenter
   }
   public void onLogin( final String username, final String password )
   {
-    _frontendContext.login( username, password,
-                            () -> getView().onSuccessfulLogin(),
-                            () -> getView().onFailedLogin() );
+    _app.login( username, password);
+    //() -> getView().onSuccessfulLogin(),
+    //  () -> getView().onFailedLogin()
   }
 }
