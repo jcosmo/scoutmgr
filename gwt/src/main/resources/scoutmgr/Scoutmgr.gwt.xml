@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module>
   <inherits name="scoutmgr.ScoutmgrShared"/>
-    <inherits name="com.google.gwt.core.Core"/>
   <inherits name="scoutmgr.modules.ScoutmgrReplicant"/>
   <inherits name="scoutmgr.modules.ScoutmgrModelSupport"/>
 

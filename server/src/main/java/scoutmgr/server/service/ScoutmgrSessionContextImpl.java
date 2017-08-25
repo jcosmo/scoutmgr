@@ -37,7 +37,9 @@ public class ScoutmgrSessionContextImpl
   }
 
   @Override
-  public void collectForFilterChangePeople( @Nonnull final EntityMessageSet messages,
+  public void collectForFilterChangePeople( @Nonnull final ReplicantSession session,
+                                            @Nonnull final ChangeSet changeSet,
+                                            @Nonnull final ChannelDescriptor descriptor,
                                             @Nonnull final PeopleFilterDTO originalFilter,
                                             @Nonnull final PeopleFilterDTO currentFilter )
   {

@@ -1,15 +1,17 @@
 package scoutmgr.client;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.DOM;
-import javax.annotation.Nullable;
+import com.gwtplatform.mvp.client.proxy.PlaceManager;
+import scoutmgr.client.ioc.FrontendContext;
 import scoutmgr.client.ioc.LoginManager;
 import scoutmgr.client.ioc.ScoutmgrClientModule;
-import scoutmgr.client.ioc.ScoutmgrGinjector;
 
 public class ScoutmgrApp
-  extends AbstractScoutmgrApp
+  extends AbstractScoutmgrApp<FrontendContext>
 {
-  private ScoutmgrGinjector _injector;
+  private PlaceManager _placemanager;
+  private LoginManager _loginManager;
 
   ScoutmgrApp()
   {
@@ -17,16 +19,14 @@ public class ScoutmgrApp
     ScoutmgrClientModule.setApp( this );
   }
 
-  void setInjector( final ScoutmgrGinjector injector )
+  public void setPlacemanager( final PlaceManager placemanager )
   {
-    _injector = injector;
+    _placemanager = placemanager;
   }
 
-  @Nullable
-  @Override
-  protected ScoutmgrGinjector getInjector()
+  public void setLoginManager( final LoginManager loginManager )
   {
-    return _injector;
+    _loginManager = loginManager;
   }
 
   @Override
@@ -43,13 +43,14 @@ public class ScoutmgrApp
   @Override
   protected void postStart()
   {
-    getInjector().getLoginManager().setListener( this );
-    getInjector().getLoginManager().initialArrival();
+    getLoginManager().setListener( this );
+    getLoginManager().initialArrival();
   }
 
   @Override
   protected void preStart()
   {
+    setLoginManager( GWT.create( LoginManager.class ) );
   }
 
   @Override
@@ -65,15 +66,7 @@ public class ScoutmgrApp
 
   public void login( final String username, final String password )
   {
-    getInjector().getLoginManager().login( username, password );
-  }
-
-  private void runIfPresent( final Runnable successfulLoginAction )
-  {
-    if ( null != successfulLoginAction )
-    {
-      successfulLoginAction.run();
-    }
+    getLoginManager().login( username, password );
   }
 
   public void logout()
@@ -84,7 +77,7 @@ public class ScoutmgrApp
   public boolean isLoggedIn()
   {
     return getLoginManager().isLoggedOn() &&
-           getInjector().getFrontendContext().getUser() != null;
+           getFrontendContext().getUser() != null;
   }
 
   public Integer getLoggedInUserID()
@@ -104,7 +97,7 @@ public class ScoutmgrApp
     }
     else
     {
-      getInjector().getPlaceManager().revealCurrentPlace();
+      _placemanager.revealCurrentPlace();
     }
   }
 
@@ -129,7 +122,7 @@ public class ScoutmgrApp
 
   private LoginManager getLoginManager()
   {
-    return getInjector().getLoginManager();
+    return _loginManager;
   }
 
   private void connectAndLoadMetadata(  )

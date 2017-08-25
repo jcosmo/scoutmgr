@@ -4,7 +4,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.inject.Provides;
 import com.google.inject.name.Names;
-import com.google.web.bindery.event.shared.EventBus;
+import com.google.gwt.event.shared.EventBus;
 import com.gwtplatform.mvp.client.annotations.DefaultPlace;
 import com.gwtplatform.mvp.client.annotations.ErrorPlace;
 import com.gwtplatform.mvp.client.annotations.UnauthorizedPlace;
@@ -115,5 +115,12 @@ public class ScoutmgrClientModule
       };
     scoutmgrLoader.addDataLoaderListener( new ScoutmgrGwtDataLoaderListener( repository, eventBus ) );
     return dataLoaders;
+  }
+
+  @Provides
+  @Singleton
+  public com.google.gwt.event.shared.EventBus getSharedEventBus( @Nonnull final com.google.web.bindery.event.shared.EventBus eventBus )
+  {
+    return (EventBus) eventBus;
   }
 }

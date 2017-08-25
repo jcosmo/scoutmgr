@@ -25,19 +25,19 @@ public class DataSubscriptionServiceImpl
   public void subscribeForUser( @Nonnull final String sessionID, final int userID )
     throws BadSessionException
   {
-    _subscriptionService.subscribeToMetadata( sessionID );
-    final User user = _userRepository.getByID( userID );
-    _subscriptionService.subscribeToUser( sessionID, user );
-    _subscriptionService.subscribeToPeople( sessionID, new PeopleFilterDTO( userID ) );
+    //_subscriptionService.subscribeToMetadata( sessionID );
+    //final User user = _userRepository.getByID( userID );
+    //_subscriptionService.subscribeToUser( sessionID, user );
+    //_subscriptionService.subscribeToPeople( sessionID, new PeopleFilterDTO( userID ) );
   }
 
   @Override
   public void unsubscribeFromUser( @Nonnull final String sessionID, final int userID )
     throws BadSessionException
   {
-    final User user = _userRepository.getByID( userID );
-    _subscriptionService.unsubscribeFromPeople( sessionID );
-    _subscriptionService.unsubscribeFromUser( sessionID, user );
-    _subscriptionService.unsubscribeFromMetadata( sessionID );
+    //final User user = _userRepository.getByID( userID );
+    //_subscriptionService.unsubscribeFromPeople( sessionID );
+    //_subscriptionService.unsubscribeFromUser( sessionID, user );
+    //_subscriptionService.unsubscribeFromMetadata( sessionID );
   }
 }

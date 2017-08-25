@@ -4,13 +4,6 @@ public class SessionRepositoryImplTest
   extends AbstractSessionRepositoryImplTest
 {
   @Override
-  public void findByUserName()
-    throws Exception
-  {
-
-  }
-
-  @Override
   public void deleteIdleSessions()
     throws Exception
   {

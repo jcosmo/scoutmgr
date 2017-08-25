@@ -2,6 +2,7 @@ Domgen.repository(:Scoutmgr) do |repository|
   repository.enable_facets([:jpa, :ejb, :imit, :pgsql, :appcache, :gwt_cache_filter, :timerstatus, :jaxrs])
 
   repository.gwt.enable_entrypoints = false
+  repository.gwt.include_standard_test_module = false
 
   repository.imit.graph(:Metadata)
   repository.imit.graph(:Person, :require_type_graphs => [:Metadata])

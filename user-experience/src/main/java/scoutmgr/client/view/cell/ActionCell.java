@@ -60,18 +60,18 @@ public class ActionCell<T extends AbstractViewModel>
 
     if ( _view )
     {
-      sb.appendHtmlConstant( DOM.toString( makeButton( _text ? "View" : null, VIEW_ACTION, "blue darken-2",
-                                                       !_edit && !_delete ).getElement() ) );
+      sb.appendHtmlConstant( makeButton( _text ? "View" : null, VIEW_ACTION, "blue darken-2",
+                                                       !_edit && !_delete ).getElement().getString() );
     }
     if ( _edit )
     {
-      sb.appendHtmlConstant( DOM.toString( makeButton( _text ? "Edit" : null, EDIT_ACTION, "green darken-2",
-                                                       !_delete ).getElement() ) );
+      sb.appendHtmlConstant( makeButton( _text ? "Edit" : null, EDIT_ACTION, "green darken-2",
+                                                       !_delete ).getElement().getString() );
     }
     if ( _delete )
     {
-      sb.appendHtmlConstant(
-        DOM.toString( makeButton( _text ? "Delete" : null, DELETE_ACTION, "red darken-4", true ).getElement() ) );
+      sb.appendHtmlConstant( makeButton( _text ? "Delete" : null, DELETE_ACTION, "red darken-4",
+                                         true ).getElement().getString() );
     }
   }
 

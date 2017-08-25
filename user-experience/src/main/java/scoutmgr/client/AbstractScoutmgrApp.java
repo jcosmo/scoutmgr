@@ -1,19 +1,22 @@
 package scoutmgr.client;
 
-import com.google.web.bindery.event.shared.EventBus;
+import com.google.gwt.event.shared.EventBus;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import org.realityforge.gwt.appcache.client.ApplicationCache;
 import org.realityforge.gwt.appcache.client.event.UpdateReadyEvent;
-import scoutmgr.client.ioc.ScoutmgrGinjector;
+import org.realityforge.replicant.client.net.gwt.BaseFrontendContext;
+import scoutmgr.client.ioc.FrontendContext;
 import scoutmgr.client.ioc.ScoutmgrGwtRpcServicesModule;
 
 @Generated( "Domgen" )
-public abstract class AbstractScoutmgrApp
+public abstract class AbstractScoutmgrApp<I extends BaseFrontendContext>
 {
   private final String _applicationURL;
   private final String _serverUrl;
+  private EventBus _eventBus;
+  private I _frontendContext;
 
   protected AbstractScoutmgrApp( )
   {
@@ -42,28 +45,31 @@ public abstract class AbstractScoutmgrApp
     return _serverUrl;
   }
 
-  @Nullable
-  protected abstract ScoutmgrGinjector getInjector();
-
-  @Nonnull
-  protected final ScoutmgrGinjector ensureInjector()
+  public void setEventBus( final EventBus eventBus )
   {
-    final ScoutmgrGinjector injector = getInjector();
-    assert null != injector;
-    return injector;
+    _eventBus = eventBus;
+  }
+
+  public void setFrontendContext( final I frontendContext )
+  {
+    _frontendContext = frontendContext;
   }
 
   @Nullable
   protected final EventBus getEventBus()
   {
-    final ScoutmgrGinjector injector = getInjector();
-    //return null != injector ? injector.getEventBus() : null;
-    return null;
+    return _eventBus;
+  }
+
+  @Nullable
+  protected final I getFrontendContext()
+  {
+    return _frontendContext;
   }
 
   protected final void fireEvent( @Nonnull final com.google.gwt.event.shared.GwtEvent<?> event )
   {
-    final com.google.web.bindery.event.shared.EventBus eventBus = getEventBus();
+    final EventBus eventBus = getEventBus();
     if ( null != eventBus )
     {
       eventBus.fireEvent( event );
@@ -72,7 +78,7 @@ public abstract class AbstractScoutmgrApp
 
   protected final void fireEventFromSource( @Nonnull final com.google.gwt.event.shared.GwtEvent<?> event, @Nonnull final Object source )
   {
-    final com.google.web.bindery.event.shared.EventBus eventBus = getEventBus();
+    final EventBus eventBus = getEventBus();
     if ( null != eventBus )
     {
       eventBus.fireEventFromSource( event, source );
@@ -131,7 +137,7 @@ public abstract class AbstractScoutmgrApp
 
   protected void prepareServices()
   {
-    ensureInjector().getFrontendContext().connect();
+    getFrontendContext().connect();
   }
 
   protected abstract void prepareUI();

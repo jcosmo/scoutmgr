@@ -4,7 +4,7 @@
              xmlns:m="urn:import:gwt.material.design.client.ui">
   <ui:with field="_nameTokens" type="scoutmgr.client.place.NameTokens"/>
   <ui:with field='_bundle' type='scoutmgr.client.resource.ScoutmgrResourceBundle'/>
-  <g:HTMLPanel id="content" addStyleNames="{_bundle.scoutmgr.content}">
+  <g:HTMLPanel addStyleNames="{_bundle.scoutmgr.content}">
     <form>
       <m:MaterialRow>
         <m:MaterialColumn grid="s10 m6 l4" offset="s1 m3 l4">
