@@ -1,7 +1,7 @@
 package scoutmgr.client.application;
 
 import com.google.gwt.event.shared.GwtEvent.Type;
-import com.google.gwt.event.shared.EventBus;
+import com.google.web.bindery.event.shared.EventBus;
 import com.gwtplatform.mvp.client.Presenter;
 import com.gwtplatform.mvp.client.annotations.ContentSlot;
 import com.gwtplatform.mvp.client.annotations.ProxyEvent;

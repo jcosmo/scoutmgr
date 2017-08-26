@@ -1,7 +1,7 @@
 package scoutmgr.client.application.scout;
 
 import com.google.gwt.event.shared.GwtEvent;
-import com.google.gwt.event.shared.EventBus;
+import com.google.web.bindery.event.shared.EventBus;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
 import com.gwtplatform.mvp.client.annotations.ContentSlot;

@@ -4,7 +4,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.inject.Provides;
 import com.google.inject.name.Names;
-import com.google.gwt.event.shared.EventBus;
+import com.google.web.bindery.event.shared.EventBus;
 import com.gwtplatform.mvp.client.annotations.DefaultPlace;
 import com.gwtplatform.mvp.client.annotations.ErrorPlace;
 import com.gwtplatform.mvp.client.annotations.UnauthorizedPlace;
@@ -15,6 +15,7 @@ import javax.annotation.Nonnull;
 import javax.inject.Singleton;
 import org.realityforge.gwt.datatypes.client.date.DateTimeService;
 import org.realityforge.gwt.datatypes.client.date.GwtDateTimeService;
+import org.realityforge.gwt.lognice.LoggingEventBus;
 import org.realityforge.replicant.client.EntityRepository;
 import org.realityforge.replicant.client.gwt.ReplicantGinModule;
 import org.realityforge.replicant.client.runtime.DataLoaderEntry;
@@ -64,6 +65,7 @@ public class ScoutmgrClientModule
   protected void configure()
   {
     bindNamedService( "GLOBAL", AsyncCallback.class, GlobalAsyncCallback.class );
+    bind( com.google.gwt.event.shared.EventBus.class ).to( LoggingEventBus.class ).asEagerSingleton();
     bind( FrontendContext.class ).to( FrontendContextImpl.class ).asEagerSingleton();
     bind( DateTimeService.class ).to( GwtDateTimeService.class ).asEagerSingleton();
     bind( ScoutmgrApp.class ).toProvider( AppProvider.class ).asEagerSingleton();
@@ -116,11 +118,11 @@ public class ScoutmgrClientModule
     scoutmgrLoader.addDataLoaderListener( new ScoutmgrGwtDataLoaderListener( repository, eventBus ) );
     return dataLoaders;
   }
-
+/*
   @Provides
   @Singleton
-  public com.google.gwt.event.shared.EventBus getSharedEventBus( @Nonnull final com.google.web.bindery.event.shared.EventBus eventBus )
+  public com.google.web.bindery.event.shared.EventBus getSharedEventBus( @Nonnull final com.google.gwt.event.shared.EventBus eventBus )
   {
     return (EventBus) eventBus;
-  }
+  }*/
 }
